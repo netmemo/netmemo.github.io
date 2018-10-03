@@ -12,11 +12,29 @@
     
     
     <item>
+      <title>cisco</title>
+      <link>/categories/cisco/</link>
+      <pubDate>Thu, 04 Oct 2018 00:48:57 +0200</pubDate>
+      
+      <guid>/categories/cisco/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>container</title>
       <link>/categories/container/</link>
-      <pubDate>Wed, 03 Oct 2018 23:59:19 +0200</pubDate>
+      <pubDate>Thu, 04 Oct 2018 00:37:20 +0200</pubDate>
       
       <guid>/categories/container/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>nexus</title>
+      <link>/categories/nexus/</link>
+      <pubDate>Thu, 04 Oct 2018 00:48:57 +0200</pubDate>
+      
+      <guid>/categories/nexus/</guid>
       <description></description>
     </item>
     

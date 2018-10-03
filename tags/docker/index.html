@@ -102,7 +102,7 @@
   <meta property="og:image" content="/img/icon-192.png">
   <meta property="og:locale" content="en-us">
   
-  <meta property="og:updated_time" content="2018-10-03T23:59:19&#43;02:00">
+  <meta property="og:updated_time" content="2018-10-04T00:37:20&#43;02:00">
   
 
   
@@ -215,6 +215,21 @@
   
 
   
+  
+  <div>
+    <h2><a href="/post/cheat-sheet-k8s-on-vms-with-calico/">[Cheat Sheet] K8s on VMs with Calico</a></h2>
+    <div class="article-style">
+      
+      This is the cheat sheet for the post : https://netmemo.github.io/post/k8s-on-vms-with-calico/
+Bellow are the links I&rsquo;ve used to understand/did my lab
+https://fr.wikipedia.org/wiki/Kubernetes#/media/File:Kubernetes.png https://kubernetes.io/docs/setup/independent/install-kubeadm/ https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/ https://kubernetes.io/docs/tutorials/k8s101/ https://kubernetes.io/docs/tutorials/k8s201/ https://kubernetes.io/docs/reference/kubectl/cheatsheet/
+Join a node/worker to the master
+kubeadm join 10.0.1.10:6443 --token d34b9i.v03t2yiozio63cq6 --discovery-token-ca-cert-hash sha256:c21d04ea23790a0bf81cf64118e3a9075ffb63ed90bc697acef5793386e9eb16  Delete a deployment
+kubectl delete deployment nginx-deployment-nbo  To get the logs of a specific container. -n is to specify the namespace
+kubectl logs calico-node-zxvjv -n kube-system calico-node  Allow to launch a shell for a specific container
+      
+    </div>
+  </div>
   
   <div>
     <h2><a href="/post/k8s-on-vms-with-calico/">K8s on Vms With Calico</a></h2>

@@ -7,32 +7,69 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2018</copyright>
+    <lastBuildDate>Thu, 04 Oct 2018 00:48:57 +0200</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>N5K</title>
+      <link>/tags/n5k/</link>
+      <pubDate>Thu, 04 Oct 2018 00:48:57 +0200</pubDate>
+      
+      <guid>/tags/n5k/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>N7K</title>
+      <link>/tags/n7k/</link>
+      <pubDate>Thu, 04 Oct 2018 00:48:57 +0200</pubDate>
+      
+      <guid>/tags/n7k/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>calico</title>
       <link>/tags/calico/</link>
-      <pubDate>Wed, 03 Oct 2018 23:59:19 +0200</pubDate>
+      <pubDate>Thu, 04 Oct 2018 00:37:20 +0200</pubDate>
       
       <guid>/tags/calico/</guid>
       <description></description>
     </item>
     
     <item>
+      <title>cisco</title>
+      <link>/tags/cisco/</link>
+      <pubDate>Thu, 04 Oct 2018 00:48:57 +0200</pubDate>
+      
+      <guid>/tags/cisco/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>docker</title>
       <link>/tags/docker/</link>
-      <pubDate>Wed, 03 Oct 2018 23:59:19 +0200</pubDate>
+      <pubDate>Thu, 04 Oct 2018 00:37:20 +0200</pubDate>
       
       <guid>/tags/docker/</guid>
       <description></description>
     </item>
     
     <item>
+      <title>elam</title>
+      <link>/tags/elam/</link>
+      <pubDate>Thu, 04 Oct 2018 00:48:57 +0200</pubDate>
+      
+      <guid>/tags/elam/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>k8s</title>
       <link>/tags/k8s/</link>
-      <pubDate>Wed, 03 Oct 2018 23:59:19 +0200</pubDate>
+      <pubDate>Thu, 04 Oct 2018 00:37:20 +0200</pubDate>
       
       <guid>/tags/k8s/</guid>
       <description></description>
@@ -41,7 +78,7 @@
     <item>
       <title>kubernetes</title>
       <link>/tags/kubernetes/</link>
-      <pubDate>Wed, 03 Oct 2018 23:59:19 +0200</pubDate>
+      <pubDate>Thu, 04 Oct 2018 00:37:20 +0200</pubDate>
       
       <guid>/tags/kubernetes/</guid>
       <description></description>
@@ -50,16 +87,25 @@
     <item>
       <title>netplan</title>
       <link>/tags/netplan/</link>
-      <pubDate>Wed, 03 Oct 2018 23:59:19 +0200</pubDate>
+      <pubDate>Thu, 04 Oct 2018 00:37:20 +0200</pubDate>
       
       <guid>/tags/netplan/</guid>
       <description></description>
     </item>
     
     <item>
+      <title>troubleshooting</title>
+      <link>/tags/troubleshooting/</link>
+      <pubDate>Thu, 04 Oct 2018 00:48:57 +0200</pubDate>
+      
+      <guid>/tags/troubleshooting/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>ubuntu</title>
       <link>/tags/ubuntu/</link>
-      <pubDate>Wed, 03 Oct 2018 23:59:19 +0200</pubDate>
+      <pubDate>Thu, 04 Oct 2018 00:37:20 +0200</pubDate>
       
       <guid>/tags/ubuntu/</guid>
       <description></description>
@@ -68,7 +114,7 @@
     <item>
       <title>virtualbox</title>
       <link>/tags/virtualbox/</link>
-      <pubDate>Wed, 03 Oct 2018 23:59:19 +0200</pubDate>
+      <pubDate>Thu, 04 Oct 2018 00:37:20 +0200</pubDate>
       
       <guid>/tags/virtualbox/</guid>
       <description></description>

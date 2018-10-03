@@ -11,6 +11,286 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Troubleshooting Elam Cisco N7k N5k</title>
+      <link>/post/troubleshooting-elam-cisco-n7k-n5k/</link>
+      <pubDate>Thu, 04 Oct 2018 00:48:57 +0200</pubDate>
+      
+      <guid>/post/troubleshooting-elam-cisco-n7k-n5k/</guid>
+      <description>&lt;p&gt;Sur les N7K&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.cisco.com/c/en/us/support/docs/switches/nexus-7000-series-switches/116647-technote-product-00.html&#34; target=&#34;_blank&#34;&gt;https://www.cisco.com/c/en/us/support/docs/switches/nexus-7000-series-switches/116647-technote-product-00.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;=&amp;gt; flanker car avec la commande show hardware internal dev-port-map, il n&amp;rsquo;y a pas d&amp;rsquo;asic Clipper, uniquement des flanker&lt;/p&gt;
+
+&lt;p&gt;Exemple de troubleshoot icmp depuis le VDC Admin&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;show module
+attach module 1
+show hardware internal dev-port-map
+elam asic flanker instance 2
+layer2
+trigger dbus ipv4 egress if destination-ipv4-address 10.253.108.90
+start
+status
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;elam asic flanker instance 2
+layer2
+trigger dbus ipv4 ingress if destination-ipv4-address 10.253.108.90
+start
+status
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Sur les N5K&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.cisco.com/c/en/us/support/docs/switches/nexus-6000-series-switches/118902-technote-nexus-00.html&#34; target=&#34;_blank&#34;&gt;https://www.cisco.com/c/en/us/support/docs/switches/nexus-6000-series-switches/118902-technote-nexus-00.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;MY-SWITCH# show platform fwm info pif ethernet 2/2 | inc slot_asic
+Eth2/2 pd: slot 1  logical port num 1  slot_asic_num 0  global_asic_num 5 fw_inst 4  phy_fw_inst 1 fc 0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note: The slot numbers are 0-based, whereas the bigsur instances are 1-based. Therefore, in this example slot 1 corresponds to bigsur instance 2.
+=&amp;gt; slot 1 devient 2 dans la commande elam, l&amp;rsquo;instance reste la meme que le slot_asic_num
+=&amp;gt; ingress pour les flux entrants dans l&amp;rsquo;interface, egress pour les flux sortants&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;elam slot 2 asic bigsur instance 0
+trigger lu ingress ipv4 if source-ipv4-address_ipv4 10.253.108.226 destination-ipv4-address_ipv4 10.253.108.90
+start capture
+show elam asic bigsur
+show capture lu
+stop capture
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[Cheat Sheet] K8s on VMs with Calico</title>
+      <link>/post/cheat-sheet-k8s-on-vms-with-calico/</link>
+      <pubDate>Thu, 04 Oct 2018 00:37:20 +0200</pubDate>
+      
+      <guid>/post/cheat-sheet-k8s-on-vms-with-calico/</guid>
+      <description>&lt;p&gt;This is the cheat sheet for the post : &lt;a href=&#34;https://netmemo.github.io/post/k8s-on-vms-with-calico/&#34; target=&#34;_blank&#34;&gt;https://netmemo.github.io/post/k8s-on-vms-with-calico/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Bellow are the links I&amp;rsquo;ve used to understand/did my lab&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://fr.wikipedia.org/wiki/Kubernetes#/media/File:Kubernetes.png&#34; target=&#34;_blank&#34;&gt;https://fr.wikipedia.org/wiki/Kubernetes#/media/File:Kubernetes.png&lt;/a&gt;
+&lt;a href=&#34;https://kubernetes.io/docs/setup/independent/install-kubeadm/&#34; target=&#34;_blank&#34;&gt;https://kubernetes.io/docs/setup/independent/install-kubeadm/&lt;/a&gt;
+&lt;a href=&#34;https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/&#34; target=&#34;_blank&#34;&gt;https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/&lt;/a&gt;
+&lt;a href=&#34;https://kubernetes.io/docs/tutorials/k8s101/&#34; target=&#34;_blank&#34;&gt;https://kubernetes.io/docs/tutorials/k8s101/&lt;/a&gt;
+&lt;a href=&#34;https://kubernetes.io/docs/tutorials/k8s201/&#34; target=&#34;_blank&#34;&gt;https://kubernetes.io/docs/tutorials/k8s201/&lt;/a&gt;
+&lt;a href=&#34;https://kubernetes.io/docs/reference/kubectl/cheatsheet/&#34; target=&#34;_blank&#34;&gt;https://kubernetes.io/docs/reference/kubectl/cheatsheet/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Join a node/worker to the master&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;kubeadm join 10.0.1.10:6443 --token d34b9i.v03t2yiozio63cq6 --discovery-token-ca-cert-hash sha256:c21d04ea23790a0bf81cf64118e3a9075ffb63ed90bc697acef5793386e9eb16
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Delete a deployment&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;kubectl delete deployment nginx-deployment-nbo
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To get the logs of a specific container. -n is to specify the namespace&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;kubectl logs calico-node-zxvjv -n kube-system calico-node
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Allow to launch a shell for a specific container&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;kubectl exec -it nginx-deployment-nbo-fd57b7b88-l8xsv -- /bin/bash
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Create a static page in the container to differentiate it from the others.
+The -c option is to ask bash to execute the command.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;kubectl exec -it nginx-deployment-nbo-fd57b7b88-kkw9s -- /bin/bash -c &amp;quot;echo Hello shell demo SRV1 &amp;gt; /usr/share/nginx/html/index.html&amp;quot; 
+kubectl exec -it nginx-deployment-nbo-fd57b7b88-kkw9s cat /usr/share/nginx/html/index.html
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To troubleshhot&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;journalctl -r
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Display all pods, even with the system name space, -o wide allow to see the IP addresses&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;kubectl get pods --all-namespaces -o wide
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To see the last messages of container associated to the pode&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;kubectl describe pod -n kube-system calico-node-zxvjv
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Allow to see the node/server/worker ip addresses (-o wide)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo kubectl get node -o wide
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;by default kubernetes don&amp;rsquo;t work with swap, so I needed to disable it with the command swapoff and to comment the swap line in the fstab file.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;swapoff
+
+vi /etc/fstab
+
+# /etc/fstab: static file system information.
+#
+# Use &#39;blkid&#39; to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# /dev/mapper/ubuntu--srv--base--vg-root / ext4 errors=remount-ro 0 1
+#/dev/mapper/ubuntu--srv--base--vg-swap_1 none swap sw 0 0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Not related to Kubernets but you need to modify the interfaces&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;vi /etc/netplan/01-netcfg.yaml
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Add interfaces to ubuntu&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;/etc/netplan/01-netcfg.yaml
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This file describes the network interfaces available on your system
+For more information, see netplan(5).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    enp0s3:
+      dhcp4: no
+      addresses:
+         - 10.0.1.10/24
+      routes:
+         - to: 0.0.0.0/0
+           via: 10.0.1.253
+      nameservers:
+         addresses: [1.1.1.1]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;apply the /etc/netplan/01-netcfg.yaml configuration&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;netplan apply
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;display ip addresses on interfaces&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ip address show
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;display all interfaces&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ip link show
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;display routes&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;route -n
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In order for Kubernetes to work, you need container runtime to be started&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;systemctl enable docker.service
+systemctl start docker.service
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Download calicoctl, to be able to interact with calico with CLI&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo curl -O -L https://github.com/projectcalico/calicoctl/releases/download/v3.2.1/calicoctl
+sudo chmod +x calicoctl
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To see the state of calico on nodes (BGP,Peer-type,up/down,time)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo calicoctl node status
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The following commands allow to export a variables with the IP address and ports of nginx-service previously created and access the content from the host or the container&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;export SERVICE_IP=$(kubectl get service nginx-service -o go-template=&#39;{{.spec.clusterIP}}&#39;)
+export SERVICE_PORT=$(kubectl get service nginx-service -o go-template=&#39;{{(index .spec.ports 0).port}}&#39;)
+wget -qO- http://$SERVICE_IP:$SERVICE_PORT
+kubectl run busybox --generator=run-pod/v1 --image=busybox --restart=Never --tty -i --env &amp;quot;SERVICE_IP=$SERVICE_IP&amp;quot; --env &amp;quot;SERVICE_PORT=$SERVICE_PORT&amp;quot;
+
+u@busybox$ wget -qO- http://$SERVICE_IP:$SERVICE_PORT # Run in the busybox container
+u@busybox$ exit # Exit the busybox container
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;noel@ubuntu-srv-1:~$ cat nginx-test.yaml
+
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: nginx-deployment-nbo
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  replicas: 3 # tells deployment to run 3 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      volumes:
+      - name: shared-data
+        emptyDir: {}
+      containers:
+      - name: nginx
+        image: nginx:1.7.9
+        volumeMounts:
+        - name: shared-data
+          mountPath: /usr/share/nginx/html
+        ports:
+        - containerPort: 80
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://kubernetes.io/docs/tutorials/k8s201/&#34; target=&#34;_blank&#34;&gt;https://kubernetes.io/docs/tutorials/k8s201/&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  ports:
+  - port: 8000 # the port that this service should serve on
+    # the container on each pod to connect to, can be a name
+    # (e.g. &#39;www&#39;) or a number (e.g. 80)
+    targetPort: 80
+    protocol: TCP
+  # just like the selector in the deployment,
+  # but this time it identifies the set of pods to load balance
+  # traffic to.
+  selector:
+    app: nginx
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;These commands are to configure calicoctl in order to work with the local k8s&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;export CALICO_DATASTORE_TYPE=kubernetes
+export CALICO_KUBECONFIG=~/.kube/config
+Pour le root
+export CALICO_KUBECONFIG=/home/noel/.kube/config
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Move the Calico mode from Always to CrossSubnet.
+First we get the calico ippool configuration, then we need to modify the ipipMode in the yaml file and eventually to apply the new configuration&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;calicoctl get ippool -o yaml &amp;gt; ippool.yaml 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Change the mode
+    ipipMode: CrossSubnet&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;calicoctl apply -f ippool.yaml
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
       <title>K8s on Vms With Calico</title>
       <link>/post/k8s-on-vms-with-calico/</link>
       <pubDate>Wed, 03 Oct 2018 23:59:19 +0200</pubDate>
@@ -109,26 +389,6 @@ kubectl apply -f https://docs.projectcalico.org/v3.1/getting-started/kubernetes/
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Cheat Sheet&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Myfirstpost</title>
-      <link>/post/myfirstpost/</link>
-      <pubDate>Wed, 03 Oct 2018 21:45:28 +0200</pubDate>
-      
-      <guid>/post/myfirstpost/</guid>
-      <description>
-
-&lt;h1 id=&#34;hey&#34;&gt;Hey&lt;/h1&gt;
-
-&lt;h2 id=&#34;hhey&#34;&gt;HHEY&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-md&#34;&gt;# Heading Level 1
-Some test
-## Heading Level 2
-Some more test
-&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     

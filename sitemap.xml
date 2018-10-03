@@ -4,16 +4,24 @@
     
     <url>
     
-      <loc>/post/k8s-on-vms-with-calico/</loc>
-      <lastmod>2018-10-03T23:59:19+02:00</lastmod>
+      <loc>/post/troubleshooting-elam-cisco-n7k-n5k/</loc>
+      <lastmod>2018-10-04T00:48:57+02:00</lastmod>
     </url>
     
   
     
     <url>
     
-      <loc>/post/myfirstpost/</loc>
-      <lastmod>2018-10-03T21:45:28+02:00</lastmod>
+      <loc>/post/cheat-sheet-k8s-on-vms-with-calico/</loc>
+      <lastmod>2018-10-04T00:37:20+02:00</lastmod>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>/post/k8s-on-vms-with-calico/</loc>
+      <lastmod>2018-10-03T23:59:19+02:00</lastmod>
     </url>
     
   
@@ -29,6 +37,24 @@
     <url>
     
       <loc>/categories/</loc>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>/tags/n5k/</loc>
+      <lastmod>2018-10-04T00:48:57+02:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>/tags/n7k/</loc>
+      <lastmod>2018-10-04T00:48:57+02:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -54,6 +80,7 @@
     <url>
     
       <loc>/tags/</loc>
+      <lastmod>2018-10-04T00:48:57+02:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -62,7 +89,25 @@
     <url>
     
       <loc>/tags/calico/</loc>
-      <lastmod>2018-10-03T23:59:19+02:00</lastmod>
+      <lastmod>2018-10-04T00:37:20+02:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>/tags/cisco/</loc>
+      <lastmod>2018-10-04T00:48:57+02:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>/categories/cisco/</loc>
+      <lastmod>2018-10-04T00:48:57+02:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -71,7 +116,7 @@
     <url>
     
       <loc>/categories/container/</loc>
-      <lastmod>2018-10-03T23:59:19+02:00</lastmod>
+      <lastmod>2018-10-04T00:37:20+02:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -80,7 +125,16 @@
     <url>
     
       <loc>/tags/docker/</loc>
-      <lastmod>2018-10-03T23:59:19+02:00</lastmod>
+      <lastmod>2018-10-04T00:37:20+02:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>/tags/elam/</loc>
+      <lastmod>2018-10-04T00:48:57+02:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -89,7 +143,7 @@
     <url>
     
       <loc>/tags/k8s/</loc>
-      <lastmod>2018-10-03T23:59:19+02:00</lastmod>
+      <lastmod>2018-10-04T00:37:20+02:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -98,7 +152,7 @@
     <url>
     
       <loc>/tags/kubernetes/</loc>
-      <lastmod>2018-10-03T23:59:19+02:00</lastmod>
+      <lastmod>2018-10-04T00:37:20+02:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -107,7 +161,25 @@
     <url>
     
       <loc>/tags/netplan/</loc>
-      <lastmod>2018-10-03T23:59:19+02:00</lastmod>
+      <lastmod>2018-10-04T00:37:20+02:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>/categories/nexus/</loc>
+      <lastmod>2018-10-04T00:48:57+02:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>/tags/troubleshooting/</loc>
+      <lastmod>2018-10-04T00:48:57+02:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -116,7 +188,7 @@
     <url>
     
       <loc>/tags/ubuntu/</loc>
-      <lastmod>2018-10-03T23:59:19+02:00</lastmod>
+      <lastmod>2018-10-04T00:37:20+02:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -125,7 +197,7 @@
     <url>
     
       <loc>/tags/virtualbox/</loc>
-      <lastmod>2018-10-03T23:59:19+02:00</lastmod>
+      <lastmod>2018-10-04T00:37:20+02:00</lastmod>
       <priority>0</priority>
     </url>
     
