@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>NETMEMO on NETMEMO</title>
+    <link>/</link>
+    <description>Recent content in NETMEMO on NETMEMO</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2018</copyright>
+    <lastBuildDate>Wed, 20 Apr 2016 00:00:00 +0200</lastBuildDate>
+    <atom:link href="/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Myfirstpost</title>
+      <link>/post/myfirstpost/</link>
+      <pubDate>Wed, 03 Oct 2018 21:45:28 +0200</pubDate>
+      
+      <guid>/post/myfirstpost/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
