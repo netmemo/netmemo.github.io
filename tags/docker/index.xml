@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on NETMEMO</title>
-    <link>/post/</link>
-    <description>Recent content in Posts on NETMEMO</description>
+    <title>docker on NETMEMO</title>
+    <link>/tags/docker/</link>
+    <description>Recent content in docker on NETMEMO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2018</copyright>
-    <lastBuildDate>Sun, 01 Jan 2017 00:00:00 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 03 Oct 2018 23:59:19 +0200</lastBuildDate>
     
-	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/docker/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -22,15 +22,6 @@
 I&amp;rsquo;ve chose VM because I didn&amp;rsquo;t want to depend on any Cloud infrastructure. I&amp;rsquo;ve also wanted to understand the network interaction between K8s parts from an infrastructure point of view.
 Prerequisite : know how to create VMs on any hypervisors
 Steps to deploy K8s :  Install 1 ubuntu router with 3 interfaces.</description>
-    </item>
-    
-    <item>
-      <title>Myfirstpost</title>
-      <link>/post/myfirstpost/</link>
-      <pubDate>Wed, 03 Oct 2018 21:45:28 +0200</pubDate>
-      
-      <guid>/post/myfirstpost/</guid>
-      <description> Hey HHEY # Heading Level 1 Some test ## Heading Level 2 Some more test  </description>
     </item>
     
   </channel>

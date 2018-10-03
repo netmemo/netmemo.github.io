@@ -11,12 +11,125 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>K8s on Vms With Calico</title>
+      <link>/post/k8s-on-vms-with-calico/</link>
+      <pubDate>Wed, 03 Oct 2018 23:59:19 +0200</pubDate>
+      
+      <guid>/post/k8s-on-vms-with-calico/</guid>
+      <description>
+
+&lt;p&gt;This post is a memo on how I did the installtion of Kubernetes and Calico on VMs. It&amp;rsquo;s not some best pactrices in anyway.&lt;br /&gt;
+I&amp;rsquo;ve chose VM because I didn&amp;rsquo;t want to depend on any Cloud infrastructure. I&amp;rsquo;ve also wanted to understand the network interaction between K8s parts from an infrastructure point of view.&lt;/p&gt;
+
+&lt;h3 id=&#34;prerequisite&#34;&gt;Prerequisite :&lt;/h3&gt;
+
+&lt;p&gt;know how to create VMs on any hypervisors&lt;/p&gt;
+
+&lt;h3 id=&#34;steps-to-deploy-k8s&#34;&gt;Steps to deploy K8s :&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Install 1 ubuntu router with 3 interfaces. 1 for NAT/Internet access and 2 for the K8s LAN. I&amp;rsquo;ve created 2 LAN to see what happen under the hood when K8s nodes communicates.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Install 3 Ubuntu servers, 1 for the master and 2 for the workers. 1 worker in the same ethernet segment and subnet than the master. 1 worker in another network.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;h6 id=&#34;gotchas&#34;&gt;Gotchas:&lt;/h6&gt;
+
+&lt;ul&gt;
+&lt;li&gt;By default, the K8s interface is the one with the default route. All my servers have one OOB interface and one production interface.&lt;/li&gt;
+&lt;li&gt;Special tunning for k8s =&amp;gt; turn off the swap&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Install runtime and enable it on boot&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Installing kubeadm, kubelet and kubectl&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Initializing the master (choose the pod network add-on before to add the relevent parameters, Calico parameters in my case)&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Install the pod network add-on&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Join node/workers to the cluster&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;That it, you can now play with the K8s cluster&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;optional&#34;&gt;Optional :&lt;/h3&gt;
+
+&lt;p&gt;Install ctl for calico&lt;/p&gt;
+
+&lt;h3 id=&#34;comments&#34;&gt;Comments :&lt;/h3&gt;
+
+&lt;p&gt;To create anything you just have to kubectl apply -f myfile
+The magic happen in myfile where you describe what you want to create.&lt;/p&gt;
+
+&lt;h3 id=&#34;details-of-the-tasks&#34;&gt;Details of the tasks&lt;/h3&gt;
+
+&lt;p&gt;3.
+&lt;a href=&#34;https://kubernetes.io/docs/setup/independent/install-kubeadm/#installing-runtime&#34; target=&#34;_blank&#34;&gt;https://kubernetes.io/docs/setup/independent/install-kubeadm/#installing-runtime&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;ve needed to add the following commands&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;systemctl enable docker.service
+systemctl start docker.service
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;4.
+&lt;a href=&#34;https://kubernetes.io/docs/setup/independent/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl&#34; target=&#34;_blank&#34;&gt;https://kubernetes.io/docs/setup/independent/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;apt-get update &amp;amp;amp;&amp;amp;amp; apt-get install -y apt-transport-https curl
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+cat &amp;amp;lt;&amp;amp;lt;EOF &amp;amp;gt;/etc/apt/sources.list.d/kubernetes.list
+deb http://apt.kubernetes.io/ kubernetes-xenial main
+EOF
+
+apt-get update
+apt-get install -y kubelet kubeadm kubectl
+apt-mark hold kubelet kubeadm kubectl
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;5.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;kubeadm init --pod-network-cidr=192.168.0.0/16
+
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;6.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;kubectl apply -f https://docs.projectcalico.org/v3.1/getting-started/kubernetes/installation/hosted/rbac-kdd.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.1/getting-started/kubernetes/installation/hosted/kubernetes-datastore/calico-networking/1.7/calico.yaml
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;7.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;kubeadm join 10.0.1.10:6443 --token d34b9i.v03t2yiozio63cq6 --discovery-token-ca-cert-hash sha256:c21d04ea23790a0bf81cf64118e3a9075ffb63ed90bc697acef5793386e9eb16
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Cheat Sheet&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Myfirstpost</title>
       <link>/post/myfirstpost/</link>
       <pubDate>Wed, 03 Oct 2018 21:45:28 +0200</pubDate>
       
       <guid>/post/myfirstpost/</guid>
-      <description></description>
+      <description>
+
+&lt;h1 id=&#34;hey&#34;&gt;Hey&lt;/h1&gt;
+
+&lt;h2 id=&#34;hhey&#34;&gt;HHEY&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-md&#34;&gt;# Heading Level 1
+Some test
+## Heading Level 2
+Some more test
+&lt;/code&gt;&lt;/pre&gt;
+</description>
     </item>
     
   </channel>

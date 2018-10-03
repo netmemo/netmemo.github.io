@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on NETMEMO</title>
-    <link>/post/</link>
-    <description>Recent content in Posts on NETMEMO</description>
+    <title>container on NETMEMO</title>
+    <link>/categories/container/</link>
+    <description>Recent content in container on NETMEMO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2018</copyright>
-    <lastBuildDate>Sun, 01 Jan 2017 00:00:00 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 03 Oct 2018 23:59:19 +0200</lastBuildDate>
     
-	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/categories/container/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
