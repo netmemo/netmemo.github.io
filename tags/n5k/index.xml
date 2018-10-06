@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>N5K on NETMEMO</title>
-    <link>/tags/n5k/</link>
-    <description>Recent content in N5K on NETMEMO</description>
+    <title>N5K on netmemo.github.io</title>
+    <link>https://netmemo.github.io/tags/n5k/</link>
+    <description>Recent content in N5K on netmemo.github.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>&amp;copy; 2018</copyright>
+    <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2018</copyright>
     <lastBuildDate>Thu, 04 Oct 2018 00:48:57 +0200</lastBuildDate>
     
-	<atom:link href="/tags/n5k/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://netmemo.github.io/tags/n5k/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Troubleshooting Elam Cisco N7k N5k</title>
-      <link>/post/troubleshooting-elam-cisco-n7k-n5k/</link>
+      <link>https://netmemo.github.io/post/troubleshooting-elam-cisco-n7k-n5k/</link>
       <pubDate>Thu, 04 Oct 2018 00:48:57 +0200</pubDate>
       
-      <guid>/post/troubleshooting-elam-cisco-n7k-n5k/</guid>
-      <description>Sur les N7K
+      <guid>https://netmemo.github.io/post/troubleshooting-elam-cisco-n7k-n5k/</guid>
+      <description>On N7K
 https://www.cisco.com/c/en/us/support/docs/switches/nexus-7000-series-switches/116647-technote-product-00.html
 =&amp;gt; flanker car avec la commande show hardware internal dev-port-map, il n&amp;rsquo;y a pas d&amp;rsquo;asic Clipper, uniquement des flanker
-Exemple de troubleshoot icmp depuis le VDC Admin
-show module attach module 1 show hardware internal dev-port-map elam asic flanker instance 2 layer2 trigger dbus ipv4 egress if destination-ipv4-address 10.253.108.90 start status  elam asic flanker instance 2 layer2 trigger dbus ipv4 ingress if destination-ipv4-address 10.253.108.90 start status  Sur les N5K</description>
+Sample of icmp troubleshooting from the Admin VDC
+show module attach module 1 show hardware internal dev-port-map elam asic flanker instance 2 layer2 trigger dbus ipv4 egress if destination-ipv4-address 10.253.108.90 start status  elam asic flanker instance 2 layer2 trigger dbus ipv4 ingress if destination-ipv4-address 10.253.108.90 start status  On N5K</description>
     </item>
     
   </channel>

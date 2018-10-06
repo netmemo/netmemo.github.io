@@ -18,7 +18,7 @@
   <meta name="description" content="Independent Network Architect">
 
   
-  <link rel="alternate" hreflang="en-us" href="/post/">
+  <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/post/">
 
   
 
@@ -71,26 +71,26 @@
   
 
   
-  <link rel="alternate" href="/post/index.xml" type="application/rss+xml" title="NETMEMO">
-  <link rel="feed" href="/post/index.xml" type="application/rss+xml" title="NETMEMO">
+  <link rel="alternate" href="https://netmemo.github.io/post/index.xml" type="application/rss+xml" title="netmemo.github.io">
+  <link rel="feed" href="https://netmemo.github.io/post/index.xml" type="application/rss+xml" title="netmemo.github.io">
   
 
   <link rel="manifest" href="/site.webmanifest">
   <link rel="icon" type="image/png" href="/img/icon.png">
   <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
 
-  <link rel="canonical" href="/post/">
+  <link rel="canonical" href="https://netmemo.github.io/post/">
 
   <meta property="twitter:card" content="summary_large_image">
   
-  <meta property="og:site_name" content="NETMEMO">
-  <meta property="og:url" content="/post/">
-  <meta property="og:title" content="Posts | NETMEMO">
+  <meta property="og:site_name" content="netmemo.github.io">
+  <meta property="og:url" content="https://netmemo.github.io/post/">
+  <meta property="og:title" content="Posts | netmemo.github.io">
   <meta property="og:description" content="Independent Network Architect">
   
   
     
-  <meta property="og:image" content="/img/icon-192.png">
+  <meta property="og:image" content="https://netmemo.github.io/img/icon-192.png">
   <meta property="og:locale" content="en-us">
   
   <meta property="og:updated_time" content="2017-01-01T00:00:00&#43;01:00">
@@ -100,7 +100,7 @@
 
   
 
-  <title>Posts | NETMEMO</title>
+  <title>Posts | netmemo.github.io</title>
 
 </head>
 <body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" >
@@ -109,7 +109,7 @@
   <div class="container">
 
     
-      <a class="navbar-brand" href="/">NETMEMO</a>
+      <a class="navbar-brand" href="/">netmemo.github.io</a>
       
       <button type="button" class="navbar-toggler" data-toggle="collapse"
               data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -134,7 +134,7 @@
         
 
         <li class="nav-item">
-          <a class="nav-link" href="/#about">
+          <a class="nav-link" href="/#hero">
             
             <span>Home</span>
             
@@ -156,6 +156,25 @@
           <a class="nav-link" href="/#posts">
             
             <span>Posts</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/#about">
+            
+            <span>About</span>
             
           </a>
         </li>
@@ -188,6 +207,88 @@
   
 
   
+  
+    
+    
+      
+
+<div class="card-simple" itemscope itemprop="blogPost" itemtype="http://schema.org/BlogPosting">
+  
+
+<div class="article-metadata">
+
+  
+  
+  
+  <div>
+    
+    <span itemscope itemprop="author" itemtype="http://schema.org/Person">
+      <span itemprop="name">Noel</span>
+    </span>
+    
+  </div>
+  
+
+  <span class="article-date">
+    
+    <meta content="2018-10-05 23:59:19 &#43;0200 CEST" itemprop="datePublished">
+    <time datetime="2018-10-05 23:59:19 &#43;0200 CEST" itemprop="dateModified">
+      Oct 5, 2018
+    </time>
+  </span>
+  <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Noel">
+  </span>
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    2 min read
+  </span>
+  
+
+  
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder"></i>
+    
+    <a href="/categories/container/">container</a>
+    
+  </span>
+  
+  
+
+  
+
+</div>
+
+
+  
+  
+  <h3 class="article-title" itemprop="headline">
+    <a href="/post/k8s-on-vms-with-calico/" itemprop="url">K8s on Vms With Calico</a>
+  </h3>
+  <div class="article-style" itemprop="articleBody">
+    
+    This post is a memo on how I did the installtion of Kubernetes and Calico on VMs. It&rsquo;s not some best pactrices in anyway.
+I&rsquo;ve chose VM because I didn&rsquo;t want to depend on any Cloud infrastructure. I&rsquo;ve also wanted to understand the network interaction between K8s parts from an infrastructure point of view.
+Prerequisite : know how to create VMs on any hypervisors
+Steps to deploy K8s :  Install 1 ubuntu router with 3 interfaces.
+    
+  </div>
+  <p class="read-more" itemprop="mainEntityOfPage">
+    <a href="/post/k8s-on-vms-with-calico/" class="btn btn-outline-primary my-1">
+      CONTINUE READING
+    </a>
+  </p>
+</div>
+
+    
   
     
     
@@ -258,11 +359,11 @@
   </h3>
   <div class="article-style" itemprop="articleBody">
     
-    Sur les N7K
+    On N7K
 https://www.cisco.com/c/en/us/support/docs/switches/nexus-7000-series-switches/116647-technote-product-00.html
 =&gt; flanker car avec la commande show hardware internal dev-port-map, il n&rsquo;y a pas d&rsquo;asic Clipper, uniquement des flanker
-Exemple de troubleshoot icmp depuis le VDC Admin
-show module attach module 1 show hardware internal dev-port-map elam asic flanker instance 2 layer2 trigger dbus ipv4 egress if destination-ipv4-address 10.253.108.90 start status  elam asic flanker instance 2 layer2 trigger dbus ipv4 ingress if destination-ipv4-address 10.253.108.90 start status  Sur les N5K
+Sample of icmp troubleshooting from the Admin VDC
+show module attach module 1 show hardware internal dev-port-map elam asic flanker instance 2 layer2 trigger dbus ipv4 egress if destination-ipv4-address 10.253.108.90 start status  elam asic flanker instance 2 layer2 trigger dbus ipv4 ingress if destination-ipv4-address 10.253.108.90 start status  On N5K
     
   </div>
   <p class="read-more" itemprop="mainEntityOfPage">
@@ -342,98 +443,16 @@ show module attach module 1 show hardware internal dev-port-map elam asic flanke
   <div class="article-style" itemprop="articleBody">
     
     This is the cheat sheet for the post : https://netmemo.github.io/post/k8s-on-vms-with-calico/
+The following post contain raw entry only for reminder purpose.
 Bellow are the links I&rsquo;ve used to understand/did my lab
 https://fr.wikipedia.org/wiki/Kubernetes#/media/File:Kubernetes.png https://kubernetes.io/docs/setup/independent/install-kubeadm/ https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/ https://kubernetes.io/docs/tutorials/k8s101/ https://kubernetes.io/docs/tutorials/k8s201/ https://kubernetes.io/docs/reference/kubectl/cheatsheet/
 Join a node/worker to the master
 kubeadm join 10.0.1.10:6443 --token d34b9i.v03t2yiozio63cq6 --discovery-token-ca-cert-hash sha256:c21d04ea23790a0bf81cf64118e3a9075ffb63ed90bc697acef5793386e9eb16  Delete a deployment
 kubectl delete deployment nginx-deployment-nbo  To get the logs of a specific container. -n is to specify the namespace
-kubectl logs calico-node-zxvjv -n kube-system calico-node  Allow to launch a shell for a specific container
     
   </div>
   <p class="read-more" itemprop="mainEntityOfPage">
     <a href="/post/cheat-sheet-k8s-on-vms-with-calico/" class="btn btn-outline-primary my-1">
-      CONTINUE READING
-    </a>
-  </p>
-</div>
-
-    
-  
-    
-    
-      
-
-<div class="card-simple" itemscope itemprop="blogPost" itemtype="http://schema.org/BlogPosting">
-  
-
-<div class="article-metadata">
-
-  
-  
-  
-  <div>
-    
-    <span itemscope itemprop="author" itemtype="http://schema.org/Person">
-      <span itemprop="name">Noel</span>
-    </span>
-    
-  </div>
-  
-
-  <span class="article-date">
-    
-    <meta content="2018-10-03 23:59:19 &#43;0200 CEST" itemprop="datePublished">
-    <time datetime="2018-10-03 23:59:19 &#43;0200 CEST" itemprop="dateModified">
-      Oct 3, 2018
-    </time>
-  </span>
-  <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Noel">
-  </span>
-
-  
-  <span class="middot-divider"></span>
-  <span class="article-reading-time">
-    2 min read
-  </span>
-  
-
-  
-  
-
-  
-  
-  
-  <span class="middot-divider"></span>
-  <span class="article-categories">
-    <i class="fas fa-folder"></i>
-    
-    <a href="/categories/container/">container</a>
-    
-  </span>
-  
-  
-
-  
-
-</div>
-
-
-  
-  
-  <h3 class="article-title" itemprop="headline">
-    <a href="/post/k8s-on-vms-with-calico/" itemprop="url">K8s on Vms With Calico</a>
-  </h3>
-  <div class="article-style" itemprop="articleBody">
-    
-    This post is a memo on how I did the installtion of Kubernetes and Calico on VMs. It&rsquo;s not some best pactrices in anyway.
-I&rsquo;ve chose VM because I didn&rsquo;t want to depend on any Cloud infrastructure. I&rsquo;ve also wanted to understand the network interaction between K8s parts from an infrastructure point of view.
-Prerequisite : know how to create VMs on any hypervisors
-Steps to deploy K8s :  Install 1 ubuntu router with 3 interfaces.
-    
-  </div>
-  <p class="read-more" itemprop="mainEntityOfPage">
-    <a href="/post/k8s-on-vms-with-calico/" class="btn btn-outline-primary my-1">
       CONTINUE READING
     </a>
   </p>
@@ -451,7 +470,7 @@ Steps to deploy K8s :  Install 1 ubuntu router with 3 interfaces.
   
 
   <p class="powered-by">
-    &copy; 2018 &middot; 
+    No&euml;l Boul&egrave;ne &copy; 2018 &middot; 
 
     Powered by the
     <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for

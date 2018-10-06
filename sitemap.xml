@@ -4,7 +4,15 @@
     
     <url>
     
-      <loc>/post/troubleshooting-elam-cisco-n7k-n5k/</loc>
+      <loc>https://netmemo.github.io/post/k8s-on-vms-with-calico/</loc>
+      <lastmod>2018-10-05T23:59:19+02:00</lastmod>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/post/troubleshooting-elam-cisco-n7k-n5k/</loc>
       <lastmod>2018-10-04T00:48:57+02:00</lastmod>
     </url>
     
@@ -12,7 +20,7 @@
     
     <url>
     
-      <loc>/post/cheat-sheet-k8s-on-vms-with-calico/</loc>
+      <loc>https://netmemo.github.io/post/cheat-sheet-k8s-on-vms-with-calico/</loc>
       <lastmod>2018-10-04T00:37:20+02:00</lastmod>
     </url>
     
@@ -20,15 +28,7 @@
     
     <url>
     
-      <loc>/post/k8s-on-vms-with-calico/</loc>
-      <lastmod>2018-10-03T23:59:19+02:00</lastmod>
-    </url>
-    
-  
-    
-    <url>
-    
-      <loc>/post/</loc>
+      <loc>https://netmemo.github.io/post/</loc>
       <lastmod>2017-01-01T00:00:00+01:00</lastmod>
     </url>
     
@@ -36,7 +36,7 @@
     
     <url>
     
-      <loc>/categories/</loc>
+      <loc>https://netmemo.github.io/categories/</loc>
       <priority>0</priority>
     </url>
     
@@ -44,7 +44,7 @@
     
     <url>
     
-      <loc>/tags/n5k/</loc>
+      <loc>https://netmemo.github.io/tags/n5k/</loc>
       <lastmod>2018-10-04T00:48:57+02:00</lastmod>
       <priority>0</priority>
     </url>
@@ -53,7 +53,7 @@
     
     <url>
     
-      <loc>/tags/n7k/</loc>
+      <loc>https://netmemo.github.io/tags/n7k/</loc>
       <lastmod>2018-10-04T00:48:57+02:00</lastmod>
       <priority>0</priority>
     </url>
@@ -62,8 +62,7 @@
     
     <url>
     
-      <loc>/</loc>
-      <lastmod>2016-04-20T00:00:00+02:00</lastmod>
+      <loc>https://netmemo.github.io/publication_types/</loc>
       <priority>0</priority>
     </url>
     
@@ -71,15 +70,7 @@
     
     <url>
     
-      <loc>/publication_types/</loc>
-      <priority>0</priority>
-    </url>
-    
-  
-    
-    <url>
-    
-      <loc>/tags/</loc>
+      <loc>https://netmemo.github.io/tags/</loc>
       <lastmod>2018-10-04T00:48:57+02:00</lastmod>
       <priority>0</priority>
     </url>
@@ -88,8 +79,8 @@
     
     <url>
     
-      <loc>/tags/calico/</loc>
-      <lastmod>2018-10-04T00:37:20+02:00</lastmod>
+      <loc>https://netmemo.github.io/tags/calico/</loc>
+      <lastmod>2018-10-05T23:59:19+02:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -97,7 +88,7 @@
     
     <url>
     
-      <loc>/tags/cisco/</loc>
+      <loc>https://netmemo.github.io/tags/cisco/</loc>
       <lastmod>2018-10-04T00:48:57+02:00</lastmod>
       <priority>0</priority>
     </url>
@@ -106,7 +97,7 @@
     
     <url>
     
-      <loc>/categories/cisco/</loc>
+      <loc>https://netmemo.github.io/categories/cisco/</loc>
       <lastmod>2018-10-04T00:48:57+02:00</lastmod>
       <priority>0</priority>
     </url>
@@ -115,8 +106,8 @@
     
     <url>
     
-      <loc>/categories/container/</loc>
-      <lastmod>2018-10-04T00:37:20+02:00</lastmod>
+      <loc>https://netmemo.github.io/categories/container/</loc>
+      <lastmod>2018-10-05T23:59:19+02:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -124,8 +115,8 @@
     
     <url>
     
-      <loc>/tags/docker/</loc>
-      <lastmod>2018-10-04T00:37:20+02:00</lastmod>
+      <loc>https://netmemo.github.io/tags/docker/</loc>
+      <lastmod>2018-10-05T23:59:19+02:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -133,7 +124,7 @@
     
     <url>
     
-      <loc>/tags/elam/</loc>
+      <loc>https://netmemo.github.io/tags/elam/</loc>
       <lastmod>2018-10-04T00:48:57+02:00</lastmod>
       <priority>0</priority>
     </url>
@@ -142,8 +133,8 @@
     
     <url>
     
-      <loc>/tags/k8s/</loc>
-      <lastmod>2018-10-04T00:37:20+02:00</lastmod>
+      <loc>https://netmemo.github.io/tags/k8s/</loc>
+      <lastmod>2018-10-05T23:59:19+02:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -151,8 +142,8 @@
     
     <url>
     
-      <loc>/tags/kubernetes/</loc>
-      <lastmod>2018-10-04T00:37:20+02:00</lastmod>
+      <loc>https://netmemo.github.io/tags/kubernetes/</loc>
+      <lastmod>2018-10-05T23:59:19+02:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -160,8 +151,8 @@
     
     <url>
     
-      <loc>/tags/netplan/</loc>
-      <lastmod>2018-10-04T00:37:20+02:00</lastmod>
+      <loc>https://netmemo.github.io/</loc>
+      <lastmod>2017-10-15T00:00:00+02:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -169,7 +160,16 @@
     
     <url>
     
-      <loc>/categories/nexus/</loc>
+      <loc>https://netmemo.github.io/tags/netplan/</loc>
+      <lastmod>2018-10-05T23:59:19+02:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/categories/nexus/</loc>
       <lastmod>2018-10-04T00:48:57+02:00</lastmod>
       <priority>0</priority>
     </url>
@@ -178,7 +178,7 @@
     
     <url>
     
-      <loc>/tags/troubleshooting/</loc>
+      <loc>https://netmemo.github.io/tags/troubleshooting/</loc>
       <lastmod>2018-10-04T00:48:57+02:00</lastmod>
       <priority>0</priority>
     </url>
@@ -187,8 +187,8 @@
     
     <url>
     
-      <loc>/tags/ubuntu/</loc>
-      <lastmod>2018-10-04T00:37:20+02:00</lastmod>
+      <loc>https://netmemo.github.io/tags/ubuntu/</loc>
+      <lastmod>2018-10-05T23:59:19+02:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -196,8 +196,8 @@
     
     <url>
     
-      <loc>/tags/virtualbox/</loc>
-      <lastmod>2018-10-04T00:37:20+02:00</lastmod>
+      <loc>https://netmemo.github.io/tags/virtualbox/</loc>
+      <lastmod>2018-10-05T23:59:19+02:00</lastmod>
       <priority>0</priority>
     </url>
     

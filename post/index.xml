@@ -1,55 +1,55 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on NETMEMO</title>
-    <link>/post/</link>
-    <description>Recent content in Posts on NETMEMO</description>
+    <title>Posts on netmemo.github.io</title>
+    <link>https://netmemo.github.io/post/</link>
+    <description>Recent content in Posts on netmemo.github.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>&amp;copy; 2018</copyright>
+    <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2018</copyright>
     <lastBuildDate>Sun, 01 Jan 2017 00:00:00 +0100</lastBuildDate>
     
-	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://netmemo.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Troubleshooting Elam Cisco N7k N5k</title>
-      <link>/post/troubleshooting-elam-cisco-n7k-n5k/</link>
-      <pubDate>Thu, 04 Oct 2018 00:48:57 +0200</pubDate>
-      
-      <guid>/post/troubleshooting-elam-cisco-n7k-n5k/</guid>
-      <description>Sur les N7K
-https://www.cisco.com/c/en/us/support/docs/switches/nexus-7000-series-switches/116647-technote-product-00.html
-=&amp;gt; flanker car avec la commande show hardware internal dev-port-map, il n&amp;rsquo;y a pas d&amp;rsquo;asic Clipper, uniquement des flanker
-Exemple de troubleshoot icmp depuis le VDC Admin
-show module attach module 1 show hardware internal dev-port-map elam asic flanker instance 2 layer2 trigger dbus ipv4 egress if destination-ipv4-address 10.253.108.90 start status  elam asic flanker instance 2 layer2 trigger dbus ipv4 ingress if destination-ipv4-address 10.253.108.90 start status  Sur les N5K</description>
-    </item>
-    
-    <item>
-      <title>[Cheat Sheet] K8s on VMs with Calico</title>
-      <link>/post/cheat-sheet-k8s-on-vms-with-calico/</link>
-      <pubDate>Thu, 04 Oct 2018 00:37:20 +0200</pubDate>
-      
-      <guid>/post/cheat-sheet-k8s-on-vms-with-calico/</guid>
-      <description>This is the cheat sheet for the post : https://netmemo.github.io/post/k8s-on-vms-with-calico/
-Bellow are the links I&amp;rsquo;ve used to understand/did my lab
-https://fr.wikipedia.org/wiki/Kubernetes#/media/File:Kubernetes.png https://kubernetes.io/docs/setup/independent/install-kubeadm/ https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/ https://kubernetes.io/docs/tutorials/k8s101/ https://kubernetes.io/docs/tutorials/k8s201/ https://kubernetes.io/docs/reference/kubectl/cheatsheet/
-Join a node/worker to the master
-kubeadm join 10.0.1.10:6443 --token d34b9i.v03t2yiozio63cq6 --discovery-token-ca-cert-hash sha256:c21d04ea23790a0bf81cf64118e3a9075ffb63ed90bc697acef5793386e9eb16  Delete a deployment
-kubectl delete deployment nginx-deployment-nbo  To get the logs of a specific container. -n is to specify the namespace
-kubectl logs calico-node-zxvjv -n kube-system calico-node  Allow to launch a shell for a specific container</description>
-    </item>
     
     <item>
       <title>K8s on Vms With Calico</title>
-      <link>/post/k8s-on-vms-with-calico/</link>
-      <pubDate>Wed, 03 Oct 2018 23:59:19 +0200</pubDate>
+      <link>https://netmemo.github.io/post/k8s-on-vms-with-calico/</link>
+      <pubDate>Fri, 05 Oct 2018 23:59:19 +0200</pubDate>
       
-      <guid>/post/k8s-on-vms-with-calico/</guid>
+      <guid>https://netmemo.github.io/post/k8s-on-vms-with-calico/</guid>
       <description>This post is a memo on how I did the installtion of Kubernetes and Calico on VMs. It&amp;rsquo;s not some best pactrices in anyway.
 I&amp;rsquo;ve chose VM because I didn&amp;rsquo;t want to depend on any Cloud infrastructure. I&amp;rsquo;ve also wanted to understand the network interaction between K8s parts from an infrastructure point of view.
 Prerequisite : know how to create VMs on any hypervisors
 Steps to deploy K8s :  Install 1 ubuntu router with 3 interfaces.</description>
+    </item>
+    
+    <item>
+      <title>Troubleshooting Elam Cisco N7k N5k</title>
+      <link>https://netmemo.github.io/post/troubleshooting-elam-cisco-n7k-n5k/</link>
+      <pubDate>Thu, 04 Oct 2018 00:48:57 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/troubleshooting-elam-cisco-n7k-n5k/</guid>
+      <description>On N7K
+https://www.cisco.com/c/en/us/support/docs/switches/nexus-7000-series-switches/116647-technote-product-00.html
+=&amp;gt; flanker car avec la commande show hardware internal dev-port-map, il n&amp;rsquo;y a pas d&amp;rsquo;asic Clipper, uniquement des flanker
+Sample of icmp troubleshooting from the Admin VDC
+show module attach module 1 show hardware internal dev-port-map elam asic flanker instance 2 layer2 trigger dbus ipv4 egress if destination-ipv4-address 10.253.108.90 start status  elam asic flanker instance 2 layer2 trigger dbus ipv4 ingress if destination-ipv4-address 10.253.108.90 start status  On N5K</description>
+    </item>
+    
+    <item>
+      <title>[Cheat Sheet] K8s on VMs with Calico</title>
+      <link>https://netmemo.github.io/post/cheat-sheet-k8s-on-vms-with-calico/</link>
+      <pubDate>Thu, 04 Oct 2018 00:37:20 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/cheat-sheet-k8s-on-vms-with-calico/</guid>
+      <description>This is the cheat sheet for the post : https://netmemo.github.io/post/k8s-on-vms-with-calico/
+The following post contain raw entry only for reminder purpose.
+Bellow are the links I&amp;rsquo;ve used to understand/did my lab
+https://fr.wikipedia.org/wiki/Kubernetes#/media/File:Kubernetes.png https://kubernetes.io/docs/setup/independent/install-kubeadm/ https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/ https://kubernetes.io/docs/tutorials/k8s101/ https://kubernetes.io/docs/tutorials/k8s201/ https://kubernetes.io/docs/reference/kubectl/cheatsheet/
+Join a node/worker to the master
+kubeadm join 10.0.1.10:6443 --token d34b9i.v03t2yiozio63cq6 --discovery-token-ca-cert-hash sha256:c21d04ea23790a0bf81cf64118e3a9075ffb63ed90bc697acef5793386e9eb16  Delete a deployment
+kubectl delete deployment nginx-deployment-nbo  To get the logs of a specific container. -n is to specify the namespace</description>
     </item>
     
   </channel>

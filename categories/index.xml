@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on NETMEMO</title>
-    <link>/categories/</link>
-    <description>Recent content in Categories on NETMEMO</description>
+    <title>Categories on netmemo.github.io</title>
+    <link>https://netmemo.github.io/categories/</link>
+    <description>Recent content in Categories on netmemo.github.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>&amp;copy; 2018</copyright>
+    <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2018</copyright>
     
-	<atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://netmemo.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>cisco</title>
-      <link>/categories/cisco/</link>
+      <link>https://netmemo.github.io/categories/cisco/</link>
       <pubDate>Thu, 04 Oct 2018 00:48:57 +0200</pubDate>
       
-      <guid>/categories/cisco/</guid>
+      <guid>https://netmemo.github.io/categories/cisco/</guid>
       <description></description>
     </item>
     
     <item>
       <title>container</title>
-      <link>/categories/container/</link>
-      <pubDate>Thu, 04 Oct 2018 00:37:20 +0200</pubDate>
+      <link>https://netmemo.github.io/categories/container/</link>
+      <pubDate>Fri, 05 Oct 2018 23:59:19 +0200</pubDate>
       
-      <guid>/categories/container/</guid>
+      <guid>https://netmemo.github.io/categories/container/</guid>
       <description></description>
     </item>
     
     <item>
       <title>nexus</title>
-      <link>/categories/nexus/</link>
+      <link>https://netmemo.github.io/categories/nexus/</link>
       <pubDate>Thu, 04 Oct 2018 00:48:57 +0200</pubDate>
       
-      <guid>/categories/nexus/</guid>
+      <guid>https://netmemo.github.io/categories/nexus/</guid>
       <description></description>
     </item>
     
