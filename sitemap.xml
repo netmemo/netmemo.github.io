@@ -4,14 +4,6 @@
     
     <url>
     
-      <loc>https://netmemo.github.io/post/corelinuxnetmemo/</loc>
-      <lastmod>2018-10-22T15:35:55+02:00</lastmod>
-    </url>
-    
-  
-    
-    <url>
-    
       <loc>https://netmemo.github.io/post/k8s-on-vms-with-calico/</loc>
       <lastmod>2018-10-05T23:59:19+02:00</lastmod>
     </url>
@@ -52,15 +44,6 @@
     
     <url>
     
-      <loc>https://netmemo.github.io/tags/core-linux/</loc>
-      <lastmod>2018-10-22T15:35:55+02:00</lastmod>
-      <priority>0</priority>
-    </url>
-    
-  
-    
-    <url>
-    
       <loc>https://netmemo.github.io/tags/n5k/</loc>
       <lastmod>2018-10-04T00:48:57+02:00</lastmod>
       <priority>0</priority>
@@ -88,16 +71,7 @@
     <url>
     
       <loc>https://netmemo.github.io/tags/</loc>
-      <lastmod>2018-10-22T15:35:55+02:00</lastmod>
-      <priority>0</priority>
-    </url>
-    
-  
-    
-    <url>
-    
-      <loc>https://netmemo.github.io/tags/vm/</loc>
-      <lastmod>2018-10-22T15:35:55+02:00</lastmod>
+      <lastmod>2018-10-04T00:48:57+02:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -114,7 +88,7 @@
     
     <url>
     
-      <loc>https://netmemo.github.io/categories/cisco/</loc>
+      <loc>https://netmemo.github.io/tags/cisco/</loc>
       <lastmod>2018-10-04T00:48:57+02:00</lastmod>
       <priority>0</priority>
     </url>
@@ -123,7 +97,7 @@
     
     <url>
     
-      <loc>https://netmemo.github.io/tags/cisco/</loc>
+      <loc>https://netmemo.github.io/categories/cisco/</loc>
       <lastmod>2018-10-04T00:48:57+02:00</lastmod>
       <priority>0</priority>
     </url>
@@ -197,24 +171,6 @@
     
       <loc>https://netmemo.github.io/categories/nexus/</loc>
       <lastmod>2018-10-04T00:48:57+02:00</lastmod>
-      <priority>0</priority>
-    </url>
-    
-  
-    
-    <url>
-    
-      <loc>https://netmemo.github.io/categories/tools/</loc>
-      <lastmod>2018-10-22T15:35:55+02:00</lastmod>
-      <priority>0</priority>
-    </url>
-    
-  
-    
-    <url>
-    
-      <loc>https://netmemo.github.io/tags/tools/</loc>
-      <lastmod>2018-10-22T15:35:55+02:00</lastmod>
       <priority>0</priority>
     </url>
     
