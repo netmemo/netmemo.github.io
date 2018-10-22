@@ -13,6 +13,16 @@
     
     
     <item>
+      <title>Core Linux Netmemo</title>
+      <link>https://netmemo.github.io/post/corelinuxnetmemo/</link>
+      <pubDate>Mon, 22 Oct 2018 15:35:55 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/corelinuxnetmemo/</guid>
+      <description>Below is a very light virtual machine based on Core Linux (TinyCore) 26Mo with network tools like iperf3, tcpdump, net-bridging, iproute2
+CoreLinux1.2.ova</description>
+    </item>
+    
+    <item>
       <title>K8s on Vms With Calico</title>
       <link>https://netmemo.github.io/post/k8s-on-vms-with-calico/</link>
       <pubDate>Fri, 05 Oct 2018 23:59:19 +0200</pubDate>
