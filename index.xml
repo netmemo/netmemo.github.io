@@ -11,6 +11,18 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>CorelinuxNetMemo</title>
+      <link>https://netmemo.github.io/post/corelinuxnetmemo/</link>
+      <pubDate>Mon, 22 Oct 2018 15:35:55 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/corelinuxnetmemo/</guid>
+      <description>&lt;p&gt;Below is a very light virtual machine based on Core Linux (TinyCore) 26Mo with network tools like iperf3, tcpdump, net-bridging, iproute2&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;CoreLinux1.2.ova&#34; target=&#34;_blank&#34;&gt;CoreLinux1.2.ova&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>K8s on Vms With Calico</title>
       <link>https://netmemo.github.io/post/k8s-on-vms-with-calico/</link>
       <pubDate>Fri, 05 Oct 2018 23:59:19 +0200</pubDate>
@@ -62,6 +74,9 @@ I&amp;rsquo;ve chose VM because I didn&amp;rsquo;t want to depend on any Cloud i
 
 &lt;p&gt;To create anything you just have to kubectl apply -f myfile
 The magic happen in myfile where you describe what you want to create.&lt;/p&gt;
+
+&lt;p&gt;Below is a capture after the lab is completed.
+&lt;a href=&#34;cpt-calico-k8s-ipip-raw.cap&#34; target=&#34;_blank&#34;&gt;Capture of Calico k8s IPIP&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;details-of-the-tasks&#34;&gt;Details of the tasks&lt;/h3&gt;
 
