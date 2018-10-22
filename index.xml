@@ -18,7 +18,7 @@
       <guid>https://netmemo.github.io/post/k8s-on-vms-with-calico/</guid>
       <description>
 
-&lt;p&gt;Updated&lt;/p&gt;
+&lt;p&gt;Updated2&lt;/p&gt;
 
 &lt;p&gt;This post is a memo on how I did the installtion of Kubernetes and Calico on VMs. It&amp;rsquo;s not some best pactrices in anyway.&lt;br /&gt;
 I&amp;rsquo;ve chose VM because I didn&amp;rsquo;t want to depend on any Cloud infrastructure. I&amp;rsquo;ve also wanted to understand the network interaction between K8s parts from an infrastructure point of view.&lt;/p&gt;
@@ -64,9 +64,6 @@ I&amp;rsquo;ve chose VM because I didn&amp;rsquo;t want to depend on any Cloud i
 
 &lt;p&gt;To create anything you just have to kubectl apply -f myfile
 The magic happen in myfile where you describe what you want to create.&lt;/p&gt;
-
-&lt;p&gt;Below is a capture after the lab is completed.
-&lt;a href=&#34;cpt-calico-k8s-ipip-raw.cap&#34; target=&#34;_blank&#34;&gt;Capture of Calico k8s IPIP&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;details-of-the-tasks&#34;&gt;Details of the tasks&lt;/h3&gt;
 

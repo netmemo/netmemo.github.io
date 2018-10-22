@@ -18,7 +18,7 @@
       <pubDate>Fri, 05 Oct 2018 23:59:19 +0200</pubDate>
       
       <guid>https://netmemo.github.io/post/k8s-on-vms-with-calico/</guid>
-      <description>Updated
+      <description>Updated2
 This post is a memo on how I did the installtion of Kubernetes and Calico on VMs. It&amp;rsquo;s not some best pactrices in anyway.
 I&amp;rsquo;ve chose VM because I didn&amp;rsquo;t want to depend on any Cloud infrastructure. I&amp;rsquo;ve also wanted to understand the network interaction between K8s parts from an infrastructure point of view.
 Prerequisite : know how to create VMs on any hypervisors
