@@ -12,13 +12,13 @@
     
     <item>
       <title>Core Linux Netmemo</title>
-      <link>https://netmemo.github.io/post/corelinuxnetmemo/</link>
+      <link>https://netmemo.github.io/post/corelinux-netmemo/</link>
       <pubDate>Mon, 22 Oct 2018 15:35:55 +0200</pubDate>
       
-      <guid>https://netmemo.github.io/post/corelinuxnetmemo/</guid>
-      <description>&lt;p&gt;Below is a very light virtual machine based on Core Linux (TinyCore) 26Mo with network tools like iperf3, tcpdump, net-bridging, iproute2&lt;/p&gt;
+      <guid>https://netmemo.github.io/post/corelinux-netmemo/</guid>
+      <description>&lt;p&gt;Below is a very light virtual machine based on Core Linux (TinyCore) 26 Mo with network tools like iperf3, tcpdump, net-bridging, iproute2&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;CoreLinux1.2.ova&#34; target=&#34;_blank&#34;&gt;CoreLinux1.2.ova&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;CoreLinux1.3.ova&#34; target=&#34;_blank&#34;&gt;CoreLinux1.3.ova&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
