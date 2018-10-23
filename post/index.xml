@@ -18,8 +18,9 @@
       <pubDate>Mon, 22 Oct 2018 15:35:55 +0200</pubDate>
       
       <guid>https://netmemo.github.io/post/corelinuxnetmemo/</guid>
-      <description>Below is a very light virtual machine based on Core Linux (TinyCore) 26 Mo with network tools like iperf3, tcpdump, net-bridging, iproute2
-corelinux1.3.ova</description>
+      <description>Below is a very light virtual machine based on Core Linux kernel 4.8 (TinyCore) 26 Mo with network tools like iperf3, tcpdump, net-bridging, iproute2, busybox (httpd), nmap, openssh.
+corelinux1.4.ova
+basic commands/directory /etc/sysconfig/tcedir/optional =&amp;gt; packages /etc/sysconfig/tcedir/onboot.list =&amp;gt; on boot package to be loaded  sudo vi /opt/eth0.sh =&amp;gt; change interfaces parameters #configure an interface pkill udhcp =&amp;gt; stop dhcp for this interface ifconfig eth1 10.253.106.2 netmask 255.255.255.192 up route add default gw 10.</description>
     </item>
     
     <item>

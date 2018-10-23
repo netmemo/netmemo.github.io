@@ -16,9 +16,31 @@
       <pubDate>Mon, 22 Oct 2018 15:35:55 +0200</pubDate>
       
       <guid>https://netmemo.github.io/post/corelinuxnetmemo/</guid>
-      <description>&lt;p&gt;Below is a very light virtual machine based on Core Linux (TinyCore) 26 Mo with network tools like iperf3, tcpdump, net-bridging, iproute2&lt;/p&gt;
+      <description>
 
-&lt;p&gt;&lt;a href=&#34;corelinux1.3.ova&#34; target=&#34;_blank&#34;&gt;corelinux1.3.ova&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Below is a very light virtual machine based on Core Linux kernel 4.8 (TinyCore) 26 Mo with network tools like iperf3, tcpdump, net-bridging, iproute2, busybox (httpd), nmap, openssh.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;corelinux1.4.ova&#34; target=&#34;_blank&#34;&gt;corelinux1.4.ova&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;basic-commands-directory&#34;&gt;basic commands/directory&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;/etc/sysconfig/tcedir/optional =&amp;gt; packages
+/etc/sysconfig/tcedir/onboot.list =&amp;gt; on boot package to be loaded
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo vi /opt/eth0.sh =&amp;gt; change interfaces parameters
+#configure an interface
+pkill udhcp =&amp;gt; stop dhcp for this interface
+ifconfig eth1 10.253.106.2 netmask 255.255.255.192 up
+route add default gw 10.253.106.1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;filetool.sh -b =&amp;gt; save the configuration changes
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;vi /opt/hostnameAuto.sh =&amp;gt; change the hostname
+vi /opt/bootlocal.sh =&amp;gt; the script that is executed after the device has booted.
+&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     
