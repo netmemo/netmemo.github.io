@@ -15,9 +15,9 @@
   
     
   
-  <meta name="description" content="Below is a very light virtual machine based on Core Linux kernel 4.8 (TinyCore) 26 Mo with network tools like iperf3, tcpdump, net-bridging, iproute2, busybox (httpd), nmap, openssh.
-corelinux1.4.ova
-basic commands/directory /etc/sysconfig/tcedir/optional =&gt; packages /etc/sysconfig/tcedir/onboot.list =&gt; on boot package to be loaded  sudo vi /opt/eth0.sh =&gt; change interfaces parameters #configure an interface pkill udhcp =&gt; stop dhcp for this interface ifconfig eth1 10.253.106.2 netmask 255.255.255.192 up route add default gw 10.">
+  <meta name="description" content="Below is a very light virtual machine based on Core Linux kernel 4.8 (TinyCore) 26 Mo with network tools like iperf3, tcpdump, net-bridging, iproute2, busybox (httpd), tcpreplay, nmap, openssh.
+corelinux1.5.ova
+basic commands/directory /etc/sysconfig/tcedir/optional =&gt; packages /etc/sysconfig/tcedir/onboot.lst =&gt; on boot package to be loaded  sudo vi /opt/eth0.sh =&gt; change interfaces parameters #configure an interface pkill udhcp =&gt; stop dhcp for this interface ifconfig eth1 10.253.106.2 netmask 255.255.255.192 up route add default gw 10.">
 
   
   <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/post/corelinuxnetmemo/">
@@ -95,9 +95,9 @@ basic commands/directory /etc/sysconfig/tcedir/optional =&gt; packages /etc/sysc
   <meta property="og:site_name" content="netmemo.github.io">
   <meta property="og:url" content="https://netmemo.github.io/post/corelinuxnetmemo/">
   <meta property="og:title" content="Core Linux Netmemo | netmemo.github.io">
-  <meta property="og:description" content="Below is a very light virtual machine based on Core Linux kernel 4.8 (TinyCore) 26 Mo with network tools like iperf3, tcpdump, net-bridging, iproute2, busybox (httpd), nmap, openssh.
-corelinux1.4.ova
-basic commands/directory /etc/sysconfig/tcedir/optional =&gt; packages /etc/sysconfig/tcedir/onboot.list =&gt; on boot package to be loaded  sudo vi /opt/eth0.sh =&gt; change interfaces parameters #configure an interface pkill udhcp =&gt; stop dhcp for this interface ifconfig eth1 10.253.106.2 netmask 255.255.255.192 up route add default gw 10.">
+  <meta property="og:description" content="Below is a very light virtual machine based on Core Linux kernel 4.8 (TinyCore) 26 Mo with network tools like iperf3, tcpdump, net-bridging, iproute2, busybox (httpd), tcpreplay, nmap, openssh.
+corelinux1.5.ova
+basic commands/directory /etc/sysconfig/tcedir/optional =&gt; packages /etc/sysconfig/tcedir/onboot.lst =&gt; on boot package to be loaded  sudo vi /opt/eth0.sh =&gt; change interfaces parameters #configure an interface pkill udhcp =&gt; stop dhcp for this interface ifconfig eth1 10.253.106.2 netmask 255.255.255.192 up route add default gw 10.">
   
   
     
@@ -318,14 +318,14 @@ basic commands/directory /etc/sysconfig/tcedir/optional =&gt; packages /etc/sysc
     <div class="article-style" itemprop="articleBody">
       
 
-<p>Below is a very light virtual machine based on Core Linux kernel 4.8 (TinyCore) 26 Mo with network tools like iperf3, tcpdump, net-bridging, iproute2, busybox (httpd), nmap, openssh.</p>
+<p>Below is a very light virtual machine based on Core Linux kernel 4.8 (TinyCore) 26 Mo with network tools like iperf3, tcpdump, net-bridging, iproute2, busybox (httpd), tcpreplay, nmap, openssh.</p>
 
-<p><a href="corelinux1.4.ova" target="_blank">corelinux1.4.ova</a></p>
+<p><a href="corelinux1.5.ova" target="_blank">corelinux1.5.ova</a></p>
 
 <h3 id="basic-commands-directory">basic commands/directory</h3>
 
 <pre><code>/etc/sysconfig/tcedir/optional =&gt; packages
-/etc/sysconfig/tcedir/onboot.list =&gt; on boot package to be loaded
+/etc/sysconfig/tcedir/onboot.lst =&gt; on boot package to be loaded
 </code></pre>
 
 <pre><code>sudo vi /opt/eth0.sh =&gt; change interfaces parameters
