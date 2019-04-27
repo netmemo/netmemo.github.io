@@ -6,10 +6,19 @@
     <description>Recent content in Categories on netmemo.github.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2019</copyright>
+    <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2019. This blog is strictly personnal and opinions expressed here are only mine and doesn&#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author�s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
     
 	<atom:link href="https://netmemo.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>DNS</title>
+      <link>https://netmemo.github.io/categories/dns/</link>
+      <pubDate>Sat, 27 Apr 2019 23:15:03 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/categories/dns/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>cisco</title>
@@ -26,6 +35,15 @@
       <pubDate>Fri, 05 Oct 2018 23:59:19 +0200</pubDate>
       
       <guid>https://netmemo.github.io/categories/container/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>loadbalancing</title>
+      <link>https://netmemo.github.io/categories/loadbalancing/</link>
+      <pubDate>Sat, 27 Apr 2019 23:06:07 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/categories/loadbalancing/</guid>
       <description></description>
     </item>
     

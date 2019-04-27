@@ -6,7 +6,7 @@
     <description>Recent content in container on netmemo.github.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2019</copyright>
+    <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2019. This blog is strictly personnal and opinions expressed here are only mine and doesn&#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author�s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
     <lastBuildDate>Fri, 05 Oct 2018 23:59:19 +0200</lastBuildDate>
     
 	<atom:link href="https://netmemo.github.io/categories/container/index.xml" rel="self" type="application/rss+xml" />
@@ -18,8 +18,7 @@
       <pubDate>Fri, 05 Oct 2018 23:59:19 +0200</pubDate>
       
       <guid>https://netmemo.github.io/post/k8s-on-vms-with-calico/</guid>
-      <description>Updated2
-This post is a memo on how I did the installtion of Kubernetes and Calico on VMs. It&amp;rsquo;s not some best pactrices in anyway.
+      <description>This post is a memo on how I did the installtion of Kubernetes and Calico on VMs. It&amp;rsquo;s not some best pactrices in anyway.
 I&amp;rsquo;ve chose VM because I didn&amp;rsquo;t want to depend on any Cloud infrastructure. I&amp;rsquo;ve also wanted to understand the network interaction between K8s parts from an infrastructure point of view.
 Prerequisite : know how to create VMs on any hypervisors
 Steps to deploy K8s :  Install 1 ubuntu router with 3 interfaces.</description>

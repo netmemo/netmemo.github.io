@@ -231,6 +231,256 @@
 
   <span class="article-date">
     
+    <meta content="2019-04-27 23:15:03 &#43;0200 CEST" itemprop="datePublished">
+    <time datetime="2019-04-27 23:15:03 &#43;0200 CEST" itemprop="dateModified">
+      Apr 27, 2019
+    </time>
+  </span>
+  <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Noel">
+  </span>
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    1 min read
+  </span>
+  
+
+  
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder"></i>
+    
+    <a href="/categories/dns/">DNS</a>
+    
+  </span>
+  
+  
+
+  
+
+</div>
+
+
+  
+  
+  <h3 class="article-title" itemprop="headline">
+    <a href="/post/dns-ttl-cascade/" itemprop="url">Dns Ttl Cascade</a>
+  </h3>
+  <div class="article-style" itemprop="articleBody">
+    
+    <p>At every layer, local cache of servers can override the configured TTL even if the TTL override is breaking the RFC</p>
+
+<p>Cascade of DNS TTL of the wrong information make the information last longer in caches.</p>
+
+<p><img src="DNSNetmemo-TTLCascade-v2.3.png" alt="DNS, TTL Cascade" /></p>
+
+    
+  </div>
+  <p class="read-more" itemprop="mainEntityOfPage">
+    <a href="/post/dns-ttl-cascade/" class="btn btn-outline-primary my-1">
+      CONTINUE READING
+    </a>
+  </p>
+</div>
+
+    
+  
+    
+    
+      
+
+<div class="card-simple" itemscope itemprop="blogPost" itemtype="http://schema.org/BlogPosting">
+  
+
+<div class="article-metadata">
+
+  
+  
+  
+  <div>
+    
+    <span itemscope itemprop="author" itemtype="http://schema.org/Person">
+      <span itemprop="name">Noel</span>
+    </span>
+    
+  </div>
+  
+
+  <span class="article-date">
+    
+    <meta content="2019-04-27 23:06:07 &#43;0200 CEST" itemprop="datePublished">
+    <time datetime="2019-04-27 23:06:07 &#43;0200 CEST" itemprop="dateModified">
+      Apr 27, 2019
+    </time>
+  </span>
+  <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Noel">
+  </span>
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    2 min read
+  </span>
+  
+
+  
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder"></i>
+    
+    <a href="/categories/dns/">DNS</a>, 
+    
+    <a href="/categories/loadbalancing/">loadbalancing</a>
+    
+  </span>
+  
+  
+
+  
+
+</div>
+
+
+  
+  
+  <h3 class="article-title" itemprop="headline">
+    <a href="/post/dns-outage/" itemprop="url">Dns Outage</a>
+  </h3>
+  <div class="article-style" itemprop="articleBody">
+    
+    For a short A entry TTL Does the resolver keep the 2 GTM IPs and query the second if the first doesn�t reply ? I think so and then I need to change my explaination.
+Client keep using A until TTL has expired. If A is 30 second and outage occure just after the DNS request for A, the outage last 30 seconds.
+Then the client ask the resolver who might query the GTM NS IP of the broken site, wait for the DNS query timeout then query the working GTM NS that will return the working A entry.
+    
+  </div>
+  <p class="read-more" itemprop="mainEntityOfPage">
+    <a href="/post/dns-outage/" class="btn btn-outline-primary my-1">
+      CONTINUE READING
+    </a>
+  </p>
+</div>
+
+    
+  
+    
+    
+      
+
+<div class="card-simple" itemscope itemprop="blogPost" itemtype="http://schema.org/BlogPosting">
+  
+
+<div class="article-metadata">
+
+  
+  
+  
+  <div>
+    
+    <span itemscope itemprop="author" itemtype="http://schema.org/Person">
+      <span itemprop="name">Noel</span>
+    </span>
+    
+  </div>
+  
+
+  <span class="article-date">
+    
+    <meta content="2019-04-27 22:20:48 &#43;0200 CEST" itemprop="datePublished">
+    <time datetime="2019-04-27 22:20:48 &#43;0200 CEST" itemprop="dateModified">
+      Apr 27, 2019
+    </time>
+  </span>
+  <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Noel">
+  </span>
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    2 min read
+  </span>
+  
+
+  
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder"></i>
+    
+    <a href="/categories/dns/">DNS</a>, 
+    
+    <a href="/categories/loadbalancing/">loadbalancing</a>
+    
+  </span>
+  
+  
+
+  
+
+</div>
+
+
+  
+  
+  <h3 class="article-title" itemprop="headline">
+    <a href="/post/dns-one-design/" itemprop="url">One of possible DNS Design</a>
+  </h3>
+  <div class="article-style" itemprop="articleBody">
+    
+    DNS Steps to resolve a web site url in IP : The following step are when nothing is yet caches in any servers. This use case is for a recusive DNS resolver.
+ The user try to access www.toto.com from his browser. His computer send the DNS query 53 to the system configured DNS Resolver. For instance 9.9.9.9 (quad9).
+ The recursive (not iterative) DNS resolver send the DNS query to one of the 13 root servers to know how to resovle .
+    
+  </div>
+  <p class="read-more" itemprop="mainEntityOfPage">
+    <a href="/post/dns-one-design/" class="btn btn-outline-primary my-1">
+      CONTINUE READING
+    </a>
+  </p>
+</div>
+
+    
+  
+    
+    
+      
+
+<div class="card-simple" itemscope itemprop="blogPost" itemtype="http://schema.org/BlogPosting">
+  
+
+<div class="article-metadata">
+
+  
+  
+  
+  <div>
+    
+    <span itemscope itemprop="author" itemtype="http://schema.org/Person">
+      <span itemprop="name">Noel</span>
+    </span>
+    
+  </div>
+  
+
+  <span class="article-date">
+    
     <meta content="2018-10-22 15:35:55 &#43;0200 CEST" itemprop="datePublished">
     <time datetime="2018-10-22 15:35:55 &#43;0200 CEST" itemprop="dateModified">
       Oct 22, 2018
@@ -356,8 +606,7 @@ basic commands/directory /etc/sysconfig/tcedir/optional =&gt; packages /etc/sysc
   </h3>
   <div class="article-style" itemprop="articleBody">
     
-    Updated2
-This post is a memo on how I did the installtion of Kubernetes and Calico on VMs. It&rsquo;s not some best pactrices in anyway.
+    This post is a memo on how I did the installtion of Kubernetes and Calico on VMs. It&rsquo;s not some best pactrices in anyway.
 I&rsquo;ve chose VM because I didn&rsquo;t want to depend on any Cloud infrastructure. I&rsquo;ve also wanted to understand the network interaction between K8s parts from an infrastructure point of view.
 Prerequisite : know how to create VMs on any hypervisors
 Steps to deploy K8s :  Install 1 ubuntu router with 3 interfaces.
@@ -552,7 +801,7 @@ kubectl delete deployment nginx-deployment-nbo  To get the logs of a specific co
   
 
   <p class="powered-by">
-    No&euml;l Boul&egrave;ne &copy; 2019 &middot; 
+    No&euml;l Boul&egrave;ne &copy; 2019. This blog is strictly personnal and opinions expressed here are only mine and doesn&rsquo;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author�s professional integrity) that any statement contained in a post is true, correct or precise. &middot; 
 
     Powered by the
     <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for

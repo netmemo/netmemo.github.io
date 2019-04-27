@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>loadbalancer on netmemo.github.io</title>
+    <link>https://netmemo.github.io/tags/loadbalancer/</link>
+    <description>Recent content in loadbalancer on netmemo.github.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2019. This blog is strictly personnal and opinions expressed here are only mine and doesn&#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author�s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
+    <lastBuildDate>Sat, 27 Apr 2019 23:06:07 +0200</lastBuildDate>
+    
+	<atom:link href="https://netmemo.github.io/tags/loadbalancer/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Dns Outage</title>
+      <link>https://netmemo.github.io/post/dns-outage/</link>
+      <pubDate>Sat, 27 Apr 2019 23:06:07 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/dns-outage/</guid>
+      <description>For a short A entry TTL Does the resolver keep the 2 GTM IPs and query the second if the first doesn�t reply ? I think so and then I need to change my explaination.
+Client keep using A until TTL has expired. If A is 30 second and outage occure just after the DNS request for A, the outage last 30 seconds.
+Then the client ask the resolver who might query the GTM NS IP of the broken site, wait for the DNS query timeout then query the working GTM NS that will return the working A entry.</description>
+    </item>
+    
+    <item>
+      <title>One of possible DNS Design</title>
+      <link>https://netmemo.github.io/post/dns-one-design/</link>
+      <pubDate>Sat, 27 Apr 2019 22:20:48 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/dns-one-design/</guid>
+      <description>DNS Steps to resolve a web site url in IP : The following step are when nothing is yet caches in any servers. This use case is for a recusive DNS resolver.
+ The user try to access www.toto.com from his browser. His computer send the DNS query 53 to the system configured DNS Resolver. For instance 9.9.9.9 (quad9).
+ The recursive (not iterative) DNS resolver send the DNS query to one of the 13 root servers to know how to resovle .</description>
+    </item>
+    
+  </channel>
+</rss>
