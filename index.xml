@@ -18,7 +18,7 @@
       <guid>https://netmemo.github.io/post/dns-ttl-cascade/</guid>
       <description>&lt;p&gt;At every layer, local cache of servers can override the configured TTL even if the TTL override is breaking the RFC&lt;/p&gt;
 
-&lt;p&gt;Cascade of DNS TTL of the wrong information make the information last longer in caches.&lt;/p&gt;
+&lt;p&gt;Cascade of DNS TTL of the wrong information make the information last longer in caches .&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;DNSNetmemo-TTLCascade-v2.3.png&#34; alt=&#34;DNS, TTL Cascade&#34; /&gt;&lt;/p&gt;
 </description>

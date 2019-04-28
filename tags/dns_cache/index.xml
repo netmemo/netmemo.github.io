@@ -19,7 +19,7 @@
       
       <guid>https://netmemo.github.io/post/dns-ttl-cascade/</guid>
       <description>At every layer, local cache of servers can override the configured TTL even if the TTL override is breaking the RFC
-Cascade of DNS TTL of the wrong information make the information last longer in caches.</description>
+Cascade of DNS TTL of the wrong information make the information last longer in caches .</description>
     </item>
     
   </channel>
