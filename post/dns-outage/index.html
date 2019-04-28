@@ -15,9 +15,8 @@
   
     
   
-  <meta name="description" content="For a short A entry TTL Does the resolver keep the 2 GTM IPs and query the second if the first doesnï¿½t reply ? I think so and then I need to change my explaination.
-Client keep using A until TTL has expired. If A is 30 second and outage occure just after the DNS request for A, the outage last 30 seconds.
-Then the client ask the resolver who might query the GTM NS IP of the broken site, wait for the DNS query timeout then query the working GTM NS that will return the working A entry.">
+  <meta name="description" content="For a short A record TTL Client keep using A until TTL has expired. If A is 30 second and outage occure just after the DNS request for A record, the outage last 30 seconds.
+Wen A has expired, the client browser query the resolver who might query the GSLB NS of the broken site, wait for the DNS query timeout then query the working GSLB NS that will return the working A record.">
 
   
   <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/post/dns-outage/">
@@ -95,9 +94,8 @@ Then the client ask the resolver who might query the GTM NS IP of the broken sit
   <meta property="og:site_name" content="netmemo.github.io">
   <meta property="og:url" content="https://netmemo.github.io/post/dns-outage/">
   <meta property="og:title" content="Dns Outage | netmemo.github.io">
-  <meta property="og:description" content="For a short A entry TTL Does the resolver keep the 2 GTM IPs and query the second if the first doesnï¿½t reply ? I think so and then I need to change my explaination.
-Client keep using A until TTL has expired. If A is 30 second and outage occure just after the DNS request for A, the outage last 30 seconds.
-Then the client ask the resolver who might query the GTM NS IP of the broken site, wait for the DNS query timeout then query the working GTM NS that will return the working A entry.">
+  <meta property="og:description" content="For a short A record TTL Client keep using A until TTL has expired. If A is 30 second and outage occure just after the DNS request for A record, the outage last 30 seconds.
+Wen A has expired, the client browser query the resolver who might query the GSLB NS of the broken site, wait for the DNS query timeout then query the working GSLB NS that will return the working A record.">
   
   
     
@@ -322,26 +320,30 @@ Then the client ask the resolver who might query the GTM NS IP of the broken sit
 
 <p><img src="DNSNetmemo-Outage-v2.3.png" alt="DNS, outage behavior" /></p>
 
-<h3 id="for-a-short-a-entry-ttl">For a short A entry TTL</h3>
+<h3 id="for-a-short-a-record-ttl">For a short A record TTL</h3>
 
-<p>Does the resolver keep the 2 GTM IPs and query the second if the first doesn’t reply ? I think so and then I need to change my explaination.</p>
+<p>Client keep using A until TTL has expired. If A is 30 second and outage occure just after the DNS request for A record, the outage last 30 seconds.</p>
 
-<p>Client keep using A until TTL has expired. If A is 30 second and outage occure just after the DNS request for A, the outage last 30 seconds.</p>
+<p>Wen A has expired, the client browser query the resolver who might query the GSLB NS of the broken site, wait for the DNS query timeout then query the working GSLB NS that will return the working A record.
+As the A TTL is short, the client might experience lots of DNS query timeout (every 30seconds when it will query for the A record to the broken GSLB NS) that might impact the browsing experience and slow it down.</p>
 
-<p>Then the client ask the resolver who might query the GTM NS IP of the broken site, wait for the DNS query timeout then query the working GTM NS that will return the working A entry.
-As the A TTL is short, the client might experience lot of DNS query timeout that might impact the browsing experience and slow it down.</p>
+<h3 id="for-a-longer-a-record-ttl">For a longer A record TTL</h3>
 
-<h3 id="for-a-long-a-entry-ttl">For a long A entry TTL</h3>
+<p>Client keep using A until TTL has expired. If A is 10mn and outage occure just after the DNS request for A, the outage last 10mn.</p>
 
-<p>Client keep using A until TTL has expired. If A is 5 mn and outage occure just after the DNS request for A, the outage last 5mn.</p>
+<p>When A has expired, the client browser query the resolver who might query the GSLB NS of the broken site for the A record, wait for the DNS query timeout then query the working GSLB NS that will return the working A record.
+As the A TTL is long, the initial outage might be up to 10mn but the subsequents DNS request will experience less DNS request timeout toward the broken GSLB IPs. After the potential initial 10mn outage, the browsing experience under GSLB failure might be slightly better. In the end, the GSLB will have less DNS request to handle even during normal operation.</p>
 
-<p>Then the client ask the resolver who might query the GTM NS IP of the broken site for the A entry, wait for the DNS query timeout then query the working GTM NS that will return the working A entry.
-As the A TTL is long, the initial outage might be up to 5mn be the subsequent DNS request will experience less DNS request timeout toward the broken GTM IPs. The browsing experience under outage might be slightly better. In the end, the GTM will have less DNS request even on normal operation.</p>
+<blockquote>
+<p><sub>
+1. This blog was mostly inspired from <a href="https://www.cloudflare.com/learning/dns/dns-server-types/" target="_blank">https://www.cloudflare.com/learning/dns/dns-server-types/
+</a>&gt;
+</sub></p>
 
-<p>This blog was mostly inspired from <a href="https://www.cloudflare.com/learning/dns/dns-server-types/" target="_blank">https://www.cloudflare.com/learning/dns/dns-server-types/
-</a></p>
-
-<p>This link might help regarding the TTL <a href="https://www.bortzmeyer.org/forcer-ttl.html" target="_blank">https://www.bortzmeyer.org/forcer-ttl.html</a></p>
+<p><sub>
+2. This link might help regarding the TTL <a href="https://www.bortzmeyer.org/forcer-ttl.html" target="_blank">https://www.bortzmeyer.org/forcer-ttl.html</a>
+</sub></p>
+</blockquote>
 
     </div>
 
@@ -395,7 +397,7 @@ As the A TTL is long, the initial outage might be up to 5mn be the subsequent DN
   
 
   <p class="powered-by">
-    No&euml;l Boul&egrave;ne &copy; 2019. This blog is strictly personnal and opinions expressed here are only mine and doesn&rsquo;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from authorï¿½s professional integrity) that any statement contained in a post is true, correct or precise. &middot; 
+    No&euml;l Boul&egrave;ne &copy; 2019. This blog is strictly personnal and opinions expressed here are only mine and doesn&#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from authorï¿½s professional integrity) that any statement contained in a post is true, correct or precise. &middot; 
 
     Powered by the
     <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for

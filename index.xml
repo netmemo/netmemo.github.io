@@ -6,7 +6,7 @@
     <description>Recent content in netmemo.github.io on netmemo.github.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2019. This blog is strictly personnal and opinions expressed here are only mine and doesn&#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from authorï¿½s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
+    <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2019. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from authorï¿½s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
     <lastBuildDate>Sun, 15 Oct 2017 00:00:00 +0200</lastBuildDate>
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
@@ -34,26 +34,30 @@
 
 &lt;p&gt;&lt;img src=&#34;DNSNetmemo-Outage-v2.3.png&#34; alt=&#34;DNS, outage behavior&#34; /&gt;&lt;/p&gt;
 
-&lt;h3 id=&#34;for-a-short-a-entry-ttl&#34;&gt;For a short A entry TTL&lt;/h3&gt;
+&lt;h3 id=&#34;for-a-short-a-record-ttl&#34;&gt;For a short A record TTL&lt;/h3&gt;
 
-&lt;p&gt;Does the resolver keep the 2 GTM IPs and query the second if the first doesn’t reply ? I think so and then I need to change my explaination.&lt;/p&gt;
+&lt;p&gt;Client keep using A until TTL has expired. If A is 30 second and outage occure just after the DNS request for A record, the outage last 30 seconds.&lt;/p&gt;
 
-&lt;p&gt;Client keep using A until TTL has expired. If A is 30 second and outage occure just after the DNS request for A, the outage last 30 seconds.&lt;/p&gt;
+&lt;p&gt;Wen A has expired, the client browser query the resolver who might query the GSLB NS of the broken site, wait for the DNS query timeout then query the working GSLB NS that will return the working A record.
+As the A TTL is short, the client might experience lots of DNS query timeout (every 30seconds when it will query for the A record to the broken GSLB NS) that might impact the browsing experience and slow it down.&lt;/p&gt;
 
-&lt;p&gt;Then the client ask the resolver who might query the GTM NS IP of the broken site, wait for the DNS query timeout then query the working GTM NS that will return the working A entry.
-As the A TTL is short, the client might experience lot of DNS query timeout that might impact the browsing experience and slow it down.&lt;/p&gt;
+&lt;h3 id=&#34;for-a-longer-a-record-ttl&#34;&gt;For a longer A record TTL&lt;/h3&gt;
 
-&lt;h3 id=&#34;for-a-long-a-entry-ttl&#34;&gt;For a long A entry TTL&lt;/h3&gt;
+&lt;p&gt;Client keep using A until TTL has expired. If A is 10mn and outage occure just after the DNS request for A, the outage last 10mn.&lt;/p&gt;
 
-&lt;p&gt;Client keep using A until TTL has expired. If A is 5 mn and outage occure just after the DNS request for A, the outage last 5mn.&lt;/p&gt;
+&lt;p&gt;When A has expired, the client browser query the resolver who might query the GSLB NS of the broken site for the A record, wait for the DNS query timeout then query the working GSLB NS that will return the working A record.
+As the A TTL is long, the initial outage might be up to 10mn but the subsequents DNS request will experience less DNS request timeout toward the broken GSLB IPs. After the potential initial 10mn outage, the browsing experience under GSLB failure might be slightly better. In the end, the GSLB will have less DNS request to handle even during normal operation.&lt;/p&gt;
 
-&lt;p&gt;Then the client ask the resolver who might query the GTM NS IP of the broken site for the A entry, wait for the DNS query timeout then query the working GTM NS that will return the working A entry.
-As the A TTL is long, the initial outage might be up to 5mn be the subsequent DNS request will experience less DNS request timeout toward the broken GTM IPs. The browsing experience under outage might be slightly better. In the end, the GTM will have less DNS request even on normal operation.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;sub&gt;
+1. This blog was mostly inspired from &lt;a href=&#34;https://www.cloudflare.com/learning/dns/dns-server-types/&#34; target=&#34;_blank&#34;&gt;https://www.cloudflare.com/learning/dns/dns-server-types/
+&lt;/a&gt;&amp;gt;
+&lt;/sub&gt;&lt;/p&gt;
 
-&lt;p&gt;This blog was mostly inspired from &lt;a href=&#34;https://www.cloudflare.com/learning/dns/dns-server-types/&#34; target=&#34;_blank&#34;&gt;https://www.cloudflare.com/learning/dns/dns-server-types/
-&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;This link might help regarding the TTL &lt;a href=&#34;https://www.bortzmeyer.org/forcer-ttl.html&#34; target=&#34;_blank&#34;&gt;https://www.bortzmeyer.org/forcer-ttl.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;sub&gt;
+2. This link might help regarding the TTL &lt;a href=&#34;https://www.bortzmeyer.org/forcer-ttl.html&#34; target=&#34;_blank&#34;&gt;https://www.bortzmeyer.org/forcer-ttl.html&lt;/a&gt;
+&lt;/sub&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 </description>
     </item>
     
@@ -69,36 +73,42 @@ As the A TTL is long, the initial outage might be up to 5mn be the subsequent DN
 
 &lt;h3 id=&#34;dns-steps-to-resolve-a-web-site-url-in-ip&#34;&gt;DNS Steps to resolve a web site url in IP :&lt;/h3&gt;
 
-&lt;p&gt;The following step are when nothing is yet caches in any servers. This use case is for a recusive DNS resolver.&lt;/p&gt;
+&lt;p&gt;The following steps are when nothing is yet cached in any servers. This use case is for a recusive DNS resolver.&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;&lt;p&gt;The user try to access www.toto.com from his browser. His computer send the DNS query 53 to the system configured DNS Resolver. For instance 9.9.9.9 (quad9).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The user try to access www.toto.com from his browser. His computer send the DNS query to the system&amp;#39;s configured DNS Resolver. For instance 9.9.9.9 (quad9).&lt;/p&gt;&lt;/li&gt;
 
-&lt;li&gt;&lt;p&gt;The recursive (not iterative) DNS resolver send the DNS query to one of the 13 root servers to know how to resovle .com. The root servers are know by default by all resolvers.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The recursive (not iterative) DNS resolver send the DNS query to one of the 13 root servers to know how to resovle &amp;ldquo;.com&amp;rdquo; The root servers are know by default by all resolvers.&lt;/p&gt;&lt;/li&gt;
 
-&lt;li&gt;&lt;p&gt;The root server answer with a referral to the TLD server for .com&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The root server answer with a referral to the TLD server for &amp;ldquo;.com&amp;rdquo;&lt;/p&gt;&lt;/li&gt;
 
-&lt;li&gt;&lt;p&gt;The DNS resolver query the TLD who is in charge for resolving toto.com&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The DNS resolver query the TLD to know who is in charge for resolving &amp;ldquo;toto.com&amp;rdquo;&lt;/p&gt;&lt;/li&gt;
 
-&lt;li&gt;&lt;p&gt;The TLD server answer with both glue record configured by the website owner through the registrar portal.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The TLD server answer with the glue records configured by the website owner through the registrar portal.&lt;/p&gt;&lt;/li&gt;
 
-&lt;li&gt;&lt;p&gt;The DNS resolver query Authoritative DNS server of the company for the IP address of www.toto.com&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The DNS resolver query Authoritative DNS server of the company for the IP address of &amp;ldquo;www.toto.com&amp;rdquo;&lt;/p&gt;&lt;/li&gt;
 
-&lt;li&gt;&lt;p&gt;The Authoritative DNS Server of the company answer with a CNAME of www.gslb.toto.com and the IP address of the GSLB NS in charge of the site.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The Authoritative DNS Server of the company answer with a CNAME of www.gslb.toto.com and the IP address of the GSLB NS in charge of the web site.&lt;/p&gt;&lt;/li&gt;
 
-&lt;li&gt;&lt;p&gt;The resolver query the GSLB to have the IP address of www.gslb.toto.com&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The resolver query the GSLB to have the IP address of &amp;ldquo;www.gslb.toto.com&amp;rdquo;&lt;/p&gt;&lt;/li&gt;
 
-&lt;li&gt;&lt;p&gt;The GSLB answer with the IP address of the loadbalancer in charge of the IP address of the site.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The GSLB answer with the IP address of the loadbalancer in charge of the IP address of the web site.&lt;/p&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;The DNS Resolver forward the answer to the user.&lt;/p&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;The user web browser can directly access the IP address of the web site.&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;This blog was mostly inspired from &lt;a href=&#34;https://www.cloudflare.com/learning/dns/dns-server-types/&#34; target=&#34;_blank&#34;&gt;https://www.cloudflare.com/learning/dns/dns-server-types/
-&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;sub&gt;
+1. This blog was mostly inspired from &lt;a href=&#34;https://www.cloudflare.com/learning/dns/dns-server-types/&#34; target=&#34;_blank&#34;&gt;https://www.cloudflare.com/learning/dns/dns-server-types/
+&lt;/a&gt;&amp;gt;
+&lt;/sub&gt;&lt;/p&gt;
 
-&lt;p&gt;This link might help regarding the TTL &lt;a href=&#34;https://www.bortzmeyer.org/forcer-ttl.html&#34; target=&#34;_blank&#34;&gt;https://www.bortzmeyer.org/forcer-ttl.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;sub&gt;
+2. This link might help regarding the TTL &lt;a href=&#34;https://www.bortzmeyer.org/forcer-ttl.html&#34; target=&#34;_blank&#34;&gt;https://www.bortzmeyer.org/forcer-ttl.html&lt;/a&gt;
+&lt;/sub&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 </description>
     </item>
     

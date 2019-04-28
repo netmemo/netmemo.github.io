@@ -6,7 +6,7 @@
     <description>Recent content in DNS on netmemo.github.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2019. This blog is strictly personnal and opinions expressed here are only mine and doesn&#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author�s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
+    <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2019. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author�s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
     <lastBuildDate>Sat, 27 Apr 2019 23:15:03 +0200</lastBuildDate>
     
 	<atom:link href="https://netmemo.github.io/tags/dns/index.xml" rel="self" type="application/rss+xml" />
@@ -28,9 +28,8 @@ Cascade of DNS TTL of the wrong information make the information last longer in 
       <pubDate>Sat, 27 Apr 2019 23:06:07 +0200</pubDate>
       
       <guid>https://netmemo.github.io/post/dns-outage/</guid>
-      <description>For a short A entry TTL Does the resolver keep the 2 GTM IPs and query the second if the first doesn�t reply ? I think so and then I need to change my explaination.
-Client keep using A until TTL has expired. If A is 30 second and outage occure just after the DNS request for A, the outage last 30 seconds.
-Then the client ask the resolver who might query the GTM NS IP of the broken site, wait for the DNS query timeout then query the working GTM NS that will return the working A entry.</description>
+      <description>For a short A record TTL Client keep using A until TTL has expired. If A is 30 second and outage occure just after the DNS request for A record, the outage last 30 seconds.
+Wen A has expired, the client browser query the resolver who might query the GSLB NS of the broken site, wait for the DNS query timeout then query the working GSLB NS that will return the working A record.</description>
     </item>
     
     <item>
@@ -39,9 +38,9 @@ Then the client ask the resolver who might query the GTM NS IP of the broken sit
       <pubDate>Sat, 27 Apr 2019 22:20:48 +0200</pubDate>
       
       <guid>https://netmemo.github.io/post/dns-one-design/</guid>
-      <description>DNS Steps to resolve a web site url in IP : The following step are when nothing is yet caches in any servers. This use case is for a recusive DNS resolver.
- The user try to access www.toto.com from his browser. His computer send the DNS query 53 to the system configured DNS Resolver. For instance 9.9.9.9 (quad9).
- The recursive (not iterative) DNS resolver send the DNS query to one of the 13 root servers to know how to resovle .</description>
+      <description>DNS Steps to resolve a web site url in IP : The following steps are when nothing is yet cached in any servers. This use case is for a recusive DNS resolver.
+ The user try to access www.toto.com from his browser. His computer send the DNS query to the system&amp;#39;s configured DNS Resolver. For instance 9.9.9.9 (quad9).
+ The recursive (not iterative) DNS resolver send the DNS query to one of the 13 root servers to know how to resovle &amp;ldquo;.</description>
     </item>
     
   </channel>
