@@ -13,7 +13,7 @@
     
     
     <item>
-      <title>Dns Ttl Cascade</title>
+      <title>Dns Ttl Cascade (Work in progress)</title>
       <link>https://netmemo.github.io/post/dns-ttl-cascade/</link>
       <pubDate>Sat, 27 Apr 2019 23:15:03 +0200</pubDate>
       
@@ -23,7 +23,7 @@ Cascade of DNS TTL of the wrong information make the information last longer in 
     </item>
     
     <item>
-      <title>Dns Outage</title>
+      <title>Dns Outage (Work in progress)</title>
       <link>https://netmemo.github.io/post/dns-outage/</link>
       <pubDate>Sat, 27 Apr 2019 23:06:07 +0200</pubDate>
       
@@ -33,14 +33,13 @@ Wen A has expired, the client browser query the resolver who might query the GSL
     </item>
     
     <item>
-      <title>One of possible DNS Design</title>
+      <title>One of many possible DNS Design (Work in progress)</title>
       <link>https://netmemo.github.io/post/dns-one-design/</link>
       <pubDate>Sat, 27 Apr 2019 22:20:48 +0200</pubDate>
       
       <guid>https://netmemo.github.io/post/dns-one-design/</guid>
-      <description>DNS Steps to resolve a web site url in IP : The following steps are when nothing is yet cached in any servers. This use case is for a recusive DNS resolver.
- The user try to access www.toto.com from his browser. His computer send the DNS query to the system&amp;#39;s configured DNS Resolver. For instance 9.9.9.9 (quad9).
- The recursive (not iterative) DNS resolver send the DNS query to one of the 13 root servers to know how to resovle &amp;ldquo;.</description>
+      <description>DNS Steps to resolve a web site url in IP : !! The CNAME is normally not allowed at the apex, so I need to find another way) !! The following steps are when nothing is yet cached in any servers. This use case is for a recusive DNS resolver.
+ The user try to access www.toto.com from his browser. His computer send the DNS query to the system&amp;#39;s configured DNS Resolver.</description>
     </item>
     
     <item>

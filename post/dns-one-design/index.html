@@ -15,9 +15,8 @@
   
     
   
-  <meta name="description" content="DNS Steps to resolve a web site url in IP : The following steps are when nothing is yet cached in any servers. This use case is for a recusive DNS resolver.
- The user try to access www.toto.com from his browser. His computer send the DNS query to the system&#39;s configured DNS Resolver. For instance 9.9.9.9 (quad9).
- The recursive (not iterative) DNS resolver send the DNS query to one of the 13 root servers to know how to resovle &ldquo;.">
+  <meta name="description" content="DNS Steps to resolve a web site url in IP : !! The CNAME is normally not allowed at the apex, so I need to find another way) !! The following steps are when nothing is yet cached in any servers. This use case is for a recusive DNS resolver.
+ The user try to access www.toto.com from his browser. His computer send the DNS query to the system&#39;s configured DNS Resolver.">
 
   
   <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/post/dns-one-design/">
@@ -94,10 +93,9 @@
   
   <meta property="og:site_name" content="netmemo.github.io">
   <meta property="og:url" content="https://netmemo.github.io/post/dns-one-design/">
-  <meta property="og:title" content="One of possible DNS Design | netmemo.github.io">
-  <meta property="og:description" content="DNS Steps to resolve a web site url in IP : The following steps are when nothing is yet cached in any servers. This use case is for a recusive DNS resolver.
- The user try to access www.toto.com from his browser. His computer send the DNS query to the system&#39;s configured DNS Resolver. For instance 9.9.9.9 (quad9).
- The recursive (not iterative) DNS resolver send the DNS query to one of the 13 root servers to know how to resovle &ldquo;.">
+  <meta property="og:title" content="One of many possible DNS Design (Work in progress) | netmemo.github.io">
+  <meta property="og:description" content="DNS Steps to resolve a web site url in IP : !! The CNAME is normally not allowed at the apex, so I need to find another way) !! The following steps are when nothing is yet cached in any servers. This use case is for a recusive DNS resolver.
+ The user try to access www.toto.com from his browser. His computer send the DNS query to the system&#39;s configured DNS Resolver.">
   
   
     
@@ -113,7 +111,7 @@
 
   
 
-  <title>One of possible DNS Design | netmemo.github.io</title>
+  <title>One of many possible DNS Design (Work in progress) | netmemo.github.io</title>
 
 </head>
 <body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" >
@@ -216,7 +214,7 @@
 
 
   <div class="article-container">
-    <h1 itemprop="name">One of possible DNS Design</h1>
+    <h1 itemprop="name">One of many possible DNS Design (Work in progress)</h1>
 
     
 
@@ -276,7 +274,7 @@
   <ul class="share">
     <li>
       <a class="twitter"
-         href="https://twitter.com/intent/tweet?text=One%20of%20possible%20DNS%20Design&amp;url=https%3a%2f%2fnetmemo.github.io%2fpost%2fdns-one-design%2f"
+         href="https://twitter.com/intent/tweet?text=One%20of%20many%20possible%20DNS%20Design%20%28Work%20in%20progress%29&amp;url=https%3a%2f%2fnetmemo.github.io%2fpost%2fdns-one-design%2f"
          target="_blank" rel="noopener">
         <i class="fab fa-twitter"></i>
       </a>
@@ -290,21 +288,21 @@
     </li>
     <li>
       <a class="linkedin"
-         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fnetmemo.github.io%2fpost%2fdns-one-design%2f&amp;title=One%20of%20possible%20DNS%20Design"
+         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fnetmemo.github.io%2fpost%2fdns-one-design%2f&amp;title=One%20of%20many%20possible%20DNS%20Design%20%28Work%20in%20progress%29"
          target="_blank" rel="noopener">
         <i class="fab fa-linkedin-in"></i>
       </a>
     </li>
     <li>
       <a class="weibo"
-         href="http://service.weibo.com/share/share.php?url=https%3a%2f%2fnetmemo.github.io%2fpost%2fdns-one-design%2f&amp;title=One%20of%20possible%20DNS%20Design"
+         href="http://service.weibo.com/share/share.php?url=https%3a%2f%2fnetmemo.github.io%2fpost%2fdns-one-design%2f&amp;title=One%20of%20many%20possible%20DNS%20Design%20%28Work%20in%20progress%29"
          target="_blank" rel="noopener">
         <i class="fab fa-weibo"></i>
       </a>
     </li>
     <li>
       <a class="email"
-         href="mailto:?subject=One%20of%20possible%20DNS%20Design&amp;body=https%3a%2f%2fnetmemo.github.io%2fpost%2fdns-one-design%2f">
+         href="mailto:?subject=One%20of%20many%20possible%20DNS%20Design%20%28Work%20in%20progress%29&amp;body=https%3a%2f%2fnetmemo.github.io%2fpost%2fdns-one-design%2f">
         <i class="fas fa-envelope"></i>
       </a>
     </li>
@@ -320,11 +318,12 @@
     <div class="article-style" itemprop="articleBody">
       
 
-<p><img src="DNSNetmemo-v2.3.png" alt="DNS, one of possible design" /></p>
+<p><img src="DNSNetmemo-v2.3.png" alt="DNS, one of many possible design" /></p>
 
 <h3 id="dns-steps-to-resolve-a-web-site-url-in-ip">DNS Steps to resolve a web site url in IP :</h3>
 
-<p>The following steps are when nothing is yet cached in any servers. This use case is for a recusive DNS resolver.</p>
+<p>!! The CNAME is normally not allowed at the apex, so I need to find another way) !!
+The following steps are when nothing is yet cached in any servers. This use case is for a recusive DNS resolver.</p>
 
 <ol>
 <li><p>The user try to access www.toto.com from his browser. His computer send the DNS query to the system&#39;s configured DNS Resolver. For instance 9.9.9.9 (quad9).</p></li>

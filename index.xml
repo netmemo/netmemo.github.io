@@ -11,7 +11,7 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>Dns Ttl Cascade</title>
+      <title>Dns Ttl Cascade (Work in progress)</title>
       <link>https://netmemo.github.io/post/dns-ttl-cascade/</link>
       <pubDate>Sat, 27 Apr 2019 23:15:03 +0200</pubDate>
       
@@ -25,7 +25,7 @@
     </item>
     
     <item>
-      <title>Dns Outage</title>
+      <title>Dns Outage (Work in progress)</title>
       <link>https://netmemo.github.io/post/dns-outage/</link>
       <pubDate>Sat, 27 Apr 2019 23:06:07 +0200</pubDate>
       
@@ -62,18 +62,19 @@ As the A TTL is long, the initial outage might be up to 10mn but the subsequents
     </item>
     
     <item>
-      <title>One of possible DNS Design</title>
+      <title>One of many possible DNS Design (Work in progress)</title>
       <link>https://netmemo.github.io/post/dns-one-design/</link>
       <pubDate>Sat, 27 Apr 2019 22:20:48 +0200</pubDate>
       
       <guid>https://netmemo.github.io/post/dns-one-design/</guid>
       <description>
 
-&lt;p&gt;&lt;img src=&#34;DNSNetmemo-v2.3.png&#34; alt=&#34;DNS, one of possible design&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;DNSNetmemo-v2.3.png&#34; alt=&#34;DNS, one of many possible design&#34; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;dns-steps-to-resolve-a-web-site-url-in-ip&#34;&gt;DNS Steps to resolve a web site url in IP :&lt;/h3&gt;
 
-&lt;p&gt;The following steps are when nothing is yet cached in any servers. This use case is for a recusive DNS resolver.&lt;/p&gt;
+&lt;p&gt;!! The CNAME is normally not allowed at the apex, so I need to find another way) !!
+The following steps are when nothing is yet cached in any servers. This use case is for a recusive DNS resolver.&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;&lt;p&gt;The user try to access www.toto.com from his browser. His computer send the DNS query to the system&amp;#39;s configured DNS Resolver. For instance 9.9.9.9 (quad9).&lt;/p&gt;&lt;/li&gt;
