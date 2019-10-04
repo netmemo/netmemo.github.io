@@ -11,60 +11,9 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>Dns Ttl Cascade (Work in progress)</title>
-      <link>https://netmemo.github.io/post/dns-ttl-cascade/</link>
-      <pubDate>Sat, 27 Apr 2019 23:15:03 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/post/dns-ttl-cascade/</guid>
-      <description>&lt;p&gt;At every layer, local cache of servers can override the configured TTL even if the TTL override is breaking the RFC&lt;/p&gt;
-
-&lt;p&gt;Cascade of DNS TTL of the wrong information make the information last longer in caches .&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;DNSNetmemo-TTLCascade-v2.3.png&#34; alt=&#34;DNS, TTL Cascade&#34; /&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Dns Outage (Work in progress)</title>
-      <link>https://netmemo.github.io/post/dns-outage/</link>
-      <pubDate>Sat, 27 Apr 2019 23:06:07 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/post/dns-outage/</guid>
-      <description>
-
-&lt;p&gt;&lt;img src=&#34;DNSNetmemo-Outage-v2.3.png&#34; alt=&#34;DNS, outage behavior&#34; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;for-a-short-a-record-ttl&#34;&gt;For a short A record TTL&lt;/h3&gt;
-
-&lt;p&gt;Client keep using A until TTL has expired. If A is 30 second and outage occure just after the DNS request for A record, the outage last 30 seconds.&lt;/p&gt;
-
-&lt;p&gt;Wen A has expired, the client browser query the resolver who might query the GSLB NS of the broken site, wait for the DNS query timeout then query the working GSLB NS that will return the working A record.
-As the A TTL is short, the client might experience lots of DNS query timeout (every 30seconds when it will query for the A record to the broken GSLB NS) that might impact the browsing experience and slow it down.&lt;/p&gt;
-
-&lt;h3 id=&#34;for-a-longer-a-record-ttl&#34;&gt;For a longer A record TTL&lt;/h3&gt;
-
-&lt;p&gt;Client keep using A until TTL has expired. If A is 10mn and outage occure just after the DNS request for A, the outage last 10mn.&lt;/p&gt;
-
-&lt;p&gt;When A has expired, the client browser query the resolver who might query the GSLB NS of the broken site for the A record, wait for the DNS query timeout then query the working GSLB NS that will return the working A record.
-As the A TTL is long, the initial outage might be up to 10mn but the subsequents DNS request will experience less DNS request timeout toward the broken GSLB IPs. After the potential initial 10mn outage, the browsing experience under GSLB failure might be slightly better. In the end, the GSLB will have less DNS request to handle even during normal operation.&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;&lt;sub&gt;
-1. This blog was mostly inspired from &lt;a href=&#34;https://www.cloudflare.com/learning/dns/dns-server-types/&#34; target=&#34;_blank&#34;&gt;https://www.cloudflare.com/learning/dns/dns-server-types/
-&lt;/a&gt;&amp;gt;
-&lt;/sub&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;sub&gt;
-2. This link might help regarding the TTL &lt;a href=&#34;https://www.bortzmeyer.org/forcer-ttl.html&#34; target=&#34;_blank&#34;&gt;https://www.bortzmeyer.org/forcer-ttl.html&lt;/a&gt;
-&lt;/sub&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-</description>
-    </item>
-    
-    <item>
       <title>One of many possible DNS Design (Work in progress)</title>
       <link>https://netmemo.github.io/post/dns-one-design/</link>
-      <pubDate>Sat, 27 Apr 2019 22:20:48 +0200</pubDate>
+      <pubDate>Fri, 04 Oct 2019 23:20:48 +0200</pubDate>
       
       <guid>https://netmemo.github.io/post/dns-one-design/</guid>
       <description>
@@ -99,6 +48,57 @@ The following steps are when nothing is yet cached in any servers. This use case
 
 &lt;li&gt;&lt;p&gt;The user web browser can directly access the IP address of the web site.&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;sub&gt;
+1. This blog was mostly inspired from &lt;a href=&#34;https://www.cloudflare.com/learning/dns/dns-server-types/&#34; target=&#34;_blank&#34;&gt;https://www.cloudflare.com/learning/dns/dns-server-types/
+&lt;/a&gt;&amp;gt;
+&lt;/sub&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;sub&gt;
+2. This link might help regarding the TTL &lt;a href=&#34;https://www.bortzmeyer.org/forcer-ttl.html&#34; target=&#34;_blank&#34;&gt;https://www.bortzmeyer.org/forcer-ttl.html&lt;/a&gt;
+&lt;/sub&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Dns Ttl Cascade (Work in progress)</title>
+      <link>https://netmemo.github.io/post/dns-ttl-cascade/</link>
+      <pubDate>Fri, 04 Oct 2019 23:15:03 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/dns-ttl-cascade/</guid>
+      <description>&lt;p&gt;At every layer, local cache of servers can override the configured TTL even if the TTL override is breaking the RFC&lt;/p&gt;
+
+&lt;p&gt;Cascade of DNS TTL of the wrong information make the information last longer in caches .&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;DNSNetmemo-TTLCascade-v2.3.png&#34; alt=&#34;DNS, TTL Cascade&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Dns Outage (Work in progress)</title>
+      <link>https://netmemo.github.io/post/dns-outage/</link>
+      <pubDate>Sat, 27 Apr 2019 23:06:07 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/dns-outage/</guid>
+      <description>
+
+&lt;p&gt;&lt;img src=&#34;DNSNetmemo-Outage-v2.3.png&#34; alt=&#34;DNS, outage behavior&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;for-a-short-a-record-ttl&#34;&gt;For a short A record TTL&lt;/h3&gt;
+
+&lt;p&gt;Client keep using A until TTL has expired. If A is 30 second and outage occure just after the DNS request for A record, the outage last 30 seconds.&lt;/p&gt;
+
+&lt;p&gt;Wen A has expired, the client browser query the resolver who might query the GSLB NS of the broken site, wait for the DNS query timeout then query the working GSLB NS that will return the working A record.
+As the A TTL is short, the client might experience lots of DNS query timeout (every 30seconds when it will query for the A record to the broken GSLB NS) that might impact the browsing experience and slow it down.&lt;/p&gt;
+
+&lt;h3 id=&#34;for-a-longer-a-record-ttl&#34;&gt;For a longer A record TTL&lt;/h3&gt;
+
+&lt;p&gt;Client keep using A until TTL has expired. If A is 10mn and outage occure just after the DNS request for A, the outage last 10mn.&lt;/p&gt;
+
+&lt;p&gt;When A has expired, the client browser query the resolver who might query the GSLB NS of the broken site for the A record, wait for the DNS query timeout then query the working GSLB NS that will return the working A record.
+As the A TTL is long, the initial outage might be up to 10mn but the subsequents DNS request will experience less DNS request timeout toward the broken GSLB IPs. After the potential initial 10mn outage, the browsing experience under GSLB failure might be slightly better. In the end, the GSLB will have less DNS request to handle even during normal operation.&lt;/p&gt;
 
 &lt;blockquote&gt;
 &lt;p&gt;&lt;sub&gt;

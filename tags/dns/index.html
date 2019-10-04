@@ -102,7 +102,7 @@
   <meta property="og:image" content="https://netmemo.github.io/img/icon-192.png">
   <meta property="og:locale" content="en-us">
   
-  <meta property="og:updated_time" content="2019-04-27T23:15:03&#43;02:00">
+  <meta property="og:updated_time" content="2019-10-04T23:20:48&#43;02:00">
   
 
   
@@ -217,6 +217,16 @@
   
   
   <div>
+    <h2><a href="/post/dns-one-design/">One of many possible DNS Design (Work in progress)</a></h2>
+    <div class="article-style">
+      
+      DNS Steps to resolve a web site url in IP : !! The CNAME is normally not allowed at the apex, so I need to find another way) !! The following steps are when nothing is yet cached in any servers. This use case is for a recusive DNS resolver.
+ The user try to access www.toto.com from his browser. His computer send the DNS query to the system&#39;s configured DNS Resolver.
+      
+    </div>
+  </div>
+  
+  <div>
     <h2><a href="/post/dns-ttl-cascade/">Dns Ttl Cascade (Work in progress)</a></h2>
     <div class="article-style">
       
@@ -232,16 +242,6 @@ Cascade of DNS TTL of the wrong information make the information last longer in 
       
       For a short A record TTL Client keep using A until TTL has expired. If A is 30 second and outage occure just after the DNS request for A record, the outage last 30 seconds.
 Wen A has expired, the client browser query the resolver who might query the GSLB NS of the broken site, wait for the DNS query timeout then query the working GSLB NS that will return the working A record.
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/post/dns-one-design/">One of many possible DNS Design (Work in progress)</a></h2>
-    <div class="article-style">
-      
-      DNS Steps to resolve a web site url in IP : !! The CNAME is normally not allowed at the apex, so I need to find another way) !! The following steps are when nothing is yet cached in any servers. This use case is for a recusive DNS resolver.
- The user try to access www.toto.com from his browser. His computer send the DNS query to the system&#39;s configured DNS Resolver.
       
     </div>
   </div>
