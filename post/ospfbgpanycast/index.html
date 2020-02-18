@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
@@ -17,10 +15,12 @@
   
     
   
-  <meta name="description" content="Independent Network Architect">
+  <meta name="description" content="Issue R3 route traffic to R4 instead of R1. Route 10.10.10.10 toward the WAN is prefered instead of the OSPF LAN DC route. DC Client that try to reach the DC&rsquo;s 10.10.10.10 address are routed toward the WAN
+Why R3 is installing in it RIB and redistributing the wrong routes 10.10.10.10 because it does have a better AD 20.
+Workarround  If we filter the redistribution that doesn&rsquo;t help because when the packet arrive to R3 he will still prefer the BGP route.">
 
   
-  <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/tags/">
+  <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/post/ospfbgpanycast/">
 
   
 
@@ -80,36 +80,40 @@
   
 
   
-  <link rel="alternate" href="https://netmemo.github.io/tags/index.xml" type="application/rss+xml" title="netmemo.github.io">
-  <link rel="feed" href="https://netmemo.github.io/tags/index.xml" type="application/rss+xml" title="netmemo.github.io">
+  <link rel="alternate" href="https://netmemo.github.io/index.xml" type="application/rss+xml" title="netmemo.github.io">
+  <link rel="feed" href="https://netmemo.github.io/index.xml" type="application/rss+xml" title="netmemo.github.io">
   
 
   <link rel="manifest" href="/site.webmanifest">
   <link rel="icon" type="image/png" href="/img/icon.png">
   <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
 
-  <link rel="canonical" href="https://netmemo.github.io/tags/">
+  <link rel="canonical" href="https://netmemo.github.io/post/ospfbgpanycast/">
 
   <meta property="twitter:card" content="summary_large_image">
   
   <meta property="og:site_name" content="netmemo.github.io">
-  <meta property="og:url" content="https://netmemo.github.io/tags/">
-  <meta property="og:title" content="Tags | netmemo.github.io">
-  <meta property="og:description" content="Independent Network Architect">
+  <meta property="og:url" content="https://netmemo.github.io/post/ospfbgpanycast/">
+  <meta property="og:title" content="OSPFBGPAnycast | netmemo.github.io">
+  <meta property="og:description" content="Issue R3 route traffic to R4 instead of R1. Route 10.10.10.10 toward the WAN is prefered instead of the OSPF LAN DC route. DC Client that try to reach the DC&rsquo;s 10.10.10.10 address are routed toward the WAN
+Why R3 is installing in it RIB and redistributing the wrong routes 10.10.10.10 because it does have a better AD 20.
+Workarround  If we filter the redistribution that doesn&rsquo;t help because when the packet arrive to R3 he will still prefer the BGP route.">
   
   
     
   <meta property="og:image" content="https://netmemo.github.io/img/icon-192.png">
   <meta property="og:locale" content="en-us">
   
-  <meta property="og:updated_time" content="2018-10-04T00:48:57&#43;02:00">
+  <meta property="article:published_time" content="2020-02-18T23:45:47&#43;01:00">
+  
+  <meta property="article:modified_time" content="2020-02-18T23:45:47&#43;01:00">
   
 
   
 
   
 
-  <title>Tags | netmemo.github.io</title>
+  <title>OSPFBGPAnycast | netmemo.github.io</title>
 
 </head>
 <body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" >
@@ -203,104 +207,168 @@
 </nav>
 
 
+<article class="article" itemscope itemtype="http://schema.org/Article">
+
+  
+
 
 
 
 
+  <div class="article-container">
+    <h1 itemprop="name">OSPFBGPAnycast</h1>
 
-
-<div class="universal-wrapper">
-  <h1>Tags</h1>
-
-  
-
-  
-  
-  <div>
-    <h2><a href="/tags/n5k/">N5K</a></h2>
-    <div class="article-style">
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/tags/n7k/">N7K</a></h2>
-    <div class="article-style">
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/tags/ospf/">OSPF</a></h2>
-    <div class="article-style">
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/tags/routing/">ROUTING</a></h2>
-    <div class="article-style">
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/tags/vm/">VM</a></h2>
-    <div class="article-style">
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/tags/calico/">calico</a></h2>
-    <div class="article-style">
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/tags/cisco/">cisco</a></h2>
-    <div class="article-style">
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/tags/docker/">docker</a></h2>
-    <div class="article-style">
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/tags/elam/">elam</a></h2>
-    <div class="article-style">
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/tags/k8s/">k8s</a></h2>
-    <div class="article-style">
-      
-    </div>
-  </div>
-  
-
-  
-<nav>
-  <ul class="pagination justify-content-center">
     
-    <li class="page-item"><a class="page-link" href="/tags/">&laquo;</a></li>
+
+<div class="article-metadata">
+
+  
+  
+  
+  <div>
     
+    <span itemscope itemprop="author" itemtype="http://schema.org/Person">
+      <span itemprop="name">Noel</span>
+    </span>
     
-    <li class="page-item"><a class="page-link" href="/tags/page/3/">&raquo;</a></li>
+  </div>
+  
+
+  <span class="article-date">
     
+    <meta content="2020-02-18 23:45:47 &#43;0100 CET" itemprop="datePublished">
+    <time datetime="2020-02-18 23:45:47 &#43;0100 CET" itemprop="dateModified">
+      Feb 18, 2020
+    </time>
+  </span>
+  <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Noel">
+  </span>
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    1 min read
+  </span>
+  
+
+  
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder"></i>
+    
+    <a href="/categories/routing/">ROUTING</a>
+    
+  </span>
+  
+  
+
+  
+  
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    <li>
+      <a class="twitter"
+         href="https://twitter.com/intent/tweet?text=OSPFBGPAnycast&amp;url=https%3a%2f%2fnetmemo.github.io%2fpost%2fospfbgpanycast%2f"
+         target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+    <li>
+      <a class="facebook"
+         href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fnetmemo.github.io%2fpost%2fospfbgpanycast%2f"
+         target="_blank" rel="noopener">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+    </li>
+    <li>
+      <a class="linkedin"
+         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fnetmemo.github.io%2fpost%2fospfbgpanycast%2f&amp;title=OSPFBGPAnycast"
+         target="_blank" rel="noopener">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+    </li>
+    <li>
+      <a class="weibo"
+         href="http://service.weibo.com/share/share.php?url=https%3a%2f%2fnetmemo.github.io%2fpost%2fospfbgpanycast%2f&amp;title=OSPFBGPAnycast"
+         target="_blank" rel="noopener">
+        <i class="fab fa-weibo"></i>
+      </a>
+    </li>
+    <li>
+      <a class="email"
+         href="mailto:?subject=OSPFBGPAnycast&amp;body=https%3a%2f%2fnetmemo.github.io%2fpost%2fospfbgpanycast%2f">
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
   </ul>
-</nav>
+</div>
 
+
+  
 
 </div>
+
+
+    <div class="article-style" itemprop="articleBody">
+      
+
+<p><img src="ospfbgpanycast.png" alt="ospf vs bgp anycast" /></p>
+
+<h3 id="issue">Issue</h3>
+
+<p>R3 route traffic to R4 instead of R1.
+Route 10.10.10.10 toward the WAN is prefered instead of the OSPF LAN DC route.
+DC Client that try to reach the DC&rsquo;s 10.10.10.10 address are routed toward the WAN</p>
+
+<h3 id="why">Why</h3>
+
+<p>R3 is installing in it RIB and redistributing the wrong routes 10.10.10.10 because it does have a better AD 20.</p>
+
+<h3 id="workarround">Workarround</h3>
+
+<ul>
+<li>If we filter the redistribution that doesn&rsquo;t help because when the packet arrive to R3 he will still prefer the BGP route.</li>
+<li>If we drop the prefix on R3 we loose the redundancy</li>
+<li>Increase the AD of the WAN route on R3</li>
+</ul>
+
+    </div>
+
+    
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/anycast/">ANYCAST</a>
+  
+  <a class="badge badge-light" href="/tags/ospf/">OSPF</a>
+  
+  <a class="badge badge-light" href="/tags/bgp/">BGP</a>
+  
+  <a class="badge badge-light" href="/tags/routing/">ROUTING</a>
+  
+</div>
+
+
+
+
+    
+    
+
+    
+
+    
+
+
+  </div>
+</article>
+
 <div class="container">
   <footer class="site-footer">
   
@@ -439,6 +507,4 @@
 
   </body>
 </html>
-
-
 

@@ -4,6 +4,14 @@
     
     <url>
     
+      <loc>https://netmemo.github.io/post/ospfbgpanycast/</loc>
+      <lastmod>2020-02-18T23:45:47+01:00</lastmod>
+    </url>
+    
+  
+    
+    <url>
+    
       <loc>https://netmemo.github.io/post/dns-one-design/</loc>
       <lastmod>2019-10-04T23:20:48+02:00</lastmod>
     </url>
@@ -62,6 +70,24 @@
     
       <loc>https://netmemo.github.io/post/</loc>
       <lastmod>2017-01-01T00:00:00+01:00</lastmod>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/tags/anycast/</loc>
+      <lastmod>2020-02-18T23:45:47+01:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/tags/bgp/</loc>
+      <lastmod>2020-02-18T23:45:47+01:00</lastmod>
+      <priority>0</priority>
     </url>
     
   
@@ -175,6 +201,15 @@
     
     <url>
     
+      <loc>https://netmemo.github.io/tags/ospf/</loc>
+      <lastmod>2020-02-18T23:45:47+01:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
       <loc>https://netmemo.github.io/publication_types/</loc>
       <priority>0</priority>
     </url>
@@ -183,8 +218,26 @@
     
     <url>
     
+      <loc>https://netmemo.github.io/tags/routing/</loc>
+      <lastmod>2020-02-18T23:45:47+01:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/categories/routing/</loc>
+      <lastmod>2020-02-18T23:45:47+01:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
       <loc>https://netmemo.github.io/tags/</loc>
-      <lastmod>2018-10-22T15:35:55+02:00</lastmod>
+      <lastmod>2020-02-18T23:45:47+01:00</lastmod>
       <priority>0</priority>
     </url>
     

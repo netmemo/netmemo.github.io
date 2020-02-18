@@ -20,7 +20,7 @@
   <meta name="description" content="Independent Network Architect">
 
   
-  <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/tags/">
+  <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/tags/ospf/">
 
   
 
@@ -80,21 +80,21 @@
   
 
   
-  <link rel="alternate" href="https://netmemo.github.io/tags/index.xml" type="application/rss+xml" title="netmemo.github.io">
-  <link rel="feed" href="https://netmemo.github.io/tags/index.xml" type="application/rss+xml" title="netmemo.github.io">
+  <link rel="alternate" href="https://netmemo.github.io/tags/ospf/index.xml" type="application/rss+xml" title="netmemo.github.io">
+  <link rel="feed" href="https://netmemo.github.io/tags/ospf/index.xml" type="application/rss+xml" title="netmemo.github.io">
   
 
   <link rel="manifest" href="/site.webmanifest">
   <link rel="icon" type="image/png" href="/img/icon.png">
   <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
 
-  <link rel="canonical" href="https://netmemo.github.io/tags/">
+  <link rel="canonical" href="https://netmemo.github.io/tags/ospf/">
 
   <meta property="twitter:card" content="summary_large_image">
   
   <meta property="og:site_name" content="netmemo.github.io">
-  <meta property="og:url" content="https://netmemo.github.io/tags/">
-  <meta property="og:title" content="Tags | netmemo.github.io">
+  <meta property="og:url" content="https://netmemo.github.io/tags/ospf/">
+  <meta property="og:title" content="OSPF | netmemo.github.io">
   <meta property="og:description" content="Independent Network Architect">
   
   
@@ -102,14 +102,14 @@
   <meta property="og:image" content="https://netmemo.github.io/img/icon-192.png">
   <meta property="og:locale" content="en-us">
   
-  <meta property="og:updated_time" content="2018-10-04T00:48:57&#43;02:00">
+  <meta property="og:updated_time" content="2020-02-18T23:45:47&#43;01:00">
   
 
   
 
   
 
-  <title>Tags | netmemo.github.io</title>
+  <title>OSPF | netmemo.github.io</title>
 
 </head>
 <body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" >
@@ -210,95 +210,25 @@
 
 
 <div class="universal-wrapper">
-  <h1>Tags</h1>
+  <h1>OSPF</h1>
 
   
 
   
   
   <div>
-    <h2><a href="/tags/n5k/">N5K</a></h2>
+    <h2><a href="/post/ospfbgpanycast/">OSPFBGPAnycast</a></h2>
     <div class="article-style">
       
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/tags/n7k/">N7K</a></h2>
-    <div class="article-style">
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/tags/ospf/">OSPF</a></h2>
-    <div class="article-style">
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/tags/routing/">ROUTING</a></h2>
-    <div class="article-style">
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/tags/vm/">VM</a></h2>
-    <div class="article-style">
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/tags/calico/">calico</a></h2>
-    <div class="article-style">
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/tags/cisco/">cisco</a></h2>
-    <div class="article-style">
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/tags/docker/">docker</a></h2>
-    <div class="article-style">
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/tags/elam/">elam</a></h2>
-    <div class="article-style">
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/tags/k8s/">k8s</a></h2>
-    <div class="article-style">
+      Issue R3 route traffic to R4 instead of R1. Route 10.10.10.10 toward the WAN is prefered instead of the OSPF LAN DC route. DC Client that try to reach the DC&rsquo;s 10.10.10.10 address are routed toward the WAN
+Why R3 is installing in it RIB and redistributing the wrong routes 10.10.10.10 because it does have a better AD 20.
+Workarround  If we filter the redistribution that doesn&rsquo;t help because when the packet arrive to R3 he will still prefer the BGP route.
       
     </div>
   </div>
   
 
   
-<nav>
-  <ul class="pagination justify-content-center">
-    
-    <li class="page-item"><a class="page-link" href="/tags/">&laquo;</a></li>
-    
-    
-    <li class="page-item"><a class="page-link" href="/tags/page/3/">&raquo;</a></li>
-    
-  </ul>
-</nav>
-
 
 </div>
 <div class="container">
