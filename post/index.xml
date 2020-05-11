@@ -13,7 +13,44 @@
     
     
     <item>
-      <title>OSPFBGPAnycast</title>
+      <title>Bgp Multipath</title>
+      <link>https://netmemo.github.io/post/bgp-multipath/</link>
+      <pubDate>Mon, 11 May 2020 08:02:21 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/bgp-multipath/</guid>
+      <description>Maximum path In the RIB + FIB ECMP (multipath)
+support PIC by default ?
+https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/configuration/xe-3s/irg-xe-3s-book/irg-bgp-mp-pic.html
+With BGP Multipath, the BGP prefix-independant convergence (PIC) feature is supported
+Attribut that should be identical  Weight
+ LP
+ AS Path (AS Number unless relax us used, AS length)
+ Origin Code
+ MED
+ IGP Metric
+Next hop should be different  Add Path If the path are equal, allow to advertise more than one bes oath (need to test in eBGP).</description>
+    </item>
+    
+    <item>
+      <title>How to hugo</title>
+      <link>https://netmemo.github.io/post/how-to-hugo/</link>
+      <pubDate>Mon, 11 May 2020 08:00:11 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/how-to-hugo/</guid>
+      <description>prerequis : - github desktop - hugo
+config.toml =&amp;gt; need to be modify to change the copyright date
+lancer cmd
+Go to the folder blog : C:\Users\noyel\Documents\Site\blog&amp;gt;
+taper : hugo new post/my-first-post.md
+try the web site with : hugo server -D
+entrer http://localhost:1313/
+generate the web site with : hugo -t &amp;ldquo;academic&amp;rdquo; Move the content of the folder C:\Users\noyel\Documents\Site\blog\public
+in GitHub\netmemo.github.io lancer github desktop, commit/push to master
+To have a file attached for the post, create a directory with the exact same name as the post md file.</description>
+    </item>
+    
+    <item>
+      <title>OSPF vs BGP with anycast prefix</title>
       <link>https://netmemo.github.io/post/ospfbgpanycast/</link>
       <pubDate>Tue, 18 Feb 2020 23:45:47 +0100</pubDate>
       

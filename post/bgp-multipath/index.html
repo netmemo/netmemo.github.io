@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
@@ -17,10 +15,20 @@
   
     
   
-  <meta name="description" content="Independent Network Architect">
+  <meta name="description" content="Maximum path In the RIB &#43; FIB ECMP (multipath)
+support PIC by default ?
+https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/configuration/xe-3s/irg-xe-3s-book/irg-bgp-mp-pic.html
+With BGP Multipath, the BGP prefix-independant convergence (PIC) feature is supported
+Attribut that should be identical  Weight
+ LP
+ AS Path (AS Number unless relax us used, AS length)
+ Origin Code
+ MED
+ IGP Metric
+Next hop should be different  Add Path If the path are equal, allow to advertise more than one bes oath (need to test in eBGP).">
 
   
-  <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/tags/routing/">
+  <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/post/bgp-multipath/">
 
   
 
@@ -80,36 +88,48 @@
   
 
   
-  <link rel="alternate" href="https://netmemo.github.io/tags/routing/index.xml" type="application/rss+xml" title="netmemo.github.io">
-  <link rel="feed" href="https://netmemo.github.io/tags/routing/index.xml" type="application/rss+xml" title="netmemo.github.io">
+  <link rel="alternate" href="https://netmemo.github.io/index.xml" type="application/rss+xml" title="netmemo.github.io">
+  <link rel="feed" href="https://netmemo.github.io/index.xml" type="application/rss+xml" title="netmemo.github.io">
   
 
   <link rel="manifest" href="/site.webmanifest">
   <link rel="icon" type="image/png" href="/img/icon.png">
   <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
 
-  <link rel="canonical" href="https://netmemo.github.io/tags/routing/">
+  <link rel="canonical" href="https://netmemo.github.io/post/bgp-multipath/">
 
   <meta property="twitter:card" content="summary_large_image">
   
   <meta property="og:site_name" content="netmemo.github.io">
-  <meta property="og:url" content="https://netmemo.github.io/tags/routing/">
-  <meta property="og:title" content="ROUTING | netmemo.github.io">
-  <meta property="og:description" content="Independent Network Architect">
+  <meta property="og:url" content="https://netmemo.github.io/post/bgp-multipath/">
+  <meta property="og:title" content="Bgp Multipath | netmemo.github.io">
+  <meta property="og:description" content="Maximum path In the RIB &#43; FIB ECMP (multipath)
+support PIC by default ?
+https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/configuration/xe-3s/irg-xe-3s-book/irg-bgp-mp-pic.html
+With BGP Multipath, the BGP prefix-independant convergence (PIC) feature is supported
+Attribut that should be identical  Weight
+ LP
+ AS Path (AS Number unless relax us used, AS length)
+ Origin Code
+ MED
+ IGP Metric
+Next hop should be different  Add Path If the path are equal, allow to advertise more than one bes oath (need to test in eBGP).">
   
   
     
   <meta property="og:image" content="https://netmemo.github.io/img/icon-192.png">
   <meta property="og:locale" content="en-us">
   
-  <meta property="og:updated_time" content="2020-05-11T08:00:11&#43;02:00">
+  <meta property="article:published_time" content="2020-05-11T08:02:21&#43;02:00">
+  
+  <meta property="article:modified_time" content="2020-05-11T08:02:21&#43;02:00">
   
 
   
 
   
 
-  <title>ROUTING | netmemo.github.io</title>
+  <title>Bgp Multipath | netmemo.github.io</title>
 
 </head>
 <body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" >
@@ -203,52 +223,166 @@
 </nav>
 
 
+<article class="article" itemscope itemtype="http://schema.org/Article">
+
+  
 
 
 
 
 
+  <div class="article-container">
+    <h1 itemprop="name">Bgp Multipath</h1>
 
-<div class="universal-wrapper">
-  <h1>ROUTING</h1>
+    
 
+<div class="article-metadata">
+
+  
+  
+  <span itemscope itemprop="author" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Noel">
+  </span>
+  
+
+  <span class="article-date">
+    
+    <meta content="2020-05-11 08:02:21 &#43;0200 CEST" itemprop="datePublished">
+    <time datetime="2020-05-11 08:02:21 &#43;0200 CEST" itemprop="dateModified">
+      May 11, 2020
+    </time>
+  </span>
+  <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Noel">
+  </span>
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    2 min read
+  </span>
   
 
   
   
-  <div>
-    <h2><a href="/post/how-to-hugo/">How to hugo</a></h2>
-    <div class="article-style">
-      
-      prerequis : - github desktop - hugo
-config.toml =&gt; need to be modify to change the copyright date
-lancer cmd
-Go to the folder blog : C:\Users\noyel\Documents\Site\blog&gt;
-taper : hugo new post/my-first-post.md
-try the web site with : hugo server -D
-entrer http://localhost:1313/
-generate the web site with : hugo -t &ldquo;academic&rdquo; Move the content of the folder C:\Users\noyel\Documents\Site\blog\public
-in GitHub\netmemo.github.io lancer github desktop, commit/push to master
-To have a file attached for the post, create a directory with the exact same name as the post md file.
-      
-    </div>
-  </div>
+
   
-  <div>
-    <h2><a href="/post/ospfbgpanycast/">OSPF vs BGP with anycast prefix</a></h2>
-    <div class="article-style">
-      
-      Issue R3 route traffic to R4 instead of R1. Route 10.10.10.10 toward the WAN is prefered instead of the OSPF LAN DC route. DC Client that try to reach the DC&rsquo;s 10.10.10.10 address are routed toward the WAN
-Why R3 is installing in it RIB and redistributing the wrong routes 10.10.10.10 because it does have a better AD 20.
-Workarround  If we filter the redistribution that doesn&rsquo;t help because when the packet arrive to R3 he will still prefer the BGP route.
-      
-    </div>
-  </div>
   
+  
+  
+
+  
+  
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    <li>
+      <a class="twitter"
+         href="https://twitter.com/intent/tweet?text=Bgp%20Multipath&amp;url=https%3a%2f%2fnetmemo.github.io%2fpost%2fbgp-multipath%2f"
+         target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+    <li>
+      <a class="facebook"
+         href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fnetmemo.github.io%2fpost%2fbgp-multipath%2f"
+         target="_blank" rel="noopener">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+    </li>
+    <li>
+      <a class="linkedin"
+         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fnetmemo.github.io%2fpost%2fbgp-multipath%2f&amp;title=Bgp%20Multipath"
+         target="_blank" rel="noopener">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+    </li>
+    <li>
+      <a class="weibo"
+         href="http://service.weibo.com/share/share.php?url=https%3a%2f%2fnetmemo.github.io%2fpost%2fbgp-multipath%2f&amp;title=Bgp%20Multipath"
+         target="_blank" rel="noopener">
+        <i class="fab fa-weibo"></i>
+      </a>
+    </li>
+    <li>
+      <a class="email"
+         href="mailto:?subject=Bgp%20Multipath&amp;body=https%3a%2f%2fnetmemo.github.io%2fpost%2fbgp-multipath%2f">
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
 
   
 
 </div>
+
+
+    <div class="article-style" itemprop="articleBody">
+      
+
+<h3 id="maximum-path">Maximum path</h3>
+
+<p>In the RIB + FIB ECMP (multipath)<br />
+support PIC by default ?<br />
+<a href="https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/configuration/xe-3s/irg-xe-3s-book/irg-bgp-mp-pic.html" target="_blank">https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/configuration/xe-3s/irg-xe-3s-book/irg-bgp-mp-pic.html</a><br />
+With BGP Multipath, the BGP prefix-independant convergence (PIC) feature is supported</p>
+
+<h5 id="attribut-that-should-be-identical">Attribut that should be identical</h5>
+
+<ul>
+<li>Weight<br /></li>
+<li>LP<br /></li>
+<li>AS Path (AS Number unless relax us used, AS length)<br /></li>
+<li>Origin Code<br /></li>
+<li>MED<br /></li>
+<li>IGP Metric<br />
+Next hop should be different</li>
+</ul>
+
+<h3 id="add-path">Add Path</h3>
+
+<p>If the path are equal, allow to advertise more than one bes oath (need to test in eBGP).<br />
+Mostly used with BGP without MPLS. If MPLS is used it&rsquo;s better to have an RD different for each VRF of each router (easier to troubleshoot).<br />
+<a href="https://orhanergun.net/wp-content/uploads/2019/11/BGP-Add-path-vs-Shadow-RR-vs-Shadow-Session-vs-Unique-RD.pdf" target="_blank">https://orhanergun.net/wp-content/uploads/2019/11/BGP-Add-path-vs-Shadow-RR-vs-Shadow-Session-vs-Unique-RD.pdf</a></p>
+
+<h3 id="pic">PIC</h3>
+
+<p><a href="https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2016/pdf/BRKRST-3321.pdf" target="_blank">https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2016/pdf/BRKRST-3321.pdf</a><br />
+Not neded at the moment because we don&rsquo;t need this level if convergence (couple of minutes vs ms if you have hundres of thousand of prefixes)</p>
+
+<p><strong><ins> Cons </ins></strong><br />
+- IP Lookup needed after label lookup (can be a benefit, cf route sum issue)
+- No granular load balancing because the bottom label is the same for all prefixes, if platform load balances on bottom label
+- Potential forwarding loop during local traffic diversion to support PIC
+- No support for EIBGP multipath</p>
+
+<p><strong><ins> Pros </ins></strong><br />
+- 1 label per vrf (less label used)</p>
+
+<h3 id="best-external">Best External</h3>
+
+<p>Allow a router to advertise it&rsquo;s best external path even if in it&rsquo;s BGP table it does have a beter route from inside</p>
+
+    </div>
+
+    
+
+
+
+
+
+    
+    
+
+    
+
+    
+
+
+  </div>
+</article>
+
 <div class="container">
   <footer class="site-footer">
   
@@ -387,6 +521,4 @@ Workarround  If we filter the redistribution that doesn&rsquo;t help because whe
 
   </body>
 </html>
-
-
 
