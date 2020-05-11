@@ -11,7 +11,98 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>OSPFBGPAnycast</title>
+      <title>Bgp Multipath</title>
+      <link>https://netmemo.github.io/post/bgp-multipath/</link>
+      <pubDate>Mon, 11 May 2020 08:02:21 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/bgp-multipath/</guid>
+      <description>
+
+&lt;h3 id=&#34;maximum-path&#34;&gt;Maximum path&lt;/h3&gt;
+
+&lt;p&gt;In the RIB + FIB ECMP (multipath)&lt;br /&gt;
+support PIC by default ?&lt;br /&gt;
+&lt;a href=&#34;https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/configuration/xe-3s/irg-xe-3s-book/irg-bgp-mp-pic.html&#34; target=&#34;_blank&#34;&gt;https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/configuration/xe-3s/irg-xe-3s-book/irg-bgp-mp-pic.html&lt;/a&gt;&lt;br /&gt;
+With BGP Multipath, the BGP prefix-independant convergence (PIC) feature is supported&lt;/p&gt;
+
+&lt;h5 id=&#34;attribut-that-should-be-identical&#34;&gt;Attribut that should be identical&lt;/h5&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Weight&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;LP&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;AS Path (AS Number unless relax us used, AS length)&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Origin Code&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;MED&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;IGP Metric&lt;br /&gt;
+Next hop should be different&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;add-path&#34;&gt;Add Path&lt;/h3&gt;
+
+&lt;p&gt;If the path are equal, allow to advertise more than one bes oath (need to test in eBGP).&lt;br /&gt;
+Mostly used with BGP without MPLS. If MPLS is used it&amp;rsquo;s better to have an RD different for each VRF of each router (easier to troubleshoot).&lt;br /&gt;
+&lt;a href=&#34;https://orhanergun.net/wp-content/uploads/2019/11/BGP-Add-path-vs-Shadow-RR-vs-Shadow-Session-vs-Unique-RD.pdf&#34; target=&#34;_blank&#34;&gt;https://orhanergun.net/wp-content/uploads/2019/11/BGP-Add-path-vs-Shadow-RR-vs-Shadow-Session-vs-Unique-RD.pdf&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;pic&#34;&gt;PIC&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2016/pdf/BRKRST-3321.pdf&#34; target=&#34;_blank&#34;&gt;https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2016/pdf/BRKRST-3321.pdf&lt;/a&gt;&lt;br /&gt;
+Not neded at the moment because we don&amp;rsquo;t need this level if convergence (couple of minutes vs ms if you have hundres of thousand of prefixes)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;ins&gt; Cons &lt;/ins&gt;&lt;/strong&gt;&lt;br /&gt;
+- IP Lookup needed after label lookup (can be a benefit, cf route sum issue)
+- No granular load balancing because the bottom label is the same for all prefixes, if platform load balances on bottom label
+- Potential forwarding loop during local traffic diversion to support PIC
+- No support for EIBGP multipath&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;ins&gt; Pros &lt;/ins&gt;&lt;/strong&gt;&lt;br /&gt;
+- 1 label per vrf (less label used)&lt;/p&gt;
+
+&lt;h3 id=&#34;best-external&#34;&gt;Best External&lt;/h3&gt;
+
+&lt;p&gt;Allow a router to advertise it&amp;rsquo;s best external path even if in it&amp;rsquo;s BGP table it does have a beter route from inside&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>How to hugo</title>
+      <link>https://netmemo.github.io/post/how-to-hugo/</link>
+      <pubDate>Mon, 11 May 2020 08:00:11 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/how-to-hugo/</guid>
+      <description>&lt;p&gt;prerequis :
+ - github desktop
+ - hugo&lt;/p&gt;
+
+&lt;p&gt;config.toml =&amp;gt; need to be modify to change the copyright date&lt;/p&gt;
+
+&lt;p&gt;lancer cmd&lt;/p&gt;
+
+&lt;p&gt;Go to the folder blog : C:\Users\noyel\Documents\Site\blog&amp;gt;&lt;/p&gt;
+
+&lt;p&gt;taper : hugo new post/my-first-post.md&lt;/p&gt;
+
+&lt;p&gt;try the web site with : hugo server -D&lt;/p&gt;
+
+&lt;p&gt;entrer &lt;a href=&#34;http://localhost:1313/&#34; target=&#34;_blank&#34;&gt;http://localhost:1313/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;generate the web site with : hugo -t &amp;ldquo;academic&amp;rdquo;
+Move the content of the folder C:\Users\noyel\Documents\Site\blog\public&lt;/p&gt;
+
+&lt;p&gt;in GitHub\netmemo.github.io lancer github desktop, commit/push to master&lt;/p&gt;
+
+&lt;p&gt;To have a file attached for the post, create a directory with the exact same name as the post md file.&lt;/p&gt;
+
+&lt;p&gt;The language used to write a blog post is Markdown
+&lt;a href=&#34;https://www.markdownguide.org/basic-syntax&#34; target=&#34;_blank&#34;&gt;https://www.markdownguide.org/basic-syntax&lt;/a&gt;
+&lt;a href=&#34;https://www.tutorialspoint.com/html/html_ascii_codes.htm&#34; target=&#34;_blank&#34;&gt;https://www.tutorialspoint.com/html/html_ascii_codes.htm&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Bold and underline
+&lt;code&gt;**&amp;lt;ins&amp;gt; Cons &amp;lt;/ins&amp;gt;**&lt;/code&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>OSPF vs BGP with anycast prefix</title>
       <link>https://netmemo.github.io/post/ospfbgpanycast/</link>
       <pubDate>Tue, 18 Feb 2020 23:45:47 +0100</pubDate>
       
