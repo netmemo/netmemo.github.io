@@ -19,16 +19,17 @@
       
       <guid>https://netmemo.github.io/post/bgp-multipath/</guid>
       <description>Maximum path In the RIB + FIB ECMP (multipath)
-support PIC by default ?
+Is PIC supported by default ?
 https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/configuration/xe-3s/irg-xe-3s-book/irg-bgp-mp-pic.html
-With BGP Multipath, the BGP prefix-independant convergence (PIC) feature is supported
-Attribut that should be identical  Weight
- LP
- AS Path (AS Number unless relax us used, AS length)
- Origin Code
- MED
- IGP Metric
-Next hop should be different  Add Path If the path are equal, allow to advertise more than one bes oath (need to test in eBGP).</description>
+=&amp;gt; With BGP Multipath, the BGP prefix-independant convergence (PIC) feature is supported
+ Attribut that should be identical 
+- Weight
+- LP
+- AS Path (AS Number unless relax us used, AS length)
+- Origin Code
+- MED
+- IGP Metric Next hop should be different
+Add Path If the path are equal, allow to advertise more than one bes oath (need to test in eBGP).</description>
     </item>
     
     <item>

@@ -20,22 +20,19 @@
 
 &lt;h3 id=&#34;maximum-path&#34;&gt;Maximum path&lt;/h3&gt;
 
-&lt;p&gt;In the RIB + FIB ECMP (multipath)&lt;br /&gt;
-support PIC by default ?&lt;br /&gt;
+&lt;p&gt;In the RIB + FIB ECMP (multipath)&lt;/p&gt;
+
+&lt;p&gt;Is PIC supported by default ?&lt;br /&gt;
 &lt;a href=&#34;https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/configuration/xe-3s/irg-xe-3s-book/irg-bgp-mp-pic.html&#34; target=&#34;_blank&#34;&gt;https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/configuration/xe-3s/irg-xe-3s-book/irg-bgp-mp-pic.html&lt;/a&gt;&lt;br /&gt;
-With BGP Multipath, the BGP prefix-independant convergence (PIC) feature is supported&lt;/p&gt;
+=&amp;gt; With BGP Multipath, the BGP prefix-independant convergence (PIC) feature is supported&lt;/p&gt;
 
-&lt;h5 id=&#34;attribut-that-should-be-identical&#34;&gt;Attribut that should be identical&lt;/h5&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Weight&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;LP&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;AS Path (AS Number unless relax us used, AS length)&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Origin Code&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;MED&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;IGP Metric&lt;br /&gt;
-Next hop should be different&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;&lt;ins&gt; Attribut that should be identical &lt;/ins&gt;&lt;/strong&gt;&lt;br /&gt;
+- Weight&lt;br /&gt;
+- LP&lt;br /&gt;
+- AS Path (AS Number unless relax us used, AS length)&lt;br /&gt;
+- Origin Code&lt;br /&gt;
+- MED&lt;br /&gt;
+- IGP Metric Next hop should be different&lt;/p&gt;
 
 &lt;h3 id=&#34;add-path&#34;&gt;Add Path&lt;/h3&gt;
 
@@ -45,21 +42,40 @@ Mostly used with BGP without MPLS. If MPLS is used it&amp;rsquo;s better to have
 
 &lt;h3 id=&#34;pic&#34;&gt;PIC&lt;/h3&gt;
 
-&lt;p&gt;&lt;a href=&#34;https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2016/pdf/BRKRST-3321.pdf&#34; target=&#34;_blank&#34;&gt;https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2016/pdf/BRKRST-3321.pdf&lt;/a&gt;&lt;br /&gt;
-Not neded at the moment because we don&amp;rsquo;t need this level if convergence (couple of minutes vs ms if you have hundres of thousand of prefixes)&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2016/pdf/BRKRST-3321.pdf&#34; target=&#34;_blank&#34;&gt;https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2016/pdf/BRKRST-3321.pdf&lt;/a&gt;
+I don&amp;rsquo;t neded it at the moment because we don&amp;rsquo;t need this level if convergence (couple of minutes vs ms if you have hundres of thousand of prefixes)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://blog.ipspace.net/2012/01/prefix-independent-convergence-pic.html&#34; target=&#34;_blank&#34;&gt;https://blog.ipspace.net/2012/01/prefix-independent-convergence-pic.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The generic optimization of the RIB-to-FIB update process is known as Prefix-Independent Convergence (PIC) - if the routing protocols can pre-compute alternate paths, suitably designed FIB can use that information to cache alternate next hops. Updating such a FIB no longer involves numerous updates to individual prefixes; you have to change only the next hop reachability information.&lt;/p&gt;
+
+&lt;h3 id=&#34;best-external&#34;&gt;Best External&lt;/h3&gt;
+
+&lt;p&gt;Allow a router to advertise it&amp;rsquo;s best external path even if in it&amp;rsquo;s BGP table it does have a beter route from inside&lt;/p&gt;
+
+&lt;h3 id=&#34;label-allocation&#34;&gt;LABEL ALLOCATION&lt;/h3&gt;
+
+&lt;h5 id=&#34;per-vrf&#34;&gt;Per VRF&lt;/h5&gt;
 
 &lt;p&gt;&lt;strong&gt;&lt;ins&gt; Cons &lt;/ins&gt;&lt;/strong&gt;&lt;br /&gt;
-- IP Lookup needed after label lookup (can be a benefit, cf route sum issue)
-- No granular load balancing because the bottom label is the same for all prefixes, if platform load balances on bottom label
-- Potential forwarding loop during local traffic diversion to support PIC
+- IP Lookup needed after label lookup (can be a benefit, cf route sum issue)&lt;br /&gt;
+- No granular load balancing because the bottom label is the same for all prefixes, if platform load balances on bottom label&lt;br /&gt;
+- Potential forwarding loop during local traffic diversion to support PIC (Transient loop)&lt;br /&gt;
 - No support for EIBGP multipath&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;&lt;ins&gt; Pros &lt;/ins&gt;&lt;/strong&gt;&lt;br /&gt;
 - 1 label per vrf (less label used)&lt;/p&gt;
 
-&lt;h3 id=&#34;best-external&#34;&gt;Best External&lt;/h3&gt;
+&lt;h5 id=&#34;per-ce&#34;&gt;Per CE&lt;/h5&gt;
 
-&lt;p&gt;Allow a router to advertise it&amp;rsquo;s best external path even if in it&amp;rsquo;s BGP table it does have a beter route from inside&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;ins&gt; Cons &lt;/ins&gt;&lt;/strong&gt;&lt;br /&gt;
+- No granular load balancing because the bottom label is the same for all prefixes from one CE, if platform load balances on bottom label&lt;br /&gt;
+- eBGPload balancing &amp;amp; BGP PIC is not supported (it makes usage of label diversity), unless resilient per-ce label&lt;br /&gt;
+- Only single hop eBGPsupported, no multihop&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;ins&gt; Pros &lt;/ins&gt;&lt;/strong&gt;&lt;br /&gt;
+- No IP lookup needed after label lookup&lt;br /&gt;
+- Per-CE : one MPLS label per next-hop (so per connected CE router)(Number of MPLS labels used is very low)&lt;/p&gt;
 </description>
     </item>
     
