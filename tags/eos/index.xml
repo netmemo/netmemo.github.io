@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>EOS on netmemo.github.io</title>
+    <link>https://netmemo.github.io/tags/eos/</link>
+    <description>Recent content in EOS on netmemo.github.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2019. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author�s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
+    <lastBuildDate>Tue, 24 Nov 2020 18:12:05 +0100</lastBuildDate>
+    
+	<atom:link href="https://netmemo.github.io/tags/eos/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Arista basic ISIS-SR</title>
+      <link>https://netmemo.github.io/post/aristabasesr/</link>
+      <pubDate>Tue, 24 Nov 2020 18:12:05 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/post/aristabasesr/</guid>
+      <description>ISIS Segment routing basics for Arista EOS References:
+https://www.arista.com/en/um-eos/eos-section-35-3-is-is-segment-routing
+SRGB Segment Routing Golbal Block
+Prefix-SID It&amp;rsquo;s global and unique. It identify a prefix. It&amp;rsquo;s called anycast SID when it&amp;rsquo;s send by a group of router.
+Node-SID It&amp;rsquo;s global and unique. Only one per node. It identify the node.
+Adjacent-SID It&amp;rsquo;s local and can use a dynamique range. It&amp;rsquo;s used to identify an interconnection between 2 nodes.
+With Arista EOS 4.</description>
+    </item>
+    
+  </channel>
+</rss>

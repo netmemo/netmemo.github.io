@@ -22,6 +22,15 @@
     </item>
     
     <item>
+      <title>Arista</title>
+      <link>https://netmemo.github.io/tags/arista/</link>
+      <pubDate>Tue, 24 Nov 2020 18:12:05 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/arista/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>BGP</title>
       <link>https://netmemo.github.io/tags/bgp/</link>
       <pubDate>Mon, 11 May 2020 08:00:11 +0200</pubDate>
@@ -67,6 +76,15 @@
     </item>
     
     <item>
+      <title>EOS</title>
+      <link>https://netmemo.github.io/tags/eos/</link>
+      <pubDate>Tue, 24 Nov 2020 18:12:05 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/eos/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>GSLB</title>
       <link>https://netmemo.github.io/tags/gslb/</link>
       <pubDate>Fri, 04 Oct 2019 23:20:48 +0200</pubDate>
@@ -81,6 +99,15 @@
       <pubDate>Fri, 04 Oct 2019 23:20:48 +0200</pubDate>
       
       <guid>https://netmemo.github.io/tags/gtm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ISIS</title>
+      <link>https://netmemo.github.io/tags/isis/</link>
+      <pubDate>Tue, 24 Nov 2020 18:12:05 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/isis/</guid>
       <description></description>
     </item>
     
@@ -135,6 +162,24 @@
       <pubDate>Mon, 11 May 2020 08:00:11 +0200</pubDate>
       
       <guid>https://netmemo.github.io/tags/routing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SR</title>
+      <link>https://netmemo.github.io/tags/sr/</link>
+      <pubDate>Tue, 24 Nov 2020 18:12:05 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/sr/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Segment Routing</title>
+      <link>https://netmemo.github.io/tags/segment-routing/</link>
+      <pubDate>Tue, 24 Nov 2020 18:12:05 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/segment-routing/</guid>
       <description></description>
     </item>
     

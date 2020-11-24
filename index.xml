@@ -11,6 +11,240 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Arista basic ISIS-SR</title>
+      <link>https://netmemo.github.io/post/aristabasesr/</link>
+      <pubDate>Tue, 24 Nov 2020 18:12:05 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/post/aristabasesr/</guid>
+      <description>
+
+&lt;h3 id=&#34;isis-segment-routing-basics-for-arista-eos&#34;&gt;ISIS Segment routing basics for Arista EOS&lt;/h3&gt;
+
+&lt;p&gt;References:&lt;br /&gt;
+&lt;a href=&#34;https://www.arista.com/en/um-eos/eos-section-35-3-is-is-segment-routing&#34; target=&#34;_blank&#34;&gt;https://www.arista.com/en/um-eos/eos-section-35-3-is-is-segment-routing&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;aristabasesr.png&#34; alt=&#34;arista isis sr&#34; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;srgb&#34;&gt;SRGB&lt;/h4&gt;
+
+&lt;p&gt;Segment Routing Golbal Block&lt;/p&gt;
+
+&lt;h4 id=&#34;prefix-sid&#34;&gt;Prefix-SID&lt;/h4&gt;
+
+&lt;p&gt;It&amp;rsquo;s global and unique. It identify a prefix. It&amp;rsquo;s called anycast SID when it&amp;rsquo;s send by a group of router.&lt;/p&gt;
+
+&lt;h4 id=&#34;node-sid&#34;&gt;Node-SID&lt;/h4&gt;
+
+&lt;p&gt;It&amp;rsquo;s global and unique. Only one per node. It identify the node.&lt;/p&gt;
+
+&lt;h4 id=&#34;adjacent-sid&#34;&gt;Adjacent-SID&lt;/h4&gt;
+
+&lt;p&gt;It&amp;rsquo;s local and can use a dynamique range. It&amp;rsquo;s used to identify an interconnection between 2 nodes.&lt;br /&gt;
+With Arista EOS 4.23 it&amp;rsquo;s automaticaly allocated from the isis dynamic range &lt;strong&gt;show mpls label ranges&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h4 id=&#34;basic-config-for-arista&#34;&gt;Basic config for ARISTA&lt;/h4&gt;
+
+&lt;p&gt;I have added the prefix-sid to test it end to end between the VPC but actually it can work without the prefix-sid. In the next article I will add the L3 VPN on top of SR without using prefix-sid
+In bold you find the ISIS-SR specific command require to enable ISIS-SR&lt;/p&gt;
+
+&lt;h5 id=&#34;r1&#34;&gt;R1&lt;/h5&gt;
+
+&lt;pre style=&#34;color:black&#34;&gt;
+interface Loopback1
+   ip address 1.1.1.1/32
+   &lt;b&gt;node-segment ipv4 index 1&lt;/b&gt;
+   isis enable ISIS-SR
+!
+
+interface Ethernet1
+   no switchport
+   ip address 10.10.12.1/24
+   isis enable ISIS-SR
+!
+interface Ethernet2
+   no switchport
+   ip address 10.10.10.1/24
+   isis enable ISIS-SR
+!
+ip routing
+!
+mpls ip
+!
+
+router isis ISIS-SR
+   net 10.0000.0010.0100.1001.00
+   is-type level-2
+   !
+   address-family ipv4 unicast
+   !
+   &lt;b&gt;segment-routing mpls &lt;/b&gt; 
+      &lt;b&gt;no shutdown&lt;/b&gt;
+      prefix-segment 10.10.10.0/24 index 51
+!
+&lt;/pre&gt;
+
+&lt;h5 id=&#34;r2&#34;&gt;R2&lt;/h5&gt;
+
+&lt;pre style=&#34;color:black&#34;&gt;
+interface Loopback1
+   ip address 2.2.2.2/32
+   &lt;b&gt;node-segment ipv4 index 2&lt;/b&gt;
+   isis enable ISIS-SR
+!
+
+interface Ethernet1
+   no switchport
+   ip address 10.10.12.2/24
+   isis enable ISIS-SR
+!
+
+interface Ethernet2
+   no switchport
+   ip address 10.10.23.2/24
+   isis enable ISIS-SR
+!
+
+ip routing
+!
+mpls ip
+!
+
+router isis ISIS-SR
+   net 10.0000.0020.0200.2002.00
+   is-type level-2
+   !
+   address-family ipv4 unicast
+   !
+   &lt;b&gt;segment-routing mpls&lt;/b&gt;
+      &lt;b&gt;no shutdown&lt;/b&gt;
+!
+&lt;/pre&gt;
+
+&lt;h5 id=&#34;r3&#34;&gt;R3&lt;/h5&gt;
+
+&lt;pre style=&#34;color:black&#34;&gt;
+interface Loopback1
+   ip address 3.3.3.3/32
+   &lt;b&gt;node-segment ipv4 index 3&lt;/b&gt;
+   isis enable ISIS-SR
+!
+
+interface Ethernet1
+   no switchport
+   ip address 10.10.23.3/24
+   isis enable ISIS-SR
+!
+interface Ethernet2
+   no switchport
+   ip address 10.10.30.1/24
+   isis enable ISIS-SR
+!
+ip routing
+!
+mpls ip
+!
+
+router isis ISIS-SR
+   net 10.0000.0030.0300.3003.00
+   is-type level-2
+   !
+   address-family ipv4 unicast
+   !
+   &lt;b&gt;segment-routing mpls&lt;/b&gt;
+      &lt;b&gt;no shutdown&lt;/b&gt;
+      prefix-segment 10.10.30.0/24 index 53
+!
+&lt;/pre&gt;
+
+&lt;h3 id=&#34;show-commands&#34;&gt;show commands&lt;/h3&gt;
+
+&lt;pre style=&#34;color:black&#34;&gt;
+&lt;b&gt;R1#show isis segment-routing&lt;/b&gt;
+
+System ID: R1                   Instance: ISIS-SR
+SR supported Data-plane: MPLS                   SR Router ID: 1.1.1.1
+SR Global Block( SRGB ): Base: 900000           Size: 65536           
+Adj-SID allocation mode: SR-adjacencies
+Adj-SID allocation pool: Base: 100000     Size: 16384
+
+All Prefix Segments have    : P:0 E:0 V:0 L:0
+IS-IS Reachability Algorithm : SPF (0)
+
+Number of IS-IS segment routing capable peers: 2
+
+Self-Originated Segment Statistics:
+Node-Segments       : 1
+Prefix-Segments     : 1
+Proxy-Node-Segments : 0
+Adjacency Segments  : 1
+&lt;/pre&gt;
+
+&lt;pre style=&#34;color:black&#34;&gt;
+&lt;b&gt;R1#show mpls segment-routing bindings&lt;/b&gt;
+
+1.1.1.1/32
+   Local binding:  Label: imp-null
+   Remote binding: Peer ID: 0020.0200.2002, Label: 900001
+2.2.2.2/32
+   Local binding:  Label: 900002
+   Remote binding: Peer ID: 0020.0200.2002, Label: imp-null
+3.3.3.3/32
+   Local binding:  Label: 900003
+   Remote binding: Peer ID: 0020.0200.2002, Label: 900003
+10.10.10.0/24
+   Local binding:  Label: imp-null
+   Remote binding: Peer ID: 0020.0200.2002, Label: 900051
+10.10.30.0/24
+   Local binding:  Label: 900053
+   Remote binding: Peer ID: 0020.0200.2002, Label: 900053
+&lt;/pre&gt;
+
+&lt;pre style=&#34;color:black&#34;&gt;
+&lt;b&gt;R1#show isis segment-routing prefix-segments&lt;/b&gt;
+
+System ID: 0010.0100.1001                       Instance: &#39;ISIS-SR&#39;
+SR supported Data-plane: MPLS                   SR Router ID: 1.1.1.1
+
+Node: 3      Proxy-Node: 0      Prefix: 2       Total Segments: 5
+
+Flag Descriptions: R: Re-advertised, N: Node Segment, P: no-PHP
+                   E: Explicit-NULL, V: Value, L: Local
+Segment status codes: * - Self originated Prefix, L1 - level 1, L2 - level 2
+  Prefix                      SID Type       Flags                   System ID       Level Protection
+  ------------------------- ----- ---------- ----------------------- --------------- ----- ----------
+* 1.1.1.1/32                    1 Node       R:0 N:1 P:0 E:0 V:0 L:0 0010.0100.1001  L2    unprotected
+  2.2.2.2/32                    2 Node       R:0 N:1 P:0 E:0 V:0 L:0 0020.0200.2002  L2    unprotected
+  3.3.3.3/32                    3 Node       R:0 N:1 P:0 E:0 V:0 L:0 0030.0300.3003  L2    unprotected
+* 10.10.10.0/24                51 Prefix     R:0 N:0 P:0 E:0 V:0 L:0 0010.0100.1001  L2    unprotected
+  10.10.30.0/24                53 Prefix     R:0 N:0 P:0 E:0 V:0 L:0 0030.0300.3003  L2    unprotected
+&lt;/pre&gt;
+
+&lt;pre style=&#34;color:black&#34;&gt;
+&lt;b&gt;R1#show isis segment-routing adjacency-segments&lt;/b&gt;
+
+System ID: R1                   Instance: ISIS-SR
+SR supported Data-plane: MPLS                   SR Router ID: 1.1.1.1
+Adj-SID allocation mode: SR-adjacencies
+Adj-SID allocation pool: Base: 100000     Size: 16384
+Adjacency Segment Count: 1
+Flag Descriptions: F: Ipv6 address family, B: Backup, V: Value
+                   L: Local, S: Set
+
+Segment Status codes: L1 - Level-1 adjacency, L2 - Level-2 adjacency, P2P - Point-to-Point adjacency, LAN - Broadcast adjacency
+
+Locally Originated Adjacency Segments
+Adj IP Address  Local Intf     SID   SID Source                 Flags     Type  
+--------------- ----------- ------- ------------ --------------------- -------- 
+    10.10.12.2         Et1  100000      Dynamic   F:0 B:0 V:1 L:1 S:0   LAN L2  
+
+ Protection 
+----------- 
+unprotected 
+&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Bgp Multipath</title>
       <link>https://netmemo.github.io/post/bgp-multipath/</link>
       <pubDate>Mon, 11 May 2020 08:02:21 +0200</pubDate>

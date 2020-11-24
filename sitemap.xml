@@ -4,6 +4,14 @@
     
     <url>
     
+      <loc>https://netmemo.github.io/post/aristabasesr/</loc>
+      <lastmod>2020-11-24T18:12:05+01:00</lastmod>
+    </url>
+    
+  
+    
+    <url>
+    
       <loc>https://netmemo.github.io/post/bgp-multipath/</loc>
       <lastmod>2020-05-11T08:02:21+02:00</lastmod>
     </url>
@@ -101,6 +109,15 @@
     
     <url>
     
+      <loc>https://netmemo.github.io/tags/arista/</loc>
+      <lastmod>2020-11-24T18:12:05+01:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
       <loc>https://netmemo.github.io/tags/bgp/</loc>
       <lastmod>2020-05-11T08:00:11+02:00</lastmod>
       <priority>0</priority>
@@ -163,6 +180,15 @@
     
     <url>
     
+      <loc>https://netmemo.github.io/tags/eos/</loc>
+      <lastmod>2020-11-24T18:12:05+01:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
       <loc>https://netmemo.github.io/tags/gslb/</loc>
       <lastmod>2019-10-04T23:20:48+02:00</lastmod>
       <priority>0</priority>
@@ -174,6 +200,15 @@
     
       <loc>https://netmemo.github.io/tags/gtm/</loc>
       <lastmod>2019-10-04T23:20:48+02:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/tags/isis/</loc>
+      <lastmod>2020-11-24T18:12:05+01:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -245,6 +280,33 @@
     
       <loc>https://netmemo.github.io/categories/routing/</loc>
       <lastmod>2020-05-11T08:00:11+02:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/categories/sp/</loc>
+      <lastmod>2020-11-24T18:12:05+01:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/tags/sr/</loc>
+      <lastmod>2020-11-24T18:12:05+01:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/tags/segment-routing/</loc>
+      <lastmod>2020-11-24T18:12:05+01:00</lastmod>
       <priority>0</priority>
     </url>
     

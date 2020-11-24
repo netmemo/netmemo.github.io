@@ -15,21 +15,16 @@
   
     
   
-  <meta name="description" content="Maximum path In the RIB &#43; FIB ECMP (multipath)
-Is PIC supported by default ?
-https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/configuration/xe-3s/irg-xe-3s-book/irg-bgp-mp-pic.html
-=&gt; With BGP Multipath, the BGP prefix-independant convergence (PIC) feature is supported
- Attribut that should be identical 
-- Weight
-- LP
-- AS Path (AS Number unless relax us used, AS length)
-- Origin Code
-- MED
-- IGP Metric Next hop should be different
-Add Path If the path are equal, allow to advertise more than one bes oath (need to test in eBGP).">
+  <meta name="description" content="ISIS Segment routing basics for Arista EOS References:
+https://www.arista.com/en/um-eos/eos-section-35-3-is-is-segment-routing
+SRGB Segment Routing Golbal Block
+Prefix-SID It&rsquo;s global and unique. It identify a prefix. It&rsquo;s called anycast SID when it&rsquo;s send by a group of router.
+Node-SID It&rsquo;s global and unique. Only one per node. It identify the node.
+Adjacent-SID It&rsquo;s local and can use a dynamique range. It&rsquo;s used to identify an interconnection between 2 nodes.
+With Arista EOS 4.">
 
   
-  <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/post/bgp-multipath/">
+  <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/post/aristabasesr/">
 
   
 
@@ -97,41 +92,36 @@ Add Path If the path are equal, allow to advertise more than one bes oath (need 
   <link rel="icon" type="image/png" href="/img/icon.png">
   <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
 
-  <link rel="canonical" href="https://netmemo.github.io/post/bgp-multipath/">
+  <link rel="canonical" href="https://netmemo.github.io/post/aristabasesr/">
 
   <meta property="twitter:card" content="summary_large_image">
   
   <meta property="og:site_name" content="netmemo.github.io">
-  <meta property="og:url" content="https://netmemo.github.io/post/bgp-multipath/">
-  <meta property="og:title" content="Bgp Multipath | netmemo.github.io">
-  <meta property="og:description" content="Maximum path In the RIB &#43; FIB ECMP (multipath)
-Is PIC supported by default ?
-https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/configuration/xe-3s/irg-xe-3s-book/irg-bgp-mp-pic.html
-=&gt; With BGP Multipath, the BGP prefix-independant convergence (PIC) feature is supported
- Attribut that should be identical 
-- Weight
-- LP
-- AS Path (AS Number unless relax us used, AS length)
-- Origin Code
-- MED
-- IGP Metric Next hop should be different
-Add Path If the path are equal, allow to advertise more than one bes oath (need to test in eBGP).">
+  <meta property="og:url" content="https://netmemo.github.io/post/aristabasesr/">
+  <meta property="og:title" content="Arista basic ISIS-SR | netmemo.github.io">
+  <meta property="og:description" content="ISIS Segment routing basics for Arista EOS References:
+https://www.arista.com/en/um-eos/eos-section-35-3-is-is-segment-routing
+SRGB Segment Routing Golbal Block
+Prefix-SID It&rsquo;s global and unique. It identify a prefix. It&rsquo;s called anycast SID when it&rsquo;s send by a group of router.
+Node-SID It&rsquo;s global and unique. Only one per node. It identify the node.
+Adjacent-SID It&rsquo;s local and can use a dynamique range. It&rsquo;s used to identify an interconnection between 2 nodes.
+With Arista EOS 4.">
   
   
     
   <meta property="og:image" content="https://netmemo.github.io/img/icon-192.png">
   <meta property="og:locale" content="en-us">
   
-  <meta property="article:published_time" content="2020-05-11T08:02:21&#43;02:00">
+  <meta property="article:published_time" content="2020-11-24T18:12:05&#43;01:00">
   
-  <meta property="article:modified_time" content="2020-05-11T08:02:21&#43;02:00">
-  
-
+  <meta property="article:modified_time" content="2020-11-24T18:12:05&#43;01:00">
   
 
   
 
-  <title>Bgp Multipath | netmemo.github.io</title>
+  
+
+  <title>Arista basic ISIS-SR | netmemo.github.io</title>
 
 </head>
 <body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" >
@@ -234,7 +224,7 @@ Add Path If the path are equal, allow to advertise more than one bes oath (need 
 
 
   <div class="article-container">
-    <h1 itemprop="name">Bgp Multipath</h1>
+    <h1 itemprop="name">Arista basic ISIS-SR</h1>
 
     
 
@@ -242,16 +232,21 @@ Add Path If the path are equal, allow to advertise more than one bes oath (need 
 
   
   
-  <span itemscope itemprop="author" itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Noel">
-  </span>
+  
+  <div>
+    
+    <span itemscope itemprop="author" itemtype="http://schema.org/Person">
+      <span itemprop="name">Noel</span>
+    </span>
+    
+  </div>
   
 
   <span class="article-date">
     
-    <meta content="2020-05-11 08:02:21 &#43;0200 CEST" itemprop="datePublished">
-    <time datetime="2020-05-11 08:02:21 &#43;0200 CEST" itemprop="dateModified">
-      May 11, 2020
+    <meta content="2020-11-24 18:12:05 &#43;0100 CET" itemprop="datePublished">
+    <time datetime="2020-11-24 18:12:05 &#43;0100 CET" itemprop="dateModified">
+      Nov 24, 2020
     </time>
   </span>
   <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
@@ -261,7 +256,7 @@ Add Path If the path are equal, allow to advertise more than one bes oath (need 
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    2 min read
+    4 min read
   </span>
   
 
@@ -271,6 +266,14 @@ Add Path If the path are equal, allow to advertise more than one bes oath (need 
   
   
   
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder"></i>
+    
+    <a href="/categories/sp/">SP</a>
+    
+  </span>
+  
   
 
   
@@ -279,35 +282,35 @@ Add Path If the path are equal, allow to advertise more than one bes oath (need 
   <ul class="share">
     <li>
       <a class="twitter"
-         href="https://twitter.com/intent/tweet?text=Bgp%20Multipath&amp;url=https%3a%2f%2fnetmemo.github.io%2fpost%2fbgp-multipath%2f"
+         href="https://twitter.com/intent/tweet?text=Arista%20basic%20ISIS-SR&amp;url=https%3a%2f%2fnetmemo.github.io%2fpost%2faristabasesr%2f"
          target="_blank" rel="noopener">
         <i class="fab fa-twitter"></i>
       </a>
     </li>
     <li>
       <a class="facebook"
-         href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fnetmemo.github.io%2fpost%2fbgp-multipath%2f"
+         href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fnetmemo.github.io%2fpost%2faristabasesr%2f"
          target="_blank" rel="noopener">
         <i class="fab fa-facebook-f"></i>
       </a>
     </li>
     <li>
       <a class="linkedin"
-         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fnetmemo.github.io%2fpost%2fbgp-multipath%2f&amp;title=Bgp%20Multipath"
+         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fnetmemo.github.io%2fpost%2faristabasesr%2f&amp;title=Arista%20basic%20ISIS-SR"
          target="_blank" rel="noopener">
         <i class="fab fa-linkedin-in"></i>
       </a>
     </li>
     <li>
       <a class="weibo"
-         href="http://service.weibo.com/share/share.php?url=https%3a%2f%2fnetmemo.github.io%2fpost%2fbgp-multipath%2f&amp;title=Bgp%20Multipath"
+         href="http://service.weibo.com/share/share.php?url=https%3a%2f%2fnetmemo.github.io%2fpost%2faristabasesr%2f&amp;title=Arista%20basic%20ISIS-SR"
          target="_blank" rel="noopener">
         <i class="fab fa-weibo"></i>
       </a>
     </li>
     <li>
       <a class="email"
-         href="mailto:?subject=Bgp%20Multipath&amp;body=https%3a%2f%2fnetmemo.github.io%2fpost%2fbgp-multipath%2f">
+         href="mailto:?subject=Arista%20basic%20ISIS-SR&amp;body=https%3a%2f%2fnetmemo.github.io%2fpost%2faristabasesr%2f">
         <i class="fas fa-envelope"></i>
       </a>
     </li>
@@ -323,69 +326,248 @@ Add Path If the path are equal, allow to advertise more than one bes oath (need 
     <div class="article-style" itemprop="articleBody">
       
 
-<h3 id="maximum-path">Maximum path</h3>
+<h3 id="isis-segment-routing-basics-for-arista-eos">ISIS Segment routing basics for Arista EOS</h3>
 
-<p>In the RIB + FIB ECMP (multipath)</p>
+<p>References:<br />
+<a href="https://www.arista.com/en/um-eos/eos-section-35-3-is-is-segment-routing" target="_blank">https://www.arista.com/en/um-eos/eos-section-35-3-is-is-segment-routing</a></p>
 
-<p>Is PIC supported by default ?<br />
-<a href="https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/configuration/xe-3s/irg-xe-3s-book/irg-bgp-mp-pic.html" target="_blank">https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/configuration/xe-3s/irg-xe-3s-book/irg-bgp-mp-pic.html</a><br />
-=&gt; With BGP Multipath, the BGP prefix-independant convergence (PIC) feature is supported</p>
+<p><img src="aristabasesr.png" alt="arista isis sr" /></p>
 
-<p><strong><ins> Attribut that should be identical </ins></strong><br />
-- Weight<br />
-- LP<br />
-- AS Path (AS Number unless relax us used, AS length)<br />
-- Origin Code<br />
-- MED<br />
-- IGP Metric Next hop should be different</p>
+<h4 id="srgb">SRGB</h4>
 
-<h3 id="add-path">Add Path</h3>
+<p>Segment Routing Golbal Block</p>
 
-<p>If the path are equal, allow to advertise more than one bes oath (need to test in eBGP).<br />
-Mostly used with BGP without MPLS. If MPLS is used it&rsquo;s better to have an RD different for each VRF of each router (easier to troubleshoot).<br />
-<a href="https://orhanergun.net/wp-content/uploads/2019/11/BGP-Add-path-vs-Shadow-RR-vs-Shadow-Session-vs-Unique-RD.pdf" target="_blank">https://orhanergun.net/wp-content/uploads/2019/11/BGP-Add-path-vs-Shadow-RR-vs-Shadow-Session-vs-Unique-RD.pdf</a></p>
+<h4 id="prefix-sid">Prefix-SID</h4>
 
-<h3 id="pic">PIC</h3>
+<p>It&rsquo;s global and unique. It identify a prefix. It&rsquo;s called anycast SID when it&rsquo;s send by a group of router.</p>
 
-<p><a href="https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2016/pdf/BRKRST-3321.pdf" target="_blank">https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2016/pdf/BRKRST-3321.pdf</a>
-I don&rsquo;t neded it at the moment because we don&rsquo;t need this level if convergence (couple of minutes vs ms if you have hundres of thousand of prefixes)</p>
+<h4 id="node-sid">Node-SID</h4>
 
-<p><a href="https://blog.ipspace.net/2012/01/prefix-independent-convergence-pic.html" target="_blank">https://blog.ipspace.net/2012/01/prefix-independent-convergence-pic.html</a></p>
+<p>It&rsquo;s global and unique. Only one per node. It identify the node.</p>
 
-<p>The generic optimization of the RIB-to-FIB update process is known as Prefix-Independent Convergence (PIC) - if the routing protocols can pre-compute alternate paths, suitably designed FIB can use that information to cache alternate next hops. Updating such a FIB no longer involves numerous updates to individual prefixes; you have to change only the next hop reachability information.</p>
+<h4 id="adjacent-sid">Adjacent-SID</h4>
 
-<h3 id="best-external">Best External</h3>
+<p>It&rsquo;s local and can use a dynamique range. It&rsquo;s used to identify an interconnection between 2 nodes.<br />
+With Arista EOS 4.23 it&rsquo;s automaticaly allocated from the isis dynamic range <strong>show mpls label ranges</strong>.</p>
 
-<p>Allow a router to advertise it&rsquo;s best external path even if in it&rsquo;s BGP table it does have a beter route from inside</p>
+<h4 id="basic-config-for-arista">Basic config for ARISTA</h4>
 
-<h3 id="label-allocation">LABEL ALLOCATION</h3>
+<p>I have added the prefix-sid to test it end to end between the VPC but actually it can work without the prefix-sid. In the next article I will add the L3 VPN on top of SR without using prefix-sid
+In bold you find the ISIS-SR specific command require to enable ISIS-SR</p>
 
-<h5 id="per-vrf">Per VRF</h5>
+<h5 id="r1">R1</h5>
 
-<p><strong><ins> Cons </ins></strong><br />
-- IP Lookup needed after label lookup (can be a benefit, cf route sum issue)<br />
-- No granular load balancing because the bottom label is the same for all prefixes, if platform load balances on bottom label<br />
-- Potential forwarding loop during local traffic diversion to support PIC (Transient loop)<br />
-- No support for EIBGP multipath</p>
+<pre style="color:black">
+interface Loopback1
+   ip address 1.1.1.1/32
+   <b>node-segment ipv4 index 1</b>
+   isis enable ISIS-SR
+!
 
-<p><strong><ins> Pros </ins></strong><br />
-- 1 label per vrf (less label used)</p>
+interface Ethernet1
+   no switchport
+   ip address 10.10.12.1/24
+   isis enable ISIS-SR
+!
+interface Ethernet2
+   no switchport
+   ip address 10.10.10.1/24
+   isis enable ISIS-SR
+!
+ip routing
+!
+mpls ip
+!
 
-<h5 id="per-ce">Per CE</h5>
+router isis ISIS-SR
+   net 10.0000.0010.0100.1001.00
+   is-type level-2
+   !
+   address-family ipv4 unicast
+   !
+   <b>segment-routing mpls </b> 
+      <b>no shutdown</b>
+      prefix-segment 10.10.10.0/24 index 51
+!
+</pre>
 
-<p><strong><ins> Cons </ins></strong><br />
-- No granular load balancing because the bottom label is the same for all prefixes from one CE, if platform load balances on bottom label<br />
-- eBGPload balancing &amp; BGP PIC is not supported (it makes usage of label diversity), unless resilient per-ce label<br />
-- Only single hop eBGPsupported, no multihop</p>
+<h5 id="r2">R2</h5>
 
-<p><strong><ins> Pros </ins></strong><br />
-- No IP lookup needed after label lookup<br />
-- Per-CE : one MPLS label per next-hop (so per connected CE router)(Number of MPLS labels used is very low)</p>
+<pre style="color:black">
+interface Loopback1
+   ip address 2.2.2.2/32
+   <b>node-segment ipv4 index 2</b>
+   isis enable ISIS-SR
+!
+
+interface Ethernet1
+   no switchport
+   ip address 10.10.12.2/24
+   isis enable ISIS-SR
+!
+
+interface Ethernet2
+   no switchport
+   ip address 10.10.23.2/24
+   isis enable ISIS-SR
+!
+
+ip routing
+!
+mpls ip
+!
+
+router isis ISIS-SR
+   net 10.0000.0020.0200.2002.00
+   is-type level-2
+   !
+   address-family ipv4 unicast
+   !
+   <b>segment-routing mpls</b>
+      <b>no shutdown</b>
+!
+</pre>
+
+<h5 id="r3">R3</h5>
+
+<pre style="color:black">
+interface Loopback1
+   ip address 3.3.3.3/32
+   <b>node-segment ipv4 index 3</b>
+   isis enable ISIS-SR
+!
+
+interface Ethernet1
+   no switchport
+   ip address 10.10.23.3/24
+   isis enable ISIS-SR
+!
+interface Ethernet2
+   no switchport
+   ip address 10.10.30.1/24
+   isis enable ISIS-SR
+!
+ip routing
+!
+mpls ip
+!
+
+router isis ISIS-SR
+   net 10.0000.0030.0300.3003.00
+   is-type level-2
+   !
+   address-family ipv4 unicast
+   !
+   <b>segment-routing mpls</b>
+      <b>no shutdown</b>
+      prefix-segment 10.10.30.0/24 index 53
+!
+</pre>
+
+<h3 id="show-commands">show commands</h3>
+
+<pre style="color:black">
+<b>R1#show isis segment-routing</b>
+
+System ID: R1                   Instance: ISIS-SR
+SR supported Data-plane: MPLS                   SR Router ID: 1.1.1.1
+SR Global Block( SRGB ): Base: 900000           Size: 65536           
+Adj-SID allocation mode: SR-adjacencies
+Adj-SID allocation pool: Base: 100000     Size: 16384
+
+All Prefix Segments have    : P:0 E:0 V:0 L:0
+IS-IS Reachability Algorithm : SPF (0)
+
+Number of IS-IS segment routing capable peers: 2
+
+Self-Originated Segment Statistics:
+Node-Segments       : 1
+Prefix-Segments     : 1
+Proxy-Node-Segments : 0
+Adjacency Segments  : 1
+</pre>
+
+<pre style="color:black">
+<b>R1#show mpls segment-routing bindings</b>
+
+1.1.1.1/32
+   Local binding:  Label: imp-null
+   Remote binding: Peer ID: 0020.0200.2002, Label: 900001
+2.2.2.2/32
+   Local binding:  Label: 900002
+   Remote binding: Peer ID: 0020.0200.2002, Label: imp-null
+3.3.3.3/32
+   Local binding:  Label: 900003
+   Remote binding: Peer ID: 0020.0200.2002, Label: 900003
+10.10.10.0/24
+   Local binding:  Label: imp-null
+   Remote binding: Peer ID: 0020.0200.2002, Label: 900051
+10.10.30.0/24
+   Local binding:  Label: 900053
+   Remote binding: Peer ID: 0020.0200.2002, Label: 900053
+</pre>
+
+<pre style="color:black">
+<b>R1#show isis segment-routing prefix-segments</b>
+
+System ID: 0010.0100.1001                       Instance: 'ISIS-SR'
+SR supported Data-plane: MPLS                   SR Router ID: 1.1.1.1
+
+Node: 3      Proxy-Node: 0      Prefix: 2       Total Segments: 5
+
+Flag Descriptions: R: Re-advertised, N: Node Segment, P: no-PHP
+                   E: Explicit-NULL, V: Value, L: Local
+Segment status codes: * - Self originated Prefix, L1 - level 1, L2 - level 2
+  Prefix                      SID Type       Flags                   System ID       Level Protection
+  ------------------------- ----- ---------- ----------------------- --------------- ----- ----------
+* 1.1.1.1/32                    1 Node       R:0 N:1 P:0 E:0 V:0 L:0 0010.0100.1001  L2    unprotected
+  2.2.2.2/32                    2 Node       R:0 N:1 P:0 E:0 V:0 L:0 0020.0200.2002  L2    unprotected
+  3.3.3.3/32                    3 Node       R:0 N:1 P:0 E:0 V:0 L:0 0030.0300.3003  L2    unprotected
+* 10.10.10.0/24                51 Prefix     R:0 N:0 P:0 E:0 V:0 L:0 0010.0100.1001  L2    unprotected
+  10.10.30.0/24                53 Prefix     R:0 N:0 P:0 E:0 V:0 L:0 0030.0300.3003  L2    unprotected
+</pre>
+
+<pre style="color:black">
+<b>R1#show isis segment-routing adjacency-segments</b>
+
+System ID: R1                   Instance: ISIS-SR
+SR supported Data-plane: MPLS                   SR Router ID: 1.1.1.1
+Adj-SID allocation mode: SR-adjacencies
+Adj-SID allocation pool: Base: 100000     Size: 16384
+Adjacency Segment Count: 1
+Flag Descriptions: F: Ipv6 address family, B: Backup, V: Value
+                   L: Local, S: Set
+
+Segment Status codes: L1 - Level-1 adjacency, L2 - Level-2 adjacency, P2P - Point-to-Point adjacency, LAN - Broadcast adjacency
+
+Locally Originated Adjacency Segments
+Adj IP Address  Local Intf     SID   SID Source                 Flags     Type  
+--------------- ----------- ------- ------------ --------------------- -------- 
+    10.10.12.2         Et1  100000      Dynamic   F:0 B:0 V:1 L:1 S:0   LAN L2  
+
+ Protection 
+----------- 
+unprotected 
+</pre>
 
     </div>
 
     
 
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/sr/">SR</a>
+  
+  <a class="badge badge-light" href="/tags/segment-routing/">Segment Routing</a>
+  
+  <a class="badge badge-light" href="/tags/arista/">Arista</a>
+  
+  <a class="badge badge-light" href="/tags/eos/">EOS</a>
+  
+  <a class="badge badge-light" href="/tags/isis/">ISIS</a>
+  
+</div>
 
 
 
