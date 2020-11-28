@@ -11,6 +11,66 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>ACI from an other angle</title>
+      <link>https://netmemo.github.io/post/aci-other-angle/</link>
+      <pubDate>Sat, 28 Nov 2020 19:11:36 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/post/aci-other-angle/</guid>
+      <description>
+
+&lt;h3 id=&#34;several-of-these-protocols-are-standards&#34;&gt;&amp;ldquo;Several of these protocols are standards&amp;rdquo;&lt;/h3&gt;
+
+&lt;p&gt;My undestanding is that even if the protocols looks standard, Cisco did some modification on them : VXLAN (fiels to transport ACI Policies), ISIS (added the multidestination tree) and hence are note standard anymore.&lt;/p&gt;
+
+&lt;h3 id=&#34;does-it-require-proprietary-server&#34;&gt;&amp;ldquo;Does it require proprietary server ?&amp;rdquo;&lt;/h3&gt;
+
+&lt;p&gt;Not prorietary servers but proprietary switches&amp;hellip;So you are locked in regarding the software and the hardware. Both can&amp;rsquo;t be decoupled. If you choose to move to another switch vendor, you need to change the hardware and sart learnong new software and protocols skills. Previously while you probably still need to change the softwar and the hardware, you didn&amp;rsquo;t need to learn everything from scratch regarding the protocols.&lt;br /&gt;
+In the past with Fabric Path, I&amp;rsquo;ve already had issues by beeing locked-in with both. When Cisco will end up the support, you then need to change the hardware and learn new software/protocols skills.&lt;/p&gt;
+
+&lt;h3 id=&#34;security-lock-in&#34;&gt;Security lock-in&lt;/h3&gt;
+
+&lt;p&gt;There is one more lock-in, this is regarding the security policies in ACI. If you use the Cisco Application Centric mode, it&amp;rsquo;s even worst, the day were Cisco will decide it&amp;rsquo;s not bankable anymore and start moving away from if, you will need to migrate the hardware, learn new software, new protocols and migrate the security to something completly different.&lt;br /&gt;
+For certain organisation, that will be a nightmare and probably cost more money than investing regulary in people.&lt;/p&gt;
+
+&lt;p&gt;If you don&amp;rsquo;t want to use the Application Centric mode and just use the eNetwork Centruc mode, you still have an expensive solution with lot of options you will pay for but never use. Moreover you will inherit all the software complexity and associated bugs for features that are useless for you.&lt;/p&gt;
+
+&lt;h3 id=&#34;summ-up&#34;&gt;Summ up&lt;/h3&gt;
+
+&lt;p&gt;Standard Protocols not so standard:&lt;br /&gt;
+    ISIS (Multidestination tree ftag)&lt;br /&gt;
+    BGP for multi site&lt;br /&gt;
+    VXLAN (Field to transport ACI policies)&lt;/p&gt;
+
+&lt;p&gt;Proprietary Protocols&lt;br /&gt;
+    COOP&lt;/p&gt;
+
+&lt;p&gt;Very little public documentation&lt;/p&gt;
+
+&lt;p&gt;Lock in : Hardware, software, security&lt;br /&gt;
+    Previously : some features or knobs were proprietary or tie to hardware but not the all system&lt;br /&gt;
+    =&amp;gt; EIGRP, software lock in but you can ignore it if you want&lt;br /&gt;
+    =&amp;gt; FP at the time of the launch no other option were  standard&lt;/p&gt;
+
+&lt;p&gt;Software complexity due to all the feature you don&amp;rsquo;t want + software has been think to be application aware and even if you don&amp;rsquo;t want to use it, you will anyway inherit the code complexity of it.&lt;/p&gt;
+
+&lt;p&gt;Everything centralise in a box right in the middle of the data path (Spine COOP devices).&lt;/p&gt;
+
+&lt;p&gt;Stopped product:&lt;br /&gt;
+&lt;ul&gt;
+&lt;li&gt; Loadbalancing : ACE/CSS  &lt;/li&gt;
+&lt;li&gt; Fabric Path  &lt;/li&gt;
+&lt;li&gt; Ironport ?  &lt;/li&gt;
+&lt;li&gt; iWAN  &lt;/li&gt;
+&lt;li&gt; VPn Concentrator  &lt;/li&gt;
+&lt;/ul&gt;&lt;/p&gt;
+
+&lt;p&gt;You need EVPN anyway for multisite.&lt;/p&gt;
+
+&lt;p&gt;You need automation anyway because it&amp;rsquo;s too complex to manage via the GUI and you want to standardise all the conf.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Arista basic ISIS-SR</title>
       <link>https://netmemo.github.io/post/aristabasesr/</link>
       <pubDate>Tue, 24 Nov 2020 18:12:05 +0100</pubDate>

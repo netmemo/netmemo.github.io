@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2019. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author�s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
-    <lastBuildDate>Mon, 11 May 2020 08:00:11 +0200</lastBuildDate>
+    <lastBuildDate>Sat, 28 Nov 2020 19:11:36 +0100</lastBuildDate>
     
 	<atom:link href="https://netmemo.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ACI</title>
+      <link>https://netmemo.github.io/tags/aci/</link>
+      <pubDate>Sat, 28 Nov 2020 19:11:36 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/aci/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>ANYCAST</title>
@@ -45,6 +54,15 @@
       <pubDate>Mon, 22 Oct 2018 15:35:55 +0200</pubDate>
       
       <guid>https://netmemo.github.io/tags/core-linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>DC</title>
+      <link>https://netmemo.github.io/tags/dc/</link>
+      <pubDate>Sat, 28 Nov 2020 19:11:36 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/dc/</guid>
       <description></description>
     </item>
     
