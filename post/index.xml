@@ -13,6 +13,17 @@
     
     
     <item>
+      <title>Bfd on directly connected</title>
+      <link>https://netmemo.github.io/post/bfd-directly-connected/</link>
+      <pubDate>Wed, 02 Dec 2020 09:29:50 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/post/bfd-directly-connected/</guid>
+      <description>One article that can help understanding and make decisions about fast failover https://blog.ipspace.net/2020/11/detecting-network-failure.html https://blog.ipspace.net/2012/09/do-we-need-lacp-and-udld.html
+Is there any benefit by enabling BFD on directly connected interface ?
+Sometime it can be enabled to help veryfied that there are no issues on physical layer and data link layer of an interface. It can help if on the data link layer you are not using UDLD or LACP.</description>
+    </item>
+    
+    <item>
       <title>ACI from an other angle</title>
       <link>https://netmemo.github.io/post/aci-other-angle/</link>
       <pubDate>Sat, 28 Nov 2020 19:11:36 +0100</pubDate>

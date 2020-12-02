@@ -4,6 +4,14 @@
     
     <url>
     
+      <loc>https://netmemo.github.io/post/bfd-directly-connected/</loc>
+      <lastmod>2020-12-02T09:29:50+01:00</lastmod>
+    </url>
+    
+  
+    
+    <url>
+    
       <loc>https://netmemo.github.io/post/aci-other-angle/</loc>
       <lastmod>2020-11-28T19:11:36+01:00</lastmod>
     </url>
@@ -135,6 +143,15 @@
     
     <url>
     
+      <loc>https://netmemo.github.io/tags/bfd/</loc>
+      <lastmod>2020-12-02T09:29:50+01:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
       <loc>https://netmemo.github.io/tags/bgp/</loc>
       <lastmod>2020-05-11T08:00:11+02:00</lastmod>
       <priority>0</priority>
@@ -145,6 +162,15 @@
     <url>
     
       <loc>https://netmemo.github.io/categories/</loc>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/categories/convergence/</loc>
+      <lastmod>2020-12-02T09:29:50+01:00</lastmod>
       <priority>0</priority>
     </url>
     
