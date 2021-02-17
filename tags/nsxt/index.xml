@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>NSXT on netmemo.github.io</title>
+    <link>https://netmemo.github.io/tags/nsxt/</link>
+    <description>Recent content in NSXT on netmemo.github.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2019. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author�s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
+    <lastBuildDate>Wed, 17 Feb 2021 21:32:37 +0100</lastBuildDate>
+    
+	<atom:link href="https://netmemo.github.io/tags/nsxt/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Tf Bundle Windows</title>
+      <link>https://netmemo.github.io/post/tf-bundle-windows/</link>
+      <pubDate>Wed, 17 Feb 2021 21:32:37 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/post/tf-bundle-windows/</guid>
+      <description>The below steps are what I did to create a terraform-bundle to use terraform with non default providers on a server that doesn&amp;rsquo;t have access to Internet. You can find the tool explanation in the below link.
+https://github.com/hashicorp/terraform/tree/master/tools/terraform-bundle
+installation of golang with msi downloaded here
+https://golang.org/doc/install
+Clone the terraform repository to get the tool
+https://github.com/hashicorp/terraform.git
+cd terraform-master go install .\tools\terraform-bundle  Check the terraform version C:\Users\noyel\Desktop\tfforeach\nsxt&amp;gt;terraform version Terraform v0.14.6 + provider registry.</description>
+    </item>
+    
+  </channel>
+</rss>

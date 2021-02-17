@@ -11,6 +11,176 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Tf Bundle Windows</title>
+      <link>https://netmemo.github.io/post/tf-bundle-windows/</link>
+      <pubDate>Wed, 17 Feb 2021 21:32:37 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/post/tf-bundle-windows/</guid>
+      <description>
+
+&lt;p&gt;The below steps are what I did to create a terraform-bundle to use terraform with non default providers on a server that doesn&amp;rsquo;t have access to Internet. You can find the tool explanation in the below link.&lt;br /&gt;
+&lt;a href=&#34;https://github.com/hashicorp/terraform/tree/master/tools/terraform-bundle&#34; target=&#34;_blank&#34;&gt;https://github.com/hashicorp/terraform/tree/master/tools/terraform-bundle&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;installation of golang with msi downloaded here&lt;br /&gt;
+&lt;a href=&#34;https://golang.org/doc/install&#34; target=&#34;_blank&#34;&gt;https://golang.org/doc/install&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Clone the terraform repository to get the tool&lt;br /&gt;
+&lt;a href=&#34;https://github.com/hashicorp/terraform.git&#34; target=&#34;_blank&#34;&gt;https://github.com/hashicorp/terraform.git&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cd terraform-master
+go install .\tools\terraform-bundle
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;check-the-terraform-version&#34;&gt;Check the terraform version&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;C:\Users\noyel\Desktop\tfforeach\nsxt&amp;gt;terraform version
+Terraform v0.14.6
++ provider registry.terraform.io/vmware/nsxt v3.0.1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;create-a-terraform-bundle-hcl-file&#34;&gt;Create a terraform-bundle.hcl file&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;terraform {
+  # Version of Terraform to include in the bundle. An exact version number
+  # is required.
+  version = &amp;quot;0.14.6&amp;quot;
+}
+
+# Define which provider plugins are to be included
+providers {
+  # Include the newest &amp;quot;nsxt&amp;quot; provider version in the 1.0 series.
+  nsxt = {
+    source = &amp;quot;vmware/nsxt&amp;quot;
+    versions = [&amp;quot;~&amp;gt; 3.0.0&amp;quot;]
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;create-the-bundle&#34;&gt;Create the bundle&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;C:\Users\noyel\Desktop\tfforeach\nsxt&amp;gt;terraform-bundle package terraform-bundle.hcl
+Fetching Terraform 0.14.6 core package...
+Local plugin directory &amp;quot;.plugins&amp;quot; found; scanning for provider binaries.
+No &amp;quot;.plugins&amp;quot; directory found, skipping local provider discovery.
+- Finding vmware/nsxt versions matching &amp;quot;~&amp;gt; 3.0.0&amp;quot;...
+- Installing vmware/nsxt v3.0.1...
+Creating terraform_0.14.6-bundle2021021713_windows_amd64.zip ...
+All done!
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Move the zip file to the server you want to use it. Unzip the file. For a basic utilization move the terraform.exe and plugins in the directory where your terraform files are.&lt;/p&gt;
+
+&lt;h4 id=&#34;the-provider-tf-file-looks&#34;&gt;The provider.tf file looks&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;terraform {
+  required_providers {
+    nsxt = {
+      source = &amp;quot;vmware/nsxt&amp;quot;
+      version = &amp;quot;3.0.1&amp;quot;
+    }
+  }
+}
+
+provider &amp;quot;nsxt&amp;quot; {
+   host = &amp;quot;1.2.3.4&amp;quot;
+   username   = &amp;quot;admin&amp;quot;
+   password   = &amp;quot;123&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When initialize Terraform with the init command, specify the plugins directory.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;C:\Users\bubibi\terraform\terraform init -plugin-dir=C:\Users\bubibi\terraform\plugins
+
+Terraform has been successfuly initialized!
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Using TF for_each to create subnets in AWS VPC</title>
+      <link>https://netmemo.github.io/post/tf-for-each/</link>
+      <pubDate>Wed, 17 Feb 2021 20:59:49 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/post/tf-for-each/</guid>
+      <description>
+
+&lt;p&gt;An extended explanation of the differences between for_each, for and count can be find on the below link&lt;br /&gt;
+&lt;a href=&#34;https://blog.gruntwork.io/terraform-tips-tricks-loops-if-statements-and-gotchas-f739bbae55f9&#34; target=&#34;_blank&#34;&gt;https://blog.gruntwork.io/terraform-tips-tricks-loops-if-statements-and-gotchas-f739bbae55f9&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The two main drawback of using count are :&lt;br /&gt;
+- Can&amp;rsquo;t be used to loop over inline blocks&lt;br /&gt;
+- Difficult to remove entry from a list because it change the index and those Terraform may want to destroy same resource with different index&lt;/p&gt;
+
+&lt;p&gt;Below are the an exemple of the variables used to create subnets within AWS VPCs and the main file with the for_each.
+The variables contain a map of subnets maps with cidr and az (availability zone) attributes.
+The for_each loop over the map of subnets maps to create the subnets.&lt;/p&gt;
+
+&lt;h4 id=&#34;variables-tf&#34;&gt;variables.tf&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;variable &amp;quot;tag_name&amp;quot; {
+   default = &amp;quot;main-vpc&amp;quot;
+}
+
+variable &amp;quot;vpc-cidr&amp;quot; {
+   default = &amp;quot;10.0.0.0/16&amp;quot;
+}
+
+variable &amp;quot;basename&amp;quot; {
+   description = &amp;quot;Prefix used for all resources names&amp;quot;
+   default = &amp;quot;nbo&amp;quot;
+}
+
+#map of maps for create subnets
+variable &amp;quot;prefix&amp;quot; {
+   type = map
+   default = {
+      sub-1 = {
+         az = &amp;quot;use2-az1&amp;quot;
+         cidr = &amp;quot;10.0.198.0/24&amp;quot;
+      }
+      sub-2 = {
+         az = &amp;quot;use2-az2&amp;quot;
+         cidr = &amp;quot;10.0.199.0/24&amp;quot;
+      }
+      sub-3 = {
+         az = &amp;quot;use2-az3&amp;quot;
+         cidr = &amp;quot;10.0.200.0/24&amp;quot;
+      }
+   }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;main-tf&#34;&gt;main.tf&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;resource &amp;quot;aws_vpc&amp;quot; &amp;quot;main-vpc&amp;quot; {
+  cidr_block = var.vpc-cidr
+
+  tags = {
+    Name = var.tag_name
+  }
+}
+
+resource &amp;quot;aws_subnet&amp;quot; &amp;quot;main-subnet&amp;quot; {
+  for_each = var.prefix
+ 
+  availability_zone_id = each.value[&amp;quot;az&amp;quot;]
+  cidr_block = each.value[&amp;quot;cidr&amp;quot;]
+  vpc_id     = aws_vpc.main-vpc.id
+
+  tags = {
+    Name = &amp;quot;${var.basename}-subnet-${each.key}&amp;quot;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can find the output of the terraform plan/apply, the terraform.state and the others tf files in the below links.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/netmemo/tf-for-each-exemple&#34; target=&#34;_blank&#34;&gt;https://github.com/netmemo/tf-for-each-exemple&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Bfd on directly connected</title>
       <link>https://netmemo.github.io/post/bfd-directly-connected/</link>
       <pubDate>Wed, 02 Dec 2020 09:29:50 +0100</pubDate>

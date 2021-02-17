@@ -31,6 +31,15 @@
     </item>
     
     <item>
+      <title>AWS</title>
+      <link>https://netmemo.github.io/tags/aws/</link>
+      <pubDate>Wed, 17 Feb 2021 20:59:49 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/aws/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Arista</title>
       <link>https://netmemo.github.io/tags/arista/</link>
       <pubDate>Tue, 24 Nov 2020 18:12:05 +0100</pubDate>
@@ -175,6 +184,15 @@
     </item>
     
     <item>
+      <title>NSXT</title>
+      <link>https://netmemo.github.io/tags/nsxt/</link>
+      <pubDate>Wed, 17 Feb 2021 21:32:37 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/nsxt/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>OSPF</title>
       <link>https://netmemo.github.io/tags/ospf/</link>
       <pubDate>Mon, 11 May 2020 08:00:11 +0200</pubDate>
@@ -207,6 +225,15 @@
       <pubDate>Tue, 24 Nov 2020 18:12:05 +0100</pubDate>
       
       <guid>https://netmemo.github.io/tags/segment-routing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Terraform</title>
+      <link>https://netmemo.github.io/tags/terraform/</link>
+      <pubDate>Wed, 17 Feb 2021 21:32:37 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/terraform/</guid>
       <description></description>
     </item>
     

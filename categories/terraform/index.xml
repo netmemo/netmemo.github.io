@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Terraform on netmemo.github.io</title>
+    <link>https://netmemo.github.io/categories/terraform/</link>
+    <description>Recent content in Terraform on netmemo.github.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2019. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author�s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
+    <lastBuildDate>Wed, 17 Feb 2021 21:32:37 +0100</lastBuildDate>
+    
+	<atom:link href="https://netmemo.github.io/categories/terraform/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Tf Bundle Windows</title>
+      <link>https://netmemo.github.io/post/tf-bundle-windows/</link>
+      <pubDate>Wed, 17 Feb 2021 21:32:37 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/post/tf-bundle-windows/</guid>
+      <description>The below steps are what I did to create a terraform-bundle to use terraform with non default providers on a server that doesn&amp;rsquo;t have access to Internet. You can find the tool explanation in the below link.
+https://github.com/hashicorp/terraform/tree/master/tools/terraform-bundle
+installation of golang with msi downloaded here
+https://golang.org/doc/install
+Clone the terraform repository to get the tool
+https://github.com/hashicorp/terraform.git
+cd terraform-master go install .\tools\terraform-bundle  Check the terraform version C:\Users\noyel\Desktop\tfforeach\nsxt&amp;gt;terraform version Terraform v0.14.6 + provider registry.</description>
+    </item>
+    
+    <item>
+      <title>Using TF for_each to create subnets in AWS VPC</title>
+      <link>https://netmemo.github.io/post/tf-for-each/</link>
+      <pubDate>Wed, 17 Feb 2021 20:59:49 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/post/tf-for-each/</guid>
+      <description>An extended explanation of the differences between for_each, for and count can be find on the below link
+https://blog.gruntwork.io/terraform-tips-tricks-loops-if-statements-and-gotchas-f739bbae55f9
+The two main drawback of using count are :
+- Can&amp;rsquo;t be used to loop over inline blocks
+- Difficult to remove entry from a list because it change the index and those Terraform may want to destroy same resource with different index
+Below are the an exemple of the variables used to create subnets within AWS VPCs and the main file with the for_each.</description>
+    </item>
+    
+  </channel>
+</rss>
