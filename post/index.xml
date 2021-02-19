@@ -13,7 +13,19 @@
     
     
     <item>
-      <title>Tf Bundle Windows</title>
+      <title>Terraform nested for_each for NSX-T with dynamic</title>
+      <link>https://netmemo.github.io/post/tf-nsxt-nested-for-each/</link>
+      <pubDate>Fri, 19 Feb 2021 22:06:50 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/post/tf-nsxt-nested-for-each/</guid>
+      <description>The below post show how to create security policy groups for NSX-T with Terraform nested for_each loop and dynamic.
+The variables are made from one map of list. Each list represent one group composed of tags.
+https://www.hashicorp.com/blog/hashicorp-terraform-0-12-preview-for-and-for-each
+variable &amp;quot;mapgroups&amp;quot; { type = map default = { NBO = [&amp;quot;NBO&amp;quot;] NBO-PROD = [&amp;quot;NBO&amp;quot;,&amp;quot;PROD&amp;quot;] } } resource &amp;quot;nsxt_policy_group&amp;quot; &amp;quot;nbogroups&amp;quot; { for_each = var.mapgroups display_name = each.key criteria { dynamic &amp;quot;condition&amp;quot; { for_each = each.</description>
+    </item>
+    
+    <item>
+      <title>Create portable Terraform and plugins with Terraform-bundle for Windows</title>
       <link>https://netmemo.github.io/post/tf-bundle-windows/</link>
       <pubDate>Wed, 17 Feb 2021 21:32:37 +0100</pubDate>
       
@@ -28,7 +40,7 @@ cd terraform-master go install .\tools\terraform-bundle  Check the terraform ver
     </item>
     
     <item>
-      <title>Using TF for_each to create subnets in AWS VPC</title>
+      <title>Using Terraform for_each to create subnets in AWS VPC</title>
       <link>https://netmemo.github.io/post/tf-for-each/</link>
       <pubDate>Wed, 17 Feb 2021 20:59:49 +0100</pubDate>
       

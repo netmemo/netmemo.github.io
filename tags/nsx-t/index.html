@@ -20,7 +20,7 @@
   <meta name="description" content="Independent Network Architect">
 
   
-  <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/tags/aws/">
+  <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/tags/nsx-t/">
 
   
 
@@ -80,21 +80,21 @@
   
 
   
-  <link rel="alternate" href="https://netmemo.github.io/tags/aws/index.xml" type="application/rss+xml" title="netmemo.github.io">
-  <link rel="feed" href="https://netmemo.github.io/tags/aws/index.xml" type="application/rss+xml" title="netmemo.github.io">
+  <link rel="alternate" href="https://netmemo.github.io/tags/nsx-t/index.xml" type="application/rss+xml" title="netmemo.github.io">
+  <link rel="feed" href="https://netmemo.github.io/tags/nsx-t/index.xml" type="application/rss+xml" title="netmemo.github.io">
   
 
   <link rel="manifest" href="/site.webmanifest">
   <link rel="icon" type="image/png" href="/img/icon.png">
   <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
 
-  <link rel="canonical" href="https://netmemo.github.io/tags/aws/">
+  <link rel="canonical" href="https://netmemo.github.io/tags/nsx-t/">
 
   <meta property="twitter:card" content="summary_large_image">
   
   <meta property="og:site_name" content="netmemo.github.io">
-  <meta property="og:url" content="https://netmemo.github.io/tags/aws/">
-  <meta property="og:title" content="AWS | netmemo.github.io">
+  <meta property="og:url" content="https://netmemo.github.io/tags/nsx-t/">
+  <meta property="og:title" content="NSX-T | netmemo.github.io">
   <meta property="og:description" content="Independent Network Architect">
   
   
@@ -102,14 +102,14 @@
   <meta property="og:image" content="https://netmemo.github.io/img/icon-192.png">
   <meta property="og:locale" content="en-us">
   
-  <meta property="og:updated_time" content="2021-02-17T20:59:49&#43;01:00">
+  <meta property="og:updated_time" content="2021-02-19T22:06:50&#43;01:00">
   
 
   
 
   
 
-  <title>AWS | netmemo.github.io</title>
+  <title>NSX-T | netmemo.github.io</title>
 
 </head>
 <body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" >
@@ -210,22 +210,20 @@
 
 
 <div class="universal-wrapper">
-  <h1>AWS</h1>
+  <h1>NSX-T</h1>
 
   
 
   
   
   <div>
-    <h2><a href="/post/tf-for-each/">Using Terraform for_each to create subnets in AWS VPC</a></h2>
+    <h2><a href="/post/tf-nsxt-nested-for-each/">Terraform nested for_each for NSX-T with dynamic</a></h2>
     <div class="article-style">
       
-      An extended explanation of the differences between for_each, for and count can be find on the below link
-https://blog.gruntwork.io/terraform-tips-tricks-loops-if-statements-and-gotchas-f739bbae55f9
-The two main drawback of using count are :
-- Can&rsquo;t be used to loop over inline blocks
-- Difficult to remove entry from a list because it change the index and those Terraform may want to destroy same resource with different index
-Below are the an exemple of the variables used to create subnets within AWS VPCs and the main file with the for_each.
+      The below post show how to create security policy groups for NSX-T with Terraform nested for_each loop and dynamic.
+The variables are made from one map of list. Each list represent one group composed of tags.
+https://www.hashicorp.com/blog/hashicorp-terraform-0-12-preview-for-and-for-each
+variable &quot;mapgroups&quot; { type = map default = { NBO = [&quot;NBO&quot;] NBO-PROD = [&quot;NBO&quot;,&quot;PROD&quot;] } } resource &quot;nsxt_policy_group&quot; &quot;nbogroups&quot; { for_each = var.mapgroups display_name = each.key criteria { dynamic &quot;condition&quot; { for_each = each.
       
     </div>
   </div>

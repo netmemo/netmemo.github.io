@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>NSX-T on netmemo.github.io</title>
+    <link>https://netmemo.github.io/tags/nsx-t/</link>
+    <description>Recent content in NSX-T on netmemo.github.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2019. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author�s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
+    <lastBuildDate>Fri, 19 Feb 2021 22:06:50 +0100</lastBuildDate>
+    
+	<atom:link href="https://netmemo.github.io/tags/nsx-t/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Terraform nested for_each for NSX-T with dynamic</title>
+      <link>https://netmemo.github.io/post/tf-nsxt-nested-for-each/</link>
+      <pubDate>Fri, 19 Feb 2021 22:06:50 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/post/tf-nsxt-nested-for-each/</guid>
+      <description>The below post show how to create security policy groups for NSX-T with Terraform nested for_each loop and dynamic.
+The variables are made from one map of list. Each list represent one group composed of tags.
+https://www.hashicorp.com/blog/hashicorp-terraform-0-12-preview-for-and-for-each
+variable &amp;quot;mapgroups&amp;quot; { type = map default = { NBO = [&amp;quot;NBO&amp;quot;] NBO-PROD = [&amp;quot;NBO&amp;quot;,&amp;quot;PROD&amp;quot;] } } resource &amp;quot;nsxt_policy_group&amp;quot; &amp;quot;nbogroups&amp;quot; { for_each = var.mapgroups display_name = each.key criteria { dynamic &amp;quot;condition&amp;quot; { for_each = each.</description>
+    </item>
+    
+  </channel>
+</rss>

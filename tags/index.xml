@@ -184,6 +184,15 @@
     </item>
     
     <item>
+      <title>NSX-T</title>
+      <link>https://netmemo.github.io/tags/nsx-t/</link>
+      <pubDate>Fri, 19 Feb 2021 22:06:50 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/nsx-t/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>NSXT</title>
       <link>https://netmemo.github.io/tags/nsxt/</link>
       <pubDate>Wed, 17 Feb 2021 21:32:37 +0100</pubDate>
@@ -231,7 +240,7 @@
     <item>
       <title>Terraform</title>
       <link>https://netmemo.github.io/tags/terraform/</link>
-      <pubDate>Wed, 17 Feb 2021 21:32:37 +0100</pubDate>
+      <pubDate>Fri, 19 Feb 2021 22:06:50 +0100</pubDate>
       
       <guid>https://netmemo.github.io/tags/terraform/</guid>
       <description></description>
