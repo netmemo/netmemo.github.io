@@ -324,8 +324,8 @@ The variables are made from one map of list. Each list represent one group compo
 
 <pre><code>variable &quot;mapgroups&quot; {
   type      = map
-  default       = {
-    NBO     = [&quot;NBO&quot;]
+  default   = {
+    NBO         = [&quot;NBO&quot;]
     NBO-PROD    = [&quot;NBO&quot;,&quot;PROD&quot;]
   }
 }
@@ -343,7 +343,7 @@ resource &quot;nsxt_policy_group&quot; &quot;nbogroups&quot; {
       content {
         key         = &quot;Tag&quot;
         member_type = &quot;VirtualMachine&quot;
-        operator        = &quot;EQUALS&quot;
+        operator    = &quot;EQUALS&quot;
         value       = condition.value
       }
     }
