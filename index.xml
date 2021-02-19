@@ -222,7 +222,7 @@ resource &amp;quot;aws_subnet&amp;quot; &amp;quot;main-subnet&amp;quot; {
     </item>
     
     <item>
-      <title>Bfd on directly connected</title>
+      <title>BFD on directly connected</title>
       <link>https://netmemo.github.io/post/bfd-directly-connected/</link>
       <pubDate>Wed, 02 Dec 2020 09:29:50 +0100</pubDate>
       

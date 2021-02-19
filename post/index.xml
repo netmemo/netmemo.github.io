@@ -54,7 +54,7 @@ Below are the an exemple of the variables used to create subnets within AWS VPCs
     </item>
     
     <item>
-      <title>Bfd on directly connected</title>
+      <title>BFD on directly connected</title>
       <link>https://netmemo.github.io/post/bfd-directly-connected/</link>
       <pubDate>Wed, 02 Dec 2020 09:29:50 +0100</pubDate>
       
