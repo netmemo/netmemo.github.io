@@ -93,7 +93,7 @@
   <meta property="og:image" content="https://netmemo.github.io/img/icon-192.png">
   <meta property="og:locale" content="en-us">
   
-  <meta property="og:updated_time" content="2019-10-04T23:15:03&#43;02:00">
+  <meta property="og:updated_time" content="2020-05-11T08:00:11&#43;02:00">
   
 
   
@@ -207,6 +207,257 @@
   
 
   
+  
+    
+    
+      
+
+<div class="card-simple" itemscope itemprop="blogPost" itemtype="http://schema.org/BlogPosting">
+  
+
+<div class="article-metadata">
+
+  
+  
+  
+  <div>
+    
+    <span itemscope itemprop="author" itemtype="http://schema.org/Person">
+      <span itemprop="name">Noel</span>
+    </span>
+    
+  </div>
+  
+
+  <span class="article-date">
+    
+    <meta content="2020-05-11 08:00:11 &#43;0200 CEST" itemprop="datePublished">
+    <time datetime="2020-05-11 08:00:11 &#43;0200 CEST" itemprop="dateModified">
+      May 11, 2020
+    </time>
+  </span>
+  <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Noel">
+  </span>
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    1 min read
+  </span>
+  
+
+  
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder"></i>
+    
+    <a href="/categories/routing/">ROUTING</a>
+    
+  </span>
+  
+  
+
+  
+
+</div>
+
+
+  
+  
+  <h3 class="article-title" itemprop="headline">
+    <a href="/post/how-to-hugo/" itemprop="url">How to hugo</a>
+  </h3>
+  <div class="article-style" itemprop="articleBody">
+    
+    prerequis : - github desktop - hugo
+config.toml =&gt; need to be modify to change the copyright date
+lancer cmd
+Go to the folder blog : C:\Users\noyel\Documents\Site\blog&gt;
+taper : hugo new post/my-first-post.md
+try the web site with : hugo server -D
+entrer http://localhost:1313/
+generate the web site with : hugo -t &ldquo;academic&rdquo; Move the content of the folder C:\Users\noyel\Documents\Site\blog\public
+in GitHub\netmemo.github.io lancer github desktop, commit/push to master
+To have a file attached for the post, create a directory with the exact same name as the post md file.
+    
+  </div>
+  <p class="read-more" itemprop="mainEntityOfPage">
+    <a href="/post/how-to-hugo/" class="btn btn-outline-primary my-1">
+      CONTINUE READING
+    </a>
+  </p>
+</div>
+
+    
+  
+    
+    
+      
+
+<div class="card-simple" itemscope itemprop="blogPost" itemtype="http://schema.org/BlogPosting">
+  
+
+<div class="article-metadata">
+
+  
+  
+  
+  <div>
+    
+    <span itemscope itemprop="author" itemtype="http://schema.org/Person">
+      <span itemprop="name">Noel</span>
+    </span>
+    
+  </div>
+  
+
+  <span class="article-date">
+    
+    <meta content="2020-02-18 23:45:47 &#43;0100 CET" itemprop="datePublished">
+    <time datetime="2020-02-18 23:45:47 &#43;0100 CET" itemprop="dateModified">
+      Feb 18, 2020
+    </time>
+  </span>
+  <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Noel">
+  </span>
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    1 min read
+  </span>
+  
+
+  
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder"></i>
+    
+    <a href="/categories/routing/">ROUTING</a>
+    
+  </span>
+  
+  
+
+  
+
+</div>
+
+
+  
+  
+  <h3 class="article-title" itemprop="headline">
+    <a href="/post/ospfbgpanycast/" itemprop="url">OSPF vs BGP with anycast prefix</a>
+  </h3>
+  <div class="article-style" itemprop="articleBody">
+    
+    Issue R3 route traffic to R4 instead of R1. Route 10.10.10.10 toward the WAN is prefered instead of the OSPF LAN DC route. DC Client that try to reach the DC&rsquo;s 10.10.10.10 address are routed toward the WAN
+Why R3 is installing in it RIB and redistributing the wrong routes 10.10.10.10 because it does have a better AD 20.
+Workarround  If we filter the redistribution that doesn&rsquo;t help because when the packet arrive to R3 he will still prefer the BGP route.
+    
+  </div>
+  <p class="read-more" itemprop="mainEntityOfPage">
+    <a href="/post/ospfbgpanycast/" class="btn btn-outline-primary my-1">
+      CONTINUE READING
+    </a>
+  </p>
+</div>
+
+    
+  
+    
+    
+      
+
+<div class="card-simple" itemscope itemprop="blogPost" itemtype="http://schema.org/BlogPosting">
+  
+
+<div class="article-metadata">
+
+  
+  
+  
+  <div>
+    
+    <span itemscope itemprop="author" itemtype="http://schema.org/Person">
+      <span itemprop="name">Noel</span>
+    </span>
+    
+  </div>
+  
+
+  <span class="article-date">
+    
+    <meta content="2019-10-04 23:20:48 &#43;0200 CEST" itemprop="datePublished">
+    <time datetime="2019-10-04 23:20:48 &#43;0200 CEST" itemprop="dateModified">
+      Oct 4, 2019
+    </time>
+  </span>
+  <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Noel">
+  </span>
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    2 min read
+  </span>
+  
+
+  
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder"></i>
+    
+    <a href="/categories/dns/">DNS</a>, 
+    
+    <a href="/categories/loadbalancing/">loadbalancing</a>
+    
+  </span>
+  
+  
+
+  
+
+</div>
+
+
+  
+  
+  <h3 class="article-title" itemprop="headline">
+    <a href="/post/dns-one-design/" itemprop="url">One of many possible DNS Design (Work in progress)</a>
+  </h3>
+  <div class="article-style" itemprop="articleBody">
+    
+    DNS Steps to resolve a web site url in IP : !! The CNAME is normally not allowed at the apex, so I need to find another way) !! The following steps are when nothing is yet cached in any servers. This use case is for a recusive DNS resolver.
+ The user try to access www.toto.com from his browser. His computer send the DNS query to the system&#39;s configured DNS Resolver.
+    
+  </div>
+  <p class="read-more" itemprop="mainEntityOfPage">
+    <a href="/post/dns-one-design/" class="btn btn-outline-primary my-1">
+      CONTINUE READING
+    </a>
+  </p>
+</div>
+
+    
   
     
     

@@ -7,10 +7,22 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2019. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author�s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
-    <lastBuildDate>Fri, 19 Feb 2021 22:06:50 +0100</lastBuildDate>
+    <lastBuildDate>Thu, 25 Feb 2021 21:56:57 +0100</lastBuildDate>
     
 	<atom:link href="https://netmemo.github.io/tags/terraform/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Terraform Refactoring State File</title>
+      <link>https://netmemo.github.io/post/terraform-refactoring-state-file/</link>
+      <pubDate>Thu, 25 Feb 2021 21:56:57 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/post/terraform-refactoring-state-file/</guid>
+      <description>https://www.terraform.io/docs/cli/commands/state/mv.html
+On windows :
+terraform state mv nsxt_policy_security_policy.policy1 nsxt_policy_security_policy.policies[\&amp;ldquo;policy1\&amp;ldquo;]  It move resources from a construct like this
+locals { policy1= { rule1 = { source = [&#34;src1&#34;,&#34;src2&#34;] } } policy2 = { rule1 = { source = [&#34;src3&#34;,&#34;src4&#34;] } } }  To a structure like this locals { policies = { policy1 = { rule1 = { source = [&#34;src1&#34;,&#34;src2&#34;] } } policy2 = { rule2 = { source = [&#34;</description>
+    </item>
     
     <item>
       <title>Terraform nested for_each for NSX-T with dynamic</title>

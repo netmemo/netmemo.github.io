@@ -11,6 +11,270 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Terraform Refactoring State File</title>
+      <link>https://netmemo.github.io/post/terraform-refactoring-state-file/</link>
+      <pubDate>Thu, 25 Feb 2021 21:56:57 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/post/terraform-refactoring-state-file/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://www.terraform.io/docs/cli/commands/state/mv.html&#34; target=&#34;_blank&#34;&gt;https://www.terraform.io/docs/cli/commands/state/mv.html&lt;/a&gt;&lt;br /&gt;
+On windows :&lt;br /&gt;
+&lt;pre style=&#34;color:black&#34;&gt;
+terraform state mv nsxt_policy_security_policy.policy1 nsxt_policy_security_policy.policies[\&amp;ldquo;policy1\&amp;ldquo;]
+&lt;/pre&gt;
+It move resources from a construct like this&lt;/p&gt;
+
+&lt;pre style=&#34;color:black&#34;&gt;
+locals {
+  policy1= {
+      rule1 = {
+        source = [&#34;src1&#34;,&#34;src2&#34;]
+      }
+  }
+  policy2 = {
+      rule1 = {
+        source = [&#34;src3&#34;,&#34;src4&#34;]
+      }
+  }
+}
+&lt;/pre&gt;
+To a structure like this  
+&lt;pre style=&#34;color:black&#34;&gt;
+locals {
+  policies = {
+    policy1 = {
+      rule1 = {
+        source = [&#34;src1&#34;,&#34;src2&#34;]
+      }
+    }
+    policy2 = {
+      rule2 = {
+        source = [&#34;src3&#34;,&#34;src4&#34;]
+      }
+    }
+  }
+}
+&lt;/pre&gt;
+The main moving from  
+&lt;pre style=&#34;color:black&#34;&gt;
+resource &#34;nsxt_policy_security_policy&#34; &#34;policy1&#34;{
+  display_name = &#34;policy1&#34;
+  category     = &#34;Environment&#34;
+  dynamic &#34;rule&#34; {
+    for_each = local.policy1
+    content {
+      source_groups = rule.value[&#34;sources&#34;]
+    }
+  }
+}
+resource &#34;nsxt_policy_security_policy&#34; &#34;policy2&#34;{
+  display_name = &#34;policy2&#34;
+  category     = &#34;Environment&#34;
+  dynamic &#34;rule&#34; {
+    for_each = local.policy2
+    content {
+      source_groups = rule.value[&#34;sources&#34;]
+    }
+  }
+}
+&lt;/pre&gt;
+to
+&lt;pre style=&#34;color:black&#34;&gt;
+resource &#34;nsxt_policy_security_policy&#34; &#34;policies&#34; {
+for_each = local.policies
+  display_name = each.key
+  category     = &#34;Environment&#34;
+  dynamic &#34;rule&#34; {
+    for_each = each.value
+    content {
+      source_groups = rule.value[&#34;sources&#34;]
+    }
+  }
+}
+&lt;/pre&gt;
+
+&lt;p&gt;The terraform state moving fromfrom 2 resources to 1 resource with 2 instances&lt;br /&gt;
+From
+&lt;pre style=&#34;color:black&#34;&gt;
+{
+  &amp;ldquo;type&amp;rdquo;: &amp;ldquo;nsxt_policy_security_policy&amp;rdquo;,
+  &amp;ldquo;name&amp;rdquo;: &amp;ldquo;policy1&amp;rdquo;
+  &amp;ldquo;instances&amp;rdquo; : [
+    {
+      &amp;hellip;
+    }
+  ]
+},
+{
+  &amp;ldquo;type&amp;rdquo;: &amp;ldquo;nsxt_policy_security_policy&amp;rdquo;,
+  &amp;ldquo;name&amp;rdquo;: &amp;ldquo;policy2&amp;rdquo;
+  &amp;ldquo;instances&amp;rdquo; : [
+    {
+      &amp;hellip;
+    }
+  ]
+}
+&lt;/pre&gt;
+To
+&lt;pre style=&#34;color:black&#34;&gt;
+{
+  &amp;ldquo;type&amp;rdquo;: &amp;ldquo;nsxt_policy_security_policy&amp;rdquo;,
+  &amp;ldquo;name&amp;rdquo;: &amp;ldquo;policies&amp;rdquo;
+  &amp;ldquo;instances&amp;rdquo; : [
+    {
+      &amp;ldquo;index_key&amp;rdquo;: &amp;ldquo;policy1&amp;rdquo;
+    },
+    {
+      &amp;ldquo;index_key&amp;rdquo;: &amp;ldquo;policy2&amp;rdquo;
+    }
+  ]
+}
+&lt;/pre&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Python Package Offline</title>
+      <link>https://netmemo.github.io/post/python-package-offline/</link>
+      <pubDate>Thu, 25 Feb 2021 21:46:14 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/post/python-package-offline/</guid>
+      <description>&lt;p&gt;To install python packages offline (with no internet access), the simplest way is to dowload the packages with the dependencies on a server with internet access and the below command.&lt;/p&gt;
+
+&lt;pre style=&#34;color:black&#34;&gt;
+&lt;b&gt;C:\Users\Nono\Desktop\python&gt;pip download requests&lt;/b&gt;
+Collecting requests  
+  Using cached requests-2.25.1-py2.py3-none-any.whl (61 kB)  
+Collecting urllib3&lt;1.27,&gt;=1.21.1  
+  Using cached urllib3-1.26.3-py2.py3-none-any.whl (137 kB)  
+Collecting certifi&gt;=2017.4.17  
+  Using cached certifi-2020.12.5-py2.py3-none-any.whl (147 kB)  
+Collecting idna&lt;3,&gt;=2.5  
+  Using cached idna-2.10-py2.py3-none-any.whl (58 kB)  
+Collecting chardet&lt;5,&gt;=3.0.2  
+  Using cached chardet-4.0.0-py2.py3-none-any.whl (178 kB)  
+Saved c:\users\nono\desktop\python\requests-2.25.1-py2.py3-none-any.whl  
+Saved c:\users\nono\desktop\python\certifi-2020.12.5-py2.py3-none-any.whl  
+Saved c:\users\nono\desktop\python\chardet-4.0.0-py2.py3-none-any.whl  
+Saved c:\users\nono\desktop\python\idna-2.10-py2.py3-none-any.whl  
+Saved c:\users\nono\desktop\python\urllib3-1.26.3-py2.py3-none-any.whl  
+Successfully downloaded requests certifi chardet idna urllib3
+&lt;/pre&gt;
+
+&lt;p&gt;You then need to move all the files to the offline server in a directory and deploy the packages with the below command :&lt;/p&gt;
+
+&lt;pre style=&#34;color:black&#34;&gt;
+&lt;b&gt;pip install --no-index --find-links=file:C:\Users\Nono2\tools\python-modules\resquests requests&lt;/b&gt;
+Looking in links: file:///C:\Users\nboulene\tools\python-modules\resquests  
+Collecting requestsCollecting urllib3&lt;1.27,&gt;=1.21.1 (from requests)  
+Collecting chardet&lt;5,&gt;=3.0.2 (from requests)  
+Collecting idna&lt;3,&gt;=2.5 (from requests)Collecting certifi&gt;=2017.4.17 (from requests)  
+Installing collected package: urllib3, chardet, idna, certifi, requests  
+Successfully installed certifi-2020.12.5 chardet-4.0.0 idna-2.10 requests-2.25.1 urllib3-1.26.3
+&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>N5600 Buffering</title>
+      <link>https://netmemo.github.io/post/n5600-buffering/</link>
+      <pubDate>Tue, 23 Feb 2021 22:24:44 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/post/n5600-buffering/</guid>
+      <description>
+
+&lt;h4 id=&#34;qos-voq&#34;&gt;QoS VOQ&lt;/h4&gt;
+
+&lt;p&gt;On N5K, In the case of unicast traffic, VOQ is an ingress buffer pool for 3 ingress port (1 ASIC). This buffer pool is split into n x reservable buffer of the size configured in the voq-limit command.If the ingress buffer is 16000 and the VOQ limit is 1024, that mean 16 flow can reserv buffers.When the shared buffer is exausted, the dedicated ingress buffer per port is used then when it&amp;rsquo;s full, the packet is droped.&lt;/p&gt;
+
+&lt;p&gt;VOQ is reservable per egress port per class (pair).With small VOQ limit, there is lot of buffer available for non congested flow. With no VOQ limit, a congested port can use up to 50% of the total shared memory and those, 2 congested port can exaust all the ingress resources of an ASIC (3 ingress port) and drop can happen on this ASIC&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2015/pdf/BRKDCT-3100.pdf&#34; target=&#34;_blank&#34;&gt;https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2015/pdf/BRKDCT-3100.pdf&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&#34;https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2017/pdf/BRKDCN-3346.pdf&#34; target=&#34;_blank&#34;&gt;https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2017/pdf/BRKDCN-3346.pdf&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&#34;https://www.cisco.com/c/en/us/support/docs/switches/nexus-6000-series-switches/200401-Nexus-5600-6000-Understanding-and-Troub.html&#34; target=&#34;_blank&#34;&gt;https://www.cisco.com/c/en/us/support/docs/switches/nexus-6000-series-switches/200401-Nexus-5600-6000-Understanding-and-Troub.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;In case of a Nexus 5600. 1 ASIC = 3 * 40Gb or 12*10G ports. Cells are the units in which buffers are allocated. One cell is 320 Bytes. ASIC Ingress buffer size : 48840 of available total cells (16M), shared among all 3x40Gb ports. Egress buffer is 9Mb (dedicated buffer per ASIC).&lt;br /&gt;
+VOQ. ingress per output port/class queues. E.g with 114 ports on the switch with 8 queues there would be 1152 VOQs.On N5600 Buffer can be shared accrod port and classes, giving more burst absorption capacity.&lt;/p&gt;
+
+&lt;h4 id=&#34;default-buffer-allocation&#34;&gt;Default buffer allocation&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;minimum fixed buffer of 312 cells (100KB) is reserved per class (up to 8 classes) per ingress port, rest of the buffer is shared. This is done to guarantee minimum performance.&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If there is only 1 class (the class-default for instance), there is only a single fixed/dedicated buffer per port.&lt;br /&gt;
+- 44,331 cells of shared buffer available for data traffic for all ports. shared buffer is used first.&lt;br /&gt;
+- any drop class can access half of the shared buffer- no-drop class (eg fcoe) can access complete shared buffer.&lt;br /&gt;
+- &amp;ldquo;queue-limit&amp;rdquo; under &amp;ldquo;network-qos&amp;rdquo; policy specifies the dedicated buffer for each port and each class. The dedicated buffer can be used by the port for only that class of service.&lt;/p&gt;
+
+&lt;h4 id=&#34;voq-limit&#34;&gt;voq-limit&lt;/h4&gt;
+
+&lt;p&gt;Command &amp;ldquo;hardware unicast voq-limit [threshold &amp;hellip;]&amp;rdquo;
+enabling voq-limit turns on a shared buffer threshold per each voq.&lt;br /&gt;
+limits the amount of buffers usable on the ingress interface, for packets headed towards a specific VoQ (&amp;ldquo;egress port, class&amp;rdquo; pair). Drops happens per VOQ, when its packet in ingress buffer exceed threshold: when the traffic ingress on a port and it consumes all 1024 cells, it will get dropped as discards.&lt;/p&gt;
+
+&lt;p&gt;when the second flow traffic comes in, it will tage another 1024 cells as well but in a different VOQ and will not get dropped; this way voq thresholding prevents the non-congested egress port traffic drop.&lt;/p&gt;
+
+&lt;h4 id=&#34;hold-mitigation-and-voq-thresholding&#34;&gt;HOLD mitigation and VOQ thresholding&lt;/h4&gt;
+
+&lt;p&gt;Below is discussed for scenario without voq-limit enabledCongestion on one egress port in one CoS eventually bleeds into the congestion of its corresponding VOQ on the ingress port. Once the limit is reached then traffic gets dropped.&lt;/p&gt;
+
+&lt;p&gt;On N5600 ASIC Buffers are allocated per ingress port and are shared by all the egress ports that are seeing traffic from this ingressport.&lt;br /&gt;
+A stuck or slow-draining egress port can causse all buffers on one or more ingress ports that are senfing traffic to the egress port to be exhausted, thereby affecting all traffic on these ingress port. This is Head of Line Blocking (HOLB) problem.&lt;br /&gt;
+To avoid this scenario, the VOQ for unicast traffic may be configured with a voq-limit threshold, at which point the port will stop accepting any more packets for congested destination (drops the packets or pauses the affected class for non-drop class type). When the queue length decrease and goes below another threshold, the VOQ starts accepting packets again.&lt;br /&gt;
+By default VOQ Thresholding is disabled for all classes.&lt;/p&gt;
+
+&lt;h4 id=&#34;questions&#34;&gt;Questions&lt;/h4&gt;
+
+&lt;ol&gt;
+&lt;li&gt;About the limit of 8000 cells, why not setting directly 16000 or removeing the limitation ?&lt;br /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Setting larger voq-limit increases the change to improve burst absorption but also leaves non-congested VOQs to be more likely affected by congested VOQs (as the latter can dip more into shared buffer).Disadvantage of having a voq-limit is that when we have a burst traffic comming in (like for distributed storage/VSAN), it connot use more than configured threshold of allocated cells and the bursty flow will have drops even though there is un-used ingress buffer.It&amp;rsquo;s recommanded to remove voq-limit in case of bursty traffic.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Are the VoQ per UPC or per ingress interface ?&lt;br /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;VOQs are per class per egress interface. E.g. With 114 ports on the switch with 8 queues there would be 1152 VOQs per port.If there is only 1 class (class-defauklt), the number of VOQ is matching the number of egress ports.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Our undestanding is that if we remove the command voq limit, we might have HOLB while with the command it&amp;rsquo;s not possible. Could you explain how is this possible to have HOLD if VoQ is always used ?&lt;br /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;This can happen because VOQ Thresholding (voq-limit) is not enabled by default. Therefore, each VOQ can borrow from shared buffer and some of non-congested VOQs would not be able to handle traffic due to lack of buffer space, even though they are not congested.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Effect of changing or removing VOQ-limit on the traffic.&lt;br /&gt;
+There would be subsecond traffic interruption on all ports.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Effect of changing or removing VOQ-Limit on the FEX.&lt;br /&gt;
+There should not be any effect on the FEX operation&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Could you describe the difference in the behavior of buffers (shared, ingress dedicated per port, voq per cos, drop) with the command voq limit default, with the command voq limit configured with the max value, and without the voq limit command ?&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;A. Without voq-limitShared - used by all ingress ports by default. 3*40G (or) 12*10G ports compete for usage, when per-port buffers are exhausted.Dedicated - samll, reserved per port per class. Can be adjusted with queue-limit command.VOQ drop thresholds are disabled.Shared is used first, only then overflow to dedicated.One drop class per ASIC can take up to half if the shared buffer.If congestion is constant, it can result in blocking for other VOQs in the same ingress port.Slow draining port can affect others by consuming shared and dedicated buffers.ExempleUnicast traffic coming on a 40G ingress port and egress port are 2x10G. When one of the egress port 10G is congested, it moght be possible that a new ingress flow from this 40G interface to another 10G interface can get affected as well because of non-availability of the ingress buffer.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;n5600-buffering.png&#34; alt=&#34;N5600 Buffers&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;When the traffic ingress on a port it first fills the shared buffer. Each flow can take up ti 50% of the total shared buffer available (22200 cells or ~7.1MB). After filling 50% of the buffer the same flow will utilize the per-port fixed buffer.When the new flow comes ingress on that port, it tries to fill in the 50% of shared buffer but if shared and per-port buffer are already filled, this traffic would be dropped.We can avoir the new flow, that is goignt o different no-congested port, from getting dropped by enabling VOQ thresholding.&lt;/p&gt;
+
+&lt;p&gt;B. With voq-limit default value 1024Drop happend per VOQ, each limited by 1024 cells.Congestion in one VOQ has minimal chances to affect other VOQsVOQ drop thresholds are minimal, so burst traffic flow coming in it cannot use more than 1024 allocated cells and will have drops even though there is un-used buffer.when the traffic ingress on a port consumes all 1024 cells, it will get dropped as discards.When the second flow traffic with destination to another egress port comes in, it may consume 1024 cells as well but a different VOQ- so will not get dropped.&lt;/p&gt;
+
+&lt;p&gt;C. with voq-limit default value 16384drop happens per VOQ, each limited by 16384 cells.congestion in one VOQ does not affect other VOQs if there is enough shared buffer left.VOQ drop thresholds are at maximum.Burst traffic flow coming can use up to 16384 allocated cells and will have drop everything above it. Other VOQs buffering at the same instance can use remaining buffer (but nor more than 16384each). In theory, 3 VOQs, that are fully congested at the same time, could take all the buffer. It is very difficult to prefict instant buffer usage due to unpredictable nature of bursty flows, so exact values should be taken from production, e.g. Try with 16384 and reduce the threshold if negative impact is seen on non-congested flows.&lt;/p&gt;
+
+&lt;h4 id=&#34;couple-of-solutions-to-resolve-bursty-trafic-drop&#34;&gt;Couple of  solutions to resolve bursty trafic drop:&lt;/h4&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Remove VOQ limit completel (heavy burst trafic)&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Increase VOQ Threshold to 8000 or 16384 (max) and monitor the situation with discards=&amp;gt; show hardware profile buffer monitor interface ethernet&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Spread congested links betweek different ASICs.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Implement policing of the traffic.&lt;br /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Terraform nested for_each for NSX-T with dynamic</title>
       <link>https://netmemo.github.io/post/tf-nsxt-nested-for-each/</link>
       <pubDate>Fri, 19 Feb 2021 22:06:50 +0100</pubDate>
@@ -768,197 +1032,6 @@ As the A TTL is long, the initial outage might be up to 10mn but the subsequents
 2. This link might help regarding the TTL &lt;a href=&#34;https://www.bortzmeyer.org/forcer-ttl.html&#34; target=&#34;_blank&#34;&gt;https://www.bortzmeyer.org/forcer-ttl.html&lt;/a&gt;
 &lt;/sub&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Core Linux Netmemo</title>
-      <link>https://netmemo.github.io/post/corelinuxnetmemo/</link>
-      <pubDate>Mon, 22 Oct 2018 15:35:55 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/post/corelinuxnetmemo/</guid>
-      <description>
-
-&lt;p&gt;Below is a very light virtual machine based on Core Linux kernel 4.8 (TinyCore) 26 Mo with network tools like iperf3, tcpdump, net-bridging, iproute2, busybox (httpd), tcpreplay, nmap, openssh.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;corelinux1.5.ova&#34; target=&#34;_blank&#34;&gt;corelinux1.5.ova&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;basic-commands-directory&#34;&gt;basic commands/directory&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;/etc/sysconfig/tcedir/optional =&amp;gt; packages
-/etc/sysconfig/tcedir/onboot.lst =&amp;gt; on boot package to be loaded
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;sudo vi /opt/eth0.sh =&amp;gt; change interfaces parameters
-#configure an interface
-pkill udhcp =&amp;gt; stop dhcp for this interface
-ifconfig eth1 10.253.106.2 netmask 255.255.255.192 up
-route add default gw 10.253.106.1
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;filetool.sh -b =&amp;gt; save the configuration changes
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;vi /opt/hostnameAuto.sh =&amp;gt; change the hostname
-vi /opt/bootlocal.sh =&amp;gt; the script that is executed after the device has booted.
-&lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>K8s on Vms With Calico</title>
-      <link>https://netmemo.github.io/post/k8s-on-vms-with-calico/</link>
-      <pubDate>Fri, 05 Oct 2018 23:59:19 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/post/k8s-on-vms-with-calico/</guid>
-      <description>
-
-&lt;p&gt;This post is a memo on how I did the installtion of Kubernetes and Calico on VMs. It&amp;rsquo;s not some best pactrices in anyway.&lt;br /&gt;
-I&amp;rsquo;ve chose VM because I didn&amp;rsquo;t want to depend on any Cloud infrastructure. I&amp;rsquo;ve also wanted to understand the network interaction between K8s parts from an infrastructure point of view.&lt;/p&gt;
-
-&lt;h3 id=&#34;prerequisite&#34;&gt;Prerequisite :&lt;/h3&gt;
-
-&lt;p&gt;know how to create VMs on any hypervisors&lt;/p&gt;
-
-&lt;h3 id=&#34;steps-to-deploy-k8s&#34;&gt;Steps to deploy K8s :&lt;/h3&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;Install 1 ubuntu router with 3 interfaces. 1 for NAT/Internet access and 2 for the K8s LAN. I&amp;rsquo;ve created 2 LAN to see what happen under the hood when K8s nodes communicates.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Install 3 Ubuntu servers, 1 for the master and 2 for the workers. 1 worker in the same ethernet segment and subnet than the master. 1 worker in another network.&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;h6 id=&#34;gotchas&#34;&gt;Gotchas:&lt;/h6&gt;
-
-&lt;ul&gt;
-&lt;li&gt;By default, the K8s interface is the one with the default route. All my servers have one OOB interface and one production interface.&lt;/li&gt;
-&lt;li&gt;Special tunning for k8s =&amp;gt; turn off the swap&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Install runtime and enable it on boot&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Installing kubeadm, kubelet and kubectl&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Initializing the master (choose the pod network add-on before to add the relevent parameters, Calico parameters in my case)&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Install the pod network add-on&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Join node/workers to the cluster&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;That it, you can now play with the K8s cluster&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&#34;optional&#34;&gt;Optional :&lt;/h3&gt;
-
-&lt;p&gt;Install ctl for calico&lt;/p&gt;
-
-&lt;h3 id=&#34;comments&#34;&gt;Comments :&lt;/h3&gt;
-
-&lt;p&gt;To create anything you just have to kubectl apply -f myfile
-The magic happen in myfile where you describe what you want to create.&lt;/p&gt;
-
-&lt;p&gt;Below the capture after the lab is completed
-&lt;a href=&#34;cpt-calico-k8s-ipip-raw.cap&#34; target=&#34;_blank&#34;&gt;CaptureCalicok8s&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;details-of-the-tasks&#34;&gt;Details of the tasks&lt;/h3&gt;
-
-&lt;p&gt;3.
-&lt;a href=&#34;https://kubernetes.io/docs/setup/independent/install-kubeadm/#installing-runtime&#34; target=&#34;_blank&#34;&gt;https://kubernetes.io/docs/setup/independent/install-kubeadm/#installing-runtime&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;I&amp;rsquo;ve needed to add the following commands&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;systemctl enable docker.service
-systemctl start docker.service
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;4.
-&lt;a href=&#34;https://kubernetes.io/docs/setup/independent/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl&#34; target=&#34;_blank&#34;&gt;https://kubernetes.io/docs/setup/independent/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl&lt;/a&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;apt-get update &amp;amp;amp;&amp;amp;amp; apt-get install -y apt-transport-https curl
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-cat &amp;amp;lt;&amp;amp;lt;EOF &amp;amp;gt;/etc/apt/sources.list.d/kubernetes.list
-deb http://apt.kubernetes.io/ kubernetes-xenial main
-EOF
-
-apt-get update
-apt-get install -y kubelet kubeadm kubectl
-apt-mark hold kubelet kubeadm kubectl
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;5.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;kubeadm init --pod-network-cidr=192.168.0.0/16
-
-mkdir -p $HOME/.kube
-sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-sudo chown $(id -u):$(id -g) $HOME/.kube/config
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;6.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;kubectl apply -f https://docs.projectcalico.org/v3.1/getting-started/kubernetes/installation/hosted/rbac-kdd.yaml
-kubectl apply -f https://docs.projectcalico.org/v3.1/getting-started/kubernetes/installation/hosted/kubernetes-datastore/calico-networking/1.7/calico.yaml
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;7.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;kubeadm join 10.0.1.10:6443 --token d34b9i.v03t2yiozio63cq6 --discovery-token-ca-cert-hash sha256:c21d04ea23790a0bf81cf64118e3a9075ffb63ed90bc697acef5793386e9eb16
-&lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Troubleshooting Elam Cisco N7k N5k</title>
-      <link>https://netmemo.github.io/post/troubleshooting-elam-cisco-n7k-n5k/</link>
-      <pubDate>Thu, 04 Oct 2018 00:48:57 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/post/troubleshooting-elam-cisco-n7k-n5k/</guid>
-      <description>&lt;p&gt;On N7K&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://www.cisco.com/c/en/us/support/docs/switches/nexus-7000-series-switches/116647-technote-product-00.html&#34; target=&#34;_blank&#34;&gt;https://www.cisco.com/c/en/us/support/docs/switches/nexus-7000-series-switches/116647-technote-product-00.html&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;=&amp;gt; flanker car avec la commande show hardware internal dev-port-map, il n&amp;rsquo;y a pas d&amp;rsquo;asic Clipper, uniquement des flanker&lt;/p&gt;
-
-&lt;p&gt;Sample of icmp troubleshooting from the Admin VDC&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;show module
-attach module 1
-show hardware internal dev-port-map
-elam asic flanker instance 2
-layer2
-trigger dbus ipv4 egress if destination-ipv4-address 10.253.108.90
-start
-status
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;elam asic flanker instance 2
-layer2
-trigger dbus ipv4 ingress if destination-ipv4-address 10.253.108.90
-start
-status
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;On N5K&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://www.cisco.com/c/en/us/support/docs/switches/nexus-6000-series-switches/118902-technote-nexus-00.html&#34; target=&#34;_blank&#34;&gt;https://www.cisco.com/c/en/us/support/docs/switches/nexus-6000-series-switches/118902-technote-nexus-00.html&lt;/a&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;MY-SWITCH# show platform fwm info pif ethernet 2/2 | inc slot_asic
-Eth2/2 pd: slot 1  logical port num 1  slot_asic_num 0  global_asic_num 5 fw_inst 4  phy_fw_inst 1 fc 0
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Note: The slot numbers are 0-based, whereas the bigsur instances are 1-based. Therefore, in this example slot 1 corresponds to bigsur instance 2.&lt;/p&gt;
-
-&lt;p&gt;=&amp;gt; slot 1 become 2 in the elam command, the instance stay the same as the slot_asic_num
-=&amp;gt; ingress for the traffic ingressing the interface, egress for the egressing traffic.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;elam slot 2 asic bigsur instance 0
-trigger lu ingress ipv4 if source-ipv4-address_ipv4 10.253.108.226 destination-ipv4-address_ipv4 10.253.108.90
-start capture
-show elam asic bigsur
-show capture lu
-stop capture
-&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     

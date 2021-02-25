@@ -67,6 +67,33 @@
     </item>
     
     <item>
+      <title>Buffer</title>
+      <link>https://netmemo.github.io/tags/buffer/</link>
+      <pubDate>Tue, 23 Feb 2021 22:24:44 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/buffer/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Buffering</title>
+      <link>https://netmemo.github.io/tags/buffering/</link>
+      <pubDate>Tue, 23 Feb 2021 22:24:44 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/buffering/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cisco</title>
+      <link>https://netmemo.github.io/tags/cisco/</link>
+      <pubDate>Tue, 23 Feb 2021 22:24:44 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/cisco/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Core Linux</title>
       <link>https://netmemo.github.io/tags/core-linux/</link>
       <pubDate>Mon, 22 Oct 2018 15:35:55 +0200</pubDate>
@@ -166,6 +193,15 @@
     </item>
     
     <item>
+      <title>N5600</title>
+      <link>https://netmemo.github.io/tags/n5600/</link>
+      <pubDate>Tue, 23 Feb 2021 22:24:44 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/n5600/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>N5K</title>
       <link>https://netmemo.github.io/tags/n5k/</link>
       <pubDate>Thu, 04 Oct 2018 00:48:57 +0200</pubDate>
@@ -195,9 +231,18 @@
     <item>
       <title>NSXT</title>
       <link>https://netmemo.github.io/tags/nsxt/</link>
-      <pubDate>Wed, 17 Feb 2021 21:32:37 +0100</pubDate>
+      <pubDate>Thu, 25 Feb 2021 21:56:57 +0100</pubDate>
       
       <guid>https://netmemo.github.io/tags/nsxt/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Nexus</title>
+      <link>https://netmemo.github.io/tags/nexus/</link>
+      <pubDate>Tue, 23 Feb 2021 22:24:44 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/nexus/</guid>
       <description></description>
     </item>
     
@@ -207,6 +252,15 @@
       <pubDate>Mon, 11 May 2020 08:00:11 +0200</pubDate>
       
       <guid>https://netmemo.github.io/tags/ospf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>QOS</title>
+      <link>https://netmemo.github.io/tags/qos/</link>
+      <pubDate>Tue, 23 Feb 2021 22:24:44 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/qos/</guid>
       <description></description>
     </item>
     
@@ -240,7 +294,7 @@
     <item>
       <title>Terraform</title>
       <link>https://netmemo.github.io/tags/terraform/</link>
-      <pubDate>Fri, 19 Feb 2021 22:06:50 +0100</pubDate>
+      <pubDate>Thu, 25 Feb 2021 21:56:57 +0100</pubDate>
       
       <guid>https://netmemo.github.io/tags/terraform/</guid>
       <description></description>
@@ -324,6 +378,15 @@
       <pubDate>Fri, 05 Oct 2018 23:59:19 +0200</pubDate>
       
       <guid>https://netmemo.github.io/tags/netplan/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>python</title>
+      <link>https://netmemo.github.io/tags/python/</link>
+      <pubDate>Thu, 25 Feb 2021 21:46:14 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/python/</guid>
       <description></description>
     </item>
     

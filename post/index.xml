@@ -13,6 +13,37 @@
     
     
     <item>
+      <title>Terraform Refactoring State File</title>
+      <link>https://netmemo.github.io/post/terraform-refactoring-state-file/</link>
+      <pubDate>Thu, 25 Feb 2021 21:56:57 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/post/terraform-refactoring-state-file/</guid>
+      <description>https://www.terraform.io/docs/cli/commands/state/mv.html
+On windows :
+terraform state mv nsxt_policy_security_policy.policy1 nsxt_policy_security_policy.policies[\&amp;ldquo;policy1\&amp;ldquo;]  It move resources from a construct like this
+locals { policy1= { rule1 = { source = [&#34;src1&#34;,&#34;src2&#34;] } } policy2 = { rule1 = { source = [&#34;src3&#34;,&#34;src4&#34;] } } }  To a structure like this locals { policies = { policy1 = { rule1 = { source = [&#34;src1&#34;,&#34;src2&#34;] } } policy2 = { rule2 = { source = [&#34;</description>
+    </item>
+    
+    <item>
+      <title>Python Package Offline</title>
+      <link>https://netmemo.github.io/post/python-package-offline/</link>
+      <pubDate>Thu, 25 Feb 2021 21:46:14 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/post/python-package-offline/</guid>
+      <description>To install python packages offline (with no internet access), the simplest way is to dowload the packages with the dependencies on a server with internet access and the below command.
+C:\Users\Nono\Desktop\pythonpip download requests Collecting requests Using cached requests-2.25.1-py2.py3-none-any.whl (61 kB) Collecting urllib3=1.21.1 Using cached urllib3-1.26.3-py2.py3-none-any.whl (137 kB) Collecting certifi=2017.4.17 Using cached certifi-2020.12.5-py2.py3-none-any.whl (147 kB) Collecting idna=2.5 Using cached idna-2.10-py2.py3-none-any.whl (58 kB) Collecting chardet=3.0.2 Using cached chardet-4.0.0-py2.py3-none-any.whl (178 kB) Saved c:\users\nono\desktop\python\requests-2.25.1-py2.py3-none-any.whl Saved c:\users\nono\desktop\python\certifi-2020.</description>
+    </item>
+    
+    <item>
+      <title>N5600 Buffering</title>
+      <link>https://netmemo.github.io/post/n5600-buffering/</link>
+      <pubDate>Tue, 23 Feb 2021 22:24:44 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/post/n5600-buffering/</guid>
+      <description>QoS VOQ On N5K, In the case of unicast traffic, VOQ is an ingress buffer pool for 3 ingress port (1 ASIC). This buffer pool is split into n x reservable buffer of the size configured in the voq-limit command.If the ingress buffer is 16000 and the VOQ limit is 1024, that mean 16 flow can reserv buffers.When the shared buffer is exausted, the dedicated ingress buffer per port is used then when it&amp;rsquo;s full, the packet is droped.</description>
+    </item>
+    
+    <item>
       <title>Terraform nested for_each for NSX-T with dynamic</title>
       <link>https://netmemo.github.io/post/tf-nsxt-nested-for-each/</link>
       <pubDate>Fri, 19 Feb 2021 22:06:50 +0100</pubDate>

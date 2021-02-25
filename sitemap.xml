@@ -4,6 +4,30 @@
     
     <url>
     
+      <loc>https://netmemo.github.io/post/terraform-refactoring-state-file/</loc>
+      <lastmod>2021-02-25T21:56:57+01:00</lastmod>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/post/python-package-offline/</loc>
+      <lastmod>2021-02-25T21:46:14+01:00</lastmod>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/post/n5600-buffering/</loc>
+      <lastmod>2021-02-23T22:24:44+01:00</lastmod>
+    </url>
+    
+  
+    
+    <url>
+    
       <loc>https://netmemo.github.io/post/tf-nsxt-nested-for-each/</loc>
       <lastmod>2021-02-19T22:06:50+01:00</lastmod>
     </url>
@@ -185,6 +209,15 @@
     
     <url>
     
+      <loc>https://netmemo.github.io/categories/automation/</loc>
+      <lastmod>2021-02-25T21:56:57+01:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
       <loc>https://netmemo.github.io/tags/bfd/</loc>
       <lastmod>2020-12-02T09:29:50+01:00</lastmod>
       <priority>0</priority>
@@ -203,8 +236,44 @@
     
     <url>
     
+      <loc>https://netmemo.github.io/tags/buffer/</loc>
+      <lastmod>2021-02-23T22:24:44+01:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/tags/buffering/</loc>
+      <lastmod>2021-02-23T22:24:44+01:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
       <loc>https://netmemo.github.io/categories/</loc>
       <lastmod>2021-02-17T20:59:49+01:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/tags/cisco/</loc>
+      <lastmod>2021-02-23T22:24:44+01:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/categories/cisco/</loc>
+      <lastmod>2021-02-23T22:24:44+01:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -338,6 +407,15 @@
     
     <url>
     
+      <loc>https://netmemo.github.io/tags/n5600/</loc>
+      <lastmod>2021-02-23T22:24:44+01:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
       <loc>https://netmemo.github.io/tags/n5k/</loc>
       <lastmod>2018-10-04T00:48:57+02:00</lastmod>
       <priority>0</priority>
@@ -366,7 +444,16 @@
     <url>
     
       <loc>https://netmemo.github.io/tags/nsxt/</loc>
-      <lastmod>2021-02-17T21:32:37+01:00</lastmod>
+      <lastmod>2021-02-25T21:56:57+01:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/tags/nexus/</loc>
+      <lastmod>2021-02-23T22:24:44+01:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -384,6 +471,24 @@
     <url>
     
       <loc>https://netmemo.github.io/publication_types/</loc>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/tags/qos/</loc>
+      <lastmod>2021-02-23T22:24:44+01:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/categories/qos/</loc>
+      <lastmod>2021-02-23T22:24:44+01:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -446,7 +551,7 @@
     <url>
     
       <loc>https://netmemo.github.io/tags/terraform/</loc>
-      <lastmod>2021-02-19T22:06:50+01:00</lastmod>
+      <lastmod>2021-02-25T21:56:57+01:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -465,6 +570,15 @@
     
       <loc>https://netmemo.github.io/tags/vm/</loc>
       <lastmod>2018-10-22T15:35:55+02:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/categories/automation/</loc>
+      <lastmod>2021-02-25T21:46:14+01:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -501,6 +615,15 @@
     
       <loc>https://netmemo.github.io/categories/container/</loc>
       <lastmod>2018-10-05T23:59:19+02:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/categories/developpment/</loc>
+      <lastmod>2021-02-25T21:46:14+01:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -582,6 +705,15 @@
     
       <loc>https://netmemo.github.io/categories/nexus/</loc>
       <lastmod>2018-10-04T00:48:57+02:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/tags/python/</loc>
+      <lastmod>2021-02-25T21:46:14+01:00</lastmod>
       <priority>0</priority>
     </url>
     

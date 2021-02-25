@@ -102,7 +102,7 @@
   <meta property="og:image" content="https://netmemo.github.io/img/icon-192.png">
   <meta property="og:locale" content="en-us">
   
-  <meta property="og:updated_time" content="2021-02-17T21:32:37&#43;01:00">
+  <meta property="og:updated_time" content="2021-02-25T21:56:57&#43;01:00">
   
 
   
@@ -215,6 +215,18 @@
   
 
   
+  
+  <div>
+    <h2><a href="/post/terraform-refactoring-state-file/">Terraform Refactoring State File</a></h2>
+    <div class="article-style">
+      
+      https://www.terraform.io/docs/cli/commands/state/mv.html
+On windows :
+terraform state mv nsxt_policy_security_policy.policy1 nsxt_policy_security_policy.policies[\&ldquo;policy1\&ldquo;]  It move resources from a construct like this
+locals { policy1= { rule1 = { source = ["src1","src2"] } } policy2 = { rule1 = { source = ["src3","src4"] } } }  To a structure like this locals { policies = { policy1 = { rule1 = { source = ["src1","src2"] } } policy2 = { rule2 = { source = ["
+      
+    </div>
+  </div>
   
   <div>
     <h2><a href="/post/tf-bundle-windows/">Create portable Terraform and plugins with Terraform-bundle for Windows</a></h2>
