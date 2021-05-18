@@ -11,6 +11,74 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Subnet size and mixing workload in a subnet</title>
+      <link>https://netmemo.github.io/post/subnets-size-mix/</link>
+      <pubDate>Tue, 18 May 2021 22:28:39 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/subnets-size-mix/</guid>
+      <description>
+
+&lt;p&gt;Below are some thoughts about subnet sizing and workloads mixing.&lt;br /&gt;
+Along my different jobs one of the things that leds to L2 extension and those brough risks and slow down or even block projects was big heterogeneous subnets.&lt;/p&gt;
+
+&lt;h3 id=&#34;small-subnets-size&#34;&gt;Small subnets size:&lt;/h3&gt;
+
+&lt;h5 id=&#34;pros&#34;&gt;Pros&lt;/h5&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Agility, you can do &lt;a href=&#34;https://blog.ipspace.net/2020/12/50-shades-high-availability.html&#34; target=&#34;_blank&#34;&gt;swimlane&lt;/a&gt; application design and do migration per application without geopardise the entire compagny.&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&#34;cons&#34;&gt;Cons&lt;/h5&gt;
+
+&lt;ul&gt;
+&lt;li&gt;More entry in the routing table but that can be mitigated with summarization&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Loss of ip addresses 64 x /27 instead of 1 x /21 =&amp;gt; ~1856 vs ~2045 host IPs = 189 lost IPs (does it realy matter ? how full are the big subnets ?)&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;big-subnet-with-a-mix-of-workload&#34;&gt;Big subnet with a mix of workload&lt;/h3&gt;
+
+&lt;h5 id=&#34;pros-1&#34;&gt;Pros&lt;/h5&gt;
+
+&lt;p&gt;The only benefit I&amp;rsquo;m seeing is the IP address saving but does that worth it ? Most of the time the subnet are big just to anticipate groth and thuse more IPs are lost anyway.&lt;/p&gt;
+
+&lt;h5 id=&#34;cons-1&#34;&gt;Cons&lt;/h5&gt;
+
+&lt;p&gt;&lt;u&gt; Big subnets size &lt;/u&gt;&lt;/p&gt;
+
+&lt;p&gt;Most of the time this is to mutualize applications.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Can block application migration because not all the applications have the same requirements. If one of the application doesn&amp;rsquo;t want to reIP his workload and has been asked to migrate somewhere else, you might be forced to stretch L2.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;L2 broadcast domain is mitigated by arp suppression on modern fabric but still you have broadcast reaching every VM and thus can have troubles if the &lt;a href=&#34;http://yves-louis.com/DCI/wp-content/uploads/2015/10/VXLAN-Multipod-geographically-dispersed-white-paper-final.pdf&#34; target=&#34;_blank&#34;&gt;stormcontrol is not set properly&lt;/a&gt;.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;For all the firewalls in the entreprise that are not relying on tags, you might have to open firewall rules per host instead of per subnets.&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;u&gt; Mix of workloads &lt;/u&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Can block application migration because physical devices can&amp;rsquo;t move where the VM is going and you don&amp;rsquo;t want to reIP the VM or the physical device.&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;other-considerations&#34;&gt;Other considerations&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Pets vs cattle : VM vs Container&lt;br /&gt;
+In the above use cases I&amp;rsquo;m talking essentialy of workload different than containers. For containers the paradigm is often different because most of the time container doesn&amp;rsquo;t share the subnet with physical device and application developper doesn&amp;rsquo;t rely on the container IP address. What matter is the IP address of the service.VM are still considered most of the time as pets and nobody want to change the IP address mostly to avoid to change firewall rules or hard coded IP addresses in application.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;VLANs Scale&lt;br /&gt;
+The number of supported VLAN are less relevent in virtualized environnement anymore because most of the time software scale better and you are not limited to 4K vlans (or even 2K in some case for ACI &lt;a href=&#34;https://www.cisco.com/c/en/us/td/docs/switches/datacenter/aci/apic/sw/4-x/verified-scalability/Cisco-ACI-Verified-Scalability-Guide-422.html&#34; target=&#34;_blank&#34;&gt;Bridge Domain&lt;/a&gt; and EVPN &lt;a href=&#34;https://www.cisco.com/c/en/us/td/docs/switches/datacenter/nexus9000/sw/92x/scalability/guide_923/b_Cisco_Nexus_9000_Series_NX-OS_Verified_Scalability_Guide_923.html&#34; target=&#34;_blank&#34;&gt;Layer 2 VNIs&lt;/a&gt;).&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Suboptimal IP addressing plan&lt;br /&gt;
+While when you move an entire subnet somewhere else you can face break the nice summarization on a compagny, you can always do the summarization after all the application are moved or even reIP the entire subnet afterwards.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Distributed routing&lt;br /&gt;
+With distributed routing you don&amp;rsquo;t have to go to the network core where the default gateway is to route between subnets.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Terraform Refactoring State File</title>
       <link>https://netmemo.github.io/post/terraform-refactoring-state-file/</link>
       <pubDate>Thu, 25 Feb 2021 21:56:57 +0100</pubDate>
@@ -184,16 +252,18 @@ Successfully installed certifi-2020.12.5 chardet-4.0.0 idna-2.10 requests-2.25.1
 
 &lt;h4 id=&#34;qos-voq&#34;&gt;QoS VOQ&lt;/h4&gt;
 
-&lt;p&gt;On N5K, In the case of unicast traffic, VOQ is an ingress buffer pool for 3 ingress port (1 ASIC). This buffer pool is split into n x reservable buffer of the size configured in the voq-limit command.If the ingress buffer is 16000 and the VOQ limit is 1024, that mean 16 flow can reserv buffers.When the shared buffer is exausted, the dedicated ingress buffer per port is used then when it&amp;rsquo;s full, the packet is droped.&lt;/p&gt;
+&lt;p&gt;On N5K, In the case of unicast traffic, VOQ is an ingress buffer pool for 3 ingress ports (1 ASIC = 3 ports). This buffer pool is split into n x reservable buffer of the size configured in the voq-limit command. If the ingress buffer is 16000 and the VOQ limit is 1024, that mean 16 flow can reserv buffers. When the shared buffer is exausted, the dedicated ingress buffer per port is used then when it&amp;rsquo;s full, the packet is droped.&lt;/p&gt;
 
-&lt;p&gt;VOQ is reservable per egress port per class (pair).With small VOQ limit, there is lot of buffer available for non congested flow. With no VOQ limit, a congested port can use up to 50% of the total shared memory and those, 2 congested port can exaust all the ingress resources of an ASIC (3 ingress port) and drop can happen on this ASIC&lt;/p&gt;
+&lt;p&gt;VOQ is reservable per egress port per class (pair).&lt;br /&gt;
+With small VOQ limit, there is lot of buffer available for non congested flow.&lt;br /&gt;
+With no VOQ limit, a congested port can use up to 50% of the total shared memory and those, 2 congested port can exaust all the ingress resources of an ASIC (3 ingress port) and drop can happen on this ASIC&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2015/pdf/BRKDCT-3100.pdf&#34; target=&#34;_blank&#34;&gt;https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2015/pdf/BRKDCT-3100.pdf&lt;/a&gt;&lt;br /&gt;
 &lt;a href=&#34;https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2017/pdf/BRKDCN-3346.pdf&#34; target=&#34;_blank&#34;&gt;https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2017/pdf/BRKDCN-3346.pdf&lt;/a&gt;&lt;br /&gt;
 &lt;a href=&#34;https://www.cisco.com/c/en/us/support/docs/switches/nexus-6000-series-switches/200401-Nexus-5600-6000-Understanding-and-Troub.html&#34; target=&#34;_blank&#34;&gt;https://www.cisco.com/c/en/us/support/docs/switches/nexus-6000-series-switches/200401-Nexus-5600-6000-Understanding-and-Troub.html&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;In case of a Nexus 5600. 1 ASIC = 3 * 40Gb or 12*10G ports. Cells are the units in which buffers are allocated. One cell is 320 Bytes. ASIC Ingress buffer size : 48840 of available total cells (16M), shared among all 3x40Gb ports. Egress buffer is 9Mb (dedicated buffer per ASIC).&lt;br /&gt;
-VOQ. ingress per output port/class queues. E.g with 114 ports on the switch with 8 queues there would be 1152 VOQs.On N5600 Buffer can be shared accrod port and classes, giving more burst absorption capacity.&lt;/p&gt;
+VOQ = Ingress per output port/class queues. E.g with 114 ports on the switch, with 8 queues per port there would be 1152 VOQs. On N5600 Buffer can be shared accrod port and classes, giving more burst absorption capacity.&lt;/p&gt;
 
 &lt;h4 id=&#34;default-buffer-allocation&#34;&gt;Default buffer allocation&lt;/h4&gt;
 
@@ -263,7 +333,7 @@ There should not be any effect on the FEX operation&lt;/p&gt;&lt;/li&gt;
 
 &lt;p&gt;C. with voq-limit default value 16384drop happens per VOQ, each limited by 16384 cells.congestion in one VOQ does not affect other VOQs if there is enough shared buffer left.VOQ drop thresholds are at maximum.Burst traffic flow coming can use up to 16384 allocated cells and will have drop everything above it. Other VOQs buffering at the same instance can use remaining buffer (but nor more than 16384each). In theory, 3 VOQs, that are fully congested at the same time, could take all the buffer. It is very difficult to prefict instant buffer usage due to unpredictable nature of bursty flows, so exact values should be taken from production, e.g. Try with 16384 and reduce the threshold if negative impact is seen on non-congested flows.&lt;/p&gt;
 
-&lt;h4 id=&#34;couple-of-solutions-to-resolve-bursty-trafic-drop&#34;&gt;Couple of  solutions to resolve bursty trafic drop:&lt;/h4&gt;
+&lt;h4 id=&#34;couple-of-solutions-to-resolve-bursty-trafic-drop&#34;&gt;Couple of solutions to resolve bursty trafic drop:&lt;/h4&gt;
 
 &lt;ol&gt;
 &lt;li&gt;Remove VOQ limit completel (heavy burst trafic)&lt;br /&gt;&lt;/li&gt;
@@ -995,43 +1065,6 @@ The following steps are when nothing is yet cached in any servers. This use case
 &lt;p&gt;Cascade of DNS TTL of the wrong information make the information last longer in caches .&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;DNSNetmemo-TTLCascade-v2.3.png&#34; alt=&#34;DNS, TTL Cascade&#34; /&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Dns Outage (Work in progress)</title>
-      <link>https://netmemo.github.io/post/dns-outage/</link>
-      <pubDate>Sat, 27 Apr 2019 23:06:07 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/post/dns-outage/</guid>
-      <description>
-
-&lt;p&gt;&lt;img src=&#34;DNSNetmemo-Outage-v2.3.png&#34; alt=&#34;DNS, outage behavior&#34; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;for-a-short-a-record-ttl&#34;&gt;For a short A record TTL&lt;/h3&gt;
-
-&lt;p&gt;Client keep using A until TTL has expired. If A is 30 second and outage occure just after the DNS request for A record, the outage last 30 seconds.&lt;/p&gt;
-
-&lt;p&gt;Wen A has expired, the client browser query the resolver who might query the GSLB NS of the broken site, wait for the DNS query timeout then query the working GSLB NS that will return the working A record.
-As the A TTL is short, the client might experience lots of DNS query timeout (every 30seconds when it will query for the A record to the broken GSLB NS) that might impact the browsing experience and slow it down.&lt;/p&gt;
-
-&lt;h3 id=&#34;for-a-longer-a-record-ttl&#34;&gt;For a longer A record TTL&lt;/h3&gt;
-
-&lt;p&gt;Client keep using A until TTL has expired. If A is 10mn and outage occure just after the DNS request for A, the outage last 10mn.&lt;/p&gt;
-
-&lt;p&gt;When A has expired, the client browser query the resolver who might query the GSLB NS of the broken site for the A record, wait for the DNS query timeout then query the working GSLB NS that will return the working A record.
-As the A TTL is long, the initial outage might be up to 10mn but the subsequents DNS request will experience less DNS request timeout toward the broken GSLB IPs. After the potential initial 10mn outage, the browsing experience under GSLB failure might be slightly better. In the end, the GSLB will have less DNS request to handle even during normal operation.&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;&lt;sub&gt;
-1. This blog was mostly inspired from &lt;a href=&#34;https://www.cloudflare.com/learning/dns/dns-server-types/&#34; target=&#34;_blank&#34;&gt;https://www.cloudflare.com/learning/dns/dns-server-types/
-&lt;/a&gt;&amp;gt;
-&lt;/sub&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;sub&gt;
-2. This link might help regarding the TTL &lt;a href=&#34;https://www.bortzmeyer.org/forcer-ttl.html&#34; target=&#34;_blank&#34;&gt;https://www.bortzmeyer.org/forcer-ttl.html&lt;/a&gt;
-&lt;/sub&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
 </description>
     </item>
     

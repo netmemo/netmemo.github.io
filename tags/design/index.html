@@ -20,7 +20,7 @@
   <meta name="description" content="Independent Network Architect">
 
   
-  <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/tags/qos/">
+  <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/tags/design/">
 
   
 
@@ -80,21 +80,21 @@
   
 
   
-  <link rel="alternate" href="https://netmemo.github.io/tags/qos/index.xml" type="application/rss+xml" title="netmemo.github.io">
-  <link rel="feed" href="https://netmemo.github.io/tags/qos/index.xml" type="application/rss+xml" title="netmemo.github.io">
+  <link rel="alternate" href="https://netmemo.github.io/tags/design/index.xml" type="application/rss+xml" title="netmemo.github.io">
+  <link rel="feed" href="https://netmemo.github.io/tags/design/index.xml" type="application/rss+xml" title="netmemo.github.io">
   
 
   <link rel="manifest" href="/site.webmanifest">
   <link rel="icon" type="image/png" href="/img/icon.png">
   <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
 
-  <link rel="canonical" href="https://netmemo.github.io/tags/qos/">
+  <link rel="canonical" href="https://netmemo.github.io/tags/design/">
 
   <meta property="twitter:card" content="summary_large_image">
   
   <meta property="og:site_name" content="netmemo.github.io">
-  <meta property="og:url" content="https://netmemo.github.io/tags/qos/">
-  <meta property="og:title" content="QOS | netmemo.github.io">
+  <meta property="og:url" content="https://netmemo.github.io/tags/design/">
+  <meta property="og:title" content="Design | netmemo.github.io">
   <meta property="og:description" content="Independent Network Architect">
   
   
@@ -102,14 +102,14 @@
   <meta property="og:image" content="https://netmemo.github.io/img/icon-192.png">
   <meta property="og:locale" content="en-us">
   
-  <meta property="og:updated_time" content="2021-02-23T22:24:44&#43;01:00">
+  <meta property="og:updated_time" content="2021-05-18T22:28:39&#43;02:00">
   
 
   
 
   
 
-  <title>QOS | netmemo.github.io</title>
+  <title>Design | netmemo.github.io</title>
 
 </head>
 <body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" >
@@ -210,17 +210,20 @@
 
 
 <div class="universal-wrapper">
-  <h1>QOS</h1>
+  <h1>Design</h1>
 
   
 
   
   
   <div>
-    <h2><a href="/post/n5600-buffering/">N5600 Buffering</a></h2>
+    <h2><a href="/post/subnets-size-mix/">Subnet size and mixing workload in a subnet</a></h2>
     <div class="article-style">
       
-      QoS VOQ On N5K, In the case of unicast traffic, VOQ is an ingress buffer pool for 3 ingress ports (1 ASIC = 3 ports). This buffer pool is split into n x reservable buffer of the size configured in the voq-limit command. If the ingress buffer is 16000 and the VOQ limit is 1024, that mean 16 flow can reserv buffers. When the shared buffer is exausted, the dedicated ingress buffer per port is used then when it&rsquo;s full, the packet is droped.
+      Below are some thoughts about subnet sizing and workloads mixing.
+Along my different jobs one of the things that leds to L2 extension and those brough risks and slow down or even block projects was big heterogeneous subnets.
+Small subnets size: Pros  Agility, you can do swimlane application design and do migration per application without geopardise the entire compagny.
+  Cons  More entry in the routing table but that can be mitigated with summarization
       
     </div>
   </div>

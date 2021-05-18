@@ -13,6 +13,18 @@
     
     
     <item>
+      <title>Subnet size and mixing workload in a subnet</title>
+      <link>https://netmemo.github.io/post/subnets-size-mix/</link>
+      <pubDate>Tue, 18 May 2021 22:28:39 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/subnets-size-mix/</guid>
+      <description>Below are some thoughts about subnet sizing and workloads mixing.
+Along my different jobs one of the things that leds to L2 extension and those brough risks and slow down or even block projects was big heterogeneous subnets.
+Small subnets size: Pros  Agility, you can do swimlane application design and do migration per application without geopardise the entire compagny.
+  Cons  More entry in the routing table but that can be mitigated with summarization</description>
+    </item>
+    
+    <item>
       <title>Terraform Refactoring State File</title>
       <link>https://netmemo.github.io/post/terraform-refactoring-state-file/</link>
       <pubDate>Thu, 25 Feb 2021 21:56:57 +0100</pubDate>
@@ -40,7 +52,7 @@ C:\Users\Nono\Desktop\pythonpip download requests Collecting requests Using cach
       <pubDate>Tue, 23 Feb 2021 22:24:44 +0100</pubDate>
       
       <guid>https://netmemo.github.io/post/n5600-buffering/</guid>
-      <description>QoS VOQ On N5K, In the case of unicast traffic, VOQ is an ingress buffer pool for 3 ingress port (1 ASIC). This buffer pool is split into n x reservable buffer of the size configured in the voq-limit command.If the ingress buffer is 16000 and the VOQ limit is 1024, that mean 16 flow can reserv buffers.When the shared buffer is exausted, the dedicated ingress buffer per port is used then when it&amp;rsquo;s full, the packet is droped.</description>
+      <description>QoS VOQ On N5K, In the case of unicast traffic, VOQ is an ingress buffer pool for 3 ingress ports (1 ASIC = 3 ports). This buffer pool is split into n x reservable buffer of the size configured in the voq-limit command. If the ingress buffer is 16000 and the VOQ limit is 1024, that mean 16 flow can reserv buffers. When the shared buffer is exausted, the dedicated ingress buffer per port is used then when it&amp;rsquo;s full, the packet is droped.</description>
     </item>
     
     <item>

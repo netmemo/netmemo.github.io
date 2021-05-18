@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>IP Plan on netmemo.github.io</title>
+    <link>https://netmemo.github.io/tags/ip-plan/</link>
+    <description>Recent content in IP Plan on netmemo.github.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2019. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author�s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
+    <lastBuildDate>Tue, 18 May 2021 22:28:39 +0200</lastBuildDate>
+    
+	<atom:link href="https://netmemo.github.io/tags/ip-plan/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Subnet size and mixing workload in a subnet</title>
+      <link>https://netmemo.github.io/post/subnets-size-mix/</link>
+      <pubDate>Tue, 18 May 2021 22:28:39 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/subnets-size-mix/</guid>
+      <description>Below are some thoughts about subnet sizing and workloads mixing.
+Along my different jobs one of the things that leds to L2 extension and those brough risks and slow down or even block projects was big heterogeneous subnets.
+Small subnets size: Pros  Agility, you can do swimlane application design and do migration per application without geopardise the entire compagny.
+  Cons  More entry in the routing table but that can be mitigated with summarization</description>
+    </item>
+    
+  </channel>
+</rss>

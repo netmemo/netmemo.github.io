@@ -15,10 +15,13 @@
   
     
   
-  <meta name="description" content="Independent Network Architect">
+  <meta name="description" content="Below are some thoughts about subnet sizing and workloads mixing.
+Along my different jobs one of the things that leds to L2 extension and those brough risks and slow down or even block projects was big heterogeneous subnets.
+Small subnets size: Pros  Agility, you can do swimlane application design and do migration per application without geopardise the entire compagny.
+  Cons  More entry in the routing table but that can be mitigated with summarization">
 
   
-  <link rel="alternate" hreflang="en-us" href="">
+  <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/post/subnets-size-mix/">
 
   
 
@@ -86,28 +89,33 @@
   <link rel="icon" type="image/png" href="/img/icon.png">
   <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
 
-  <link rel="canonical" href="">
+  <link rel="canonical" href="https://netmemo.github.io/post/subnets-size-mix/">
 
   <meta property="twitter:card" content="summary_large_image">
   
   <meta property="og:site_name" content="netmemo.github.io">
-  <meta property="og:url" content="">
-  <meta property="og:title" content="404 Page not found | netmemo.github.io">
-  <meta property="og:description" content="Independent Network Architect">
+  <meta property="og:url" content="https://netmemo.github.io/post/subnets-size-mix/">
+  <meta property="og:title" content="Subnet size and mixing workload in a subnet | netmemo.github.io">
+  <meta property="og:description" content="Below are some thoughts about subnet sizing and workloads mixing.
+Along my different jobs one of the things that leds to L2 extension and those brough risks and slow down or even block projects was big heterogeneous subnets.
+Small subnets size: Pros  Agility, you can do swimlane application design and do migration per application without geopardise the entire compagny.
+  Cons  More entry in the routing table but that can be mitigated with summarization">
   
   
     
   <meta property="og:image" content="https://netmemo.github.io/img/icon-192.png">
   <meta property="og:locale" content="en-us">
   
+  <meta property="article:published_time" content="2021-05-18T22:28:39&#43;02:00">
   
+  <meta property="article:modified_time" content="2021-05-18T22:28:39&#43;02:00">
+  
+
   
 
   
 
-  
-
-  <title>404 Page not found | netmemo.github.io</title>
+  <title>Subnet size and mixing workload in a subnet | netmemo.github.io</title>
 
 </head>
 <body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" >
@@ -200,47 +208,197 @@
   </div>
 </nav>
 
-<div class="container">
 
-  <h1>Page not found</h1>
-  <p>Perhaps you were looking for one of these?</p>
+<article class="article" itemscope itemtype="http://schema.org/Article">
 
   
-  
-  <h2>Posts</h2>
-  
-  <ul>
-    <li><a href="/post/subnets-size-mix/">Subnet size and mixing workload in a subnet</a></li>
-  </ul>
-  
-  <ul>
-    <li><a href="/post/terraform-refactoring-state-file/">Terraform Refactoring State File</a></li>
-  </ul>
-  
-  <ul>
-    <li><a href="/post/python-package-offline/">Python Package Offline</a></li>
-  </ul>
-  
-  <ul>
-    <li><a href="/post/n5600-buffering/">N5600 Buffering</a></li>
-  </ul>
-  
-  <ul>
-    <li><a href="/post/tf-nsxt-nested-for-each/">Terraform nested for_each for NSX-T with dynamic</a></li>
-  </ul>
-  
-  
+
+
+
+
+
+  <div class="article-container">
+    <h1 itemprop="name">Subnet size and mixing workload in a subnet</h1>
+
+    
+
+<div class="article-metadata">
 
   
   
+  
+  <div>
+    
+    <span itemscope itemprop="author" itemtype="http://schema.org/Person">
+      <span itemprop="name">Noel</span>
+    </span>
+    
+  </div>
+  
+
+  <span class="article-date">
+    
+    <meta content="2021-05-18 22:28:39 &#43;0200 CEST" itemprop="datePublished">
+    <time datetime="2021-05-18 22:28:39 &#43;0200 CEST" itemprop="dateModified">
+      May 18, 2021
+    </time>
+  </span>
+  <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Noel">
+  </span>
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    3 min read
+  </span>
+  
 
   
   
 
   
+  
+  
+  
+
+  
+  
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    <li>
+      <a class="twitter"
+         href="https://twitter.com/intent/tweet?text=Subnet%20size%20and%20mixing%20workload%20in%20a%20subnet&amp;url=https%3a%2f%2fnetmemo.github.io%2fpost%2fsubnets-size-mix%2f"
+         target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+    <li>
+      <a class="facebook"
+         href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fnetmemo.github.io%2fpost%2fsubnets-size-mix%2f"
+         target="_blank" rel="noopener">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+    </li>
+    <li>
+      <a class="linkedin"
+         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fnetmemo.github.io%2fpost%2fsubnets-size-mix%2f&amp;title=Subnet%20size%20and%20mixing%20workload%20in%20a%20subnet"
+         target="_blank" rel="noopener">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+    </li>
+    <li>
+      <a class="weibo"
+         href="http://service.weibo.com/share/share.php?url=https%3a%2f%2fnetmemo.github.io%2fpost%2fsubnets-size-mix%2f&amp;title=Subnet%20size%20and%20mixing%20workload%20in%20a%20subnet"
+         target="_blank" rel="noopener">
+        <i class="fab fa-weibo"></i>
+      </a>
+    </li>
+    <li>
+      <a class="email"
+         href="mailto:?subject=Subnet%20size%20and%20mixing%20workload%20in%20a%20subnet&amp;body=https%3a%2f%2fnetmemo.github.io%2fpost%2fsubnets-size-mix%2f">
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
   
 
 </div>
+
+
+    <div class="article-style" itemprop="articleBody">
+      
+
+<p>Below are some thoughts about subnet sizing and workloads mixing.<br />
+Along my different jobs one of the things that leds to L2 extension and those brough risks and slow down or even block projects was big heterogeneous subnets.</p>
+
+<h3 id="small-subnets-size">Small subnets size:</h3>
+
+<h5 id="pros">Pros</h5>
+
+<ul>
+<li>Agility, you can do <a href="https://blog.ipspace.net/2020/12/50-shades-high-availability.html" target="_blank">swimlane</a> application design and do migration per application without geopardise the entire compagny.<br /></li>
+</ul>
+
+<h5 id="cons">Cons</h5>
+
+<ul>
+<li>More entry in the routing table but that can be mitigated with summarization<br /></li>
+<li>Loss of ip addresses 64 x /27 instead of 1 x /21 =&gt; ~1856 vs ~2045 host IPs = 189 lost IPs (does it realy matter ? how full are the big subnets ?)<br /></li>
+</ul>
+
+<h3 id="big-subnet-with-a-mix-of-workload">Big subnet with a mix of workload</h3>
+
+<h5 id="pros-1">Pros</h5>
+
+<p>The only benefit I&rsquo;m seeing is the IP address saving but does that worth it ? Most of the time the subnet are big just to anticipate groth and thuse more IPs are lost anyway.</p>
+
+<h5 id="cons-1">Cons</h5>
+
+<p><u> Big subnets size </u></p>
+
+<p>Most of the time this is to mutualize applications.</p>
+
+<ul>
+<li>Can block application migration because not all the applications have the same requirements. If one of the application doesn&rsquo;t want to reIP his workload and has been asked to migrate somewhere else, you might be forced to stretch L2.<br /></li>
+<li>L2 broadcast domain is mitigated by arp suppression on modern fabric but still you have broadcast reaching every VM and thus can have troubles if the <a href="http://yves-louis.com/DCI/wp-content/uploads/2015/10/VXLAN-Multipod-geographically-dispersed-white-paper-final.pdf" target="_blank">stormcontrol is not set properly</a>.<br /></li>
+<li>For all the firewalls in the entreprise that are not relying on tags, you might have to open firewall rules per host instead of per subnets.<br /></li>
+</ul>
+
+<p><u> Mix of workloads </u></p>
+
+<ul>
+<li>Can block application migration because physical devices can&rsquo;t move where the VM is going and you don&rsquo;t want to reIP the VM or the physical device.<br /></li>
+</ul>
+
+<h3 id="other-considerations">Other considerations</h3>
+
+<ul>
+<li><p>Pets vs cattle : VM vs Container<br />
+In the above use cases I&rsquo;m talking essentialy of workload different than containers. For containers the paradigm is often different because most of the time container doesn&rsquo;t share the subnet with physical device and application developper doesn&rsquo;t rely on the container IP address. What matter is the IP address of the service.VM are still considered most of the time as pets and nobody want to change the IP address mostly to avoid to change firewall rules or hard coded IP addresses in application.</p></li>
+
+<li><p>VLANs Scale<br />
+The number of supported VLAN are less relevent in virtualized environnement anymore because most of the time software scale better and you are not limited to 4K vlans (or even 2K in some case for ACI <a href="https://www.cisco.com/c/en/us/td/docs/switches/datacenter/aci/apic/sw/4-x/verified-scalability/Cisco-ACI-Verified-Scalability-Guide-422.html" target="_blank">Bridge Domain</a> and EVPN <a href="https://www.cisco.com/c/en/us/td/docs/switches/datacenter/nexus9000/sw/92x/scalability/guide_923/b_Cisco_Nexus_9000_Series_NX-OS_Verified_Scalability_Guide_923.html" target="_blank">Layer 2 VNIs</a>).</p></li>
+
+<li><p>Suboptimal IP addressing plan<br />
+While when you move an entire subnet somewhere else you can face break the nice summarization on a compagny, you can always do the summarization after all the application are moved or even reIP the entire subnet afterwards.</p></li>
+
+<li><p>Distributed routing<br />
+With distributed routing you don&rsquo;t have to go to the network core where the default gateway is to route between subnets.</p></li>
+</ul>
+
+    </div>
+
+    
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/addressing/">Addressing</a>
+  
+  <a class="badge badge-light" href="/tags/ip-plan/">IP Plan</a>
+  
+  <a class="badge badge-light" href="/tags/design/">Design</a>
+  
+</div>
+
+
+
+
+    
+    
+
+    
+
+    
+
+
+  </div>
+</article>
+
 <div class="container">
   <footer class="site-footer">
   

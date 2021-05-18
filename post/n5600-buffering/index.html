@@ -15,7 +15,7 @@
   
     
   
-  <meta name="description" content="QoS VOQ On N5K, In the case of unicast traffic, VOQ is an ingress buffer pool for 3 ingress port (1 ASIC). This buffer pool is split into n x reservable buffer of the size configured in the voq-limit command.If the ingress buffer is 16000 and the VOQ limit is 1024, that mean 16 flow can reserv buffers.When the shared buffer is exausted, the dedicated ingress buffer per port is used then when it&rsquo;s full, the packet is droped.">
+  <meta name="description" content="QoS VOQ On N5K, In the case of unicast traffic, VOQ is an ingress buffer pool for 3 ingress ports (1 ASIC = 3 ports). This buffer pool is split into n x reservable buffer of the size configured in the voq-limit command. If the ingress buffer is 16000 and the VOQ limit is 1024, that mean 16 flow can reserv buffers. When the shared buffer is exausted, the dedicated ingress buffer per port is used then when it&rsquo;s full, the packet is droped.">
 
   
   <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/post/n5600-buffering/">
@@ -93,7 +93,7 @@
   <meta property="og:site_name" content="netmemo.github.io">
   <meta property="og:url" content="https://netmemo.github.io/post/n5600-buffering/">
   <meta property="og:title" content="N5600 Buffering | netmemo.github.io">
-  <meta property="og:description" content="QoS VOQ On N5K, In the case of unicast traffic, VOQ is an ingress buffer pool for 3 ingress port (1 ASIC). This buffer pool is split into n x reservable buffer of the size configured in the voq-limit command.If the ingress buffer is 16000 and the VOQ limit is 1024, that mean 16 flow can reserv buffers.When the shared buffer is exausted, the dedicated ingress buffer per port is used then when it&rsquo;s full, the packet is droped.">
+  <meta property="og:description" content="QoS VOQ On N5K, In the case of unicast traffic, VOQ is an ingress buffer pool for 3 ingress ports (1 ASIC = 3 ports). This buffer pool is split into n x reservable buffer of the size configured in the voq-limit command. If the ingress buffer is 16000 and the VOQ limit is 1024, that mean 16 flow can reserv buffers. When the shared buffer is exausted, the dedicated ingress buffer per port is used then when it&rsquo;s full, the packet is droped.">
   
   
     
@@ -318,16 +318,18 @@
 
 <h4 id="qos-voq">QoS VOQ</h4>
 
-<p>On N5K, In the case of unicast traffic, VOQ is an ingress buffer pool for 3 ingress port (1 ASIC). This buffer pool is split into n x reservable buffer of the size configured in the voq-limit command.If the ingress buffer is 16000 and the VOQ limit is 1024, that mean 16 flow can reserv buffers.When the shared buffer is exausted, the dedicated ingress buffer per port is used then when it&rsquo;s full, the packet is droped.</p>
+<p>On N5K, In the case of unicast traffic, VOQ is an ingress buffer pool for 3 ingress ports (1 ASIC = 3 ports). This buffer pool is split into n x reservable buffer of the size configured in the voq-limit command. If the ingress buffer is 16000 and the VOQ limit is 1024, that mean 16 flow can reserv buffers. When the shared buffer is exausted, the dedicated ingress buffer per port is used then when it&rsquo;s full, the packet is droped.</p>
 
-<p>VOQ is reservable per egress port per class (pair).With small VOQ limit, there is lot of buffer available for non congested flow. With no VOQ limit, a congested port can use up to 50% of the total shared memory and those, 2 congested port can exaust all the ingress resources of an ASIC (3 ingress port) and drop can happen on this ASIC</p>
+<p>VOQ is reservable per egress port per class (pair).<br />
+With small VOQ limit, there is lot of buffer available for non congested flow.<br />
+With no VOQ limit, a congested port can use up to 50% of the total shared memory and those, 2 congested port can exaust all the ingress resources of an ASIC (3 ingress port) and drop can happen on this ASIC</p>
 
 <p><a href="https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2015/pdf/BRKDCT-3100.pdf" target="_blank">https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2015/pdf/BRKDCT-3100.pdf</a><br />
 <a href="https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2017/pdf/BRKDCN-3346.pdf" target="_blank">https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2017/pdf/BRKDCN-3346.pdf</a><br />
 <a href="https://www.cisco.com/c/en/us/support/docs/switches/nexus-6000-series-switches/200401-Nexus-5600-6000-Understanding-and-Troub.html" target="_blank">https://www.cisco.com/c/en/us/support/docs/switches/nexus-6000-series-switches/200401-Nexus-5600-6000-Understanding-and-Troub.html</a></p>
 
 <p>In case of a Nexus 5600. 1 ASIC = 3 * 40Gb or 12*10G ports. Cells are the units in which buffers are allocated. One cell is 320 Bytes. ASIC Ingress buffer size : 48840 of available total cells (16M), shared among all 3x40Gb ports. Egress buffer is 9Mb (dedicated buffer per ASIC).<br />
-VOQ. ingress per output port/class queues. E.g with 114 ports on the switch with 8 queues there would be 1152 VOQs.On N5600 Buffer can be shared accrod port and classes, giving more burst absorption capacity.</p>
+VOQ = Ingress per output port/class queues. E.g with 114 ports on the switch, with 8 queues per port there would be 1152 VOQs. On N5600 Buffer can be shared accrod port and classes, giving more burst absorption capacity.</p>
 
 <h4 id="default-buffer-allocation">Default buffer allocation</h4>
 
@@ -397,7 +399,7 @@ There should not be any effect on the FEX operation</p></li>
 
 <p>C. with voq-limit default value 16384drop happens per VOQ, each limited by 16384 cells.congestion in one VOQ does not affect other VOQs if there is enough shared buffer left.VOQ drop thresholds are at maximum.Burst traffic flow coming can use up to 16384 allocated cells and will have drop everything above it. Other VOQs buffering at the same instance can use remaining buffer (but nor more than 16384each). In theory, 3 VOQs, that are fully congested at the same time, could take all the buffer. It is very difficult to prefict instant buffer usage due to unpredictable nature of bursty flows, so exact values should be taken from production, e.g. Try with 16384 and reduce the threshold if negative impact is seen on non-congested flows.</p>
 
-<h4 id="couple-of-solutions-to-resolve-bursty-trafic-drop">Couple of  solutions to resolve bursty trafic drop:</h4>
+<h4 id="couple-of-solutions-to-resolve-bursty-trafic-drop">Couple of solutions to resolve bursty trafic drop:</h4>
 
 <ol>
 <li>Remove VOQ limit completel (heavy burst trafic)<br /></li>
