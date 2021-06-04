@@ -16,9 +16,9 @@
     
   
   <meta name="description" content="Below are some thoughts about subnet sizing and workloads mixing.
-Along my different jobs one of the things that leds to L2 extension and those brough risks and slow down or even block projects was big heterogeneous subnets.
+Along my different jobs one of the things that leads to L2 extension and those brought risks and slow down or even block projects was big heterogeneous subnets.
 Small subnets size: Pros  Agility, you can do swimlane application design and do migration per application without geopardise the entire compagny.
-  Cons  More entry in the routing table but that can be mitigated with summarization">
+  Cons  More entry in the routing table but that can be mitigated with summarization.">
 
   
   <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/post/subnets-size-mix/">
@@ -97,9 +97,9 @@ Small subnets size: Pros  Agility, you can do swimlane application design and do
   <meta property="og:url" content="https://netmemo.github.io/post/subnets-size-mix/">
   <meta property="og:title" content="Subnet size and mixing workload in a subnet | netmemo.github.io">
   <meta property="og:description" content="Below are some thoughts about subnet sizing and workloads mixing.
-Along my different jobs one of the things that leds to L2 extension and those brough risks and slow down or even block projects was big heterogeneous subnets.
+Along my different jobs one of the things that leads to L2 extension and those brought risks and slow down or even block projects was big heterogeneous subnets.
 Small subnets size: Pros  Agility, you can do swimlane application design and do migration per application without geopardise the entire compagny.
-  Cons  More entry in the routing table but that can be mitigated with summarization">
+  Cons  More entry in the routing table but that can be mitigated with summarization.">
   
   
     
@@ -313,7 +313,7 @@ Small subnets size: Pros  Agility, you can do swimlane application design and do
       
 
 <p>Below are some thoughts about subnet sizing and workloads mixing.<br />
-Along my different jobs one of the things that leds to L2 extension and those brough risks and slow down or even block projects was big heterogeneous subnets.</p>
+Along my different jobs one of the things that leads to L2 extension and those brought risks and slow down or even block projects was big heterogeneous subnets.</p>
 
 <h3 id="small-subnets-size">Small subnets size:</h3>
 
@@ -326,7 +326,7 @@ Along my different jobs one of the things that leds to L2 extension and those br
 <h5 id="cons">Cons</h5>
 
 <ul>
-<li>More entry in the routing table but that can be mitigated with summarization<br /></li>
+<li>More entry in the routing table but that can be mitigated with summarization.<br /></li>
 <li>Loss of ip addresses 64 x /27 instead of 1 x /21 =&gt; ~1856 vs ~2045 host IPs = 189 lost IPs (does it realy matter ? how full are the big subnets ?)<br /></li>
 </ul>
 
@@ -334,7 +334,10 @@ Along my different jobs one of the things that leds to L2 extension and those br
 
 <h5 id="pros-1">Pros</h5>
 
-<p>The only benefit I&rsquo;m seeing is the IP address saving but does that worth it ? Most of the time the subnet are big just to anticipate groth and thuse more IPs are lost anyway.</p>
+<ul>
+<li>IP address saving. Does that worth it ? Most of the time the subnet are big just to anticipate groth and thuse IPs are lost anyway.</li>
+<li>Simplicity to allocate addresses. Only couple of big subnets.<br /></li>
+</ul>
 
 <h5 id="cons-1">Cons</h5>
 
@@ -358,16 +361,16 @@ Along my different jobs one of the things that leds to L2 extension and those br
 
 <ul>
 <li><p>Pets vs cattle : VM vs Container<br />
-In the above use cases I&rsquo;m talking essentialy of workload different than containers. For containers the paradigm is often different because most of the time container doesn&rsquo;t share the subnet with physical device and application developper doesn&rsquo;t rely on the container IP address. What matter is the IP address of the service.VM are still considered most of the time as pets and nobody want to change the IP address mostly to avoid to change firewall rules or hard coded IP addresses in application.</p></li>
+In the above use cases I&rsquo;m talking essentialy of workloads that are not containers. For containers the paradigm is often different because most of the time container doesn&rsquo;t share the subnet with physical device and application developper doesn&rsquo;t rely on the container IP address. What matter is the IP address of the service. VM are still considered most of the time as pets and nobody want to change the IP address mostly to avoid to change firewall rules or hard coded IP addresses in application.</p></li>
 
 <li><p>VLANs Scale<br />
-The number of supported VLAN are less relevent in virtualized environnement anymore because most of the time software scale better and you are not limited to 4K vlans (or even 2K in some case for ACI <a href="https://www.cisco.com/c/en/us/td/docs/switches/datacenter/aci/apic/sw/4-x/verified-scalability/Cisco-ACI-Verified-Scalability-Guide-422.html" target="_blank">Bridge Domain</a> and EVPN <a href="https://www.cisco.com/c/en/us/td/docs/switches/datacenter/nexus9000/sw/92x/scalability/guide_923/b_Cisco_Nexus_9000_Series_NX-OS_Verified_Scalability_Guide_923.html" target="_blank">Layer 2 VNIs</a>).</p></li>
+The number of supported VLAN are less relevent in virtualized environnement because most of the time software scale better and you are not limited to 4K vlans (or even 2K in some case for ACI <a href="https://www.cisco.com/c/en/us/td/docs/switches/datacenter/aci/apic/sw/4-x/verified-scalability/Cisco-ACI-Verified-Scalability-Guide-422.html" target="_blank">Bridge Domain</a> and EVPN <a href="https://www.cisco.com/c/en/us/td/docs/switches/datacenter/nexus9000/sw/92x/scalability/guide_923/b_Cisco_Nexus_9000_Series_NX-OS_Verified_Scalability_Guide_923.html" target="_blank">Layer 2 VNIs</a>).</p></li>
 
 <li><p>Suboptimal IP addressing plan<br />
-While when you move an entire subnet somewhere else you can face break the nice summarization on a compagny, you can always do the summarization after all the application are moved or even reIP the entire subnet afterwards.</p></li>
+When you move an entire subnet somewhere else you can break the summarization of the compagny but you can always do the summarization again after all the applications have moved or even reIP the entire subnet afterwards. It&rsquo;s less risky and complex than having a L2 streched &ldquo;forever&rdquo;.</p></li>
 
 <li><p>Distributed routing<br />
-With distributed routing you don&rsquo;t have to go to the network core where the default gateway is to route between subnets.</p></li>
+Now, with distributed routing you don&rsquo;t have to go to the network core where the default gateway was in the old days to route between subnets.</p></li>
 </ul>
 
     </div>
