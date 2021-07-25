@@ -6,11 +6,23 @@
     <description>Recent content in Posts on netmemo.github.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2019. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author�s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
+    <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&amp;acute;s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
     <lastBuildDate>Sun, 01 Jan 2017 00:00:00 +0100</lastBuildDate>
     
 	<atom:link href="https://netmemo.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>NSX-T firewall with Terraform</title>
+      <link>https://netmemo.github.io/post/nsxt-tf-firewall/</link>
+      <pubDate>Fri, 16 Jul 2021 19:03:37 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/nsxt-tf-firewall/</guid>
+      <description>This article is to show an exemple of how to manage NSX-T firewall rules as a code through Terraform.
+You can find the project on my github account : nsxt-fwaas-tf-cm and nsxt-fwaas-tf-rm
+I will describe the structure of the project, the Terraform code then finish with an exemple.
+The below diagram show a summary of how I organized the project in order to fully use infrastructre as code.</description>
+    </item>
     
     <item>
       <title>Subnet size and mixing workload in a subnet</title>
@@ -33,7 +45,8 @@ Small subnets size: Pros  Agility, you can do swimlane application design and do
       <description>https://www.terraform.io/docs/cli/commands/state/mv.html
 On windows :
 terraform state mv nsxt_policy_security_policy.policy1 nsxt_policy_security_policy.policies[\&amp;ldquo;policy1\&amp;ldquo;]  It move resources from a construct like this
-locals { policy1= { rule1 = { source = [&#34;src1&#34;,&#34;src2&#34;] } } policy2 = { rule1 = { source = [&#34;src3&#34;,&#34;src4&#34;] } } }  To a structure like this locals { policies = { policy1 = { rule1 = { source = [&#34;src1&#34;,&#34;src2&#34;] } } policy2 = { rule2 = { source = [&#34;</description>
+locals { policy1= { rule1 = { source = [&amp;quot;src1&amp;quot;,&amp;quot;src2&amp;quot;] } } policy2 = { rule1 = { source = [&amp;quot;src3&amp;quot;,&amp;quot;src4&amp;quot;] } } }  To a structure like this
+locals { policies = { policy1 = { rule1 = { source = [&amp;quot;src1&amp;quot;,&amp;quot;src2&amp;quot;] } } policy2 = { rule2 = { source = [&amp;quot;src3&amp;quot;,&amp;quot;src4&amp;quot;] } } } }  The main moving from</description>
     </item>
     
     <item>
@@ -43,7 +56,7 @@ locals { policy1= { rule1 = { source = [&#34;src1&#34;,&#34;src2&#34;] } } polic
       
       <guid>https://netmemo.github.io/post/python-package-offline/</guid>
       <description>To install python packages offline (with no internet access), the simplest way is to dowload the packages with the dependencies on a server with internet access and the below command.
-C:\Users\Nono\Desktop\pythonpip download requests Collecting requests Using cached requests-2.25.1-py2.py3-none-any.whl (61 kB) Collecting urllib3=1.21.1 Using cached urllib3-1.26.3-py2.py3-none-any.whl (137 kB) Collecting certifi=2017.4.17 Using cached certifi-2020.12.5-py2.py3-none-any.whl (147 kB) Collecting idna=2.5 Using cached idna-2.10-py2.py3-none-any.whl (58 kB) Collecting chardet=3.0.2 Using cached chardet-4.0.0-py2.py3-none-any.whl (178 kB) Saved c:\users\nono\desktop\python\requests-2.25.1-py2.py3-none-any.whl Saved c:\users\nono\desktop\python\certifi-2020.</description>
+ C:\Users\Nono\Desktop\pythonpip download requests Collecting requests Using cached requests-2.25.1-py2.py3-none-any.whl (61 kB) Collecting urllib3=1.21.1 Using cached urllib3-1.26.3-py2.py3-none-any.whl (137 kB) Collecting certifi=2017.4.17 Using cached certifi-2020.12.5-py2.py3-none-any.whl (147 kB) Collecting idna=2.5 Using cached idna-2.10-py2.py3-none-any.whl (58 kB) Collecting chardet=3.0.2 Using cached chardet-4.0.0-py2.py3-none-any.whl (178 kB) Saved c:\users\nono\desktop\python\requests-2.</description>
     </item>
     
     <item>
@@ -182,36 +195,6 @@ Workarround  If we filter the redistribution that doesn&amp;rsquo;t help because
     </item>
     
     <item>
-      <title>One of many possible DNS Design (Work in progress)</title>
-      <link>https://netmemo.github.io/post/dns-one-design/</link>
-      <pubDate>Fri, 04 Oct 2019 23:20:48 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/post/dns-one-design/</guid>
-      <description>DNS Steps to resolve a web site url in IP : !! The CNAME is normally not allowed at the apex, so I need to find another way) !! The following steps are when nothing is yet cached in any servers. This use case is for a recusive DNS resolver.
- The user try to access www.toto.com from his browser. His computer send the DNS query to the system&amp;#39;s configured DNS Resolver.</description>
-    </item>
-    
-    <item>
-      <title>Dns Ttl Cascade (Work in progress)</title>
-      <link>https://netmemo.github.io/post/dns-ttl-cascade/</link>
-      <pubDate>Fri, 04 Oct 2019 23:15:03 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/post/dns-ttl-cascade/</guid>
-      <description>At every layer, local cache of servers can override the configured TTL even if the TTL override is breaking the RFC
-Cascade of DNS TTL of the wrong information make the information last longer in caches .</description>
-    </item>
-    
-    <item>
-      <title>Dns Outage (Work in progress)</title>
-      <link>https://netmemo.github.io/post/dns-outage/</link>
-      <pubDate>Sat, 27 Apr 2019 23:06:07 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/post/dns-outage/</guid>
-      <description>For a short A record TTL Client keep using A until TTL has expired. If A is 30 second and outage occure just after the DNS request for A record, the outage last 30 seconds.
-Wen A has expired, the client browser query the resolver who might query the GSLB NS of the broken site, wait for the DNS query timeout then query the working GSLB NS that will return the working A record.</description>
-    </item>
-    
-    <item>
       <title>Core Linux Netmemo</title>
       <link>https://netmemo.github.io/post/corelinuxnetmemo/</link>
       <pubDate>Mon, 22 Oct 2018 15:35:55 +0200</pubDate>
@@ -219,7 +202,7 @@ Wen A has expired, the client browser query the resolver who might query the GSL
       <guid>https://netmemo.github.io/post/corelinuxnetmemo/</guid>
       <description>Below is a very light virtual machine based on Core Linux kernel 4.8 (TinyCore) 26 Mo with network tools like iperf3, tcpdump, net-bridging, iproute2, busybox (httpd), tcpreplay, nmap, openssh.
 corelinux1.5.ova
-basic commands/directory /etc/sysconfig/tcedir/optional =&amp;gt; packages /etc/sysconfig/tcedir/onboot.lst =&amp;gt; on boot package to be loaded  sudo vi /opt/eth0.sh =&amp;gt; change interfaces parameters #configure an interface pkill udhcp =&amp;gt; stop dhcp for this interface ifconfig eth1 10.253.106.2 netmask 255.255.255.192 up route add default gw 10.</description>
+basic commands/directory /etc/sysconfig/tcedir/optional =&amp;gt; packages /etc/sysconfig/tcedir/onboot.lst =&amp;gt; on boot package to be loaded  sudo vi /opt/eth0.sh =&amp;gt; change interfaces parameters #configure an interface pkill udhcp =&amp;gt; stop dhcp for this interface ifconfig eth0 10.253.106.2 netmask 255.255.255.192 up route add default gw 10.</description>
     </item>
     
     <item>
@@ -260,6 +243,15 @@ https://fr.wikipedia.org/wiki/Kubernetes#/media/File:Kubernetes.png https://kube
 Join a node/worker to the master
 kubeadm join 10.0.1.10:6443 --token d34b9i.v03t2yiozio63cq6 --discovery-token-ca-cert-hash sha256:c21d04ea23790a0bf81cf64118e3a9075ffb63ed90bc697acef5793386e9eb16  Delete a deployment
 kubectl delete deployment nginx-deployment-nbo  To get the logs of a specific container. -n is to specify the namespace</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://netmemo.github.io/post/tf-gha-nsxt-cicd/terraformnetworkcicd/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://netmemo.github.io/post/tf-gha-nsxt-cicd/terraformnetworkcicd/</guid>
+      <description>   TerraformNetworkCICD     </description>
     </item>
     
   </channel>

@@ -6,7 +6,7 @@
     <description>Recent content in Tags on netmemo.github.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2019. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author�s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
+    <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&amp;acute;s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
     <lastBuildDate>Sat, 28 Nov 2020 19:11:36 +0100</lastBuildDate>
     
 	<atom:link href="https://netmemo.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
@@ -121,33 +121,6 @@
     </item>
     
     <item>
-      <title>DNS</title>
-      <link>https://netmemo.github.io/tags/dns/</link>
-      <pubDate>Fri, 04 Oct 2019 23:20:48 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/tags/dns/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>DNSTTL</title>
-      <link>https://netmemo.github.io/tags/dnsttl/</link>
-      <pubDate>Fri, 04 Oct 2019 23:20:48 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/tags/dnsttl/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>DNS_CACHE</title>
-      <link>https://netmemo.github.io/tags/dns_cache/</link>
-      <pubDate>Fri, 04 Oct 2019 23:15:03 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/tags/dns_cache/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Design</title>
       <link>https://netmemo.github.io/tags/design/</link>
       <pubDate>Tue, 18 May 2021 22:28:39 +0200</pubDate>
@@ -166,20 +139,11 @@
     </item>
     
     <item>
-      <title>GSLB</title>
-      <link>https://netmemo.github.io/tags/gslb/</link>
-      <pubDate>Fri, 04 Oct 2019 23:20:48 +0200</pubDate>
+      <title>Firewalling</title>
+      <link>https://netmemo.github.io/tags/firewalling/</link>
+      <pubDate>Fri, 16 Jul 2021 19:03:37 +0200</pubDate>
       
-      <guid>https://netmemo.github.io/tags/gslb/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>GTM</title>
-      <link>https://netmemo.github.io/tags/gtm/</link>
-      <pubDate>Fri, 04 Oct 2019 23:20:48 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/tags/gtm/</guid>
+      <guid>https://netmemo.github.io/tags/firewalling/</guid>
       <description></description>
     </item>
     
@@ -198,24 +162,6 @@
       <pubDate>Tue, 24 Nov 2020 18:12:05 +0100</pubDate>
       
       <guid>https://netmemo.github.io/tags/isis/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>LTM</title>
-      <link>https://netmemo.github.io/tags/ltm/</link>
-      <pubDate>Fri, 04 Oct 2019 23:20:48 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/tags/ltm/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Loadbalancing</title>
-      <link>https://netmemo.github.io/tags/loadbalancing/</link>
-      <pubDate>Fri, 04 Oct 2019 23:20:48 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/tags/loadbalancing/</guid>
       <description></description>
     </item>
     
@@ -258,7 +204,7 @@
     <item>
       <title>NSXT</title>
       <link>https://netmemo.github.io/tags/nsxt/</link>
-      <pubDate>Thu, 25 Feb 2021 21:56:57 +0100</pubDate>
+      <pubDate>Fri, 16 Jul 2021 19:03:37 +0200</pubDate>
       
       <guid>https://netmemo.github.io/tags/nsxt/</guid>
       <description></description>
@@ -321,7 +267,7 @@
     <item>
       <title>Terraform</title>
       <link>https://netmemo.github.io/tags/terraform/</link>
-      <pubDate>Thu, 25 Feb 2021 21:56:57 +0100</pubDate>
+      <pubDate>Fri, 16 Jul 2021 19:03:37 +0200</pubDate>
       
       <guid>https://netmemo.github.io/tags/terraform/</guid>
       <description></description>
@@ -387,15 +333,6 @@
       <pubDate>Fri, 05 Oct 2018 23:59:19 +0200</pubDate>
       
       <guid>https://netmemo.github.io/tags/kubernetes/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>loadbalancer</title>
-      <link>https://netmemo.github.io/tags/loadbalancer/</link>
-      <pubDate>Fri, 04 Oct 2019 23:20:48 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/tags/loadbalancer/</guid>
       <description></description>
     </item>
     

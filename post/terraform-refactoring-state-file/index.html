@@ -18,7 +18,8 @@
   <meta name="description" content="https://www.terraform.io/docs/cli/commands/state/mv.html
 On windows :
 terraform state mv nsxt_policy_security_policy.policy1 nsxt_policy_security_policy.policies[\&ldquo;policy1\&ldquo;]  It move resources from a construct like this
-locals { policy1= { rule1 = { source = [&#34;src1&#34;,&#34;src2&#34;] } } policy2 = { rule1 = { source = [&#34;src3&#34;,&#34;src4&#34;] } } }  To a structure like this locals { policies = { policy1 = { rule1 = { source = [&#34;src1&#34;,&#34;src2&#34;] } } policy2 = { rule2 = { source = [&#34;">
+locals { policy1= { rule1 = { source = [&quot;src1&quot;,&quot;src2&quot;] } } policy2 = { rule1 = { source = [&quot;src3&quot;,&quot;src4&quot;] } } }  To a structure like this
+locals { policies = { policy1 = { rule1 = { source = [&quot;src1&quot;,&quot;src2&quot;] } } policy2 = { rule2 = { source = [&quot;src3&quot;,&quot;src4&quot;] } } } }  The main moving from">
 
   
   <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/post/terraform-refactoring-state-file/">
@@ -35,7 +36,7 @@ locals { policy1= { rule1 = { source = [&#34;src1&#34;,&#34;src2&#34;] } } polic
   
   
   
-  <meta name="theme-color" content="#0095eb">
+  <meta name="theme-color" content="hsl(#98F5FF, 90%, 68%)">
   
 
   
@@ -57,7 +58,7 @@ locals { policy1= { rule1 = { source = [&#34;src1&#34;,&#34;src2&#34;] } } polic
       
       
         
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" crossorigin="anonymous">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/dracula.min.css" crossorigin="anonymous">
         
       
     
@@ -99,7 +100,8 @@ locals { policy1= { rule1 = { source = [&#34;src1&#34;,&#34;src2&#34;] } } polic
   <meta property="og:description" content="https://www.terraform.io/docs/cli/commands/state/mv.html
 On windows :
 terraform state mv nsxt_policy_security_policy.policy1 nsxt_policy_security_policy.policies[\&ldquo;policy1\&ldquo;]  It move resources from a construct like this
-locals { policy1= { rule1 = { source = [&#34;src1&#34;,&#34;src2&#34;] } } policy2 = { rule1 = { source = [&#34;src3&#34;,&#34;src4&#34;] } } }  To a structure like this locals { policies = { policy1 = { rule1 = { source = [&#34;src1&#34;,&#34;src2&#34;] } } policy2 = { rule2 = { source = [&#34;">
+locals { policy1= { rule1 = { source = [&quot;src1&quot;,&quot;src2&quot;] } } policy2 = { rule1 = { source = [&quot;src3&quot;,&quot;src4&quot;] } } }  To a structure like this
+locals { policies = { policy1 = { rule1 = { source = [&quot;src1&quot;,&quot;src2&quot;] } } policy2 = { rule2 = { source = [&quot;src3&quot;,&quot;src4&quot;] } } } }  The main moving from">
   
   
     
@@ -118,7 +120,7 @@ locals { policy1= { rule1 = { source = [&#34;src1&#34;,&#34;src2&#34;] } } polic
   <title>Terraform Refactoring State File | netmemo.github.io</title>
 
 </head>
-<body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" >
+<body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" class="dark">
 
 <nav class="navbar navbar-light fixed-top navbar-expand-lg py-0" id="navbar-main">
   <div class="container">
@@ -325,112 +327,115 @@ terraform state mv nsxt_policy_security_policy.policy1 nsxt_policy_security_poli
 </pre>
 It move resources from a construct like this</p>
 
-<pre style="color:black">
-locals {
+<pre><code>locals {
   policy1= {
       rule1 = {
-        source = ["src1","src2"]
+        source = [&quot;src1&quot;,&quot;src2&quot;]
       }
   }
   policy2 = {
       rule1 = {
-        source = ["src3","src4"]
+        source = [&quot;src3&quot;,&quot;src4&quot;]
       }
   }
 }
-</pre>
-To a structure like this  
-<pre style="color:black">
-locals {
+</code></pre>
+
+<p>To a structure like this</p>
+
+<pre><code>locals {
   policies = {
     policy1 = {
       rule1 = {
-        source = ["src1","src2"]
+        source = [&quot;src1&quot;,&quot;src2&quot;]
       }
     }
     policy2 = {
       rule2 = {
-        source = ["src3","src4"]
+        source = [&quot;src3&quot;,&quot;src4&quot;]
       }
     }
   }
 }
-</pre>
-The main moving from  
-<pre style="color:black">
-resource "nsxt_policy_security_policy" "policy1"{
-  display_name = "policy1"
-  category     = "Environment"
-  dynamic "rule" {
+</code></pre>
+
+<p>The main moving from</p>
+
+<pre><code>resource &quot;nsxt_policy_security_policy&quot; &quot;policy1&quot;{
+  display_name = &quot;policy1&quot;
+  category     = &quot;Environment&quot;
+  dynamic &quot;rule&quot; {
     for_each = local.policy1
     content {
-      source_groups = rule.value["sources"]
+      source_groups = rule.value[&quot;sources&quot;]
     }
   }
 }
-resource "nsxt_policy_security_policy" "policy2"{
-  display_name = "policy2"
-  category     = "Environment"
-  dynamic "rule" {
+resource &quot;nsxt_policy_security_policy&quot; &quot;policy2&quot;{
+  display_name = &quot;policy2&quot;
+  category     = &quot;Environment&quot;
+  dynamic &quot;rule&quot; {
     for_each = local.policy2
     content {
-      source_groups = rule.value["sources"]
+      source_groups = rule.value[&quot;sources&quot;]
     }
   }
 }
-</pre>
-to
-<pre style="color:black">
-resource "nsxt_policy_security_policy" "policies" {
+</code></pre>
+
+<p>to</p>
+
+<pre><code>resource &quot;nsxt_policy_security_policy&quot; &quot;policies&quot; {
 for_each = local.policies
   display_name = each.key
-  category     = "Environment"
-  dynamic "rule" {
+  category     = &quot;Environment&quot;
+  dynamic &quot;rule&quot; {
     for_each = each.value
     content {
-      source_groups = rule.value["sources"]
+      source_groups = rule.value[&quot;sources&quot;]
     }
   }
 }
-</pre>
+</code></pre>
 
 <p>The terraform state moving fromfrom 2 resources to 1 resource with 2 instances<br />
-From
-<pre style="color:black">
-{
-  &ldquo;type&rdquo;: &ldquo;nsxt_policy_security_policy&rdquo;,
-  &ldquo;name&rdquo;: &ldquo;policy1&rdquo;
-  &ldquo;instances&rdquo; : [
+From</p>
+
+<pre><code>{
+  &quot;type&quot;: &quot;nsxt_policy_security_policy&quot;,
+  &quot;name&quot;: &quot;policy1&quot;
+  &quot;instances&quot; : [
     {
-      &hellip;
+      ...
     }
   ]
 },
 {
-  &ldquo;type&rdquo;: &ldquo;nsxt_policy_security_policy&rdquo;,
-  &ldquo;name&rdquo;: &ldquo;policy2&rdquo;
-  &ldquo;instances&rdquo; : [
+  &quot;type&quot;: &quot;nsxt_policy_security_policy&quot;,
+  &quot;name&quot;: &quot;policy2&quot;
+  &quot;instances&quot; : [
     {
-      &hellip;
+      ...
     }
   ]
 }
-</pre>
-To
-<pre style="color:black">
-{
-  &ldquo;type&rdquo;: &ldquo;nsxt_policy_security_policy&rdquo;,
-  &ldquo;name&rdquo;: &ldquo;policies&rdquo;
-  &ldquo;instances&rdquo; : [
+</code></pre>
+
+<p>To</p>
+
+<pre><code>{
+  &quot;type&quot;: &quot;nsxt_policy_security_policy&quot;,
+  &quot;name&quot;: &quot;policies&quot;
+  &quot;instances&quot; : [
     {
-      &ldquo;index_key&rdquo;: &ldquo;policy1&rdquo;
+      &quot;index_key&quot;: &quot;policy1&quot;
     },
     {
-      &ldquo;index_key&rdquo;: &ldquo;policy2&rdquo;
+      &quot;index_key&quot;: &quot;policy2&quot;
     }
   ]
 }
-</pre></p>
+</code></pre>
 
     </div>
 
@@ -478,7 +483,7 @@ To
   
 
   <p class="powered-by">
-    No&euml;l Boul&egrave;ne &copy; 2019. This blog is strictly personnal and opinions expressed here are only mine and doesn&#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author�s professional integrity) that any statement contained in a post is true, correct or precise. &middot; 
+    No&euml;l Boul&egrave;ne &copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&acute;s professional integrity) that any statement contained in a post is true, correct or precise. &middot; 
 
     Powered by the
     <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for

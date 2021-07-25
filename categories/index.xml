@@ -6,7 +6,7 @@
     <description>Recent content in Categories on netmemo.github.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2019. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author�s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
+    <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&amp;acute;s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
     <lastBuildDate>Wed, 17 Feb 2021 20:59:49 +0100</lastBuildDate>
     
 	<atom:link href="https://netmemo.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
@@ -58,11 +58,11 @@
     </item>
     
     <item>
-      <title>DNS</title>
-      <link>https://netmemo.github.io/categories/dns/</link>
-      <pubDate>Fri, 04 Oct 2019 23:20:48 +0200</pubDate>
+      <title>NSXT</title>
+      <link>https://netmemo.github.io/categories/nsxt/</link>
+      <pubDate>Fri, 16 Jul 2021 19:03:37 +0200</pubDate>
       
-      <guid>https://netmemo.github.io/categories/dns/</guid>
+      <guid>https://netmemo.github.io/categories/nsxt/</guid>
       <description></description>
     </item>
     
@@ -96,7 +96,7 @@
     <item>
       <title>Terraform</title>
       <link>https://netmemo.github.io/categories/terraform/</link>
-      <pubDate>Fri, 19 Feb 2021 22:06:50 +0100</pubDate>
+      <pubDate>Fri, 16 Jul 2021 19:03:37 +0200</pubDate>
       
       <guid>https://netmemo.github.io/categories/terraform/</guid>
       <description></description>
@@ -135,15 +135,6 @@
       <pubDate>Thu, 25 Feb 2021 21:46:14 +0100</pubDate>
       
       <guid>https://netmemo.github.io/categories/developpment/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>loadbalancing</title>
-      <link>https://netmemo.github.io/categories/loadbalancing/</link>
-      <pubDate>Fri, 04 Oct 2019 23:20:48 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/categories/loadbalancing/</guid>
       <description></description>
     </item>
     

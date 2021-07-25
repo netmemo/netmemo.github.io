@@ -34,7 +34,7 @@
   
   
   
-  <meta name="theme-color" content="#0095eb">
+  <meta name="theme-color" content="hsl(#98F5FF, 90%, 68%)">
   
 
   
@@ -56,7 +56,7 @@
       
       
         
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" crossorigin="anonymous">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/dracula.min.css" crossorigin="anonymous">
         
       
     
@@ -102,7 +102,7 @@
   <meta property="og:image" content="https://netmemo.github.io/img/icon-192.png">
   <meta property="og:locale" content="en-us">
   
-  <meta property="og:updated_time" content="2021-02-25T21:56:57&#43;01:00">
+  <meta property="og:updated_time" content="2021-07-16T19:03:37&#43;02:00">
   
 
   
@@ -112,7 +112,7 @@
   <title>NSXT | netmemo.github.io</title>
 
 </head>
-<body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" >
+<body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" class="dark">
 
 <nav class="navbar navbar-light fixed-top navbar-expand-lg py-0" id="navbar-main">
   <div class="container">
@@ -217,13 +217,26 @@
   
   
   <div>
+    <h2><a href="/post/nsxt-tf-firewall/">NSX-T firewall with Terraform</a></h2>
+    <div class="article-style">
+      
+      This article is to show an exemple of how to manage NSX-T firewall rules as a code through Terraform.
+You can find the project on my github account : nsxt-fwaas-tf-cm and nsxt-fwaas-tf-rm
+I will describe the structure of the project, the Terraform code then finish with an exemple.
+The below diagram show a summary of how I organized the project in order to fully use infrastructre as code.
+      
+    </div>
+  </div>
+  
+  <div>
     <h2><a href="/post/terraform-refactoring-state-file/">Terraform Refactoring State File</a></h2>
     <div class="article-style">
       
       https://www.terraform.io/docs/cli/commands/state/mv.html
 On windows :
 terraform state mv nsxt_policy_security_policy.policy1 nsxt_policy_security_policy.policies[\&ldquo;policy1\&ldquo;]  It move resources from a construct like this
-locals { policy1= { rule1 = { source = ["src1","src2"] } } policy2 = { rule1 = { source = ["src3","src4"] } } }  To a structure like this locals { policies = { policy1 = { rule1 = { source = ["src1","src2"] } } policy2 = { rule2 = { source = ["
+locals { policy1= { rule1 = { source = [&quot;src1&quot;,&quot;src2&quot;] } } policy2 = { rule1 = { source = [&quot;src3&quot;,&quot;src4&quot;] } } }  To a structure like this
+locals { policies = { policy1 = { rule1 = { source = [&quot;src1&quot;,&quot;src2&quot;] } } policy2 = { rule2 = { source = [&quot;src3&quot;,&quot;src4&quot;] } } } }  The main moving from
       
     </div>
   </div>
@@ -252,7 +265,7 @@ cd terraform-master go install .\tools\terraform-bundle  Check the terraform ver
   
 
   <p class="powered-by">
-    No&euml;l Boul&egrave;ne &copy; 2019. This blog is strictly personnal and opinions expressed here are only mine and doesn&#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author�s professional integrity) that any statement contained in a post is true, correct or precise. &middot; 
+    No&euml;l Boul&egrave;ne &copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&acute;s professional integrity) that any statement contained in a post is true, correct or precise. &middot; 
 
     Powered by the
     <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
