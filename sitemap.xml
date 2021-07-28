@@ -5,7 +5,7 @@
     <url>
     
       <loc>https://netmemo.github.io/post/nsxt-tf-firewall/</loc>
-      <lastmod>2021-07-16T19:03:37+02:00</lastmod>
+      <lastmod>2021-07-28T19:03:37+02:00</lastmod>
     </url>
     
   
@@ -343,8 +343,17 @@
     
     <url>
     
-      <loc>https://netmemo.github.io/tags/firewalling/</loc>
-      <lastmod>2021-07-16T19:03:37+02:00</lastmod>
+      <loc>https://netmemo.github.io/tags/fwaas/</loc>
+      <lastmod>2021-07-28T19:03:37+02:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/tags/firewall/</loc>
+      <lastmod>2021-07-28T19:03:37+02:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -407,7 +416,7 @@
     <url>
     
       <loc>https://netmemo.github.io/tags/nsxt/</loc>
-      <lastmod>2021-07-16T19:03:37+02:00</lastmod>
+      <lastmod>2021-07-28T19:03:37+02:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -416,7 +425,7 @@
     <url>
     
       <loc>https://netmemo.github.io/categories/nsxt/</loc>
-      <lastmod>2021-07-16T19:03:37+02:00</lastmod>
+      <lastmod>2021-07-28T19:03:37+02:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -523,7 +532,7 @@
     <url>
     
       <loc>https://netmemo.github.io/tags/terraform/</loc>
-      <lastmod>2021-07-16T19:03:37+02:00</lastmod>
+      <lastmod>2021-07-28T19:03:37+02:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -532,7 +541,7 @@
     <url>
     
       <loc>https://netmemo.github.io/categories/terraform/</loc>
-      <lastmod>2021-07-16T19:03:37+02:00</lastmod>
+      <lastmod>2021-07-28T19:03:37+02:00</lastmod>
       <priority>0</priority>
     </url>
     

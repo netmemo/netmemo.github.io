@@ -7,21 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&amp;acute;s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
-    <lastBuildDate>Fri, 16 Jul 2021 19:03:37 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 28 Jul 2021 19:03:37 +0200</lastBuildDate>
     
 	<atom:link href="https://netmemo.github.io/tags/terraform/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>NSX-T firewall with Terraform</title>
+      <title>NSX-T FWaaS with Terraform</title>
       <link>https://netmemo.github.io/post/nsxt-tf-firewall/</link>
-      <pubDate>Fri, 16 Jul 2021 19:03:37 +0200</pubDate>
+      <pubDate>Wed, 28 Jul 2021 19:03:37 +0200</pubDate>
       
       <guid>https://netmemo.github.io/post/nsxt-tf-firewall/</guid>
-      <description>This article is to show an exemple of how to manage NSX-T firewall rules as a code through Terraform.
+      <description>This article is to show an example of how to manage NSX-T firewall rules as a code through Terraform.
 You can find the project on my github account : nsxt-fwaas-tf-cm and nsxt-fwaas-tf-rm
-I will describe the structure of the project, the Terraform code then finish with an exemple.
-The below diagram show a summary of how I organized the project in order to fully use infrastructre as code.</description>
+I will describe the structure of the project, the Terraform code then finish with an example.
+The diagram below shows a summary of how I organized the project in order to fully use infrastructre as code.</description>
     </item>
     
     <item>
@@ -43,8 +43,8 @@ locals { policies = { policy1 = { rule1 = { source = [&amp;quot;src1&amp;quot;,&
       <pubDate>Fri, 19 Feb 2021 22:06:50 +0100</pubDate>
       
       <guid>https://netmemo.github.io/post/tf-nsxt-nested-for-each/</guid>
-      <description>The below post show how to create security policy groups for NSX-T with Terraform nested for_each loop and dynamic.
-The variables are made from one map of list. Each list represent one group composed of tags.
+      <description>The post below shows how to create security policy groups for NSX-T with Terraform nested for_each loop and dynamic.
+The variables are made from one map of list. Each list represents one group composed of tags.
 https://www.hashicorp.com/blog/hashicorp-terraform-0-12-preview-for-and-for-each
 variable &amp;quot;mapgroups&amp;quot; { type = map default = { NBO = [&amp;quot;NBO&amp;quot;] NBO-PROD = [&amp;quot;NBO&amp;quot;,&amp;quot;PROD&amp;quot;] } } resource &amp;quot;nsxt_policy_group&amp;quot; &amp;quot;nbogroups&amp;quot; { for_each = var.mapgroups display_name = each.key criteria { dynamic &amp;quot;condition&amp;quot; { for_each = each.</description>
     </item>
@@ -55,13 +55,13 @@ variable &amp;quot;mapgroups&amp;quot; { type = map default = { NBO = [&amp;quot
       <pubDate>Wed, 17 Feb 2021 21:32:37 +0100</pubDate>
       
       <guid>https://netmemo.github.io/post/tf-bundle-windows/</guid>
-      <description>The below steps are what I did to create a terraform-bundle to use terraform with non default providers on a server that doesn&amp;rsquo;t have access to Internet. You can find the tool explanation in the below link.
+      <description>The steps below are what I have followed to create a terraform-bundle to use terraform with non default providers on a server that doesn&amp;rsquo;t have access to Internet. You can find the tool explanation in the below link.
 https://github.com/hashicorp/terraform/tree/master/tools/terraform-bundle
 installation of golang with msi downloaded here
 https://golang.org/doc/install
 Clone the terraform repository to get the tool
 https://github.com/hashicorp/terraform.git
-cd terraform-master go install .\tools\terraform-bundle  Check the terraform version C:\Users\noyel\Desktop\tfforeach\nsxt&amp;gt;terraform version Terraform v0.14.6 + provider registry.</description>
+cd terraform-master go install .\tools\terraform-bundle  Check the terraform version C:\Users\noyel\Desktop\tfforeach\nsxt&amp;gt;terraform version Terraform v0.</description>
     </item>
     
     <item>
@@ -70,12 +70,11 @@ cd terraform-master go install .\tools\terraform-bundle  Check the terraform ver
       <pubDate>Wed, 17 Feb 2021 20:59:49 +0100</pubDate>
       
       <guid>https://netmemo.github.io/post/tf-for-each/</guid>
-      <description>An extended explanation of the differences between for_each, for and count can be find on the below link
-https://blog.gruntwork.io/terraform-tips-tricks-loops-if-statements-and-gotchas-f739bbae55f9
-The two main drawback of using count are :
+      <description>An extended explanation of the differences between for_each, for and count can be find on the link below https://blog.gruntwork.io/terraform-tips-tricks-loops-if-statements-and-gotchas-f739bbae55f9
+The two main drawbacks of using count are :
 - Can&amp;rsquo;t be used to loop over inline blocks
-- Difficult to remove entry from a list because it change the index and those Terraform may want to destroy same resource with different index
-Below are the an exemple of the variables used to create subnets within AWS VPCs and the main file with the for_each.</description>
+- Difficult to remove entry from a list because it changes the index and those Terraform may want to destroy the resource because it has a different index
+Below is an example of the variables used to create subnets within AWS VPCs and the main file with the for_each.</description>
     </item>
     
   </channel>

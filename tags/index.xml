@@ -139,11 +139,20 @@
     </item>
     
     <item>
-      <title>Firewalling</title>
-      <link>https://netmemo.github.io/tags/firewalling/</link>
-      <pubDate>Fri, 16 Jul 2021 19:03:37 +0200</pubDate>
+      <title>FWaaS</title>
+      <link>https://netmemo.github.io/tags/fwaas/</link>
+      <pubDate>Wed, 28 Jul 2021 19:03:37 +0200</pubDate>
       
-      <guid>https://netmemo.github.io/tags/firewalling/</guid>
+      <guid>https://netmemo.github.io/tags/fwaas/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Firewall</title>
+      <link>https://netmemo.github.io/tags/firewall/</link>
+      <pubDate>Wed, 28 Jul 2021 19:03:37 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/firewall/</guid>
       <description></description>
     </item>
     
@@ -204,7 +213,7 @@
     <item>
       <title>NSXT</title>
       <link>https://netmemo.github.io/tags/nsxt/</link>
-      <pubDate>Fri, 16 Jul 2021 19:03:37 +0200</pubDate>
+      <pubDate>Wed, 28 Jul 2021 19:03:37 +0200</pubDate>
       
       <guid>https://netmemo.github.io/tags/nsxt/</guid>
       <description></description>
@@ -267,7 +276,7 @@
     <item>
       <title>Terraform</title>
       <link>https://netmemo.github.io/tags/terraform/</link>
-      <pubDate>Fri, 16 Jul 2021 19:03:37 +0200</pubDate>
+      <pubDate>Wed, 28 Jul 2021 19:03:37 +0200</pubDate>
       
       <guid>https://netmemo.github.io/tags/terraform/</guid>
       <description></description>

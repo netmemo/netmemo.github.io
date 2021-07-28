@@ -7,21 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&amp;acute;s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
-    <lastBuildDate>Fri, 16 Jul 2021 19:03:37 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 28 Jul 2021 19:03:37 +0200</lastBuildDate>
     
 	<atom:link href="https://netmemo.github.io/tags/nsxt/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>NSX-T firewall with Terraform</title>
+      <title>NSX-T FWaaS with Terraform</title>
       <link>https://netmemo.github.io/post/nsxt-tf-firewall/</link>
-      <pubDate>Fri, 16 Jul 2021 19:03:37 +0200</pubDate>
+      <pubDate>Wed, 28 Jul 2021 19:03:37 +0200</pubDate>
       
       <guid>https://netmemo.github.io/post/nsxt-tf-firewall/</guid>
-      <description>This article is to show an exemple of how to manage NSX-T firewall rules as a code through Terraform.
+      <description>This article is to show an example of how to manage NSX-T firewall rules as a code through Terraform.
 You can find the project on my github account : nsxt-fwaas-tf-cm and nsxt-fwaas-tf-rm
-I will describe the structure of the project, the Terraform code then finish with an exemple.
-The below diagram show a summary of how I organized the project in order to fully use infrastructre as code.</description>
+I will describe the structure of the project, the Terraform code then finish with an example.
+The diagram below shows a summary of how I organized the project in order to fully use infrastructre as code.</description>
     </item>
     
     <item>
@@ -43,13 +43,13 @@ locals { policies = { policy1 = { rule1 = { source = [&amp;quot;src1&amp;quot;,&
       <pubDate>Wed, 17 Feb 2021 21:32:37 +0100</pubDate>
       
       <guid>https://netmemo.github.io/post/tf-bundle-windows/</guid>
-      <description>The below steps are what I did to create a terraform-bundle to use terraform with non default providers on a server that doesn&amp;rsquo;t have access to Internet. You can find the tool explanation in the below link.
+      <description>The steps below are what I have followed to create a terraform-bundle to use terraform with non default providers on a server that doesn&amp;rsquo;t have access to Internet. You can find the tool explanation in the below link.
 https://github.com/hashicorp/terraform/tree/master/tools/terraform-bundle
 installation of golang with msi downloaded here
 https://golang.org/doc/install
 Clone the terraform repository to get the tool
 https://github.com/hashicorp/terraform.git
-cd terraform-master go install .\tools\terraform-bundle  Check the terraform version C:\Users\noyel\Desktop\tfforeach\nsxt&amp;gt;terraform version Terraform v0.14.6 + provider registry.</description>
+cd terraform-master go install .\tools\terraform-bundle  Check the terraform version C:\Users\noyel\Desktop\tfforeach\nsxt&amp;gt;terraform version Terraform v0.</description>
     </item>
     
   </channel>
