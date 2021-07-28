@@ -343,15 +343,6 @@
     
     <url>
     
-      <loc>https://netmemo.github.io/tags/fwaas/</loc>
-      <lastmod>2021-07-28T19:03:37+02:00</lastmod>
-      <priority>0</priority>
-    </url>
-    
-  
-    
-    <url>
-    
       <loc>https://netmemo.github.io/tags/firewall/</loc>
       <lastmod>2021-07-28T19:03:37+02:00</lastmod>
       <priority>0</priority>
@@ -372,6 +363,24 @@
     
       <loc>https://netmemo.github.io/tags/isis/</loc>
       <lastmod>2020-11-24T18:12:05+01:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/tags/iac/</loc>
+      <lastmod>2021-07-28T19:03:37+02:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/categories/iac/</loc>
+      <lastmod>2021-07-28T19:03:37+02:00</lastmod>
       <priority>0</priority>
     </url>
     

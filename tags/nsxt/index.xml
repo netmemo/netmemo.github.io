@@ -13,7 +13,7 @@
     
     
     <item>
-      <title>NSX-T FWaaS with Terraform</title>
+      <title>NSX-T Firewall rules as code with Terraform</title>
       <link>https://netmemo.github.io/post/nsxt-tf-firewall/</link>
       <pubDate>Wed, 28 Jul 2021 19:03:37 +0200</pubDate>
       

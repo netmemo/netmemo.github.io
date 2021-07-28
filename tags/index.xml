@@ -139,15 +139,6 @@
     </item>
     
     <item>
-      <title>FWaaS</title>
-      <link>https://netmemo.github.io/tags/fwaas/</link>
-      <pubDate>Wed, 28 Jul 2021 19:03:37 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/tags/fwaas/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Firewall</title>
       <link>https://netmemo.github.io/tags/firewall/</link>
       <pubDate>Wed, 28 Jul 2021 19:03:37 +0200</pubDate>
@@ -171,6 +162,15 @@
       <pubDate>Tue, 24 Nov 2020 18:12:05 +0100</pubDate>
       
       <guid>https://netmemo.github.io/tags/isis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>IaC</title>
+      <link>https://netmemo.github.io/tags/iac/</link>
+      <pubDate>Wed, 28 Jul 2021 19:03:37 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/iac/</guid>
       <description></description>
     </item>
     
