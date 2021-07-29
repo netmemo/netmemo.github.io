@@ -15,10 +15,9 @@
   
     
   
-  <meta name="description" content="This article is to show an example of how to manage NSX-T firewall rules as a code through Terraform.
-You can find the project on my github account : nsxt-frac-tf-cm and nsxt-frac-tf-rm
-I will describe the structure of the project, the Terraform code then finish with an example.
-The diagram below shows a summary of how I organized the project in order to fully use infrastructre as code.">
+  <meta name="description" content="This article is to show an example of how to manage NSX-T firewall rules as a code through Terraform. You can find the project on my github account : nsxt-frac-tf-cm and nsxt-frac-tf-rm
+I will describe the structure of the project, how it works, the data model, the Terraform code explanation and finish with an example.
+Structure of the project The diagram below shows a summary of how I organized the project in order to fully use infrastructre as code.">
 
   
   <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/post/nsxt-tf-firewall/">
@@ -96,10 +95,9 @@ The diagram below shows a summary of how I organized the project in order to ful
   <meta property="og:site_name" content="netmemo.github.io">
   <meta property="og:url" content="https://netmemo.github.io/post/nsxt-tf-firewall/">
   <meta property="og:title" content="NSX-T Firewall rules as code with Terraform | netmemo.github.io">
-  <meta property="og:description" content="This article is to show an example of how to manage NSX-T firewall rules as a code through Terraform.
-You can find the project on my github account : nsxt-frac-tf-cm and nsxt-frac-tf-rm
-I will describe the structure of the project, the Terraform code then finish with an example.
-The diagram below shows a summary of how I organized the project in order to fully use infrastructre as code.">
+  <meta property="og:description" content="This article is to show an example of how to manage NSX-T firewall rules as a code through Terraform. You can find the project on my github account : nsxt-frac-tf-cm and nsxt-frac-tf-rm
+I will describe the structure of the project, how it works, the data model, the Terraform code explanation and finish with an example.
+Structure of the project The diagram below shows a summary of how I organized the project in order to fully use infrastructre as code.">
   
   
     
@@ -324,13 +322,15 @@ The diagram below shows a summary of how I organized the project in order to ful
     <div class="article-style" itemprop="articleBody">
       
 
-<p>This article is to show an example of how to manage NSX-T firewall rules as a code through Terraform.<br />
+<p>This article is to show an example of how to manage NSX-T firewall rules as a code through Terraform.
 You can find the project on my github account : <a href="https://github.com/netmemo/nsxt-frac-tf-cm" target="_blank">nsxt-frac-tf-cm</a> and <a href="https://github.com/netmemo/nsxt-frac-tf-rm" target="_blank">nsxt-frac-tf-rm</a></p>
 
-<p>I will describe the structure of the project, the Terraform code then finish with an example.<br />
-The diagram below shows a summary of how I organized the project in order to fully use infrastructre as code.</p>
+<p>I will describe the structure of the project, how it works, the data model, the Terraform code explanation and finish with an example.</p>
 
-<p><a href="nsxt-tf-firewall.png" target="_blank"> <img src="nsxt-tf-firewall.png" alt="" /> </a></p>
+<h1 id="structure-of-the-project">Structure of the project</h1>
+
+<p>The diagram below shows a summary of how I organized the project in order to fully use infrastructre as code.<br />
+<a href="nsxt-tf-firewall.png" target="_blank"> <img src="nsxt-tf-firewall.png" alt="" /> </a></p>
 
 <p>Below is the file structure</p>
 
@@ -369,11 +369,13 @@ The diagram below shows a summary of how I organized the project in order to ful
 <p>In short, child modules are the logic, root modules are the variables.<br />
 You can then duplicate the root module according to the NSX-T environment you want to deploy and start using the variables for the environment.</p>
 
-<h1 id="child-module">Child Module</h1>
+<h1 id="how-it-works">How it works</h1>
+
+<h2 id="child-module">Child Module</h2>
 
 <p>You can find the logics and the code complexity in the Terraform child modules.<br />
 They will create the NSX-T resources. They allow to centralize the complexity. If you need to change your logic, you only need to modify the child module.<br />
-After the modification, from the root module you only need to pull the new modifications by reinitializing or refreshing the modules and then you can start using the new features.</p>
+After the modification, from the root module you only need to pull the new modifications by reinitializing or refreshing the modules with &ldquo;terraform init&rdquo; and then you can start using the new features.</p>
 
 <p>There are tree child modules:</p>
 
@@ -386,94 +388,7 @@ This is for the NSX-T (TAG and IP) groups creation<br /></li>
 This is for the NSX-T policy and rules creation<br /></li>
 </ul>
 
-<h2 id="code-explanation">Code Explanation</h2>
-
-<p><strong>nsxt-tf-cm-grp and nsxt-tf-cm-svc child modules</strong></p>
-
-<p>These child modules use nested for_each with conditional nested dynamic.<br />
-A brief example of the nested for_each used with dynamic can be found <a href="https://netmemo.github.io/post/tf-nsxt-nested-for-each/" target="_blank">here</a>. The conditional behavior is done thanks to the filter of the for loop. You can find the documentation on this <a href="https://www.terraform.io/docs/language/expressions/for.html" target="_blank">link</a>.</p>
-
-<p>Dynamic terraform blocks allow to create a block for all the elements in the map you give to the for_each loop. In our child modules, the element of the dynamic for_each loop are also filtered with a for loop and a if.</p>
-
-<ul>
-<li><p>If the map contains a TAG attribute we create the <em>criteria</em> block with the TAG attributes.</p>
-
-<pre><code>dynamic &quot;criteria&quot; {
-#The for_each contains a for loop with filter to create the criteriia only if there is a list with the name TAG
-for_each = { for key,val in each.value : key =&gt; val if key == &quot;TAG&quot; }
-  content {
-     dynamic &quot;condition&quot; {
-        #looping over the set to create every tags
-        for_each = criteria.value
-
-        content {
-           key = &quot;Tag&quot;
-           member_type = &quot;VirtualMachine&quot;
-           operator = &quot;EQUALS&quot;
-           value = condition.value
-        }
-     }
-  }
-}
-</code></pre></li>
-
-<li><p>If the map contains a IP attribute we create the <em>criteria</em> block with the IP attributes.</p>
-
-<pre><code>dynamic &quot;criteria&quot; {
-#The for_each contains a for loop with filter to create the criteriia only if there is a list with the name IP
-for_each = { for key,val in each.value : key =&gt; val if key == &quot;IP&quot; }
-  content {
-     ipaddress_expression  {
-        ip_addresses = criteria.value
-     }
-  }
-}
-</code></pre></li>
-</ul>
-
-<p>The same logic is used to create services.</p>
-
-<ul>
-<li><p>If the map contains a TCP or UDP attribute we create the <em>l4_port_set_entry block</em> with the TCP/UDP attributes.</p>
-
-<pre><code>dynamic &quot;l4_port_set_entry&quot; {
-  #each.value = map of TCP,UDP or IP list where l4_port_set_entry.key will be TCP or UDP
-  #the for_each contains a for loop with filter to create the l4_port_set_entry only if there is a list with TCP or UDP as name
-  for_each = { for key,val in each.value : key =&gt; val if key == &quot;TCP&quot; || key == &quot;UDP&quot; }
-      content {
-         display_name = &quot;${l4_port_set_entry.key}_${each.key}&quot;
-         protocol = l4_port_set_entry.key
-         destination_ports = l4_port_set_entry.value
-  }
-}
-</code></pre></li>
-
-<li><p>If the map contains a IP attribute we create the <em>ip_protocol_entry block</em> with the IP attributes.</p>
-
-<pre><code>dynamic &quot;ip_protocol_entry&quot; {
-  #each.value = map of TCP,UDP or IP list 
-  #the for_each contains a for loop with filter to create the ip_protocol_entry only if there is a list with IP as name
-  for_each = { for key,val in each.value : key =&gt; val if key == &quot;IP&quot; }
-      content {
-         #[0] because the ip protocol will have a single IP protocol value in the set and the protocol attribut expect a number not a set
-         protocol = ip_protocol_entry.value[0]
-  }
-}
-</code></pre></li>
-</ul>
-
-<p><strong>nsxt-tf-cm-dfw child modules</strong></p>
-
-<p>The complexity of this module is to get the NSX-T &ldquo;Path&rdquo; attributes of the groups and services with their name defined in their respective map variable.
-We want the map variables definition of the policies and rules to be as much friendly as possible and not dependant of values specific to the NSX-T implementation (path).
-This will also allow us to reuse the policies variables values in other environments if the rules are generic for instance.</p>
-
-<p>In order to retreive the value we are looping over the &ldquo;list&rdquo; in the group or service attribute and &ldquo;try&rdquo; to get the path attribute.</p>
-
-<pre><code>source_groups = [for x in rule.value[&quot;sources&quot;] : try(var.nsxt_policy_grp_grp[x].path)]
-</code></pre>
-
-<h1 id="root-module">Root Module</h1>
+<h2 id="root-module">Root Module</h2>
 
 <p>It will call the child module with the variables associated with the NSX-T environment. You need to create a repository per environment. The only modifications you need to do is to change the variables.<br />
 The root module can be declined to different NSX-T environments/deployments as long as the variable structure used in the root module respects the child module data model.</p>
@@ -487,41 +402,6 @@ As the groups and services can be centralized and be the same for all environmen
 <p><strong>nsxt-tf-rm-dfw</strong><br />
 This is the policies and rules definition. This root module will use the terraform state output section of the root module <em>nsxt-tf-rm-grpsvc</em> to get all the groups and services needed.
 The <em>output.tf</em> file is defined in <em>nsxt-tf-rm-grpsvc</em> root module.</p>
-
-<h2 id="code-explanation-1">Code Explanation</h2>
-
-<p><strong>nsxt-tf-rm-grpsvc</strong></p>
-
-<p>This is how to use a child module stored in git within a root module.</p>
-
-<pre><code>module &quot;nsxt-tf-cm-svc&quot; {
-   source = &quot;git::https://github.com/netmemo/nsxt-frac-tf-cm.git//nsxt-tf-cm-svc&quot;
-   map_svc = var.map_svc
-}
-</code></pre>
-
-<p>Below is the code of the <em>output.tf</em> file that adds the groups and service maps into the terraform.state output section. It will allow other root modules to use these variables as <em>terraform_remote_state</em> datasource.</p>
-
-<pre><code>output &quot;grp&quot; {
-   value = module.nsxt-tf-cm-grp.grp
-}
-
-output &quot;svc&quot; {
-   value = module.nsxt-tf-cm-svc.svc
-}
-</code></pre>
-
-<p><strong>nsxt-tf-rm-dfw</strong><br />
-Below is the code to refer to a remote state, in this case the remote state is local.</p>
-
-<pre><code>data &quot;terraform_remote_state&quot; &quot;grpsvc&quot; {
-   backend = &quot;local&quot;
-   
-   config = {
-      path = &quot;../nsxt-tf-rm-grpsvc/terraform.tfstate&quot;
-   }
-}
-</code></pre>
 
 <h1 id="data-model">Data model</h1>
 
@@ -619,6 +499,130 @@ This is the map variable passed to the child module.</p>
 }
 </code></pre>
 
+<h1 id="code-explanation">Code Explanation</h1>
+
+<h2 id="root-module-1">Root Module</h2>
+
+<p><strong>nsxt-tf-cm-grp and nsxt-tf-cm-svc child modules</strong></p>
+
+<p>These child modules use nested for_each with conditional nested dynamic.<br />
+A brief example of the nested for_each used with dynamic can be found <a href="https://netmemo.github.io/post/tf-nsxt-nested-for-each/" target="_blank">here</a>. The conditional behavior is done thanks to the filter of the for loop. You can find the documentation on this <a href="https://www.terraform.io/docs/language/expressions/for.html" target="_blank">link</a>.</p>
+
+<p>Dynamic terraform blocks allow to create a block for all the elements in the map you give to the for_each loop. In our child modules, the element of the dynamic for_each loop are also filtered with a for loop and a if.</p>
+
+<ul>
+<li><p>If the map contains a TAG attribute we create the <em>criteria</em> block with the TAG attributes.</p>
+
+<pre><code>dynamic &quot;criteria&quot; {
+#The for_each contains a for loop with filter to create the criteriia only if there is a list with the name TAG
+for_each = { for key,val in each.value : key =&gt; val if key == &quot;TAG&quot; }
+  content {
+     dynamic &quot;condition&quot; {
+        #looping over the set to create every tags
+        for_each = criteria.value
+
+        content {
+           key = &quot;Tag&quot;
+           member_type = &quot;VirtualMachine&quot;
+           operator = &quot;EQUALS&quot;
+           value = condition.value
+        }
+     }
+  }
+}
+</code></pre></li>
+
+<li><p>If the map contains a IP attribute we create the <em>criteria</em> block with the IP attributes.</p>
+
+<pre><code>dynamic &quot;criteria&quot; {
+#The for_each contains a for loop with filter to create the criteriia only if there is a list with the name IP
+for_each = { for key,val in each.value : key =&gt; val if key == &quot;IP&quot; }
+  content {
+     ipaddress_expression  {
+        ip_addresses = criteria.value
+     }
+  }
+}
+</code></pre></li>
+</ul>
+
+<p>The same logic is used to create services.</p>
+
+<ul>
+<li><p>If the map contains a TCP or UDP attribute we create the <em>l4_port_set_entry block</em> with the TCP/UDP attributes.</p>
+
+<pre><code>dynamic &quot;l4_port_set_entry&quot; {
+  #each.value = map of TCP,UDP or IP list where l4_port_set_entry.key will be TCP or UDP
+  #the for_each contains a for loop with filter to create the l4_port_set_entry only if there is a list with TCP or UDP as name
+  for_each = { for key,val in each.value : key =&gt; val if key == &quot;TCP&quot; || key == &quot;UDP&quot; }
+      content {
+         display_name = &quot;${l4_port_set_entry.key}_${each.key}&quot;
+         protocol = l4_port_set_entry.key
+         destination_ports = l4_port_set_entry.value
+  }
+}
+</code></pre></li>
+
+<li><p>If the map contains a IP attribute we create the <em>ip_protocol_entry block</em> with the IP attributes.</p>
+
+<pre><code>dynamic &quot;ip_protocol_entry&quot; {
+  #each.value = map of TCP,UDP or IP list 
+  #the for_each contains a for loop with filter to create the ip_protocol_entry only if there is a list with IP as name
+  for_each = { for key,val in each.value : key =&gt; val if key == &quot;IP&quot; }
+      content {
+         #[0] because the ip protocol will have a single IP protocol value in the set and the protocol attribut expect a number not a set
+         protocol = ip_protocol_entry.value[0]
+  }
+}
+</code></pre></li>
+</ul>
+
+<p><strong>nsxt-tf-cm-dfw child modules</strong></p>
+
+<p>The complexity of this module is to get the NSX-T &ldquo;Path&rdquo; attributes of the groups and services with their name defined in their respective map variable.
+We want the map variables definition of the policies and rules to be as much friendly as possible and not dependant of values specific to the NSX-T implementation (path).
+This will also allow us to reuse the policies variables values in other environments if the rules are generic for instance.</p>
+
+<p>In order to retreive the value we are looping over the &ldquo;list&rdquo; in the group or service attribute and &ldquo;try&rdquo; to get the path attribute.</p>
+
+<pre><code>source_groups = [for x in rule.value[&quot;sources&quot;] : try(var.nsxt_policy_grp_grp[x].path)]
+</code></pre>
+
+<h2 id="child-module-1">Child Module</h2>
+
+<p><strong>nsxt-tf-rm-grpsvc</strong></p>
+
+<p>This is how to use a child module stored in git within a root module.</p>
+
+<pre><code>module &quot;nsxt-tf-cm-svc&quot; {
+   source = &quot;git::https://github.com/netmemo/nsxt-frac-tf-cm.git//nsxt-tf-cm-svc&quot;
+   map_svc = var.map_svc
+}
+</code></pre>
+
+<p>Below is the code of the <em>output.tf</em> file that adds the groups and service maps into the terraform.state output section. It will allow other root modules to use these variables as <em>terraform_remote_state</em> datasource.</p>
+
+<pre><code>output &quot;grp&quot; {
+   value = module.nsxt-tf-cm-grp.grp
+}
+
+output &quot;svc&quot; {
+   value = module.nsxt-tf-cm-svc.svc
+}
+</code></pre>
+
+<p><strong>nsxt-tf-rm-dfw</strong><br />
+Below is the code to refer to a remote state, in this case the remote state is local.</p>
+
+<pre><code>data &quot;terraform_remote_state&quot; &quot;grpsvc&quot; {
+   backend = &quot;local&quot;
+   
+   config = {
+      path = &quot;../nsxt-tf-rm-grpsvc/terraform.tfstate&quot;
+   }
+}
+</code></pre>
+
 <h1 id="demo">Demo</h1>
 
 <p><strong>Requirement:</strong></p>
@@ -629,23 +633,11 @@ This is the map variable passed to the child module.</p>
 <li>Clone the root module <a href="https://github.com/netmemo/nsxt-frac-tf-rm" target="_blank">nsxt-frac-tf-rm</a></li>
 </ul>
 
-<p>To make a test, you only need to follow the steps below:</p>
-
-<ol>
-<li>Clone the root module repo</li>
-<li>Move to the cloned repo, initialize terraform</li>
-<li>Edit the provider.tf file</li>
-<li>Create the group and services</li>
-<li>Create the policies and rules</li>
-<li>Check the result through the UI</li>
-</ol>
+<p>To make a test, you need to follow the steps below (clic to see the detail):</p>
 
 <p><details>
-<summary>Detailed steps</summary></p>
-
-<p>1.Clone the root module repo</p>
-
-<p><strong>git clone git@github.com:netmemo/nsxt-frac-tf-rm.git</strong></p>
+<summary>1. Clone the root module repo</summary>
+<strong>git clone git@github.com:netmemo/nsxt-frac-tf-rm.git</strong></p>
 
 <pre><code>Cloning into 'nsxt-frac-tf-rm'...
 remote: Enumerating objects: 21, done.
@@ -656,9 +648,17 @@ Receiving objects: 100% (21/21), done.
 Resolving deltas: 100% (7/7), done.
 </code></pre>
 
-<p>2.Move to the cloned repo, initialize terraform</p>
+<p></details>
+<details>
+<summary>2.Move to the cloned repo</summary></p>
 
-<p><strong>terraform init</strong></p>
+<pre><code>cd your directory
+</code></pre>
+
+<p></details>
+<details>
+<summary>3.Initialize terraform</summary>
+<strong>terraform init</strong></p>
 
 <pre><code>Initializing modules...
 Downloading git::https://github.com/netmemo/nsxt-frac-tf-cm.git for nsxt-tf-cm-dfw...
@@ -692,9 +692,10 @@ rerun this command to reinitialize your working directory. If you forget, other
 commands will detect it and remind you to do so if necessary.
 </code></pre>
 
-<p>3.Edit the provider.tf file</p>
-
-<p>Change the host, the username and password according to your environment.
+<p></details>
+<details>
+<summary>4.Edit the provider.tf file</summary>
+Change the host, the username and password according to your environment.
 You need to either add the variable in the terraform.tfvars file or enter them when the prompt will ask you.</p>
 
 <pre><code>provider &quot;nsxt&quot; {
@@ -704,7 +705,9 @@ You need to either add the variable in the terraform.tfvars file or enter them w
 }
 </code></pre>
 
-<p>4.Create the group and services</p>
+<p></details>
+<details>
+<summary>5.Create the group and services</summary></p>
 
 <p><strong>terraform plan -out plan.out</strong></p>
 
@@ -1010,7 +1013,9 @@ Apply complete! Resources: 5 added, 0 changed, 0 destroyed.
 
 </code></pre>
 
-<p>5.Create the policies and rules</p>
+<p></details>
+<details>
+<summary>6.Create the policies and rules</summary></p>
 
 <p><strong>terraform plan -out plan.out</strong></p>
 
@@ -1146,13 +1151,13 @@ module.nsxt-tf-cm-dfw.nsxt_policy_security_policy.policies[&quot;NETMEMO-POL1&qu
 Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
 </code></pre>
 
-<p>6.Check the result through the UI</p>
-
-<p><a href="nsx-services.png" target="_blank"> <img src="nsx-services.png" alt="" /> </a><br />
+<p></details>
+<details>
+<summary>7.Check the result through the UI</summary>
+<a href="nsx-services.png" target="_blank"> <img src="nsx-services.png" alt="" /> </a><br />
 <a href="nsx-groups.png" target="_blank"> <img src="nsx-groups.png" alt="" /> </a><br />
-<a href="nsx-dfw.png" target="_blank"> <img src="nsx-dfw.png" alt="" /> </a></p>
-
-<p></details></p>
+<a href="nsx-dfw.png" target="_blank"> <img src="nsx-dfw.png" alt="" /> </a><br />
+</details></p>
 
     </div>
 
