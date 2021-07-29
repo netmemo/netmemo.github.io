@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&amp;acute;s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
-    <lastBuildDate>Wed, 28 Jul 2021 19:03:37 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 29 Jul 2021 19:03:37 +0200</lastBuildDate>
     
 	<atom:link href="https://netmemo.github.io/categories/nsxt/index.xml" rel="self" type="application/rss+xml" />
     
@@ -15,11 +15,11 @@
     <item>
       <title>NSX-T Firewall rules as code with Terraform</title>
       <link>https://netmemo.github.io/post/nsxt-tf-firewall/</link>
-      <pubDate>Wed, 28 Jul 2021 19:03:37 +0200</pubDate>
+      <pubDate>Thu, 29 Jul 2021 19:03:37 +0200</pubDate>
       
       <guid>https://netmemo.github.io/post/nsxt-tf-firewall/</guid>
       <description>This article is to show an example of how to manage NSX-T firewall rules as a code through Terraform.
-You can find the project on my github account : nsxt-fwaas-tf-cm and nsxt-fwaas-tf-rm
+You can find the project on my github account : nsxt-frac-tf-cm and nsxt-frac-tf-rm
 I will describe the structure of the project, the Terraform code then finish with an example.
 The diagram below shows a summary of how I organized the project in order to fully use infrastructre as code.</description>
     </item>

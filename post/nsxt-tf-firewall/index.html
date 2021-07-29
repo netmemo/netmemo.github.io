@@ -16,7 +16,7 @@
     
   
   <meta name="description" content="This article is to show an example of how to manage NSX-T firewall rules as a code through Terraform.
-You can find the project on my github account : nsxt-fwaas-tf-cm and nsxt-fwaas-tf-rm
+You can find the project on my github account : nsxt-frac-tf-cm and nsxt-frac-tf-rm
 I will describe the structure of the project, the Terraform code then finish with an example.
 The diagram below shows a summary of how I organized the project in order to fully use infrastructre as code.">
 
@@ -97,7 +97,7 @@ The diagram below shows a summary of how I organized the project in order to ful
   <meta property="og:url" content="https://netmemo.github.io/post/nsxt-tf-firewall/">
   <meta property="og:title" content="NSX-T Firewall rules as code with Terraform | netmemo.github.io">
   <meta property="og:description" content="This article is to show an example of how to manage NSX-T firewall rules as a code through Terraform.
-You can find the project on my github account : nsxt-fwaas-tf-cm and nsxt-fwaas-tf-rm
+You can find the project on my github account : nsxt-frac-tf-cm and nsxt-frac-tf-rm
 I will describe the structure of the project, the Terraform code then finish with an example.
 The diagram below shows a summary of how I organized the project in order to fully use infrastructre as code.">
   
@@ -106,9 +106,9 @@ The diagram below shows a summary of how I organized the project in order to ful
   <meta property="og:image" content="https://netmemo.github.io/img/icon-192.png">
   <meta property="og:locale" content="en-us">
   
-  <meta property="article:published_time" content="2021-07-28T19:03:37&#43;02:00">
+  <meta property="article:published_time" content="2021-07-29T19:03:37&#43;02:00">
   
-  <meta property="article:modified_time" content="2021-07-28T19:03:37&#43;02:00">
+  <meta property="article:modified_time" content="2021-07-29T19:03:37&#43;02:00">
   
 
   
@@ -238,9 +238,9 @@ The diagram below shows a summary of how I organized the project in order to ful
 
   <span class="article-date">
     
-    <meta content="2021-07-28 19:03:37 &#43;0200 CEST" itemprop="datePublished">
-    <time datetime="2021-07-28 19:03:37 &#43;0200 CEST" itemprop="dateModified">
-      Jul 28, 2021
+    <meta content="2021-07-29 19:03:37 &#43;0200 CEST" itemprop="datePublished">
+    <time datetime="2021-07-29 19:03:37 &#43;0200 CEST" itemprop="dateModified">
+      Jul 29, 2021
     </time>
   </span>
   <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
@@ -250,7 +250,7 @@ The diagram below shows a summary of how I organized the project in order to ful
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    15 min read
+    16 min read
   </span>
   
 
@@ -325,7 +325,7 @@ The diagram below shows a summary of how I organized the project in order to ful
       
 
 <p>This article is to show an example of how to manage NSX-T firewall rules as a code through Terraform.<br />
-You can find the project on my github account : <a href="https://github.com/netmemo/nsxt-fwaas-tf-cm" target="_blank">nsxt-fwaas-tf-cm</a> and <a href="https://github.com/netmemo/nsxt-fwaas-tf-rm" target="_blank">nsxt-fwaas-tf-rm</a></p>
+You can find the project on my github account : <a href="https://github.com/netmemo/nsxt-frac-tf-cm" target="_blank">nsxt-frac-tf-cm</a> and <a href="https://github.com/netmemo/nsxt-frac-tf-rm" target="_blank">nsxt-frac-tf-rm</a></p>
 
 <p>I will describe the structure of the project, the Terraform code then finish with an example.<br />
 The diagram below shows a summary of how I organized the project in order to fully use infrastructre as code.</p>
@@ -336,7 +336,7 @@ The diagram below shows a summary of how I organized the project in order to ful
 
 <pre><code>#Child modules
 
-├── nsxt-tf-cm 
+├── nsxt-frac-tf-cm 
     ├── nsxt-tf-cm-dfw
     │   ├── main.tf
     │   ├── outputs.tf
@@ -352,7 +352,7 @@ The diagram below shows a summary of how I organized the project in order to ful
 
 #Root modules
 
-├── nsxt-tf-rm
+├── nsxt-frac-tf-rm
     ├── nsxt-tf-rm-dfw
     │   ├── main.tf
     │   ├── provider.tf
@@ -470,7 +470,7 @@ This will also allow us to reuse the policies variables values in other environm
 
 <p>In order to retreive the value we are looping over the &ldquo;list&rdquo; in the group or service attribute and &ldquo;try&rdquo; to get the path attribute.</p>
 
-<pre><code>source_groups = [for x in rule.value[&quot;sources&quot;] : try(var.nsxt_policy_group_groups[x].path)]
+<pre><code>source_groups = [for x in rule.value[&quot;sources&quot;] : try(var.nsxt_policy_grp_grp[x].path)]
 </code></pre>
 
 <h1 id="root-module">Root Module</h1>
@@ -492,29 +492,29 @@ The <em>output.tf</em> file is defined in <em>nsxt-tf-rm-grpsvc</em> root module
 
 <p><strong>nsxt-tf-rm-grpsvc</strong></p>
 
-<p>This is how to use a child module store in git within a root module.</p>
+<p>This is how to use a child module stored in git within a root module.</p>
 
 <pre><code>module &quot;nsxt-tf-cm-svc&quot; {
-   source = &quot;git::https://github.com/netmemo/nsxt-tf-cm.git//nsxt-tf-cm-svc&quot;
-   mapservices = var.mapservices
+   source = &quot;git::https://github.com/netmemo/nsxt-frac-tf-cm.git//nsxt-tf-cm-svc&quot;
+   map_svc = var.map_svc
 }
 </code></pre>
 
 <p>Below is the code of the <em>output.tf</em> file that adds the groups and service maps into the terraform.state output section. It will allow other root modules to use these variables as <em>terraform_remote_state</em> datasource.</p>
 
-<pre><code>output &quot;groups&quot; {
-   value = module.nsxt-tf-cm-grp.groups
+<pre><code>output &quot;grp&quot; {
+   value = module.nsxt-tf-cm-grp.grp
 }
 
-output &quot;services&quot; {
-   value = module.nsxt-tf-cm-svc.services
+output &quot;svc&quot; {
+   value = module.nsxt-tf-cm-svc.svc
 }
 </code></pre>
 
 <p><strong>nsxt-tf-rm-dfw</strong><br />
 Below is the code to refer to a remote state, in this case the remote state is local.</p>
 
-<pre><code>data &quot;terraform_remote_state&quot; &quot;groups_services&quot; {
+<pre><code>data &quot;terraform_remote_state&quot; &quot;grpsvc&quot; {
    backend = &quot;local&quot;
    
    config = {
@@ -529,7 +529,7 @@ Below is the code to refer to a remote state, in this case the remote state is l
 
 <h2 id="services">Services</h2>
 
-<p><strong>mapservice</strong><br />
+<p><strong>map_svc</strong><br />
 This is the map variable passed to the child module.</p>
 
 <ul>
@@ -539,7 +539,7 @@ This is the map variable passed to the child module.</p>
 <li>Every list is either a protocol number if the list is IP or port number if the list is TCP/UDP</li>
 </ul>
 
-<pre><code>mapservices = {
+<pre><code>map_svc = {
    NETMEMO-ESP = { IP = [&quot;50&quot;] }
    NETMEMO-NETBIOS = { TCP = [&quot;135&quot;,&quot;137&quot;,&quot;139&quot;,&quot;139&quot;], UDP = [&quot;135&quot;,&quot;137&quot;,&quot;139&quot;,&quot;139&quot;] }
 }
@@ -547,7 +547,7 @@ This is the map variable passed to the child module.</p>
 
 <h2 id="groups">Groups</h2>
 
-<p><strong>mapgroups</strong><br />
+<p><strong>map_grp</strong><br />
 This is the map variable passed to the child module.</p>
 
 <ul>
@@ -557,16 +557,16 @@ This is the map variable passed to the child module.</p>
 <li>Every list is either subnet if the list is IP or tag name if the list is TAG</li>
 </ul>
 
-<pre><code>mapgroups = {
+<pre><code>map_grp = {
    NETMEMO-LOCAL = { IP = [&quot;10.0.0.0/25&quot;,&quot;10.1.1.0/25&quot;] }
    NETMEMO-NAS = { TAG = [&quot;NAS&quot;,&quot;FILES&quot;] }
    NETMEMO-ESX = { TAG = [&quot;ESX&quot;,&quot;VMWARE&quot;] }
 }
 </code></pre>
 
-<h2 id="policy">Policy</h2>
+<h2 id="policies">Policies</h2>
 
-<p><strong>mappolicies</strong><br />
+<p><strong>map_policies</strong><br />
 This is the map variable passed to the child module.</p>
 
 <ul>
@@ -576,13 +576,13 @@ This is the map variable passed to the child module.</p>
 <li>Every rule map contains stings and list attrubutes (sources,destinations,services,scope)</li>
 </ul>
 
-<pre><code>mappolicies = {
+<pre><code>map_policies = {
    NETMEMO-POL1 = {
       category = &quot;Application&quot;
 	  sequence_number = &quot;10&quot;
 	  rules = {
-	     rule1 = {
-			display = &quot;NETMEMO-NAS-R&quot;
+	     netmemo-rule1 = {
+		    display = &quot;NETMEMO-NAS-R&quot;
 			sources = [&quot;NETMEMO-NAS&quot;]
 			destinations = [&quot;NETMEMO-NAS&quot;]
 			services = [&quot;HTTPS&quot;]
@@ -590,8 +590,8 @@ This is the map variable passed to the child module.</p>
 			action = &quot;ALLOW&quot;
 			disabled = &quot;false&quot;
 	     }
-	     rule2 = {
-			display = &quot;NETMEMO-ESX-R&quot;
+	     netmemo-rule2 = {
+		    display = &quot;NETMEMO-ESX-R&quot;
 			sources = [&quot;NETMEMO-ESX&quot;]
 			destinations = [&quot;NETMEMO-ESX&quot;]
 			services = [&quot;HTTPS&quot;]
@@ -605,8 +605,8 @@ This is the map variable passed to the child module.</p>
       category = &quot;Application&quot;
 	  sequence_number = &quot;20&quot;
 	  rules = {
-	     rule1 = {
-			display = &quot;NETMEMO-LOCAL-R&quot;
+	     netmemo-rule1 = {
+		    display = &quot;NETMEMO-LOCAL-R&quot;
 			sources = [&quot;NETMEMO-LOCAL&quot;]
 			destinations = [&quot;NETMEMO-NAS&quot;,&quot;NETMEMO-ESX&quot;]
 			services = [&quot;NETMEMO-NETBIOS&quot;,&quot;HTTPS&quot;]
@@ -626,7 +626,7 @@ This is the map variable passed to the child module.</p>
 <ul>
 <li>Terraform 0.14+<br /></li>
 <li>NSX-T 3.0.2+<br /></li>
-<li>Clone the root module <a href="https://github.com/netmemo/nsxt-fwaas-tf-rm" target="_blank">nsxt-fwaas-tf-rm</a></li>
+<li>Clone the root module <a href="https://github.com/netmemo/nsxt-frac-tf-rm" target="_blank">nsxt-frac-tf-rm</a></li>
 </ul>
 
 <p>To make a test, you only need to follow the steps below:</p>
@@ -645,15 +645,15 @@ This is the map variable passed to the child module.</p>
 
 <p>1.Clone the root module repo</p>
 
-<p><strong>git clone git@github.com:netmemo/nsxt-fwaas-tf-rm.git</strong></p>
+<p><strong>git clone git@github.com:netmemo/nsxt-frac-tf-rm.git</strong></p>
 
-<pre><code>Cloning into 'nsxt-fwaas-tf-rm'...
-remote: Enumerating objects: 13, done.
-remote: Counting objects: 100% (13/13), done.
-remote: Compressing objects: 100% (12/12), done.
-remote: Total 13 (delta 1), reused 13 (delta 1), pack-reused 0
-Receiving objects: 100% (13/13), done.
-Resolving deltas: 100% (1/1), done.
+<pre><code>Cloning into 'nsxt-frac-tf-rm'...
+remote: Enumerating objects: 21, done.
+remote: Counting objects: 100% (21/21), done.
+remote: Compressing objects: 100% (15/15), done.
+remote: Total 21 (delta 7), reused 20 (delta 6), pack-reused 0
+Receiving objects: 100% (21/21), done.
+Resolving deltas: 100% (7/7), done.
 </code></pre>
 
 <p>2.Move to the cloned repo, initialize terraform</p>
@@ -661,14 +661,13 @@ Resolving deltas: 100% (1/1), done.
 <p><strong>terraform init</strong></p>
 
 <pre><code>Initializing modules...
-Downloading git::https://github.com/netmemo/nsxt-tf-cm.git for nsxt-tf-cm-grp...
-- nsxt-tf-cm-grp in .terraform/modules/nsxt-tf-cm-grp/nsxt-tf-cm-grp
-Downloading git::https://github.com/netmemo/nsxt-tf-cm.git for nsxt-tf-cm-svc...
-- nsxt-tf-cm-svc in .terraform/modules/nsxt-tf-cm-svc/nsxt-tf-cm-svc
+Downloading git::https://github.com/netmemo/nsxt-frac-tf-cm.git for nsxt-tf-cm-dfw...
+- nsxt-tf-cm-dfw in .terraform/modules/nsxt-tf-cm-dfw/nsxt-tf-cm-dfw
 
 Initializing the backend...
 
 Initializing provider plugins...
+- terraform.io/builtin/terraform is built in to Terraform
 - Finding vmware/nsxt versions matching &quot;&gt;= 3.1.1&quot;...
 - Installing vmware/nsxt v3.2.2...
 - Installed vmware/nsxt v3.2.2 (signed by a HashiCorp partner, key ID 6B6B0F38607A2264)
@@ -695,10 +694,11 @@ commands will detect it and remind you to do so if necessary.
 
 <p>3.Edit the provider.tf file</p>
 
-<p>Change the host, the username according to your environment.</p>
+<p>Change the host, the username and password according to your environment.
+You need to either add the variable in the terraform.tfvars file or enter them when the prompt will ask you.</p>
 
 <pre><code>provider &quot;nsxt&quot; {
-   host = &quot;192.168.0.7&quot;
+   host = var.host
    username = &quot;admin&quot;
    password = var.password
 }
@@ -708,17 +708,15 @@ commands will detect it and remind you to do so if necessary.
 
 <p><strong>terraform plan -out plan.out</strong></p>
 
-<pre><code>var.password
-  Enter a value: ***********
-
-Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+<pre><code>Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following
+symbols:
   + create
 
 Terraform will perform the following actions:
 
-  # module.nsxt-tf-cm-grp.nsxt_policy_group.groups[&quot;ESX&quot;] will be created
-  + resource &quot;nsxt_policy_group&quot; &quot;groups&quot; {
-      + display_name = &quot;ESX&quot;
+  # module.nsxt-tf-cm-grp.nsxt_policy_group.grp[&quot;NETMEMO-ESX&quot;] will be created
+  + resource &quot;nsxt_policy_group&quot; &quot;grp&quot; {
+      + display_name = &quot;NETMEMO-ESX&quot;
       + domain       = &quot;default&quot;
       + id           = (known after apply)
       + nsx_id       = (known after apply)
@@ -741,9 +739,29 @@ Terraform will perform the following actions:
         }
     }
 
-  # module.nsxt-tf-cm-grp.nsxt_policy_group.groups[&quot;NAS&quot;] will be created
-  + resource &quot;nsxt_policy_group&quot; &quot;groups&quot; {
-      + display_name = &quot;NAS&quot;
+  # module.nsxt-tf-cm-grp.nsxt_policy_group.grp[&quot;NETMEMO-LOCAL&quot;] will be created
+  + resource &quot;nsxt_policy_group&quot; &quot;grp&quot; {
+      + display_name = &quot;NETMEMO-LOCAL&quot;
+      + domain       = &quot;default&quot;
+      + id           = (known after apply)
+      + nsx_id       = (known after apply)
+      + path         = (known after apply)
+      + revision     = (known after apply)
+
+      + criteria {
+
+          + ipaddress_expression {
+              + ip_addresses = [
+                  + &quot;10.0.0.0/25&quot;,
+                  + &quot;10.1.1.0/25&quot;,
+                ]
+            }
+        }
+    }
+
+  # module.nsxt-tf-cm-grp.nsxt_policy_group.grp[&quot;NETMEMO-NAS&quot;] will be created
+  + resource &quot;nsxt_policy_group&quot; &quot;grp&quot; {
+      + display_name = &quot;NETMEMO-NAS&quot;
       + domain       = &quot;default&quot;
       + id           = (known after apply)
       + nsx_id       = (known after apply)
@@ -766,29 +784,9 @@ Terraform will perform the following actions:
         }
     }
 
-  # module.nsxt-tf-cm-grp.nsxt_policy_group.groups[&quot;NBO-LOCAL&quot;] will be created
-  + resource &quot;nsxt_policy_group&quot; &quot;groups&quot; {
-      + display_name = &quot;NBO-LOCAL&quot;
-      + domain       = &quot;default&quot;
-      + id           = (known after apply)
-      + nsx_id       = (known after apply)
-      + path         = (known after apply)
-      + revision     = (known after apply)
-
-      + criteria {
-
-          + ipaddress_expression {
-              + ip_addresses = [
-                  + &quot;192.168.0.0/25&quot;,
-                  + &quot;192.168.0.128/25&quot;,
-                ]
-            }
-        }
-    }
-
-  # module.nsxt-tf-cm-svc.nsxt_policy_service.services[&quot;ESP&quot;] will be created
-  + resource &quot;nsxt_policy_service&quot; &quot;services&quot; {
-      + display_name = &quot;ESP&quot;
+  # module.nsxt-tf-cm-svc.nsxt_policy_service.svc[&quot;NETMEMO-ESP&quot;] will be created
+  + resource &quot;nsxt_policy_service&quot; &quot;svc&quot; {
+      + display_name = &quot;NETMEMO-ESP&quot;
       + id           = (known after apply)
       + nsx_id       = (known after apply)
       + path         = (known after apply)
@@ -799,9 +797,9 @@ Terraform will perform the following actions:
         }
     }
 
-  # module.nsxt-tf-cm-svc.nsxt_policy_service.services[&quot;NETBIOS&quot;] will be created
-  + resource &quot;nsxt_policy_service&quot; &quot;services&quot; {
-      + display_name = &quot;NETBIOS&quot;
+  # module.nsxt-tf-cm-svc.nsxt_policy_service.svc[&quot;NETMEMO-NETBIOS&quot;] will be created
+  + resource &quot;nsxt_policy_service&quot; &quot;svc&quot; {
+      + display_name = &quot;NETMEMO-NETBIOS&quot;
       + id           = (known after apply)
       + nsx_id       = (known after apply)
       + path         = (known after apply)
@@ -813,7 +811,7 @@ Terraform will perform the following actions:
               + &quot;137&quot;,
               + &quot;139&quot;,
             ]
-          + display_name      = &quot;TCP_NETBIOS&quot;
+          + display_name      = &quot;TCP_NETMEMO-NETBIOS&quot;
           + protocol          = &quot;TCP&quot;
           + source_ports      = []
         }
@@ -823,7 +821,7 @@ Terraform will perform the following actions:
               + &quot;137&quot;,
               + &quot;139&quot;,
             ]
-          + display_name      = &quot;UDP_NETBIOS&quot;
+          + display_name      = &quot;UDP_NETMEMO-NETBIOS&quot;
           + protocol          = &quot;UDP&quot;
           + source_ports      = []
         }
@@ -832,8 +830,8 @@ Terraform will perform the following actions:
 Plan: 5 to add, 0 to change, 0 to destroy.
 
 Changes to Outputs:
-  + groups   = {
-      + ESX       = {
+  + grp = {
+      + NETMEMO-ESX   = {
           + conjunction       = []
           + criteria          = [
               + {
@@ -857,7 +855,7 @@ Changes to Outputs:
                 },
             ]
           + description       = null
-          + display_name      = &quot;ESX&quot;
+          + display_name      = &quot;NETMEMO-ESX&quot;
           + domain            = &quot;default&quot;
           + extended_criteria = []
           + id                = (known after apply)
@@ -866,7 +864,34 @@ Changes to Outputs:
           + revision          = (known after apply)
           + tag               = []
         }
-      + NAS       = {
+      + NETMEMO-LOCAL = {
+          + conjunction       = []
+          + criteria          = [
+              + {
+                  + condition             = []
+                  + ipaddress_expression  = [
+                      + {
+                          + ip_addresses = [
+                              + &quot;10.0.0.0/25&quot;,
+                              + &quot;10.1.1.0/25&quot;,
+                            ]
+                        },
+                    ]
+                  + macaddress_expression = []
+                  + path_expression       = []
+                },
+            ]
+          + description       = null
+          + display_name      = &quot;NETMEMO-LOCAL&quot;
+          + domain            = &quot;default&quot;
+          + extended_criteria = []
+          + id                = (known after apply)
+          + nsx_id            = (known after apply)
+          + path              = (known after apply)
+          + revision          = (known after apply)
+          + tag               = []
+        }
+      + NETMEMO-NAS   = {
           + conjunction       = []
           + criteria          = [
               + {
@@ -890,34 +915,7 @@ Changes to Outputs:
                 },
             ]
           + description       = null
-          + display_name      = &quot;NAS&quot;
-          + domain            = &quot;default&quot;
-          + extended_criteria = []
-          + id                = (known after apply)
-          + nsx_id            = (known after apply)
-          + path              = (known after apply)
-          + revision          = (known after apply)
-          + tag               = []
-        }
-      + NBO-LOCAL = {
-          + conjunction       = []
-          + criteria          = [
-              + {
-                  + condition             = []
-                  + ipaddress_expression  = [
-                      + {
-                          + ip_addresses = [
-                              + &quot;192.168.0.0/25&quot;,
-                              + &quot;192.168.0.128/25&quot;,
-                            ]
-                        },
-                    ]
-                  + macaddress_expression = []
-                  + path_expression       = []
-                },
-            ]
-          + description       = null
-          + display_name      = &quot;NBO-LOCAL&quot;
+          + display_name      = &quot;NETMEMO-NAS&quot;
           + domain            = &quot;default&quot;
           + extended_criteria = []
           + id                = (known after apply)
@@ -927,32 +925,97 @@ Changes to Outputs:
           + tag               = []
         }
     }
+  + svc = {
+      + NETMEMO-ESP     = {
+          + algorithm_entry   = []
+          + description       = null
+          + display_name      = &quot;NETMEMO-ESP&quot;
+          + ether_type_entry  = []
+          + icmp_entry        = []
+          + id                = (known after apply)
+          + igmp_entry        = []
+          + ip_protocol_entry = [
+              + {
+                  + description  = &quot;&quot;
+                  + display_name = &quot;&quot;
+                  + protocol     = 50
+                },
+            ]
+          + l4_port_set_entry = []
+          + nsx_id            = (known after apply)
+          + path              = (known after apply)
+          + revision          = (known after apply)
+          + tag               = []
+        }
+      + NETMEMO-NETBIOS = {
+          + algorithm_entry   = []
+          + description       = null
+          + display_name      = &quot;NETMEMO-NETBIOS&quot;
+          + ether_type_entry  = []
+          + icmp_entry        = []
+          + id                = (known after apply)
+          + igmp_entry        = []
+          + ip_protocol_entry = []
+          + l4_port_set_entry = [
+              + {
+                  + description       = &quot;&quot;
+                  + destination_ports = [
+                      + &quot;135&quot;,
+                      + &quot;137&quot;,
+                      + &quot;139&quot;,
+                    ]
+                  + display_name      = &quot;TCP_NETMEMO-NETBIOS&quot;
+                  + protocol          = &quot;TCP&quot;
+                  + source_ports      = []
+                },
+              + {
+                  + description       = &quot;&quot;
+                  + destination_ports = [
+                      + &quot;135&quot;,
+                      + &quot;137&quot;,
+                      + &quot;139&quot;,
+                    ]
+                  + display_name      = &quot;UDP_NETMEMO-NETBIOS&quot;
+                  + protocol          = &quot;UDP&quot;
+                  + source_ports      = []
+                },
+            ]
+          + nsx_id            = (known after apply)
+          + path              = (known after apply)
+          + revision          = (known after apply)
+          + tag               = []
+        }
+    }
+
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+Saved the plan to: plan.out
 </code></pre>
 
 <p><strong>terraform apply plan.out</strong></p>
 
-<pre><code>module.nsxt-tf-cm-grp.nsxt_policy_group.groups[&quot;NETMEMO-LOCAL&quot;]: Creating...
-module.nsxt-tf-cm-svc.nsxt_policy_service.services[&quot;NETMEMO-NETBIOS&quot;]: Creating...
-module.nsxt-tf-cm-grp.nsxt_policy_group.groups[&quot;NETMEMO-ESX&quot;]: Creating...
-module.nsxt-tf-cm-grp.nsxt_policy_group.groups[&quot;NETMEMO-NAS&quot;]: Creating...
-module.nsxt-tf-cm-svc.nsxt_policy_service.services[&quot;NETMEMO-ESP&quot;]: Creating...
-module.nsxt-tf-cm-svc.nsxt_policy_service.services[&quot;NETMEMO-NETBIOS&quot;]: Creation complete after 0s [id=bc5ffbe8-3d45-4ee8-bddd-157545e8ad76]
-module.nsxt-tf-cm-grp.nsxt_policy_group.groups[&quot;NETMEMO-LOCAL&quot;]: Creation complete after 0s [id=69c04008-0bc2-449d-9e19-94246707a46e]
-module.nsxt-tf-cm-svc.nsxt_policy_service.services[&quot;NETMEMO-ESP&quot;]: Creation complete after 0s [id=0cc0a3be-a513-44cc-8c36-4a485ceb6b09]
-module.nsxt-tf-cm-grp.nsxt_policy_group.groups[&quot;NETMEMO-NAS&quot;]: Creation complete after 0s [id=d221423f-493c-4793-b85c-d430a5a3e562]
-module.nsxt-tf-cm-grp.nsxt_policy_group.groups[&quot;NETMEMO-ESX&quot;]: Creation complete after 0s [id=18842db6-002a-49b9-93c7-d7e8bed0615e]
+<pre><code>module.nsxt-tf-cm-svc.nsxt_policy_service.svc[&quot;NETMEMO-NETBIOS&quot;]: Creating...
+module.nsxt-tf-cm-grp.nsxt_policy_group.grp[&quot;NETMEMO-NAS&quot;]: Creating...
+module.nsxt-tf-cm-grp.nsxt_policy_group.grp[&quot;NETMEMO-LOCAL&quot;]: Creating...
+module.nsxt-tf-cm-grp.nsxt_policy_group.grp[&quot;NETMEMO-ESX&quot;]: Creating...
+module.nsxt-tf-cm-svc.nsxt_policy_service.svc[&quot;NETMEMO-ESP&quot;]: Creating...
+module.nsxt-tf-cm-svc.nsxt_policy_service.svc[&quot;NETMEMO-ESP&quot;]: Creation complete after 0s [id=434fdc00-30e6-4072-a64b-a7e9534c80c2]
+module.nsxt-tf-cm-svc.nsxt_policy_service.svc[&quot;NETMEMO-NETBIOS&quot;]: Creation complete after 0s [id=59a29e53-9901-44d2-9589-f770c36d87bb]
+module.nsxt-tf-cm-grp.nsxt_policy_group.grp[&quot;NETMEMO-ESX&quot;]: Creation complete after 0s [id=0fb48626-d903-42cc-9513-b47e7626f44d]
+module.nsxt-tf-cm-grp.nsxt_policy_group.grp[&quot;NETMEMO-LOCAL&quot;]: Creation complete after 0s [id=21d93fff-c08c-42dd-90da-d099dfa51163]
+module.nsxt-tf-cm-grp.nsxt_policy_group.grp[&quot;NETMEMO-NAS&quot;]: Creation complete after 0s [id=bac7f9c7-d80c-4bfe-8663-d3c9f973e2fb]
 
 Apply complete! Resources: 5 added, 0 changed, 0 destroyed.
+...
+
 </code></pre>
 
 <p>5.Create the policies and rules</p>
 
 <p><strong>terraform plan -out plan.out</strong></p>
 
-<pre><code>var.password
-  Enter a value: ***********
-  
-Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+<pre><code>Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following
+symbols:
   + create
 
 Terraform will perform the following actions:
@@ -974,7 +1037,7 @@ Terraform will perform the following actions:
       + rule {
           + action                = &quot;ALLOW&quot;
           + destination_groups    = [
-              + &quot;/infra/domains/default/groups/d221423f-493c-4793-b85c-d430a5a3e562&quot;,
+              + &quot;/infra/domains/default/groups/bac7f9c7-d80c-4bfe-8663-d3c9f973e2fb&quot;,
             ]
           + destinations_excluded = false
           + direction             = &quot;IN_OUT&quot;
@@ -986,21 +1049,21 @@ Terraform will perform the following actions:
           + revision              = (known after apply)
           + rule_id               = (known after apply)
           + scope                 = [
-              + &quot;/infra/domains/default/groups/d221423f-493c-4793-b85c-d430a5a3e562&quot;,
+              + &quot;/infra/domains/default/groups/bac7f9c7-d80c-4bfe-8663-d3c9f973e2fb&quot;,
             ]
           + sequence_number       = (known after apply)
           + services              = [
               + &quot;/infra/services/HTTPS&quot;,
             ]
           + source_groups         = [
-              + &quot;/infra/domains/default/groups/d221423f-493c-4793-b85c-d430a5a3e562&quot;,
+              + &quot;/infra/domains/default/groups/bac7f9c7-d80c-4bfe-8663-d3c9f973e2fb&quot;,
             ]
           + sources_excluded      = false
         }
       + rule {
           + action                = &quot;ALLOW&quot;
           + destination_groups    = [
-              + &quot;/infra/domains/default/groups/18842db6-002a-49b9-93c7-d7e8bed0615e&quot;,
+              + &quot;/infra/domains/default/groups/0fb48626-d903-42cc-9513-b47e7626f44d&quot;,
             ]
           + destinations_excluded = false
           + direction             = &quot;IN_OUT&quot;
@@ -1012,14 +1075,14 @@ Terraform will perform the following actions:
           + revision              = (known after apply)
           + rule_id               = (known after apply)
           + scope                 = [
-              + &quot;/infra/domains/default/groups/18842db6-002a-49b9-93c7-d7e8bed0615e&quot;,
+              + &quot;/infra/domains/default/groups/0fb48626-d903-42cc-9513-b47e7626f44d&quot;,
             ]
           + sequence_number       = (known after apply)
           + services              = [
               + &quot;/infra/services/HTTPS&quot;,
             ]
           + source_groups         = [
-              + &quot;/infra/domains/default/groups/18842db6-002a-49b9-93c7-d7e8bed0615e&quot;,
+              + &quot;/infra/domains/default/groups/0fb48626-d903-42cc-9513-b47e7626f44d&quot;,
             ]
           + sources_excluded      = false
         }
@@ -1042,8 +1105,8 @@ Terraform will perform the following actions:
       + rule {
           + action                = &quot;ALLOW&quot;
           + destination_groups    = [
-              + &quot;/infra/domains/default/groups/18842db6-002a-49b9-93c7-d7e8bed0615e&quot;,
-              + &quot;/infra/domains/default/groups/d221423f-493c-4793-b85c-d430a5a3e562&quot;,
+              + &quot;/infra/domains/default/groups/0fb48626-d903-42cc-9513-b47e7626f44d&quot;,
+              + &quot;/infra/domains/default/groups/bac7f9c7-d80c-4bfe-8663-d3c9f973e2fb&quot;,
             ]
           + destinations_excluded = false
           + direction             = &quot;IN_OUT&quot;
@@ -1055,16 +1118,16 @@ Terraform will perform the following actions:
           + revision              = (known after apply)
           + rule_id               = (known after apply)
           + scope                 = [
-              + &quot;/infra/domains/default/groups/18842db6-002a-49b9-93c7-d7e8bed0615e&quot;,
-              + &quot;/infra/domains/default/groups/d221423f-493c-4793-b85c-d430a5a3e562&quot;,
+              + &quot;/infra/domains/default/groups/0fb48626-d903-42cc-9513-b47e7626f44d&quot;,
+              + &quot;/infra/domains/default/groups/bac7f9c7-d80c-4bfe-8663-d3c9f973e2fb&quot;,
             ]
           + sequence_number       = (known after apply)
           + services              = [
+              + &quot;/infra/services/59a29e53-9901-44d2-9589-f770c36d87bb&quot;,
               + &quot;/infra/services/HTTPS&quot;,
-              + &quot;/infra/services/bc5ffbe8-3d45-4ee8-bddd-157545e8ad76&quot;,
             ]
           + source_groups         = [
-              + &quot;/infra/domains/default/groups/69c04008-0bc2-449d-9e19-94246707a46e&quot;,
+              + &quot;/infra/domains/default/groups/21d93fff-c08c-42dd-90da-d099dfa51163&quot;,
             ]
           + sources_excluded      = false
         }
@@ -1077,8 +1140,8 @@ Plan: 2 to add, 0 to change, 0 to destroy.
 
 <pre><code>module.nsxt-tf-cm-dfw.nsxt_policy_security_policy.policies[&quot;NETMEMO-POL1&quot;]: Creating...
 module.nsxt-tf-cm-dfw.nsxt_policy_security_policy.policies[&quot;NETMEMO-POL2&quot;]: Creating...
-module.nsxt-tf-cm-dfw.nsxt_policy_security_policy.policies[&quot;NETMEMO-POL1&quot;]: Creation complete after 0s [id=d85f3acb-0c06-406c-bfd8-e41ca760c7cc]
-module.nsxt-tf-cm-dfw.nsxt_policy_security_policy.policies[&quot;NETMEMO-POL2&quot;]: Creation complete after 0s [id=92974abf-5d42-4650-9599-2d28643c78d2]
+module.nsxt-tf-cm-dfw.nsxt_policy_security_policy.policies[&quot;NETMEMO-POL2&quot;]: Creation complete after 1s [id=bab4c14e-30c6-4633-b9d7-db760844e0e7]
+module.nsxt-tf-cm-dfw.nsxt_policy_security_policy.policies[&quot;NETMEMO-POL1&quot;]: Creation complete after 1s [id=867b5893-15e3-4dab-a2f0-c8084af790a7]
 
 Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
 </code></pre>
