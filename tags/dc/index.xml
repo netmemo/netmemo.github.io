@@ -18,8 +18,8 @@
       <pubDate>Sat, 28 Nov 2020 19:11:36 +0100</pubDate>
       
       <guid>https://netmemo.github.io/post/aci-other-angle/</guid>
-      <description>&amp;ldquo;Several of these protocols are standards&amp;rdquo; My undestanding is that even if the protocols looks standard, Cisco did some modification on them : VXLAN (fiels to transport ACI Policies), ISIS (added the multidestination tree) and hence are note standard anymore.
-&amp;ldquo;Does it require proprietary server ?&amp;rdquo; Not prorietary servers but proprietary switches&amp;hellip;So you are locked in regarding the software and the hardware. Both can&amp;rsquo;t be decoupled. If you choose to move to another switch vendor, you need to change the hardware and sart learnong new software and protocols skills.</description>
+      <description>&amp;ldquo;Several of these protocols are standards&amp;rdquo; My understanding is that even if the protocols look standard, Cisco made some modifications on them : VXLAN (fiels to transport ACI Policies), ISIS (added the multidestination tree) and hence are note standard anymore.
+&amp;ldquo;Does it require proprietary server ?&amp;rdquo; Not prorietary servers but proprietary switches&amp;hellip;So you are locked in regarding the software and the hardware. Both can&amp;rsquo;t be decoupled. If you choose to move to another switch vendor, you need to change the hardware and sart learning new software and protocols skills.</description>
     </item>
     
   </channel>

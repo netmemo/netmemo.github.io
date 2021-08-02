@@ -15,8 +15,8 @@
   
     
   
-  <meta name="description" content="&ldquo;Several of these protocols are standards&rdquo; My undestanding is that even if the protocols looks standard, Cisco did some modification on them : VXLAN (fiels to transport ACI Policies), ISIS (added the multidestination tree) and hence are note standard anymore.
-&ldquo;Does it require proprietary server ?&rdquo; Not prorietary servers but proprietary switches&hellip;So you are locked in regarding the software and the hardware. Both can&rsquo;t be decoupled. If you choose to move to another switch vendor, you need to change the hardware and sart learnong new software and protocols skills.">
+  <meta name="description" content="&ldquo;Several of these protocols are standards&rdquo; My understanding is that even if the protocols look standard, Cisco made some modifications on them : VXLAN (fiels to transport ACI Policies), ISIS (added the multidestination tree) and hence are note standard anymore.
+&ldquo;Does it require proprietary server ?&rdquo; Not prorietary servers but proprietary switches&hellip;So you are locked in regarding the software and the hardware. Both can&rsquo;t be decoupled. If you choose to move to another switch vendor, you need to change the hardware and sart learning new software and protocols skills.">
 
   
   <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/post/aci-other-angle/">
@@ -94,8 +94,8 @@
   <meta property="og:site_name" content="netmemo.github.io">
   <meta property="og:url" content="https://netmemo.github.io/post/aci-other-angle/">
   <meta property="og:title" content="ACI from an other angle | netmemo.github.io">
-  <meta property="og:description" content="&ldquo;Several of these protocols are standards&rdquo; My undestanding is that even if the protocols looks standard, Cisco did some modification on them : VXLAN (fiels to transport ACI Policies), ISIS (added the multidestination tree) and hence are note standard anymore.
-&ldquo;Does it require proprietary server ?&rdquo; Not prorietary servers but proprietary switches&hellip;So you are locked in regarding the software and the hardware. Both can&rsquo;t be decoupled. If you choose to move to another switch vendor, you need to change the hardware and sart learnong new software and protocols skills.">
+  <meta property="og:description" content="&ldquo;Several of these protocols are standards&rdquo; My understanding is that even if the protocols look standard, Cisco made some modifications on them : VXLAN (fiels to transport ACI Policies), ISIS (added the multidestination tree) and hence are note standard anymore.
+&ldquo;Does it require proprietary server ?&rdquo; Not prorietary servers but proprietary switches&hellip;So you are locked in regarding the software and the hardware. Both can&rsquo;t be decoupled. If you choose to move to another switch vendor, you need to change the hardware and sart learning new software and protocols skills.">
   
   
     
@@ -318,19 +318,19 @@
 
 <h3 id="several-of-these-protocols-are-standards">&ldquo;Several of these protocols are standards&rdquo;</h3>
 
-<p>My undestanding is that even if the protocols looks standard, Cisco did some modification on them : VXLAN (fiels to transport ACI Policies), ISIS (added the multidestination tree) and hence are note standard anymore.</p>
+<p>My understanding is that even if the protocols look standard, Cisco made some modifications on them : VXLAN (fiels to transport ACI Policies), ISIS (added the multidestination tree) and hence are note standard anymore.</p>
 
 <h3 id="does-it-require-proprietary-server">&ldquo;Does it require proprietary server ?&rdquo;</h3>
 
-<p>Not prorietary servers but proprietary switches&hellip;So you are locked in regarding the software and the hardware. Both can&rsquo;t be decoupled. If you choose to move to another switch vendor, you need to change the hardware and sart learnong new software and protocols skills. Previously while you probably still need to change the softwar and the hardware, you didn&rsquo;t need to learn everything from scratch regarding the protocols.<br />
-In the past with Fabric Path, I&rsquo;ve already had issues by beeing locked-in with both. When Cisco will end up the support, you then need to change the hardware and learn new software/protocols skills.</p>
+<p>Not prorietary servers but proprietary switches&hellip;So you are locked in regarding the software and the hardware. Both can&rsquo;t be decoupled. If you choose to move to another switch vendor, you need to change the hardware and sart learning new software and protocols skills. Previously while you probably still need to change the software and the hardware, you didn&rsquo;t need to learn everything from scratch regarding the protocols.<br />
+In the past with Fabric Path, I have already had issues by beeing locked-in with both. When Cisco will end up the support, you then need to change the hardware and learn new software/protocols skills.</p>
 
 <h3 id="security-lock-in">Security lock-in</h3>
 
-<p>There is one more lock-in, this is regarding the security policies in ACI. If you use the Cisco Application Centric mode, it&rsquo;s even worst, the day were Cisco will decide it&rsquo;s not bankable anymore and start moving away from if, you will need to migrate the hardware, learn new software, new protocols and migrate the security to something completly different.<br />
-For certain organisation, that will be a nightmare and probably cost more money than investing regulary in people.</p>
+<p>The security policies in ACI are another lock-in. If you use the Cisco Application Centric mode, it’s even worse. When Cisco decides it’s not bankable anymore and starts moving away from it, you will need to migrate the hardware, learn new software, new protocols and migrate the security to something completely different.<br />
+For some organisations, this scenario will be a nightmare and probably cost more money than investing regulary in people.</p>
 
-<p>If you don&rsquo;t want to use the Application Centric mode and just use the eNetwork Centruc mode, you still have an expensive solution with lot of options you will pay for but never use. Moreover you will inherit all the software complexity and associated bugs for features that are useless for you.</p>
+<p>If you don&rsquo;t want to use the Application Centric mode and just use the Network Centric mode, you still have an expensive solution with lots of options you will pay for but never use. Moreover you will inherit all the software complexity and associated bugs for features that are useless for you.</p>
 
 <h3 id="summ-up">Summ up</h3>
 
@@ -345,13 +345,13 @@ For certain organisation, that will be a nightmare and probably cost more money 
 <p>Very little public documentation</p>
 
 <p>Lock in : Hardware, software, security<br />
-    Previously : some features or knobs were proprietary or tie to hardware but not the all system<br />
+    Previously : some features or knobs were proprietary or tied to hardware but not the all system<br />
     =&gt; EIGRP, software lock in but you can ignore it if you want<br />
     =&gt; FP at the time of the launch no other option were  standard</p>
 
-<p>Software complexity due to all the feature you don&rsquo;t want + software has been think to be application aware and even if you don&rsquo;t want to use it, you will anyway inherit the code complexity of it.</p>
+<p>Software complexity due to all the features you don&rsquo;t want + software has been thought to be application aware and even if you don&rsquo;t want to use it, you will anyway inherit the code complexity of it.</p>
 
-<p>Everything centralise in a box right in the middle of the data path (Spine COOP devices).</p>
+<p>Everything centralized in a box right in the middle of the data path (Spine COOP devices).</p>
 
 <p>Stopped product:<br />
 <ul>

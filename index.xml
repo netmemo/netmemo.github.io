@@ -866,21 +866,21 @@ Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
       <description>
 
 &lt;p&gt;Below are some thoughts about subnet sizing and workloads mixing.&lt;br /&gt;
-Along my different jobs one of the things that leads to L2 extension and those brought risks and slow down or even block projects was big heterogeneous subnets.&lt;/p&gt;
+Along my different jobs, one of the things that led to L2 extension and then brought risks and slew down or even blocked projects was big heterogeneous subnets.&lt;/p&gt;
 
 &lt;h3 id=&#34;small-subnets-size&#34;&gt;Small subnets size:&lt;/h3&gt;
 
 &lt;h5 id=&#34;pros&#34;&gt;Pros&lt;/h5&gt;
 
 &lt;ul&gt;
-&lt;li&gt;Agility, you can do &lt;a href=&#34;https://blog.ipspace.net/2020/12/50-shades-high-availability.html&#34; target=&#34;_blank&#34;&gt;swimlane&lt;/a&gt; application design and do migration per application without geopardise the entire compagny.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Agility, you can do &lt;a href=&#34;https://blog.ipspace.net/2020/12/50-shades-high-availability.html&#34; target=&#34;_blank&#34;&gt;swimlane&lt;/a&gt; application design and migration per application without jeopardising the entire company.&lt;br /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h5 id=&#34;cons&#34;&gt;Cons&lt;/h5&gt;
 
 &lt;ul&gt;
 &lt;li&gt;More entry in the routing table but that can be mitigated with summarization.&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Loss of ip addresses 64 x /27 instead of 1 x /21 =&amp;gt; ~1856 vs ~2045 host IPs = 189 lost IPs (does it realy matter ? how full are the big subnets ?)&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Loss of ip addresses 64 x /27 instead of 1 x /21 =&amp;gt; ~1856 vs ~2045 host IPs = 189 lost IPs (does it really matter ? how full are the big subnets ?)&lt;br /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&#34;big-subnet-with-a-mix-of-workload&#34;&gt;Big subnet with a mix of workload&lt;/h3&gt;
@@ -888,8 +888,8 @@ Along my different jobs one of the things that leads to L2 extension and those b
 &lt;h5 id=&#34;pros-1&#34;&gt;Pros&lt;/h5&gt;
 
 &lt;ul&gt;
-&lt;li&gt;IP address saving. Does that worth it ? Most of the time the subnet are big just to anticipate groth and thuse IPs are lost anyway.&lt;/li&gt;
-&lt;li&gt;Simplicity to allocate addresses. Only couple of big subnets.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;IP address saving. Does is that worth it ? Most of the time the subnets are big just to anticipate growth and those IPs are lost anyway.&lt;/li&gt;
+&lt;li&gt;Simplicity to allocate addresses. Only a couple of big subnets.&lt;br /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h5 id=&#34;cons-1&#34;&gt;Cons&lt;/h5&gt;
@@ -899,7 +899,7 @@ Along my different jobs one of the things that leads to L2 extension and those b
 &lt;p&gt;Most of the time this is to mutualize applications.&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;Can block application migration because not all the applications have the same requirements. If one of the application doesn&amp;rsquo;t want to reIP his workload and has been asked to migrate somewhere else, you might be forced to stretch L2.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Can block application migration because not all the applications have the same requirements. If one of the applications doesn&amp;rsquo;t want to reIP its workload and has been asked to migrate somewhere else, you might be forced to stretch L2.&lt;br /&gt;&lt;/li&gt;
 &lt;li&gt;L2 broadcast domain is mitigated by arp suppression on modern fabric but still you have broadcast reaching every VM and thus can have troubles if the &lt;a href=&#34;http://yves-louis.com/DCI/wp-content/uploads/2015/10/VXLAN-Multipod-geographically-dispersed-white-paper-final.pdf&#34; target=&#34;_blank&#34;&gt;stormcontrol is not set properly&lt;/a&gt;.&lt;br /&gt;&lt;/li&gt;
 &lt;li&gt;For all the firewalls in the entreprise that are not relying on tags, you might have to open firewall rules per host instead of per subnets.&lt;br /&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -907,20 +907,20 @@ Along my different jobs one of the things that leads to L2 extension and those b
 &lt;p&gt;&lt;u&gt; Mix of workloads &lt;/u&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;Can block application migration because physical devices can&amp;rsquo;t move where the VM is going and you don&amp;rsquo;t want to reIP the VM or the physical device.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Can block application migration because physical devices can&amp;rsquo;t move where the VM is going to and you don&amp;rsquo;t want to reIP the VM or the physical device.&lt;br /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&#34;other-considerations&#34;&gt;Other considerations&lt;/h3&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;Pets vs cattle : VM vs Container&lt;br /&gt;
-In the above use cases I&amp;rsquo;m talking essentialy of workloads that are not containers. For containers the paradigm is often different because most of the time container doesn&amp;rsquo;t share the subnet with physical device and application developper doesn&amp;rsquo;t rely on the container IP address. What matter is the IP address of the service. VM are still considered most of the time as pets and nobody want to change the IP address mostly to avoid to change firewall rules or hard coded IP addresses in application.&lt;/p&gt;&lt;/li&gt;
+In the above use cases I&amp;rsquo;m talking essentially of workloads that are not containers. For containers the paradigm is often different because most of the time containers don&amp;rsquo;t share the subnet with physical device and application developper doesn&amp;rsquo;t rely on the container IP address. What matter is the IP address of the service. VM are still considered most of the time as pets and nobody wants to change the IP address mostly to avoid to change firewall rules or hard coded IP addresses in application.&lt;/p&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;VLANs Scale&lt;br /&gt;
-The number of supported VLAN are less relevent in virtualized environnement because most of the time software scale better and you are not limited to 4K vlans (or even 2K in some case for ACI &lt;a href=&#34;https://www.cisco.com/c/en/us/td/docs/switches/datacenter/aci/apic/sw/4-x/verified-scalability/Cisco-ACI-Verified-Scalability-Guide-422.html&#34; target=&#34;_blank&#34;&gt;Bridge Domain&lt;/a&gt; and EVPN &lt;a href=&#34;https://www.cisco.com/c/en/us/td/docs/switches/datacenter/nexus9000/sw/92x/scalability/guide_923/b_Cisco_Nexus_9000_Series_NX-OS_Verified_Scalability_Guide_923.html&#34; target=&#34;_blank&#34;&gt;Layer 2 VNIs&lt;/a&gt;).&lt;/p&gt;&lt;/li&gt;
+The number of supported VLAN are less relevent in virtualized environments because most of the time software scale better and you are not limited to 4K vlans (or even 2K in some case for ACI &lt;a href=&#34;https://www.cisco.com/c/en/us/td/docs/switches/datacenter/aci/apic/sw/4-x/verified-scalability/Cisco-ACI-Verified-Scalability-Guide-422.html&#34; target=&#34;_blank&#34;&gt;Bridge Domain&lt;/a&gt; and EVPN &lt;a href=&#34;https://www.cisco.com/c/en/us/td/docs/switches/datacenter/nexus9000/sw/92x/scalability/guide_923/b_Cisco_Nexus_9000_Series_NX-OS_Verified_Scalability_Guide_923.html&#34; target=&#34;_blank&#34;&gt;Layer 2 VNIs&lt;/a&gt;).&lt;/p&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;Suboptimal IP addressing plan&lt;br /&gt;
-When you move an entire subnet somewhere else you can break the summarization of the compagny but you can always do the summarization again after all the applications have moved or even reIP the entire subnet afterwards. It&amp;rsquo;s less risky and complex than having a L2 streched &amp;ldquo;forever&amp;rdquo;.&lt;/p&gt;&lt;/li&gt;
+When you move an entire subnet somewhere else you can break the summarization of the company but you can always do the summarization again after all the applications have moved or even reIP the entire subnet afterwards. It&amp;rsquo;s less risky and complex than having a L2 streched &amp;ldquo;forever&amp;rdquo;.&lt;/p&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;Distributed routing&lt;br /&gt;
 Now, with distributed routing you don&amp;rsquo;t have to go to the network core where the default gateway was in the old days to route between subnets.&lt;/p&gt;&lt;/li&gt;
@@ -1434,19 +1434,19 @@ resource &amp;quot;aws_subnet&amp;quot; &amp;quot;main-subnet&amp;quot; {
 
 &lt;h3 id=&#34;several-of-these-protocols-are-standards&#34;&gt;&amp;ldquo;Several of these protocols are standards&amp;rdquo;&lt;/h3&gt;
 
-&lt;p&gt;My undestanding is that even if the protocols looks standard, Cisco did some modification on them : VXLAN (fiels to transport ACI Policies), ISIS (added the multidestination tree) and hence are note standard anymore.&lt;/p&gt;
+&lt;p&gt;My understanding is that even if the protocols look standard, Cisco made some modifications on them : VXLAN (fiels to transport ACI Policies), ISIS (added the multidestination tree) and hence are note standard anymore.&lt;/p&gt;
 
 &lt;h3 id=&#34;does-it-require-proprietary-server&#34;&gt;&amp;ldquo;Does it require proprietary server ?&amp;rdquo;&lt;/h3&gt;
 
-&lt;p&gt;Not prorietary servers but proprietary switches&amp;hellip;So you are locked in regarding the software and the hardware. Both can&amp;rsquo;t be decoupled. If you choose to move to another switch vendor, you need to change the hardware and sart learnong new software and protocols skills. Previously while you probably still need to change the softwar and the hardware, you didn&amp;rsquo;t need to learn everything from scratch regarding the protocols.&lt;br /&gt;
-In the past with Fabric Path, I&amp;rsquo;ve already had issues by beeing locked-in with both. When Cisco will end up the support, you then need to change the hardware and learn new software/protocols skills.&lt;/p&gt;
+&lt;p&gt;Not prorietary servers but proprietary switches&amp;hellip;So you are locked in regarding the software and the hardware. Both can&amp;rsquo;t be decoupled. If you choose to move to another switch vendor, you need to change the hardware and sart learning new software and protocols skills. Previously while you probably still need to change the software and the hardware, you didn&amp;rsquo;t need to learn everything from scratch regarding the protocols.&lt;br /&gt;
+In the past with Fabric Path, I have already had issues by beeing locked-in with both. When Cisco will end up the support, you then need to change the hardware and learn new software/protocols skills.&lt;/p&gt;
 
 &lt;h3 id=&#34;security-lock-in&#34;&gt;Security lock-in&lt;/h3&gt;
 
-&lt;p&gt;There is one more lock-in, this is regarding the security policies in ACI. If you use the Cisco Application Centric mode, it&amp;rsquo;s even worst, the day were Cisco will decide it&amp;rsquo;s not bankable anymore and start moving away from if, you will need to migrate the hardware, learn new software, new protocols and migrate the security to something completly different.&lt;br /&gt;
-For certain organisation, that will be a nightmare and probably cost more money than investing regulary in people.&lt;/p&gt;
+&lt;p&gt;The security policies in ACI are another lock-in. If you use the Cisco Application Centric mode, it’s even worse. When Cisco decides it’s not bankable anymore and starts moving away from it, you will need to migrate the hardware, learn new software, new protocols and migrate the security to something completely different.&lt;br /&gt;
+For some organisations, this scenario will be a nightmare and probably cost more money than investing regulary in people.&lt;/p&gt;
 
-&lt;p&gt;If you don&amp;rsquo;t want to use the Application Centric mode and just use the eNetwork Centruc mode, you still have an expensive solution with lot of options you will pay for but never use. Moreover you will inherit all the software complexity and associated bugs for features that are useless for you.&lt;/p&gt;
+&lt;p&gt;If you don&amp;rsquo;t want to use the Application Centric mode and just use the Network Centric mode, you still have an expensive solution with lots of options you will pay for but never use. Moreover you will inherit all the software complexity and associated bugs for features that are useless for you.&lt;/p&gt;
 
 &lt;h3 id=&#34;summ-up&#34;&gt;Summ up&lt;/h3&gt;
 
@@ -1461,13 +1461,13 @@ For certain organisation, that will be a nightmare and probably cost more money 
 &lt;p&gt;Very little public documentation&lt;/p&gt;
 
 &lt;p&gt;Lock in : Hardware, software, security&lt;br /&gt;
-    Previously : some features or knobs were proprietary or tie to hardware but not the all system&lt;br /&gt;
+    Previously : some features or knobs were proprietary or tied to hardware but not the all system&lt;br /&gt;
     =&amp;gt; EIGRP, software lock in but you can ignore it if you want&lt;br /&gt;
     =&amp;gt; FP at the time of the launch no other option were  standard&lt;/p&gt;
 
-&lt;p&gt;Software complexity due to all the feature you don&amp;rsquo;t want + software has been think to be application aware and even if you don&amp;rsquo;t want to use it, you will anyway inherit the code complexity of it.&lt;/p&gt;
+&lt;p&gt;Software complexity due to all the features you don&amp;rsquo;t want + software has been thought to be application aware and even if you don&amp;rsquo;t want to use it, you will anyway inherit the code complexity of it.&lt;/p&gt;
 
-&lt;p&gt;Everything centralise in a box right in the middle of the data path (Spine COOP devices).&lt;/p&gt;
+&lt;p&gt;Everything centralized in a box right in the middle of the data path (Spine COOP devices).&lt;/p&gt;
 
 &lt;p&gt;Stopped product:&lt;br /&gt;
 &lt;ul&gt;
