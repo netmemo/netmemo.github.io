@@ -108,14 +108,14 @@ h4, h5, h6 {
 
 a,
 h3.article-title a:hover {
-  color: hsl(#98F5FF, 90%, 68%);
+  color: hsl(190, 90%, 68%);
   text-decoration: none;
   transition: color 0.6s ease;
 }
 
 a:hover,
 a:focus {
-  color: hsl(#98F5FF, 90%, 68%);
+  color: hsl(190, 90%, 68%);
 }
 
 img,
@@ -297,8 +297,8 @@ small,
 }
 
 .form-control:focus {
-  border-color: hsl(#98F5FF, 90%, 68%);
-  box-shadow: 0 0 0 .2rem hsl(339, 90%, 78%);
+  border-color: hsl(190, 90%, 68%);
+  box-shadow: 0 0 0 .2rem hsl(190, 90%, 78%);
 }
 
 /*************************************************
@@ -511,7 +511,7 @@ a[data-fancybox] img {
 .featurette-icon {
   display: block;
   width: 100%;
-  color: hsl(#98F5FF, 90%, 68%);
+  color: hsl(190, 90%, 68%);
   font-size: 3rem;
   text-align: center;
 }
@@ -727,7 +727,7 @@ article .article-metadata {
 }
 
 .article-metadata a:hover {
-  color: hsl(#98F5FF, 90%, 68%);
+  color: hsl(190, 90%, 68%);
 }
 
 .middot-divider {
@@ -907,11 +907,11 @@ article .article-metadata {
 
 .experience .m-2 .border,
 .experience .col.border-right {
-  border-color: hsl(#98F5FF, 90%, 68%) !important;
+  border-color: hsl(190, 90%, 68%) !important;
 }
 
 .experience .m-2 .border.exp-fill {
-  background-color: hsl(#98F5FF, 90%, 68%) !important;
+  background-color: hsl(190, 90%, 68%) !important;
 }
 
 /*************************************************
@@ -1188,13 +1188,13 @@ a.badge:hover {
  **************************************************/
 
 .btn-primary {
-  border-color: hsl(#98F5FF, 90%, 68%);
-  background: hsl(#98F5FF, 90%, 68%);
+  border-color: hsl(190, 90%, 68%);
+  background: hsl(190, 90%, 68%);
 }
 
 .btn-outline-primary {
-  border-color: hsl(#98F5FF, 90%, 68%);
-  color: hsl(#98F5FF, 90%, 68%);
+  border-color: hsl(190, 90%, 68%);
+  color: hsl(190, 90%, 68%);
 }
 
 .btn-primary:hover,
@@ -1202,7 +1202,7 @@ a.badge:hover {
 .btn-primary.active,
 .btn-primary:visited,
 .open > .dropdown-toggle.btn-primary {
-  background: hsl(#98F5FF, 90%, 68%);
+  background: hsl(190, 90%, 68%);
 }
 
 .btn-outline-light:hover,
@@ -1215,14 +1215,14 @@ a.badge:hover {
 .btn-outline-primary:not(:disabled):not(.disabled):active,
 .show > .btn-outline-primary.dropdown-toggle {
   color: #fff;
-  background-color: hsl(#98F5FF, 90%, 68%);
-  border-color: hsl(#98F5FF, 90%, 68%);
+  background-color: hsl(190, 90%, 68%);
+  border-color: hsl(190, 90%, 68%);
 }
 
 .btn-outline-primary:hover {
   color: #fff;
-  background-color: hsl(#98F5FF, 90%, 68%);
-  border-color: hsl(#98F5FF, 90%, 68%);
+  background-color: hsl(190, 90%, 68%);
+  border-color: hsl(190, 90%, 68%);
 }
 
 /*************************************************
@@ -1245,18 +1245,18 @@ a.badge:hover {
 
 .btn-toolbar .btn.btn-primary:hover,
 .btn-toolbar .btn.btn-primary:focus {
-  background-color: hsl(339, 90%, 58%) !important;
+  background-color: hsl(190, 90%, 58%) !important;
 }
 
 .btn-toolbar .btn.btn-primary:active,
 .btn-toolbar .btn.btn-primary.active {
-  background-color: hsl(339, 90%, 78%) !important;
+  background-color: hsl(190, 90%, 78%) !important;
 }
 
 .btn-primary:not(:disabled):not(.disabled).active:focus,
 .btn-primary:not(:disabled):not(.disabled):active:focus,
 .show > .btn-primary.dropdown-toggle:focus {
-  box-shadow: 0 0 0 .2rem hsl(339, 90%, 58%);
+  box-shadow: 0 0 0 .2rem hsl(190, 90%, 58%);
 }
 
 /*************************************************
@@ -1615,8 +1615,8 @@ div.alert a {
 }
 
 .docs-search .form-control:focus {
-  border-color: hsl(#98F5FF, 90%, 68%);
-  box-shadow: 0 0 0 3px hsl(339, 90%, 78%);
+  border-color: hsl(190, 90%, 68%);
+  box-shadow: 0 0 0 3px hsl(190, 90%, 78%);
 }
 
 /* Docs sidebar. */
@@ -1681,7 +1681,7 @@ div.alert a {
 .docs-sidebar .nav>.active:hover>a,
 .docs-sidebar .nav>.active>a {
   font-weight: bold;
-  color: hsl(#98F5FF, 90%, 68%);
+  color: hsl(190, 90%, 68%);
   background-color: transparent;
 }
 
@@ -1690,7 +1690,7 @@ div.alert a {
 .docs-toggle {
   line-height: 1;
   font-size: 1.2rem;
-  color: hsl(#98F5FF, 90%, 68%);
+  color: hsl(190, 90%, 68%);
   background-color: transparent;
 }
 
@@ -1807,7 +1807,7 @@ ul.toc-top {
 
 #TableOfContents li a:hover,
 .toc-top li a:hover {
-  color: hsl(#98F5FF, 90%, 68%);
+  color: hsl(190, 90%, 68%);
   text-decoration: none;
 }
 
@@ -1815,12 +1815,12 @@ ul.toc-top {
 
 .anchorjs-link {
   font-weight: 400;
-  color: hsl(339, 90%, 58%);
+  color: hsl(190, 90%, 58%);
   transition: color .16s linear;
 }
 
 .anchorjs-link:hover {
-  color: hsl(#98F5FF, 90%, 68%);
+  color: hsl(190, 90%, 68%);
   text-decoration: none;
 }
 
@@ -1839,8 +1839,8 @@ body.dark,
 
 .dark .form-control:focus {
   background-color: rgb(68, 71, 90);
-  border-color: hsl(#98F5FF, 90%, 68%);
-  box-shadow: 0 0 0 .2rem hsl(339, 90%, 58%);
+  border-color: hsl(190, 90%, 68%);
+  box-shadow: 0 0 0 .2rem hsl(190, 90%, 58%);
 }
 
 .dark h1,
@@ -1872,7 +1872,7 @@ body.dark,
 }
 
 .dark ul.share li a {
-  background-color: hsl(#98F5FF, 90%, 68%);
+  background-color: hsl(190, 90%, 68%);
 }
 
 .dark table table {
@@ -1925,7 +1925,7 @@ body.dark,
 }
 
 .dark .card h4 a {
-  color: hsl(#98F5FF, 90%, 68%);
+  color: hsl(190, 90%, 68%);
   border-bottom: solid 1px transparent;
 }
 
