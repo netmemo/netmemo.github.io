@@ -21,7 +21,7 @@
 &lt;p&gt;This post is to show an example of using CI/CD with Terraform Cloud and &lt;a href=&#34;https://learn.hashicorp.com/tutorials/terraform/github-actions&#34; target=&#34;_blank&#34;&gt;Github Actions&lt;/a&gt; in order to have a better NetDevOps approach by doing NSX-T Network Infrastructure as code (IaC).
 It&amp;rsquo;s almost a bingo, I think I have most of the buzz words of these last years :)&lt;/p&gt;
 
-&lt;p&gt;The diagram below shows a high level view of the project.
+&lt;p&gt;The diagram below shows a high level view of the &lt;a href=&#34;https://github.com/netmemo/tf-gha-nsxt-cicd&#34; target=&#34;_blank&#34;&gt;project&lt;/a&gt;.
 &lt;a href=&#34;tf-gha-cicd-nsx.png&#34; target=&#34;_blank&#34;&gt; &lt;img src=&#34;tf-gha-cicd-nsx.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;You can find the file structure of the project below&lt;/p&gt;
@@ -373,7 +373,7 @@ Finally you can now verify that there is a resource on Terraform Cloud and that 
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;[NSX-T]&lt;/strong&gt; Prepare your two NSX-T environments.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;[TFC]&lt;/strong&gt; Create your two workspaces in TFC with the API Key for Github.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;[GITHUB]&lt;/strong&gt; Fork this project, add the TFC API key and your personal API Key to your repo, enable actions.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;[GITHUB]&lt;/strong&gt; Fork this &lt;a href=&#34;https://github.com/netmemo/tf-gha-nsxt-cicd&#34; target=&#34;_blank&#34;&gt;project&lt;/a&gt;, add the TFC API key and your personal API Key to your repo, enable actions.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;[LOCAL]&lt;/strong&gt; Clone your forked project to your local git.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;[LOCAL]&lt;/strong&gt; Create the dev branch locally.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;[LOCAL]&lt;/strong&gt; Modify the Terraform configuration in the main.tf according to your TFC workspace.&lt;/li&gt;
