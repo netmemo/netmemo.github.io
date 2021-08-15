@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Github on netmemo.github.io</title>
+    <link>https://netmemo.github.io/tags/github/</link>
+    <description>Recent content in Github on netmemo.github.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&amp;acute;s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
+    <lastBuildDate>Sun, 15 Aug 2021 14:02:39 +0200</lastBuildDate>
+    
+	<atom:link href="https://netmemo.github.io/tags/github/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Github Actions with Terraform Cloud for CI/CD of NSX-T</title>
+      <link>https://netmemo.github.io/post/tf-gha-nsxt-cicd/</link>
+      <pubDate>Sun, 15 Aug 2021 14:02:39 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/tf-gha-nsxt-cicd/</guid>
+      <description>This post is to show an example of using CI/CD with Terraform Cloud and Github Actions in order to have a better NetDevOps approach by doing NSX-T Network Infrastructure as code (IaC). It&amp;rsquo;s almost a bingo, I think I have most of the buzz words of these last years :)
+The diagram below shows a high level view of the project. 
+You can find the file structure of the project below</description>
+    </item>
+    
+    <item>
+      <title>Triggering Github Actions workflow with automatic Pull Request</title>
+      <link>https://netmemo.github.io/post/gha-auto-pr/</link>
+      <pubDate>Thu, 12 Aug 2021 17:01:57 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/gha-auto-pr/</guid>
+      <description>This post is to explain one of the pain point I encounter while trying to do Github Actions with Terraform Cloud for CI/CD of NSX-T. The difficulty is to chain workflow/pipeline automaticaly. In my case, I wanted to launch a workflow base of a PR create by another workflow. When you use Github Actions to interface with Github, you need to authenticate your Github Actions script against Github. You can then use the GITHUB_TOKEN that has been made for this purpose.</description>
+    </item>
+    
+    <item>
+      <title>Changing Terraform Cloud workspace in Github Actions</title>
+      <link>https://netmemo.github.io/post/tf-workspace-var/</link>
+      <pubDate>Thu, 12 Aug 2021 15:22:40 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/tf-workspace-var/</guid>
+      <description>This litte blog post is to explain how I did to automaticaly change Terraform Cloud workspace from Github Actions. As explained in the documentation remote workspace, you can use different remote workspace by specifing the prefix of you workspace in the Terraform backend configuration.
+ backend &amp;quot;remote&amp;quot; { organization = &amp;quot;netmemo&amp;quot; workspaces { prefix = &amp;quot;netmemo-&amp;quot; } }  After that, you only need to select the proper workspace by entering the terraform workspace select [suffix] command.</description>
+    </item>
+    
+  </channel>
+</rss>

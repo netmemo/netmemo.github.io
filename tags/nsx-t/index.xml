@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&amp;acute;s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
-    <lastBuildDate>Fri, 19 Feb 2021 22:06:50 +0100</lastBuildDate>
+    <lastBuildDate>Sun, 15 Aug 2021 14:02:39 +0200</lastBuildDate>
     
 	<atom:link href="https://netmemo.github.io/tags/nsx-t/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Github Actions with Terraform Cloud for CI/CD of NSX-T</title>
+      <link>https://netmemo.github.io/post/tf-gha-nsxt-cicd/</link>
+      <pubDate>Sun, 15 Aug 2021 14:02:39 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/tf-gha-nsxt-cicd/</guid>
+      <description>This post is to show an example of using CI/CD with Terraform Cloud and Github Actions in order to have a better NetDevOps approach by doing NSX-T Network Infrastructure as code (IaC). It&amp;rsquo;s almost a bingo, I think I have most of the buzz words of these last years :)
+The diagram below shows a high level view of the project. 
+You can find the file structure of the project below</description>
+    </item>
     
     <item>
       <title>Terraform nested for_each for NSX-T with dynamic</title>

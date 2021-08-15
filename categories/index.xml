@@ -24,7 +24,7 @@
     <item>
       <title>Automation</title>
       <link>https://netmemo.github.io/categories/automation/</link>
-      <pubDate>Thu, 25 Feb 2021 21:56:57 +0100</pubDate>
+      <pubDate>Sun, 15 Aug 2021 14:02:39 +0200</pubDate>
       
       <guid>https://netmemo.github.io/categories/automation/</guid>
       <description></description>
@@ -36,6 +36,15 @@
       <pubDate>Tue, 23 Feb 2021 22:24:44 +0100</pubDate>
       
       <guid>https://netmemo.github.io/categories/cisco/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cloud</title>
+      <link>https://netmemo.github.io/categories/cloud/</link>
+      <pubDate>Sun, 15 Aug 2021 14:02:39 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/categories/cloud/</guid>
       <description></description>
     </item>
     
@@ -54,6 +63,15 @@
       <pubDate>Sat, 28 Nov 2020 19:11:36 +0100</pubDate>
       
       <guid>https://netmemo.github.io/categories/dc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>IAC</title>
+      <link>https://netmemo.github.io/categories/iac/</link>
+      <pubDate>Sun, 15 Aug 2021 14:02:39 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/categories/iac/</guid>
       <description></description>
     </item>
     

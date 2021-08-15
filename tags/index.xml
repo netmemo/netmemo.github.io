@@ -103,6 +103,15 @@
     </item>
     
     <item>
+      <title>Cloud</title>
+      <link>https://netmemo.github.io/tags/cloud/</link>
+      <pubDate>Sun, 15 Aug 2021 14:02:39 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/cloud/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Core Linux</title>
       <link>https://netmemo.github.io/tags/core-linux/</link>
       <pubDate>Mon, 22 Oct 2018 15:35:55 +0200</pubDate>
@@ -144,6 +153,24 @@
       <pubDate>Thu, 29 Jul 2021 19:03:37 +0200</pubDate>
       
       <guid>https://netmemo.github.io/tags/firewall/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Github</title>
+      <link>https://netmemo.github.io/tags/github/</link>
+      <pubDate>Sun, 15 Aug 2021 14:02:39 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/github/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Github Actions</title>
+      <link>https://netmemo.github.io/tags/github-actions/</link>
+      <pubDate>Sun, 15 Aug 2021 14:02:39 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/github-actions/</guid>
       <description></description>
     </item>
     
@@ -204,7 +231,7 @@
     <item>
       <title>NSX-T</title>
       <link>https://netmemo.github.io/tags/nsx-t/</link>
-      <pubDate>Fri, 19 Feb 2021 22:06:50 +0100</pubDate>
+      <pubDate>Sun, 15 Aug 2021 14:02:39 +0200</pubDate>
       
       <guid>https://netmemo.github.io/tags/nsx-t/</guid>
       <description></description>
@@ -279,6 +306,15 @@
       <pubDate>Thu, 29 Jul 2021 19:03:37 +0200</pubDate>
       
       <guid>https://netmemo.github.io/tags/terraform/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Terrfaorm</title>
+      <link>https://netmemo.github.io/tags/terrfaorm/</link>
+      <pubDate>Sun, 15 Aug 2021 14:02:39 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/terrfaorm/</guid>
       <description></description>
     </item>
     
