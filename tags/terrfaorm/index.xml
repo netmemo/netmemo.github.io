@@ -19,8 +19,7 @@
       
       <guid>https://netmemo.github.io/post/tf-gha-nsxt-cicd/</guid>
       <description>This post is to show an example of using CI/CD with Terraform Cloud and Github Actions in order to have a better NetDevOps approach by doing NSX-T Network Infrastructure as code (IaC). It&amp;rsquo;s almost a bingo, I think I have most of the buzz words of these last years :)
-The diagram below shows a high level view of the project. 
-You can find the file structure of the project below</description>
+I will describe the structure of the project, the project components, the project workflow and finish with how to test this project.</description>
     </item>
     
     <item>
@@ -29,7 +28,7 @@ You can find the file structure of the project below</description>
       <pubDate>Thu, 12 Aug 2021 17:01:57 +0200</pubDate>
       
       <guid>https://netmemo.github.io/post/gha-auto-pr/</guid>
-      <description>This post is to explain one of the pain point I encounter while trying to do Github Actions with Terraform Cloud for CI/CD of NSX-T. The difficulty is to chain workflow/pipeline automaticaly. In my case, I wanted to launch a workflow base of a PR create by another workflow. When you use Github Actions to interface with Github, you need to authenticate your Github Actions script against Github. You can then use the GITHUB_TOKEN that has been made for this purpose.</description>
+      <description>This post is to explain one of the pain point I have encountered while trying to do Github Actions with Terraform Cloud for CI/CD of NSX-T. The difficulty is to chain workflow/pipeline automatically. In my case, I wanted to launch a workflow base of a PR create by another workflow. When you use Github Actions to interface with Github, you need to authenticate your Github Actions script against Github. You can then use the GITHUB_TOKEN that has been made for this purpose.</description>
     </item>
     
     <item>
@@ -38,7 +37,7 @@ You can find the file structure of the project below</description>
       <pubDate>Thu, 12 Aug 2021 15:22:40 +0200</pubDate>
       
       <guid>https://netmemo.github.io/post/tf-workspace-var/</guid>
-      <description>This litte blog post is to explain how I did to automaticaly change Terraform Cloud workspace from Github Actions. As explained in the documentation remote workspace, you can use different remote workspace by specifing the prefix of you workspace in the Terraform backend configuration.
+      <description>This blog post is to explain how I did to automatically change Terraform Cloud workspace from Github Actions. As explained in the documentation remote workspace, you can use different remote workspace by specifying the prefix of you workspace in the Terraform backend configuration.
  backend &amp;quot;remote&amp;quot; { organization = &amp;quot;netmemo&amp;quot; workspaces { prefix = &amp;quot;netmemo-&amp;quot; } }  After that, you only need to select the proper workspace by entering the terraform workspace select [suffix] command.</description>
     </item>
     

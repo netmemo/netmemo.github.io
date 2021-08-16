@@ -21,6 +21,10 @@
 &lt;p&gt;This post is to show an example of using CI/CD with Terraform Cloud and &lt;a href=&#34;https://learn.hashicorp.com/tutorials/terraform/github-actions&#34; target=&#34;_blank&#34;&gt;Github Actions&lt;/a&gt; in order to have a better NetDevOps approach by doing NSX-T Network Infrastructure as code (IaC).
 It&amp;rsquo;s almost a bingo, I think I have most of the buzz words of these last years :)&lt;/p&gt;
 
+&lt;p&gt;I will describe the structure of the project, the project components, the project workflow and finish with how to test this project.&lt;/p&gt;
+
+&lt;h1 id=&#34;structure-of-the-project&#34;&gt;Structure of the project&lt;/h1&gt;
+
 &lt;p&gt;The diagram below shows a high level view of the &lt;a href=&#34;https://github.com/netmemo/tf-gha-nsxt-cicd&#34; target=&#34;_blank&#34;&gt;project&lt;/a&gt;.
 &lt;a href=&#34;tf-gha-cicd-nsx.png&#34; target=&#34;_blank&#34;&gt; &lt;img src=&#34;tf-gha-cicd-nsx.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;/p&gt;
 
@@ -45,12 +49,12 @@ In this blog post we will use two different deployments.&lt;/p&gt;
 &lt;h2 id=&#34;terraform-cloud&#34;&gt;Terraform Cloud&lt;/h2&gt;
 
 &lt;p&gt;Terraform Cloud will be used to store the state of the prod and dev environment. It will also allow to manage Terraform through APIs.
-For the project we need to create 2 differents workspaces. One for production and one for developments.
-The name of the workspaces should be prefix-sufix where the prefix will be what is configured in your terraform configuration file and the sufix will be what is used to select the workspace. We will cover how to select the workspace later in that post.
-For this blog post, the prefix will be netmemo- and the sufix will be either prod or dev.
+For the project we need to create 2 differents workspaces, one for production and one for developments.
+The name of the workspaces should be prefix-suffix where the prefix will be what is configured in your terraform configuration file and the sufix will be what is used to select the workspace. We will cover how to select the workspace later in that post.
+For this blog post, the prefix will be netmemo- and the suffix will be either prod or dev.
 &lt;a href=&#34;workspaces.png&#34; target=&#34;_blank&#34;&gt; &lt;img src=&#34;workspaces.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;Once the workspaces are created, we need to add 3 variables for the NSX-T provider :
+&lt;p&gt;Once the workspaces are created, we need to add 3 variables for the NSX-T provider:
 &lt;a href=&#34;tf-variables.png&#34; target=&#34;_blank&#34;&gt; &lt;img src=&#34;tf-variables.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Finally we need to add the API key that Github Actions will use to connect to Terraform Cloud
@@ -91,7 +95,7 @@ Once the project is forked, to make it works, we need to enable Github Actions.
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Then the &lt;em&gt;Setup Terraform&lt;/em&gt; steps retrieves the Terraform CLI used in the GitHub action workflow.
-This is in this step that we will use the TF_API_TOKEN that we have created previously to access Terraform Cloud from Githu Actions.&lt;/p&gt;
+This is in this step that we will use the TF_API_TOKEN that we have created previously to access Terraform Cloud from Github Actions.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;      - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
@@ -251,7 +255,7 @@ variable &amp;quot;nsxhost&amp;quot; {
 
 &lt;p&gt;In this section we are setting the 2 providers needed and the backend.
 The &lt;em&gt;backend &amp;ldquo;&lt;a href=&#34;https://www.terraform.io/docs/language/settings/backends/remote.html#workspaces&#34; target=&#34;_blank&#34;&gt;remote&lt;/a&gt;&amp;ldquo;&lt;/em&gt; is where you find the Terraform Cloud organization and workspaces prefixes.
-The workspaces sufixes will be added as seen in the beginning of this post with the &lt;a href=&#34;https://learn.hashicorp.com/tutorials/terraform/automate-terraform?in=terraform/automation&#34; target=&#34;_blank&#34;&gt;TF_WORKSPACE&lt;/a&gt; environment variables and the &lt;a href=&#34;https://www.terraform.io/docs/language/settings/backends/remote.html#workspaces&#34; target=&#34;_blank&#34;&gt;terraform workspace select&lt;/a&gt; command in the Github Actions steps.&lt;/p&gt;
+The workspaces suffixes will be added as seen in the beginning of this post with the &lt;a href=&#34;https://learn.hashicorp.com/tutorials/terraform/automate-terraform?in=terraform/automation&#34; target=&#34;_blank&#34;&gt;TF_WORKSPACE&lt;/a&gt; environment variables and the &lt;a href=&#34;https://www.terraform.io/docs/language/settings/backends/remote.html#workspaces&#34; target=&#34;_blank&#34;&gt;terraform workspace select&lt;/a&gt; command in the Github Actions steps.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;terraform {
   required_providers {
@@ -328,14 +332,14 @@ To ssh://github.com/netmemo/tf-gha-nsxt-cicd.git
 &lt;p&gt;&lt;/details&gt;
 &lt;details&gt;
 &lt;summary&gt;3. Dev pipeline&lt;/summary&gt;
-The dev pipeline is triggered, you can see it&amp;rsquo;s starting in the Actions tab. It&amp;rsquo;s title will be the commit message.&lt;br /&gt;
+The dev pipeline is triggered, you can see it&amp;rsquo;s starting in the Actions tab. It&amp;rsquo;s tittle will be the commit message.&lt;br /&gt;
 &lt;a href=&#34;workflow-start.png&#34; target=&#34;_blank&#34;&gt; &lt;img src=&#34;workflow-start.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;
-To validate that the dev pipelin is completed, you can check the Terraform cloud dev workspace and the NSX-T dev environment to see that there is a new device.
+To validate that the dev pipeline is completed, you can check the Terraform cloud dev workspace state and the NSX-T dev environment to see that there is a new T1-GW.
 &lt;a href=&#34;tfc-state-dev-after.png&#34; target=&#34;_blank&#34;&gt; &lt;img src=&#34;tfc-state-dev-after.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;
 &lt;/details&gt;
 &lt;details&gt;
 &lt;summary&gt;4. Integration pipeline&lt;/summary&gt;
-After all the steps in the dev pipeline are passed, the workflow will turn green. The last step of the pipeline will create an automatic PR that will triger the integration pipeline. This pipeline will validates the configuration and creates a plan against the production environment.
+After all the steps in the dev pipeline are passed, the workflow will turn green. The last step of the pipeline will create an automatic PR that will trigger the integration pipeline. This pipeline will validate the configuration and creates a plan against the production environment.
 The PR will have the description &lt;strong&gt;&amp;ldquo;Auto PR generate by Github Action dev pipeline&amp;rdquo;&lt;/strong&gt;
 &lt;a href=&#34;pr-list.png&#34; target=&#34;_blank&#34;&gt; &lt;img src=&#34;pr-list.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;
 The integration pipeline will execute the &lt;em&gt;terraform plan&lt;/em&gt; command against the production environment. You can then check again the Actions tab to see that the development and integration pipeline has turned green.
@@ -345,15 +349,15 @@ If the two pipelines are ok, the checks in the PR should be green.&lt;br /&gt;
 &lt;/details&gt;
 &lt;details&gt;
 &lt;summary&gt;5. Merge&lt;/summary&gt;
-When the dev and integration pipeline are finished. The dev branch is ready to be merged to the main branch. You can then clic on the &lt;strong&gt;Merge pull request&lt;/strong&gt; button to validate the merge and triger the deployment pipeline.
+When the dev and integration pipeline are finished, the dev branch is ready to be merged to the main branch. You can then clic on the &lt;strong&gt;Merge pull request&lt;/strong&gt; button to validate the merge and trigger the deployment pipeline.
 &lt;a href=&#34;going-to-prod.png&#34; target=&#34;_blank&#34;&gt; &lt;img src=&#34;going-to-prod.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;
 &lt;a href=&#34;pr-merged.png&#34; target=&#34;_blank&#34;&gt; &lt;img src=&#34;pr-merged.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;
 &lt;/details&gt;
 &lt;details&gt;
 &lt;summary&gt;6. Deployment pipeline&lt;/summary&gt;
-The deployment pipeline is trigered with the push/merge to the main branch. This is the final workflow that will push the Terraform configuration to production. You can see in Terraform Cloud that Terraform is applying the configuration.
+The deployment pipeline is triggered with the push/merge to the main branch. This is the final workflow that will push the Terraform configuration to production. You can see in Terraform Cloud that Terraform is applying the configuration.
 &lt;a href=&#34;tfc-prod-applying.png&#34; target=&#34;_blank&#34;&gt; &lt;img src=&#34;tfc-prod-applying.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;
-You can now double check in Github Actions that the deployment workflow has been succefully executed. &lt;strong&gt;&amp;ldquo;Merge pull request #10&amp;rdquo;&lt;/strong&gt; in the below picture.
+You can now double check in Github Actions that the deployment workflow has been succefully executed, &lt;strong&gt;&amp;ldquo;Merge pull request #10&amp;rdquo;&lt;/strong&gt; in the picture below.
 &lt;a href=&#34;pipeline-apply-ok-list.png&#34; target=&#34;_blank&#34;&gt; &lt;img src=&#34;pipeline-apply-ok-list.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;
 &lt;/details&gt;
 &lt;details&gt;
@@ -366,9 +370,9 @@ Finally you can now verify that there is a resource on Terraform Cloud and that 
 &lt;h1 id=&#34;how-to-test-this-project&#34;&gt;How to test this project.&lt;/h1&gt;
 
 &lt;p&gt;Requirements:&lt;br /&gt;
-- NSX-T environment (there are exemples on the web to use AWS as provider instead of NSX, the concepts are the same).&lt;br /&gt;
+- NSX-T environment (there are examples on the web to use AWS as provider instead of NSX, the concepts are the same).&lt;br /&gt;
 - Terraform Cloud account with 2 workspaces.&lt;br /&gt;
-- Github account and git localy.&lt;/p&gt;
+- Github account and git locally.&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;[NSX-T]&lt;/strong&gt; Prepare your two NSX-T environments.&lt;/li&gt;
@@ -397,13 +401,13 @@ Finally you can now verify that there is a resource on Terraform Cloud and that 
       <pubDate>Thu, 12 Aug 2021 17:01:57 +0200</pubDate>
       
       <guid>https://netmemo.github.io/post/gha-auto-pr/</guid>
-      <description>&lt;p&gt;This post is to explain one of the pain point I encounter while trying to do &lt;a href=&#34;https://netmemo.github.io/post/tf-gha-nsxt-cicd&#34; target=&#34;_blank&#34;&gt;Github Actions with Terraform Cloud for CI/CD of NSX-T&lt;/a&gt;.
-The difficulty is to chain workflow/pipeline automaticaly. In my case, I wanted to launch a workflow base of a PR create by another workflow.
+      <description>&lt;p&gt;This post is to explain one of the pain point I have encountered while trying to do &lt;a href=&#34;https://netmemo.github.io/post/tf-gha-nsxt-cicd&#34; target=&#34;_blank&#34;&gt;Github Actions with Terraform Cloud for CI/CD of NSX-T&lt;/a&gt;.
+The difficulty is to chain workflow/pipeline automatically. In my case, I wanted to launch a workflow base of a PR create by another workflow.
 When you use Github Actions to interface with Github, you need to authenticate your Github Actions script against Github.
-You can then use the &lt;a href=&#34;https://docs.github.com/en/actions/reference/authentication-in-a-workflow&#34; target=&#34;_blank&#34;&gt;GITHUB_TOKEN&lt;/a&gt; that has been made for this purpose. As this token is know from Github to be an automation token, to avoid loops, you can use it to create a PR to triger another workflow.
+You can then use the &lt;a href=&#34;https://docs.github.com/en/actions/reference/authentication-in-a-workflow&#34; target=&#34;_blank&#34;&gt;GITHUB_TOKEN&lt;/a&gt; that has been made for this purpose. As this token is known from Github to be automation token, to avoid loops, you can use it to create a PR to trigger another workflow.
 The workaround to this [known limitation] is to create the PR with a personal access token.&lt;/p&gt;
 
-&lt;p&gt;You can find below an example of using the personnal access token to create a PR. To create the &lt;a href=&#34;https://octokit.github.io/rest.js/v18#pulls-create&#34; target=&#34;_blank&#34;&gt;Pull Request&lt;/a&gt; we are using &lt;a href=&#34;https://github.com/marketplace/actions/github-script?version=v4.0.2&#34; target=&#34;_blank&#34;&gt;github-script&lt;/a&gt; that will send a REST API query thanks to the &lt;em&gt;github&lt;/em&gt; pre-authenticated &lt;a href=&#34;https://octokit.github.io/rest.js/v18&#34; target=&#34;_blank&#34;&gt;octokit/rest.js&lt;/a&gt; client with pagination plugins.&lt;/p&gt;
+&lt;p&gt;You can find below an example of using the personal access token to create a PR. To create the &lt;a href=&#34;https://octokit.github.io/rest.js/v18#pulls-create&#34; target=&#34;_blank&#34;&gt;Pull Request&lt;/a&gt; we are using &lt;a href=&#34;https://github.com/marketplace/actions/github-script?version=v4.0.2&#34; target=&#34;_blank&#34;&gt;github-script&lt;/a&gt; that will send a REST API query thanks to the &lt;em&gt;github&lt;/em&gt; pre-authenticated &lt;a href=&#34;https://octokit.github.io/rest.js/v18&#34; target=&#34;_blank&#34;&gt;octokit/rest.js&lt;/a&gt; client with pagination plugins.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;      - name: CreatePR if apply succeed
         uses: actions/github-script@v4.0.2
@@ -428,8 +432,8 @@ The workaround to this [known limitation] is to create the PR with a personal ac
       <pubDate>Thu, 12 Aug 2021 15:22:40 +0200</pubDate>
       
       <guid>https://netmemo.github.io/post/tf-workspace-var/</guid>
-      <description>&lt;p&gt;This litte blog post is to explain how I did to automaticaly change Terraform Cloud workspace from Github Actions.
-As explained in the documentation &lt;a href=&#34;https://www.terraform.io/docs/language/settings/backends/remote.html#workspaces&#34; target=&#34;_blank&#34;&gt;remote workspace&lt;/a&gt;, you can use different remote workspace by specifing the prefix of you workspace in the Terraform backend configuration.&lt;/p&gt;
+      <description>&lt;p&gt;This blog post is to explain how I did to automatically change Terraform Cloud workspace from Github Actions.
+As explained in the documentation &lt;a href=&#34;https://www.terraform.io/docs/language/settings/backends/remote.html#workspaces&#34; target=&#34;_blank&#34;&gt;remote workspace&lt;/a&gt;, you can use different remote workspace by specifying the prefix of you workspace in the Terraform backend configuration.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;  backend &amp;quot;remote&amp;quot; {
     organization = &amp;quot;netmemo&amp;quot;
@@ -441,12 +445,12 @@ As explained in the documentation &lt;a href=&#34;https://www.terraform.io/docs/
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;After that, you only need to select the proper workspace by entering the &lt;em&gt;terraform workspace select [suffix]&lt;/em&gt; command.
-The issue come if you want to do it in a fully automated environment like with Github Actions. You need an extra step which is to set the &lt;a href=&#34;https://learn.hashicorp.com/tutorials/terraform/automate-terraform?in=terraform/automation&#34; target=&#34;_blank&#34;&gt;TF_WORKSPACE&lt;/a&gt; variable.&lt;/p&gt;
+The issue comes if you want to do it in a fully automated environment like with Github Actions. You need an extra step which is to set the &lt;a href=&#34;https://learn.hashicorp.com/tutorials/terraform/automate-terraform?in=terraform/automation&#34; target=&#34;_blank&#34;&gt;TF_WORKSPACE&lt;/a&gt; variable.&lt;/p&gt;
 
 &lt;p&gt;Below are the 2 steps that are needed to select a specific environment.
-In this blog the workspace wille be netmemo-dev where netmemo- is the prefix configured in the main.tf and dev the suffix configured in the .yml file of the Github Actions script.&lt;/p&gt;
+In this blog the workspace will be netmemo-dev where netmemo- is the prefix configured in the main.tf and dev the suffix configured in the .yml file of the Github Actions script.&lt;/p&gt;
 
-&lt;p&gt;This step initialize Terraform and set the TF_WORKSPACE variable to indicate that we want to use the dev environment sufix before the initialization.&lt;/p&gt;
+&lt;p&gt;This step initializes Terraform and set the TF_WORKSPACE variable to indicate that we want to use the dev environment suffix before the initialization.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;      - name: Terraform Init
         id: init
@@ -465,7 +469,7 @@ In this blog the workspace wille be netmemo-dev where netmemo- is the prefix con
   2. prod
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Even after setting the &lt;a href=&#34;https://learn.hashicorp.com/tutorials/terraform/automate-terraform?in=terraform/automation&#34; target=&#34;_blank&#34;&gt;TF_WORKSPACE&lt;/a&gt; variable, we still need to enter the &lt;em&gt;terraform workspace select&lt;/em&gt; command to provide the sufix of the workspace.&lt;/p&gt;
+&lt;p&gt;Even after setting the &lt;a href=&#34;https://learn.hashicorp.com/tutorials/terraform/automate-terraform?in=terraform/automation&#34; target=&#34;_blank&#34;&gt;TF_WORKSPACE&lt;/a&gt; variable, we still need to enter the &lt;em&gt;terraform workspace select&lt;/em&gt; command to provide the suffix of the workspace.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;      - name: Terraform Workspace
         id: workspace
@@ -479,7 +483,7 @@ In this blog the workspace wille be netmemo-dev where netmemo- is the prefix con
 invalid value for workspace
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;You can find  a full example of where we need to change workspace automaticaly in this blog post &lt;a href=&#34;https://netmemo.github.io/post/tf-gha-nsxt-cicd&#34; target=&#34;_blank&#34;&gt;Github Actions with Terraform Cloud for CI/CD of NSX-T&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;You can find a full example of where we need to change workspace automatically in this blog post &lt;a href=&#34;https://netmemo.github.io/post/tf-gha-nsxt-cicd&#34; target=&#34;_blank&#34;&gt;Github Actions with Terraform Cloud for CI/CD of NSX-T&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     

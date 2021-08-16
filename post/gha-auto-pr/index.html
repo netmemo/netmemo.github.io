@@ -15,7 +15,7 @@
   
     
   
-  <meta name="description" content="This post is to explain one of the pain point I encounter while trying to do Github Actions with Terraform Cloud for CI/CD of NSX-T. The difficulty is to chain workflow/pipeline automaticaly. In my case, I wanted to launch a workflow base of a PR create by another workflow. When you use Github Actions to interface with Github, you need to authenticate your Github Actions script against Github. You can then use the GITHUB_TOKEN that has been made for this purpose.">
+  <meta name="description" content="This post is to explain one of the pain point I have encountered while trying to do Github Actions with Terraform Cloud for CI/CD of NSX-T. The difficulty is to chain workflow/pipeline automatically. In my case, I wanted to launch a workflow base of a PR create by another workflow. When you use Github Actions to interface with Github, you need to authenticate your Github Actions script against Github. You can then use the GITHUB_TOKEN that has been made for this purpose.">
 
   
   <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/post/gha-auto-pr/">
@@ -93,7 +93,7 @@
   <meta property="og:site_name" content="netmemo.github.io">
   <meta property="og:url" content="https://netmemo.github.io/post/gha-auto-pr/">
   <meta property="og:title" content="Triggering Github Actions workflow with automatic Pull Request | netmemo.github.io">
-  <meta property="og:description" content="This post is to explain one of the pain point I encounter while trying to do Github Actions with Terraform Cloud for CI/CD of NSX-T. The difficulty is to chain workflow/pipeline automaticaly. In my case, I wanted to launch a workflow base of a PR create by another workflow. When you use Github Actions to interface with Github, you need to authenticate your Github Actions script against Github. You can then use the GITHUB_TOKEN that has been made for this purpose.">
+  <meta property="og:description" content="This post is to explain one of the pain point I have encountered while trying to do Github Actions with Terraform Cloud for CI/CD of NSX-T. The difficulty is to chain workflow/pipeline automatically. In my case, I wanted to launch a workflow base of a PR create by another workflow. When you use Github Actions to interface with Github, you need to authenticate your Github Actions script against Github. You can then use the GITHUB_TOKEN that has been made for this purpose.">
   
   
     
@@ -309,13 +309,13 @@
 
 
     <div class="article-style" itemprop="articleBody">
-      <p>This post is to explain one of the pain point I encounter while trying to do <a href="https://netmemo.github.io/post/tf-gha-nsxt-cicd" target="_blank">Github Actions with Terraform Cloud for CI/CD of NSX-T</a>.
-The difficulty is to chain workflow/pipeline automaticaly. In my case, I wanted to launch a workflow base of a PR create by another workflow.
+      <p>This post is to explain one of the pain point I have encountered while trying to do <a href="https://netmemo.github.io/post/tf-gha-nsxt-cicd" target="_blank">Github Actions with Terraform Cloud for CI/CD of NSX-T</a>.
+The difficulty is to chain workflow/pipeline automatically. In my case, I wanted to launch a workflow base of a PR create by another workflow.
 When you use Github Actions to interface with Github, you need to authenticate your Github Actions script against Github.
-You can then use the <a href="https://docs.github.com/en/actions/reference/authentication-in-a-workflow" target="_blank">GITHUB_TOKEN</a> that has been made for this purpose. As this token is know from Github to be an automation token, to avoid loops, you can use it to create a PR to triger another workflow.
+You can then use the <a href="https://docs.github.com/en/actions/reference/authentication-in-a-workflow" target="_blank">GITHUB_TOKEN</a> that has been made for this purpose. As this token is known from Github to be automation token, to avoid loops, you can use it to create a PR to trigger another workflow.
 The workaround to this [known limitation] is to create the PR with a personal access token.</p>
 
-<p>You can find below an example of using the personnal access token to create a PR. To create the <a href="https://octokit.github.io/rest.js/v18#pulls-create" target="_blank">Pull Request</a> we are using <a href="https://github.com/marketplace/actions/github-script?version=v4.0.2" target="_blank">github-script</a> that will send a REST API query thanks to the <em>github</em> pre-authenticated <a href="https://octokit.github.io/rest.js/v18" target="_blank">octokit/rest.js</a> client with pagination plugins.</p>
+<p>You can find below an example of using the personal access token to create a PR. To create the <a href="https://octokit.github.io/rest.js/v18#pulls-create" target="_blank">Pull Request</a> we are using <a href="https://github.com/marketplace/actions/github-script?version=v4.0.2" target="_blank">github-script</a> that will send a REST API query thanks to the <em>github</em> pre-authenticated <a href="https://octokit.github.io/rest.js/v18" target="_blank">octokit/rest.js</a> client with pagination plugins.</p>
 
 <pre><code>      - name: CreatePR if apply succeed
         uses: actions/github-script@v4.0.2

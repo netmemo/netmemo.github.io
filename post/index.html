@@ -275,8 +275,7 @@
   <div class="article-style" itemprop="articleBody">
     
     This post is to show an example of using CI/CD with Terraform Cloud and Github Actions in order to have a better NetDevOps approach by doing NSX-T Network Infrastructure as code (IaC). It&rsquo;s almost a bingo, I think I have most of the buzz words of these last years :)
-The diagram below shows a high level view of the project. 
-You can find the file structure of the project below
+I will describe the structure of the project, the project components, the project workflow and finish with how to test this project.
     
   </div>
   <p class="read-more" itemprop="mainEntityOfPage">
@@ -352,7 +351,7 @@ You can find the file structure of the project below
   </h3>
   <div class="article-style" itemprop="articleBody">
     
-    This post is to explain one of the pain point I encounter while trying to do Github Actions with Terraform Cloud for CI/CD of NSX-T. The difficulty is to chain workflow/pipeline automaticaly. In my case, I wanted to launch a workflow base of a PR create by another workflow. When you use Github Actions to interface with Github, you need to authenticate your Github Actions script against Github. You can then use the GITHUB_TOKEN that has been made for this purpose.
+    This post is to explain one of the pain point I have encountered while trying to do Github Actions with Terraform Cloud for CI/CD of NSX-T. The difficulty is to chain workflow/pipeline automatically. In my case, I wanted to launch a workflow base of a PR create by another workflow. When you use Github Actions to interface with Github, you need to authenticate your Github Actions script against Github. You can then use the GITHUB_TOKEN that has been made for this purpose.
     
   </div>
   <p class="read-more" itemprop="mainEntityOfPage">
@@ -428,7 +427,7 @@ You can find the file structure of the project below
   </h3>
   <div class="article-style" itemprop="articleBody">
     
-    This litte blog post is to explain how I did to automaticaly change Terraform Cloud workspace from Github Actions. As explained in the documentation remote workspace, you can use different remote workspace by specifing the prefix of you workspace in the Terraform backend configuration.
+    This blog post is to explain how I did to automatically change Terraform Cloud workspace from Github Actions. As explained in the documentation remote workspace, you can use different remote workspace by specifying the prefix of you workspace in the Terraform backend configuration.
  backend &quot;remote&quot; { organization = &quot;netmemo&quot; workspaces { prefix = &quot;netmemo-&quot; } }  After that, you only need to select the proper workspace by entering the terraform workspace select [suffix] command.
     
   </div>

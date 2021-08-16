@@ -16,8 +16,7 @@
     
   
   <meta name="description" content="This post is to show an example of using CI/CD with Terraform Cloud and Github Actions in order to have a better NetDevOps approach by doing NSX-T Network Infrastructure as code (IaC). It&rsquo;s almost a bingo, I think I have most of the buzz words of these last years :)
-The diagram below shows a high level view of the project. 
-You can find the file structure of the project below">
+I will describe the structure of the project, the project components, the project workflow and finish with how to test this project.">
 
   
   <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/post/tf-gha-nsxt-cicd/">
@@ -96,8 +95,7 @@ You can find the file structure of the project below">
   <meta property="og:url" content="https://netmemo.github.io/post/tf-gha-nsxt-cicd/">
   <meta property="og:title" content="Github Actions with Terraform Cloud for CI/CD of NSX-T | netmemo.github.io">
   <meta property="og:description" content="This post is to show an example of using CI/CD with Terraform Cloud and Github Actions in order to have a better NetDevOps approach by doing NSX-T Network Infrastructure as code (IaC). It&rsquo;s almost a bingo, I think I have most of the buzz words of these last years :)
-The diagram below shows a high level view of the project. 
-You can find the file structure of the project below">
+I will describe the structure of the project, the project components, the project workflow and finish with how to test this project.">
   
   
     
@@ -320,6 +318,10 @@ You can find the file structure of the project below">
 <p>This post is to show an example of using CI/CD with Terraform Cloud and <a href="https://learn.hashicorp.com/tutorials/terraform/github-actions" target="_blank">Github Actions</a> in order to have a better NetDevOps approach by doing NSX-T Network Infrastructure as code (IaC).
 It&rsquo;s almost a bingo, I think I have most of the buzz words of these last years :)</p>
 
+<p>I will describe the structure of the project, the project components, the project workflow and finish with how to test this project.</p>
+
+<h1 id="structure-of-the-project">Structure of the project</h1>
+
 <p>The diagram below shows a high level view of the <a href="https://github.com/netmemo/tf-gha-nsxt-cicd" target="_blank">project</a>.
 <a href="tf-gha-cicd-nsx.png" target="_blank"> <img src="tf-gha-cicd-nsx.png" alt="" /> </a></p>
 
@@ -344,12 +346,12 @@ In this blog post we will use two different deployments.</p>
 <h2 id="terraform-cloud">Terraform Cloud</h2>
 
 <p>Terraform Cloud will be used to store the state of the prod and dev environment. It will also allow to manage Terraform through APIs.
-For the project we need to create 2 differents workspaces. One for production and one for developments.
-The name of the workspaces should be prefix-sufix where the prefix will be what is configured in your terraform configuration file and the sufix will be what is used to select the workspace. We will cover how to select the workspace later in that post.
-For this blog post, the prefix will be netmemo- and the sufix will be either prod or dev.
+For the project we need to create 2 differents workspaces, one for production and one for developments.
+The name of the workspaces should be prefix-suffix where the prefix will be what is configured in your terraform configuration file and the sufix will be what is used to select the workspace. We will cover how to select the workspace later in that post.
+For this blog post, the prefix will be netmemo- and the suffix will be either prod or dev.
 <a href="workspaces.png" target="_blank"> <img src="workspaces.png" alt="" /> </a></p>
 
-<p>Once the workspaces are created, we need to add 3 variables for the NSX-T provider :
+<p>Once the workspaces are created, we need to add 3 variables for the NSX-T provider:
 <a href="tf-variables.png" target="_blank"> <img src="tf-variables.png" alt="" /> </a></p>
 
 <p>Finally we need to add the API key that Github Actions will use to connect to Terraform Cloud
@@ -390,7 +392,7 @@ Once the project is forked, to make it works, we need to enable Github Actions.
 </code></pre>
 
 <p>Then the <em>Setup Terraform</em> steps retrieves the Terraform CLI used in the GitHub action workflow.
-This is in this step that we will use the TF_API_TOKEN that we have created previously to access Terraform Cloud from Githu Actions.</p>
+This is in this step that we will use the TF_API_TOKEN that we have created previously to access Terraform Cloud from Github Actions.</p>
 
 <pre><code>      - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
@@ -550,7 +552,7 @@ variable &quot;nsxhost&quot; {
 
 <p>In this section we are setting the 2 providers needed and the backend.
 The <em>backend &ldquo;<a href="https://www.terraform.io/docs/language/settings/backends/remote.html#workspaces" target="_blank">remote</a>&ldquo;</em> is where you find the Terraform Cloud organization and workspaces prefixes.
-The workspaces sufixes will be added as seen in the beginning of this post with the <a href="https://learn.hashicorp.com/tutorials/terraform/automate-terraform?in=terraform/automation" target="_blank">TF_WORKSPACE</a> environment variables and the <a href="https://www.terraform.io/docs/language/settings/backends/remote.html#workspaces" target="_blank">terraform workspace select</a> command in the Github Actions steps.</p>
+The workspaces suffixes will be added as seen in the beginning of this post with the <a href="https://learn.hashicorp.com/tutorials/terraform/automate-terraform?in=terraform/automation" target="_blank">TF_WORKSPACE</a> environment variables and the <a href="https://www.terraform.io/docs/language/settings/backends/remote.html#workspaces" target="_blank">terraform workspace select</a> command in the Github Actions steps.</p>
 
 <pre><code>terraform {
   required_providers {
@@ -627,14 +629,14 @@ To ssh://github.com/netmemo/tf-gha-nsxt-cicd.git
 <p></details>
 <details>
 <summary>3. Dev pipeline</summary>
-The dev pipeline is triggered, you can see it&rsquo;s starting in the Actions tab. It&rsquo;s title will be the commit message.<br />
+The dev pipeline is triggered, you can see it&rsquo;s starting in the Actions tab. It&rsquo;s tittle will be the commit message.<br />
 <a href="workflow-start.png" target="_blank"> <img src="workflow-start.png" alt="" /> </a>
-To validate that the dev pipelin is completed, you can check the Terraform cloud dev workspace and the NSX-T dev environment to see that there is a new device.
+To validate that the dev pipeline is completed, you can check the Terraform cloud dev workspace state and the NSX-T dev environment to see that there is a new T1-GW.
 <a href="tfc-state-dev-after.png" target="_blank"> <img src="tfc-state-dev-after.png" alt="" /> </a>
 </details>
 <details>
 <summary>4. Integration pipeline</summary>
-After all the steps in the dev pipeline are passed, the workflow will turn green. The last step of the pipeline will create an automatic PR that will triger the integration pipeline. This pipeline will validates the configuration and creates a plan against the production environment.
+After all the steps in the dev pipeline are passed, the workflow will turn green. The last step of the pipeline will create an automatic PR that will trigger the integration pipeline. This pipeline will validate the configuration and creates a plan against the production environment.
 The PR will have the description <strong>&ldquo;Auto PR generate by Github Action dev pipeline&rdquo;</strong>
 <a href="pr-list.png" target="_blank"> <img src="pr-list.png" alt="" /> </a>
 The integration pipeline will execute the <em>terraform plan</em> command against the production environment. You can then check again the Actions tab to see that the development and integration pipeline has turned green.
@@ -644,15 +646,15 @@ If the two pipelines are ok, the checks in the PR should be green.<br />
 </details>
 <details>
 <summary>5. Merge</summary>
-When the dev and integration pipeline are finished. The dev branch is ready to be merged to the main branch. You can then clic on the <strong>Merge pull request</strong> button to validate the merge and triger the deployment pipeline.
+When the dev and integration pipeline are finished, the dev branch is ready to be merged to the main branch. You can then clic on the <strong>Merge pull request</strong> button to validate the merge and trigger the deployment pipeline.
 <a href="going-to-prod.png" target="_blank"> <img src="going-to-prod.png" alt="" /> </a>
 <a href="pr-merged.png" target="_blank"> <img src="pr-merged.png" alt="" /> </a>
 </details>
 <details>
 <summary>6. Deployment pipeline</summary>
-The deployment pipeline is trigered with the push/merge to the main branch. This is the final workflow that will push the Terraform configuration to production. You can see in Terraform Cloud that Terraform is applying the configuration.
+The deployment pipeline is triggered with the push/merge to the main branch. This is the final workflow that will push the Terraform configuration to production. You can see in Terraform Cloud that Terraform is applying the configuration.
 <a href="tfc-prod-applying.png" target="_blank"> <img src="tfc-prod-applying.png" alt="" /> </a>
-You can now double check in Github Actions that the deployment workflow has been succefully executed. <strong>&ldquo;Merge pull request #10&rdquo;</strong> in the below picture.
+You can now double check in Github Actions that the deployment workflow has been succefully executed, <strong>&ldquo;Merge pull request #10&rdquo;</strong> in the picture below.
 <a href="pipeline-apply-ok-list.png" target="_blank"> <img src="pipeline-apply-ok-list.png" alt="" /> </a>
 </details>
 <details>
@@ -665,9 +667,9 @@ Finally you can now verify that there is a resource on Terraform Cloud and that 
 <h1 id="how-to-test-this-project">How to test this project.</h1>
 
 <p>Requirements:<br />
-- NSX-T environment (there are exemples on the web to use AWS as provider instead of NSX, the concepts are the same).<br />
+- NSX-T environment (there are examples on the web to use AWS as provider instead of NSX, the concepts are the same).<br />
 - Terraform Cloud account with 2 workspaces.<br />
-- Github account and git localy.</p>
+- Github account and git locally.</p>
 
 <ol>
 <li><strong>[NSX-T]</strong> Prepare your two NSX-T environments.</li>

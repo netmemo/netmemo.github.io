@@ -19,8 +19,7 @@
       
       <guid>https://netmemo.github.io/post/tf-gha-nsxt-cicd/</guid>
       <description>This post is to show an example of using CI/CD with Terraform Cloud and Github Actions in order to have a better NetDevOps approach by doing NSX-T Network Infrastructure as code (IaC). It&amp;rsquo;s almost a bingo, I think I have most of the buzz words of these last years :)
-The diagram below shows a high level view of the project. 
-You can find the file structure of the project below</description>
+I will describe the structure of the project, the project components, the project workflow and finish with how to test this project.</description>
     </item>
     
   </channel>

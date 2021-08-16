@@ -15,7 +15,7 @@
   
     
   
-  <meta name="description" content="This litte blog post is to explain how I did to automaticaly change Terraform Cloud workspace from Github Actions. As explained in the documentation remote workspace, you can use different remote workspace by specifing the prefix of you workspace in the Terraform backend configuration.
+  <meta name="description" content="This blog post is to explain how I did to automatically change Terraform Cloud workspace from Github Actions. As explained in the documentation remote workspace, you can use different remote workspace by specifying the prefix of you workspace in the Terraform backend configuration.
  backend &quot;remote&quot; { organization = &quot;netmemo&quot; workspaces { prefix = &quot;netmemo-&quot; } }  After that, you only need to select the proper workspace by entering the terraform workspace select [suffix] command.">
 
   
@@ -94,7 +94,7 @@
   <meta property="og:site_name" content="netmemo.github.io">
   <meta property="og:url" content="https://netmemo.github.io/post/tf-workspace-var/">
   <meta property="og:title" content="Changing Terraform Cloud workspace in Github Actions | netmemo.github.io">
-  <meta property="og:description" content="This litte blog post is to explain how I did to automaticaly change Terraform Cloud workspace from Github Actions. As explained in the documentation remote workspace, you can use different remote workspace by specifing the prefix of you workspace in the Terraform backend configuration.
+  <meta property="og:description" content="This blog post is to explain how I did to automatically change Terraform Cloud workspace from Github Actions. As explained in the documentation remote workspace, you can use different remote workspace by specifying the prefix of you workspace in the Terraform backend configuration.
  backend &quot;remote&quot; { organization = &quot;netmemo&quot; workspaces { prefix = &quot;netmemo-&quot; } }  After that, you only need to select the proper workspace by entering the terraform workspace select [suffix] command.">
   
   
@@ -311,8 +311,8 @@
 
 
     <div class="article-style" itemprop="articleBody">
-      <p>This litte blog post is to explain how I did to automaticaly change Terraform Cloud workspace from Github Actions.
-As explained in the documentation <a href="https://www.terraform.io/docs/language/settings/backends/remote.html#workspaces" target="_blank">remote workspace</a>, you can use different remote workspace by specifing the prefix of you workspace in the Terraform backend configuration.</p>
+      <p>This blog post is to explain how I did to automatically change Terraform Cloud workspace from Github Actions.
+As explained in the documentation <a href="https://www.terraform.io/docs/language/settings/backends/remote.html#workspaces" target="_blank">remote workspace</a>, you can use different remote workspace by specifying the prefix of you workspace in the Terraform backend configuration.</p>
 
 <pre><code>  backend &quot;remote&quot; {
     organization = &quot;netmemo&quot;
@@ -324,12 +324,12 @@ As explained in the documentation <a href="https://www.terraform.io/docs/languag
 </code></pre>
 
 <p>After that, you only need to select the proper workspace by entering the <em>terraform workspace select [suffix]</em> command.
-The issue come if you want to do it in a fully automated environment like with Github Actions. You need an extra step which is to set the <a href="https://learn.hashicorp.com/tutorials/terraform/automate-terraform?in=terraform/automation" target="_blank">TF_WORKSPACE</a> variable.</p>
+The issue comes if you want to do it in a fully automated environment like with Github Actions. You need an extra step which is to set the <a href="https://learn.hashicorp.com/tutorials/terraform/automate-terraform?in=terraform/automation" target="_blank">TF_WORKSPACE</a> variable.</p>
 
 <p>Below are the 2 steps that are needed to select a specific environment.
-In this blog the workspace wille be netmemo-dev where netmemo- is the prefix configured in the main.tf and dev the suffix configured in the .yml file of the Github Actions script.</p>
+In this blog the workspace will be netmemo-dev where netmemo- is the prefix configured in the main.tf and dev the suffix configured in the .yml file of the Github Actions script.</p>
 
-<p>This step initialize Terraform and set the TF_WORKSPACE variable to indicate that we want to use the dev environment sufix before the initialization.</p>
+<p>This step initializes Terraform and set the TF_WORKSPACE variable to indicate that we want to use the dev environment suffix before the initialization.</p>
 
 <pre><code>      - name: Terraform Init
         id: init
@@ -348,7 +348,7 @@ In this blog the workspace wille be netmemo-dev where netmemo- is the prefix con
   2. prod
 </code></pre>
 
-<p>Even after setting the <a href="https://learn.hashicorp.com/tutorials/terraform/automate-terraform?in=terraform/automation" target="_blank">TF_WORKSPACE</a> variable, we still need to enter the <em>terraform workspace select</em> command to provide the sufix of the workspace.</p>
+<p>Even after setting the <a href="https://learn.hashicorp.com/tutorials/terraform/automate-terraform?in=terraform/automation" target="_blank">TF_WORKSPACE</a> variable, we still need to enter the <em>terraform workspace select</em> command to provide the suffix of the workspace.</p>
 
 <pre><code>      - name: Terraform Workspace
         id: workspace
@@ -362,7 +362,7 @@ In this blog the workspace wille be netmemo-dev where netmemo- is the prefix con
 invalid value for workspace
 </code></pre>
 
-<p>You can find  a full example of where we need to change workspace automaticaly in this blog post <a href="https://netmemo.github.io/post/tf-gha-nsxt-cicd" target="_blank">Github Actions with Terraform Cloud for CI/CD of NSX-T</a></p>
+<p>You can find a full example of where we need to change workspace automatically in this blog post <a href="https://netmemo.github.io/post/tf-gha-nsxt-cicd" target="_blank">Github Actions with Terraform Cloud for CI/CD of NSX-T</a></p>
 
     </div>
 
