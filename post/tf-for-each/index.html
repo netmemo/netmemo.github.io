@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="Source Themes Academic 2.4.0">
-  <meta name="generator" content="Hugo 0.49" />
+  <meta name="generator" content="Hugo 0.87.0" />
   <meta name="author" content="Noel">
 
   
@@ -17,9 +17,7 @@
   
   <meta name="description" content="An extended explanation of the differences between for_each, for and count can be find on the link below https://blog.gruntwork.io/terraform-tips-tricks-loops-if-statements-and-gotchas-f739bbae55f9
 The two main drawbacks of using count are :
-- Can&rsquo;t be used to loop over inline blocks
-- Difficult to remove entry from a list because it changes the index and those Terraform may want to destroy the resource because it has a different index
-Below is an example of the variables used to create subnets within AWS VPCs and the main file with the for_each.">
+ Can&rsquo;t be used to loop over inline blocks Difficult to remove entry from a list because it changes the index and those Terraform may want to destroy the resource because it has a different index  Below is an example of the variables used to create subnets within AWS VPCs and the main file with the for_each.">
 
   
   <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/post/tf-for-each/">
@@ -99,9 +97,7 @@ Below is an example of the variables used to create subnets within AWS VPCs and 
   <meta property="og:title" content="Using Terraform for_each to create subnets in AWS VPC | netmemo.github.io">
   <meta property="og:description" content="An extended explanation of the differences between for_each, for and count can be find on the link below https://blog.gruntwork.io/terraform-tips-tricks-loops-if-statements-and-gotchas-f739bbae55f9
 The two main drawbacks of using count are :
-- Can&rsquo;t be used to loop over inline blocks
-- Difficult to remove entry from a list because it changes the index and those Terraform may want to destroy the resource because it has a different index
-Below is an example of the variables used to create subnets within AWS VPCs and the main file with the for_each.">
+ Can&rsquo;t be used to loop over inline blocks Difficult to remove entry from a list because it changes the index and those Terraform may want to destroy the resource because it has a different index  Below is an example of the variables used to create subnets within AWS VPCs and the main file with the for_each.">
   
   
     
@@ -240,8 +236,8 @@ Below is an example of the variables used to create subnets within AWS VPCs and 
 
   <span class="article-date">
     
-    <meta content="2021-02-17 20:59:49 &#43;0100 CET" itemprop="datePublished">
-    <time datetime="2021-02-17 20:59:49 &#43;0100 CET" itemprop="dateModified">
+    <meta content="2021-02-17 20:59:49 &#43;0100 &#43;0100" itemprop="datePublished">
+    <time datetime="2021-02-17 20:59:49 &#43;0100 &#43;0100" itemprop="dateModified">
       Feb 17, 2021
     </time>
   </span>
@@ -322,21 +318,17 @@ Below is an example of the variables used to create subnets within AWS VPCs and 
 
 
     <div class="article-style" itemprop="articleBody">
-      
-
-<p>An extended explanation of the differences between for_each, for and count can be find on the link below
-<a href="https://blog.gruntwork.io/terraform-tips-tricks-loops-if-statements-and-gotchas-f739bbae55f9" target="_blank">https://blog.gruntwork.io/terraform-tips-tricks-loops-if-statements-and-gotchas-f739bbae55f9</a></p>
-
-<p>The two main drawbacks of using count are :<br />
-- Can&rsquo;t be used to loop over inline blocks<br />
-- Difficult to remove entry from a list because it changes the index and those Terraform may want to destroy the resource because it has a different index</p>
-
+      <p>An extended explanation of the differences between for_each, for and count can be find on the link below
+<a href="https://blog.gruntwork.io/terraform-tips-tricks-loops-if-statements-and-gotchas-f739bbae55f9">https://blog.gruntwork.io/terraform-tips-tricks-loops-if-statements-and-gotchas-f739bbae55f9</a></p>
+<p>The two main drawbacks of using count are :</p>
+<ul>
+<li>Can&rsquo;t be used to loop over inline blocks</li>
+<li>Difficult to remove entry from a list because it changes the index and those Terraform may want to destroy the resource because it has a different index</li>
+</ul>
 <p>Below is an example of the variables used to create subnets within AWS VPCs and the main file with the for_each.
 The variables contain a map of subnets maps with cidr and az (availability zone) attributes.
 The for_each loop over the map of subnets maps to create the subnets.</p>
-
-<h4 id="variables-tf">variables.tf</h4>
-
+<h4 id="variablestf">variables.tf</h4>
 <pre><code>variable &quot;tag_name&quot; {
    default = &quot;main-vpc&quot;
 }
@@ -368,10 +360,7 @@ variable &quot;prefix&quot; {
       }
    }
 }
-</code></pre>
-
-<h4 id="main-tf">main.tf</h4>
-
+</code></pre><h4 id="maintf">main.tf</h4>
 <pre><code>resource &quot;aws_vpc&quot; &quot;main-vpc&quot; {
   cidr_block = var.vpc-cidr
 
@@ -391,11 +380,8 @@ resource &quot;aws_subnet&quot; &quot;main-subnet&quot; {
     Name = &quot;${var.basename}-subnet-${each.key}&quot;
   }
 }
-</code></pre>
-
-<p>You can find the output of the terraform plan/apply, the terraform.state and the others tf files in the below links.</p>
-
-<p><a href="https://github.com/netmemo/tf-for-each-exemple" target="_blank">https://github.com/netmemo/tf-for-each-exemple</a></p>
+</code></pre><p>You can find the output of the terraform plan/apply, the terraform.state and the others tf files in the below links.</p>
+<p><a href="https://github.com/netmemo/tf-for-each-exemple">https://github.com/netmemo/tf-for-each-exemple</a></p>
 
     </div>
 
@@ -436,7 +422,7 @@ resource &quot;aws_subnet&quot; &quot;main-subnet&quot; {
   
 
   <p class="powered-by">
-    No&euml;l Boul&egrave;ne &copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&acute;s professional integrity) that any statement contained in a post is true, correct or precise. &middot; 
+    Noël Boulène © 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn't reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author´s professional integrity) that any statement contained in a post is true, correct or precise. &middot; 
 
     Powered by the
     <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for

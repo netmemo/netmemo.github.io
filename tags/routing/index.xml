@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ROUTING on netmemo.github.io</title>
@@ -7,19 +7,15 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&amp;acute;s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
-    <lastBuildDate>Mon, 11 May 2020 08:00:11 +0200</lastBuildDate>
-    
-	<atom:link href="https://netmemo.github.io/tags/routing/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Mon, 11 May 2020 08:00:11 +0200</lastBuildDate><atom:link href="https://netmemo.github.io/tags/routing/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>How to hugo</title>
       <link>https://netmemo.github.io/post/how-to-hugo/</link>
       <pubDate>Mon, 11 May 2020 08:00:11 +0200</pubDate>
       
       <guid>https://netmemo.github.io/post/how-to-hugo/</guid>
-      <description>prerequis : - github desktop - hugo
-config.toml =&amp;gt; need to be modify to change the copyright date
+      <description>prerequis :
+ github desktop hugo  config.toml =&amp;gt; need to be modify to change the copyright date
 lancer cmd
 Go to the folder blog : C:\Users\noyel\Documents\Site\blog&amp;gt;
 taper : hugo new post/my-first-post.md

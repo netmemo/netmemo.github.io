@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="Source Themes Academic 2.4.0">
-  <meta name="generator" content="Hugo 0.49" />
+  <meta name="generator" content="Hugo 0.87.0" />
   <meta name="author" content="Noel">
 
   
@@ -21,7 +21,7 @@ SRGB Segment Routing Golbal Block
 Prefix-SID It&rsquo;s global and unique. It identify a prefix. It&rsquo;s called anycast SID when it&rsquo;s send by a group of router.
 Node-SID It&rsquo;s global and unique. Only one per node. It identify the node.
 Adjacent-SID It&rsquo;s local and can use a dynamique range. It&rsquo;s used to identify an interconnection between 2 nodes.
-With Arista EOS 4.">
+With Arista EOS 4.23 it&rsquo;s automaticaly allocated from the isis dynamic range show mpls label ranges.">
 
   
   <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/post/aristabasesr/">
@@ -105,7 +105,7 @@ SRGB Segment Routing Golbal Block
 Prefix-SID It&rsquo;s global and unique. It identify a prefix. It&rsquo;s called anycast SID when it&rsquo;s send by a group of router.
 Node-SID It&rsquo;s global and unique. Only one per node. It identify the node.
 Adjacent-SID It&rsquo;s local and can use a dynamique range. It&rsquo;s used to identify an interconnection between 2 nodes.
-With Arista EOS 4.">
+With Arista EOS 4.23 it&rsquo;s automaticaly allocated from the isis dynamic range show mpls label ranges.">
   
   
     
@@ -244,8 +244,8 @@ With Arista EOS 4.">
 
   <span class="article-date">
     
-    <meta content="2020-11-24 18:12:05 &#43;0100 CET" itemprop="datePublished">
-    <time datetime="2020-11-24 18:12:05 &#43;0100 CET" itemprop="dateModified">
+    <meta content="2020-11-24 18:12:05 &#43;0100 &#43;0100" itemprop="datePublished">
+    <time datetime="2020-11-24 18:12:05 &#43;0100 &#43;0100" itemprop="dateModified">
       Nov 24, 2020
     </time>
   </span>
@@ -256,7 +256,7 @@ With Arista EOS 4.">
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    4 min read
+    1 min read
   </span>
   
 
@@ -324,231 +324,40 @@ With Arista EOS 4.">
 
 
     <div class="article-style" itemprop="articleBody">
-      
-
-<h3 id="isis-segment-routing-basics-for-arista-eos">ISIS Segment routing basics for Arista EOS</h3>
-
-<p>References:<br />
-<a href="https://www.arista.com/en/um-eos/eos-section-35-3-is-is-segment-routing" target="_blank">https://www.arista.com/en/um-eos/eos-section-35-3-is-is-segment-routing</a></p>
-
-<p><img src="aristabasesr.png" alt="arista isis sr" /></p>
-
+      <h3 id="isis-segment-routing-basics-for-arista-eos">ISIS Segment routing basics for Arista EOS</h3>
+<p>References:<br>
+<a href="https://www.arista.com/en/um-eos/eos-section-35-3-is-is-segment-routing">https://www.arista.com/en/um-eos/eos-section-35-3-is-is-segment-routing</a></p>
+<p><img src="%5Caristabasesr.png" alt="arista isis sr"></p>
 <h4 id="srgb">SRGB</h4>
-
 <p>Segment Routing Golbal Block</p>
-
 <h4 id="prefix-sid">Prefix-SID</h4>
-
 <p>It&rsquo;s global and unique. It identify a prefix. It&rsquo;s called anycast SID when it&rsquo;s send by a group of router.</p>
-
 <h4 id="node-sid">Node-SID</h4>
-
 <p>It&rsquo;s global and unique. Only one per node. It identify the node.</p>
-
 <h4 id="adjacent-sid">Adjacent-SID</h4>
-
-<p>It&rsquo;s local and can use a dynamique range. It&rsquo;s used to identify an interconnection between 2 nodes.<br />
+<p>It&rsquo;s local and can use a dynamique range. It&rsquo;s used to identify an interconnection between 2 nodes.<br>
 With Arista EOS 4.23 it&rsquo;s automaticaly allocated from the isis dynamic range <strong>show mpls label ranges</strong>.</p>
-
 <h4 id="basic-config-for-arista">Basic config for ARISTA</h4>
-
 <p>I have added the prefix-sid to test it end to end between the VPC but actually it can work without the prefix-sid. In the next article I will add the L3 VPN on top of SR without using prefix-sid
 In bold you find the ISIS-SR specific command require to enable ISIS-SR</p>
-
 <h5 id="r1">R1</h5>
-
-<pre style="color:black">
-interface Loopback1
-   ip address 1.1.1.1/32
-   <b>node-segment ipv4 index 1</b>
-   isis enable ISIS-SR
-!
-
-interface Ethernet1
-   no switchport
-   ip address 10.10.12.1/24
-   isis enable ISIS-SR
-!
-interface Ethernet2
-   no switchport
-   ip address 10.10.10.1/24
-   isis enable ISIS-SR
-!
-ip routing
-!
-mpls ip
-!
-
-router isis ISIS-SR
-   net 10.0000.0010.0100.1001.00
-   is-type level-2
-   !
-   address-family ipv4 unicast
-   !
-   <b>segment-routing mpls </b> 
-      <b>no shutdown</b>
-      prefix-segment 10.10.10.0/24 index 51
-!
-</pre>
-
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
 <h5 id="r2">R2</h5>
-
-<pre style="color:black">
-interface Loopback1
-   ip address 2.2.2.2/32
-   <b>node-segment ipv4 index 2</b>
-   isis enable ISIS-SR
-!
-
-interface Ethernet1
-   no switchport
-   ip address 10.10.12.2/24
-   isis enable ISIS-SR
-!
-
-interface Ethernet2
-   no switchport
-   ip address 10.10.23.2/24
-   isis enable ISIS-SR
-!
-
-ip routing
-!
-mpls ip
-!
-
-router isis ISIS-SR
-   net 10.0000.0020.0200.2002.00
-   is-type level-2
-   !
-   address-family ipv4 unicast
-   !
-   <b>segment-routing mpls</b>
-      <b>no shutdown</b>
-!
-</pre>
-
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
 <h5 id="r3">R3</h5>
-
-<pre style="color:black">
-interface Loopback1
-   ip address 3.3.3.3/32
-   <b>node-segment ipv4 index 3</b>
-   isis enable ISIS-SR
-!
-
-interface Ethernet1
-   no switchport
-   ip address 10.10.23.3/24
-   isis enable ISIS-SR
-!
-interface Ethernet2
-   no switchport
-   ip address 10.10.30.1/24
-   isis enable ISIS-SR
-!
-ip routing
-!
-mpls ip
-!
-
-router isis ISIS-SR
-   net 10.0000.0030.0300.3003.00
-   is-type level-2
-   !
-   address-family ipv4 unicast
-   !
-   <b>segment-routing mpls</b>
-      <b>no shutdown</b>
-      prefix-segment 10.10.30.0/24 index 53
-!
-</pre>
-
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
 <h3 id="show-commands">show commands</h3>
-
-<pre style="color:black">
-<b>R1#show isis segment-routing</b>
-
-System ID: R1                   Instance: ISIS-SR
-SR supported Data-plane: MPLS                   SR Router ID: 1.1.1.1
-SR Global Block( SRGB ): Base: 900000           Size: 65536           
-Adj-SID allocation mode: SR-adjacencies
-Adj-SID allocation pool: Base: 100000     Size: 16384
-
-All Prefix Segments have    : P:0 E:0 V:0 L:0
-IS-IS Reachability Algorithm : SPF (0)
-
-Number of IS-IS segment routing capable peers: 2
-
-Self-Originated Segment Statistics:
-Node-Segments       : 1
-Prefix-Segments     : 1
-Proxy-Node-Segments : 0
-Adjacency Segments  : 1
-</pre>
-
-<pre style="color:black">
-<b>R1#show mpls segment-routing bindings</b>
-
-1.1.1.1/32
-   Local binding:  Label: imp-null
-   Remote binding: Peer ID: 0020.0200.2002, Label: 900001
-2.2.2.2/32
-   Local binding:  Label: 900002
-   Remote binding: Peer ID: 0020.0200.2002, Label: imp-null
-3.3.3.3/32
-   Local binding:  Label: 900003
-   Remote binding: Peer ID: 0020.0200.2002, Label: 900003
-10.10.10.0/24
-   Local binding:  Label: imp-null
-   Remote binding: Peer ID: 0020.0200.2002, Label: 900051
-10.10.30.0/24
-   Local binding:  Label: 900053
-   Remote binding: Peer ID: 0020.0200.2002, Label: 900053
-</pre>
-
-<pre style="color:black">
-<b>R1#show isis segment-routing prefix-segments</b>
-
-System ID: 0010.0100.1001                       Instance: 'ISIS-SR'
-SR supported Data-plane: MPLS                   SR Router ID: 1.1.1.1
-
-Node: 3      Proxy-Node: 0      Prefix: 2       Total Segments: 5
-
-Flag Descriptions: R: Re-advertised, N: Node Segment, P: no-PHP
-                   E: Explicit-NULL, V: Value, L: Local
-Segment status codes: * - Self originated Prefix, L1 - level 1, L2 - level 2
-  Prefix                      SID Type       Flags                   System ID       Level Protection
-  ------------------------- ----- ---------- ----------------------- --------------- ----- ----------
-* 1.1.1.1/32                    1 Node       R:0 N:1 P:0 E:0 V:0 L:0 0010.0100.1001  L2    unprotected
-  2.2.2.2/32                    2 Node       R:0 N:1 P:0 E:0 V:0 L:0 0020.0200.2002  L2    unprotected
-  3.3.3.3/32                    3 Node       R:0 N:1 P:0 E:0 V:0 L:0 0030.0300.3003  L2    unprotected
-* 10.10.10.0/24                51 Prefix     R:0 N:0 P:0 E:0 V:0 L:0 0010.0100.1001  L2    unprotected
-  10.10.30.0/24                53 Prefix     R:0 N:0 P:0 E:0 V:0 L:0 0030.0300.3003  L2    unprotected
-</pre>
-
-<pre style="color:black">
-<b>R1#show isis segment-routing adjacency-segments</b>
-
-System ID: R1                   Instance: ISIS-SR
-SR supported Data-plane: MPLS                   SR Router ID: 1.1.1.1
-Adj-SID allocation mode: SR-adjacencies
-Adj-SID allocation pool: Base: 100000     Size: 16384
-Adjacency Segment Count: 1
-Flag Descriptions: F: Ipv6 address family, B: Backup, V: Value
-                   L: Local, S: Set
-
-Segment Status codes: L1 - Level-1 adjacency, L2 - Level-2 adjacency, P2P - Point-to-Point adjacency, LAN - Broadcast adjacency
-
-Locally Originated Adjacency Segments
-Adj IP Address  Local Intf     SID   SID Source                 Flags     Type  
---------------- ----------- ------- ------------ --------------------- -------- 
-    10.10.12.2         Et1  100000      Dynamic   F:0 B:0 V:1 L:1 S:0   LAN L2  
-
- Protection 
------------ 
-unprotected 
-</pre>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
 
     </div>
 
@@ -559,7 +368,7 @@ unprotected
   
   <a class="badge badge-light" href="/tags/sr/">SR</a>
   
-  <a class="badge badge-light" href="/tags/segment-routing/">Segment Routing</a>
+  <a class="badge badge-light" href="">Segment Routing</a>
   
   <a class="badge badge-light" href="/tags/arista/">Arista</a>
   
@@ -595,7 +404,7 @@ unprotected
   
 
   <p class="powered-by">
-    No&euml;l Boul&egrave;ne &copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&acute;s professional integrity) that any statement contained in a post is true, correct or precise. &middot; 
+    Noël Boulène © 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn't reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author´s professional integrity) that any statement contained in a post is true, correct or precise. &middot; 
 
     Powered by the
     <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for

@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="Source Themes Academic 2.4.0">
-  <meta name="generator" content="Hugo 0.49" />
+  <meta name="generator" content="Hugo 0.87.0" />
   <meta name="author" content="Noel">
 
   
@@ -94,7 +94,7 @@
   
   <meta property="og:site_name" content="netmemo.github.io">
   <meta property="og:url" content="https://netmemo.github.io/categories/automation/">
-  <meta property="og:title" content="automation | netmemo.github.io">
+  <meta property="og:title" content="Automation | netmemo.github.io">
   <meta property="og:description" content="Independent Network Architect">
   
   
@@ -102,14 +102,14 @@
   <meta property="og:image" content="https://netmemo.github.io/img/icon-192.png">
   <meta property="og:locale" content="en-us">
   
-  <meta property="og:updated_time" content="2021-02-25T21:46:14&#43;01:00">
+  <meta property="og:updated_time" content="2021-08-15T14:02:39&#43;02:00">
   
 
   
 
   
 
-  <title>automation | netmemo.github.io</title>
+  <title>Automation | netmemo.github.io</title>
 
 </head>
 <body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" class="dark">
@@ -210,18 +210,60 @@
 
 
 <div class="universal-wrapper">
-  <h1>automation</h1>
+  <h1>Automation</h1>
 
   
 
   
   
   <div>
+    <h2><a href="/post/tf-gha-nsxt-cicd/">Github Actions with Terraform Cloud for CI/CD of NSX-T</a></h2>
+    <div class="article-style">
+      
+      This post is to show an example of using CI/CD with Terraform Cloud and Github Actions in order to have a better NetDevOps approach by doing NSX-T Network Infrastructure as code (IaC). It&rsquo;s almost a bingo, I think I have most of the buzz words of these last years :)
+I will describe the structure of the project, the project components, the project workflow and finish with how to test this project.
+      
+    </div>
+  </div>
+  
+  <div>
+    <h2><a href="/post/gha-auto-pr/">Triggering Github Actions workflow with automatic Pull Request</a></h2>
+    <div class="article-style">
+      
+      This post is to explain one of the pain point I have encountered while trying to do Github Actions with Terraform Cloud for CI/CD of NSX-T. The difficulty is to chain workflow/pipeline automatically. In my case, I wanted to launch a workflow base of a PR create by another workflow. When you use Github Actions to interface with Github, you need to authenticate your Github Actions script against Github. You can then use the GITHUB_TOKEN that has been made for this purpose.
+      
+    </div>
+  </div>
+  
+  <div>
+    <h2><a href="/post/tf-workspace-var/">Changing Terraform Cloud workspace in Github Actions</a></h2>
+    <div class="article-style">
+      
+      This blog post is to explain how I did to automatically change Terraform Cloud workspace from Github Actions. As explained in the documentation remote workspace, you can use different remote workspace by specifying the prefix of you workspace in the Terraform backend configuration.
+ backend &quot;remote&quot; { organization = &quot;netmemo&quot; workspaces { prefix = &quot;netmemo-&quot; } } After that, you only need to select the proper workspace by entering the terraform workspace select [suffix] command.
+      
+    </div>
+  </div>
+  
+  <div>
+    <h2><a href="/post/terraform-refactoring-state-file/">Terraform Refactoring State File</a></h2>
+    <div class="article-style">
+      
+      https://www.terraform.io/docs/cli/commands/state/mv.html
+On windows :
+It move resources from a construct like this
+locals {policy1= {rule1 = {source = [&quot;src1&quot;,&quot;src2&quot;]}}policy2 = {rule1 = {source = [&quot;src3&quot;,&quot;src4&quot;]}}}To a structure like this
+locals {policies = {policy1 = {rule1 = {source = [&quot;src1&quot;,&quot;src2&quot;]}}policy2 = {rule2 = {source = [&quot;src3&quot;,&quot;src4&quot;]}}}}The main moving from
+      
+    </div>
+  </div>
+  
+  <div>
     <h2><a href="/post/python-package-offline/">Python Package Offline</a></h2>
     <div class="article-style">
       
       To install python packages offline (with no internet access), the simplest way is to dowload the packages with the dependencies on a server with internet access and the below command.
- C:\Users\Nono\Desktop\pythonpip download requests Collecting requests Using cached requests-2.25.1-py2.py3-none-any.whl (61 kB) Collecting urllib3=1.21.1 Using cached urllib3-1.26.3-py2.py3-none-any.whl (137 kB) Collecting certifi=2017.4.17 Using cached certifi-2020.12.5-py2.py3-none-any.whl (147 kB) Collecting idna=2.5 Using cached idna-2.10-py2.py3-none-any.whl (58 kB) Collecting chardet=3.0.2 Using cached chardet-4.0.0-py2.py3-none-any.whl (178 kB) Saved c:\users\nono\desktop\python\requests-2.
+You then need to move all the files to the offline server in a directory and deploy the packages with the below command :
       
     </div>
   </div>
@@ -235,7 +277,7 @@
   
 
   <p class="powered-by">
-    No&euml;l Boul&egrave;ne &copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&acute;s professional integrity) that any statement contained in a post is true, correct or precise. &middot; 
+    Noël Boulène © 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn't reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author´s professional integrity) that any statement contained in a post is true, correct or precise. &middot; 
 
     Powered by the
     <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for

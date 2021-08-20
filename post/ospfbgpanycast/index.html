@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="Source Themes Academic 2.4.0">
-  <meta name="generator" content="Hugo 0.49" />
+  <meta name="generator" content="Hugo 0.87.0" />
   <meta name="author" content="Noel">
 
   
@@ -236,8 +236,8 @@ Workarround  If we filter the redistribution that doesn&rsquo;t help because whe
 
   <span class="article-date">
     
-    <meta content="2020-02-18 23:45:47 &#43;0100 CET" itemprop="datePublished">
-    <time datetime="2020-02-18 23:45:47 &#43;0100 CET" itemprop="dateModified">
+    <meta content="2020-02-18 23:45:47 &#43;0100 &#43;0100" itemprop="datePublished">
+    <time datetime="2020-02-18 23:45:47 &#43;0100 &#43;0100" itemprop="dateModified">
       Feb 18, 2020
     </time>
   </span>
@@ -316,22 +316,14 @@ Workarround  If we filter the redistribution that doesn&rsquo;t help because whe
 
 
     <div class="article-style" itemprop="articleBody">
-      
-
-<p><img src="ospfbgpanycast.png" alt="ospf vs bgp anycast" /></p>
-
+      <p><img src="%5Cospfbgpanycast.png" alt="ospf vs bgp anycast"></p>
 <h3 id="issue">Issue</h3>
-
 <p>R3 route traffic to R4 instead of R1.
 Route 10.10.10.10 toward the WAN is prefered instead of the OSPF LAN DC route.
 DC Client that try to reach the DC&rsquo;s 10.10.10.10 address are routed toward the WAN</p>
-
 <h3 id="why">Why</h3>
-
 <p>R3 is installing in it RIB and redistributing the wrong routes 10.10.10.10 because it does have a better AD 20.</p>
-
 <h3 id="workarround">Workarround</h3>
-
 <ul>
 <li>If we filter the redistribution that doesn&rsquo;t help because when the packet arrive to R3 he will still prefer the BGP route.</li>
 <li>If we drop the prefix on R3 we loose the redundancy</li>
@@ -381,7 +373,7 @@ DC Client that try to reach the DC&rsquo;s 10.10.10.10 address are routed toward
   
 
   <p class="powered-by">
-    No&euml;l Boul&egrave;ne &copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&acute;s professional integrity) that any statement contained in a post is true, correct or precise. &middot; 
+    Noël Boulène © 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn't reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author´s professional integrity) that any statement contained in a post is true, correct or precise. &middot; 
 
     Powered by the
     <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for

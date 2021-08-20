@@ -1,16 +1,21 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>cisco on netmemo.github.io</title>
+    <title>Cisco on netmemo.github.io</title>
     <link>https://netmemo.github.io/categories/cisco/</link>
-    <description>Recent content in cisco on netmemo.github.io</description>
+    <description>Recent content in Cisco on netmemo.github.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&amp;acute;s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
-    <lastBuildDate>Thu, 04 Oct 2018 00:48:57 +0200</lastBuildDate>
-    
-	<atom:link href="https://netmemo.github.io/categories/cisco/index.xml" rel="self" type="application/rss+xml" />
-    
+    <lastBuildDate>Tue, 23 Feb 2021 22:24:44 +0100</lastBuildDate><atom:link href="https://netmemo.github.io/categories/cisco/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>N5600 Buffering</title>
+      <link>https://netmemo.github.io/post/n5600-buffering/</link>
+      <pubDate>Tue, 23 Feb 2021 22:24:44 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/post/n5600-buffering/</guid>
+      <description>QoS VOQ On N5K, In the case of unicast traffic, VOQ is an ingress buffer pool for 3 ingress ports (1 ASIC = 3 ports). This buffer pool is split into n x reservable buffer of the size configured in the voq-limit command. If the ingress buffer is 16000 and the VOQ limit is 1024, that mean 16 flow can reserv buffers. When the shared buffer is exausted, the dedicated ingress buffer per port is used then when it&amp;rsquo;s full, the packet is droped.</description>
+    </item>
     
     <item>
       <title>Troubleshooting Elam Cisco N7k N5k</title>
@@ -22,7 +27,7 @@
 https://www.cisco.com/c/en/us/support/docs/switches/nexus-7000-series-switches/116647-technote-product-00.html
 =&amp;gt; flanker car avec la commande show hardware internal dev-port-map, il n&amp;rsquo;y a pas d&amp;rsquo;asic Clipper, uniquement des flanker
 Sample of icmp troubleshooting from the Admin VDC
-show module attach module 1 show hardware internal dev-port-map elam asic flanker instance 2 layer2 trigger dbus ipv4 egress if destination-ipv4-address 10.253.108.90 start status  elam asic flanker instance 2 layer2 trigger dbus ipv4 ingress if destination-ipv4-address 10.253.108.90 start status  On N5K</description>
+show moduleattach module 1show hardware internal dev-port-mapelam asic flanker instance 2layer2trigger dbus ipv4 egress if destination-ipv4-address 10.253.108.90startstatuselam asic flanker instance 2layer2trigger dbus ipv4 ingress if destination-ipv4-address 10.253.108.90startstatusOn N5K</description>
     </item>
     
   </channel>

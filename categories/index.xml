@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on netmemo.github.io</title>
@@ -7,26 +7,58 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&amp;acute;s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
-    <lastBuildDate>Wed, 17 Feb 2021 20:59:49 +0100</lastBuildDate>
-    
-	<atom:link href="https://netmemo.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>AWS</title>
-      <link>https://netmemo.github.io/categories/aws/</link>
-      <pubDate>Wed, 17 Feb 2021 20:59:49 +0100</pubDate>
-      
-      <guid>https://netmemo.github.io/categories/aws/</guid>
-      <description></description>
-    </item>
-    
+    <lastBuildDate>Sun, 15 Aug 2021 14:02:39 +0200</lastBuildDate><atom:link href="https://netmemo.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Automation</title>
       <link>https://netmemo.github.io/categories/automation/</link>
       <pubDate>Sun, 15 Aug 2021 14:02:39 +0200</pubDate>
       
       <guid>https://netmemo.github.io/categories/automation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cloud</title>
+      <link>https://netmemo.github.io/categories/cloud/</link>
+      <pubDate>Sun, 15 Aug 2021 14:02:39 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/categories/cloud/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>IAC</title>
+      <link>https://netmemo.github.io/categories/iac/</link>
+      <pubDate>Sun, 15 Aug 2021 14:02:39 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/categories/iac/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>NSXT</title>
+      <link>https://netmemo.github.io/categories/nsxt/</link>
+      <pubDate>Thu, 29 Jul 2021 19:03:37 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/categories/nsxt/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Terraform</title>
+      <link>https://netmemo.github.io/categories/terraform/</link>
+      <pubDate>Thu, 29 Jul 2021 19:03:37 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/categories/terraform/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>developpment</title>
+      <link>https://netmemo.github.io/categories/developpment/</link>
+      <pubDate>Thu, 25 Feb 2021 21:46:14 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/categories/developpment/</guid>
       <description></description>
     </item>
     
@@ -40,11 +72,20 @@
     </item>
     
     <item>
-      <title>Cloud</title>
-      <link>https://netmemo.github.io/categories/cloud/</link>
-      <pubDate>Sun, 15 Aug 2021 14:02:39 +0200</pubDate>
+      <title>QOS</title>
+      <link>https://netmemo.github.io/categories/qos/</link>
+      <pubDate>Tue, 23 Feb 2021 22:24:44 +0100</pubDate>
       
-      <guid>https://netmemo.github.io/categories/cloud/</guid>
+      <guid>https://netmemo.github.io/categories/qos/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>AWS</title>
+      <link>https://netmemo.github.io/categories/aws/</link>
+      <pubDate>Wed, 17 Feb 2021 20:59:49 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/categories/aws/</guid>
       <description></description>
     </item>
     
@@ -67,38 +108,11 @@
     </item>
     
     <item>
-      <title>IAC</title>
-      <link>https://netmemo.github.io/categories/iac/</link>
-      <pubDate>Sun, 15 Aug 2021 14:02:39 +0200</pubDate>
+      <title>SP</title>
+      <link>https://netmemo.github.io/categories/sp/</link>
+      <pubDate>Tue, 24 Nov 2020 18:12:05 +0100</pubDate>
       
-      <guid>https://netmemo.github.io/categories/iac/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>IaC</title>
-      <link>https://netmemo.github.io/categories/iac/</link>
-      <pubDate>Thu, 29 Jul 2021 19:03:37 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/categories/iac/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>NSXT</title>
-      <link>https://netmemo.github.io/categories/nsxt/</link>
-      <pubDate>Thu, 29 Jul 2021 19:03:37 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/categories/nsxt/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>QOS</title>
-      <link>https://netmemo.github.io/categories/qos/</link>
-      <pubDate>Tue, 23 Feb 2021 22:24:44 +0100</pubDate>
-      
-      <guid>https://netmemo.github.io/categories/qos/</guid>
+      <guid>https://netmemo.github.io/categories/sp/</guid>
       <description></description>
     </item>
     
@@ -112,38 +126,11 @@
     </item>
     
     <item>
-      <title>SP</title>
-      <link>https://netmemo.github.io/categories/sp/</link>
-      <pubDate>Tue, 24 Nov 2020 18:12:05 +0100</pubDate>
+      <title>tools</title>
+      <link>https://netmemo.github.io/categories/tools/</link>
+      <pubDate>Mon, 22 Oct 2018 15:35:55 +0200</pubDate>
       
-      <guid>https://netmemo.github.io/categories/sp/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Terraform</title>
-      <link>https://netmemo.github.io/categories/terraform/</link>
-      <pubDate>Thu, 29 Jul 2021 19:03:37 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/categories/terraform/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>automation</title>
-      <link>https://netmemo.github.io/categories/automation/</link>
-      <pubDate>Thu, 25 Feb 2021 21:46:14 +0100</pubDate>
-      
-      <guid>https://netmemo.github.io/categories/automation/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>cisco</title>
-      <link>https://netmemo.github.io/categories/cisco/</link>
-      <pubDate>Thu, 04 Oct 2018 00:48:57 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/categories/cisco/</guid>
+      <guid>https://netmemo.github.io/categories/tools/</guid>
       <description></description>
     </item>
     
@@ -157,29 +144,11 @@
     </item>
     
     <item>
-      <title>developpment</title>
-      <link>https://netmemo.github.io/categories/developpment/</link>
-      <pubDate>Thu, 25 Feb 2021 21:46:14 +0100</pubDate>
-      
-      <guid>https://netmemo.github.io/categories/developpment/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>nexus</title>
       <link>https://netmemo.github.io/categories/nexus/</link>
       <pubDate>Thu, 04 Oct 2018 00:48:57 +0200</pubDate>
       
       <guid>https://netmemo.github.io/categories/nexus/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>tools</title>
-      <link>https://netmemo.github.io/categories/tools/</link>
-      <pubDate>Mon, 22 Oct 2018 15:35:55 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/categories/tools/</guid>
       <description></description>
     </item>
     

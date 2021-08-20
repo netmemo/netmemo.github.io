@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>netplan on netmemo.github.io</title>
@@ -7,11 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&amp;acute;s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
-    <lastBuildDate>Fri, 05 Oct 2018 23:59:19 +0200</lastBuildDate>
-    
-	<atom:link href="https://netmemo.github.io/tags/netplan/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 05 Oct 2018 23:59:19 +0200</lastBuildDate><atom:link href="https://netmemo.github.io/tags/netplan/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>K8s on Vms With Calico</title>
       <link>https://netmemo.github.io/post/k8s-on-vms-with-calico/</link>
@@ -21,7 +17,7 @@
       <description>This post is a memo on how I did the installtion of Kubernetes and Calico on VMs. It&amp;rsquo;s not some best pactrices in anyway.
 I&amp;rsquo;ve chose VM because I didn&amp;rsquo;t want to depend on any Cloud infrastructure. I&amp;rsquo;ve also wanted to understand the network interaction between K8s parts from an infrastructure point of view.
 Prerequisite : know how to create VMs on any hypervisors
-Steps to deploy K8s :  Install 1 ubuntu router with 3 interfaces.</description>
+Steps to deploy K8s :   Install 1 ubuntu router with 3 interfaces.</description>
     </item>
     
     <item>
@@ -35,8 +31,8 @@ The following post contain raw entry only for reminder purpose.
 Bellow are the links I&amp;rsquo;ve used to understand/did my lab
 https://fr.wikipedia.org/wiki/Kubernetes#/media/File:Kubernetes.png https://kubernetes.io/docs/setup/independent/install-kubeadm/ https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/ https://kubernetes.io/docs/tutorials/k8s101/ https://kubernetes.io/docs/tutorials/k8s201/ https://kubernetes.io/docs/reference/kubectl/cheatsheet/
 Join a node/worker to the master
-kubeadm join 10.0.1.10:6443 --token d34b9i.v03t2yiozio63cq6 --discovery-token-ca-cert-hash sha256:c21d04ea23790a0bf81cf64118e3a9075ffb63ed90bc697acef5793386e9eb16  Delete a deployment
-kubectl delete deployment nginx-deployment-nbo  To get the logs of a specific container. -n is to specify the namespace</description>
+kubeadm join 10.0.1.10:6443 --token d34b9i.v03t2yiozio63cq6 --discovery-token-ca-cert-hash sha256:c21d04ea23790a0bf81cf64118e3a9075ffb63ed90bc697acef5793386e9eb16Delete a deployment
+kubectl delete deployment nginx-deployment-nboTo get the logs of a specific container. -n is to specify the namespace</description>
     </item>
     
   </channel>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Cloud on netmemo.github.io</title>
@@ -7,11 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&amp;acute;s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
-    <lastBuildDate>Sun, 15 Aug 2021 14:02:39 +0200</lastBuildDate>
-    
-	<atom:link href="https://netmemo.github.io/tags/cloud/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 15 Aug 2021 14:02:39 +0200</lastBuildDate><atom:link href="https://netmemo.github.io/tags/cloud/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Github Actions with Terraform Cloud for CI/CD of NSX-T</title>
       <link>https://netmemo.github.io/post/tf-gha-nsxt-cicd/</link>
@@ -38,7 +34,7 @@ I will describe the structure of the project, the project components, the projec
       
       <guid>https://netmemo.github.io/post/tf-workspace-var/</guid>
       <description>This blog post is to explain how I did to automatically change Terraform Cloud workspace from Github Actions. As explained in the documentation remote workspace, you can use different remote workspace by specifying the prefix of you workspace in the Terraform backend configuration.
- backend &amp;quot;remote&amp;quot; { organization = &amp;quot;netmemo&amp;quot; workspaces { prefix = &amp;quot;netmemo-&amp;quot; } }  After that, you only need to select the proper workspace by entering the terraform workspace select [suffix] command.</description>
+ backend &amp;quot;remote&amp;quot; { organization = &amp;quot;netmemo&amp;quot; workspaces { prefix = &amp;quot;netmemo-&amp;quot; } } After that, you only need to select the proper workspace by entering the terraform workspace select [suffix] command.</description>
     </item>
     
   </channel>
