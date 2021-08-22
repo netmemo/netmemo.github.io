@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="Source Themes Academic 2.4.0">
-  <meta name="generator" content="Hugo 0.87.0" />
+  <meta name="generator" content="Hugo 0.49" />
   <meta name="author" content="Noel">
 
   
@@ -21,7 +21,7 @@ installation of golang with msi downloaded here
 https://golang.org/doc/install
 Clone the terraform repository to get the tool
 https://github.com/hashicorp/terraform.git
-cd terraform-mastergo install .\tools\terraform-bundleCheck the terraform version C:\Users\noyel\Desktop\tfforeach\nsxt&gt;terraform versionTerraform v0.14.6&#43; provider registry.">
+cd terraform-master go install .\tools\terraform-bundle  Check the terraform version C:\Users\noyel\Desktop\tfforeach\nsxt&gt;terraform version Terraform v0.">
 
   
   <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/post/tf-bundle-windows/">
@@ -105,7 +105,7 @@ installation of golang with msi downloaded here
 https://golang.org/doc/install
 Clone the terraform repository to get the tool
 https://github.com/hashicorp/terraform.git
-cd terraform-mastergo install .\tools\terraform-bundleCheck the terraform version C:\Users\noyel\Desktop\tfforeach\nsxt&gt;terraform versionTerraform v0.14.6&#43; provider registry.">
+cd terraform-master go install .\tools\terraform-bundle  Check the terraform version C:\Users\noyel\Desktop\tfforeach\nsxt&gt;terraform version Terraform v0.">
   
   
     
@@ -244,8 +244,8 @@ cd terraform-mastergo install .\tools\terraform-bundleCheck the terraform vers
 
   <span class="article-date">
     
-    <meta content="2021-02-17 21:32:37 &#43;0100 &#43;0100" itemprop="datePublished">
-    <time datetime="2021-02-17 21:32:37 &#43;0100 &#43;0100" itemprop="dateModified">
+    <meta content="2021-02-17 21:32:37 &#43;0100 CET" itemprop="datePublished">
+    <time datetime="2021-02-17 21:32:37 &#43;0100 CET" itemprop="dateModified">
       Feb 17, 2021
     </time>
   </span>
@@ -324,19 +324,30 @@ cd terraform-mastergo install .\tools\terraform-bundleCheck the terraform vers
 
 
     <div class="article-style" itemprop="articleBody">
-      <p>The steps below are what I have followed to create a terraform-bundle to use terraform with non default providers on a server that doesn&rsquo;t have access to Internet. You can find the tool explanation in the below link.<br>
-<a href="https://github.com/hashicorp/terraform/tree/master/tools/terraform-bundle">https://github.com/hashicorp/terraform/tree/master/tools/terraform-bundle</a></p>
-<p>installation of golang with msi downloaded here<br>
-<a href="https://golang.org/doc/install">https://golang.org/doc/install</a></p>
-<p>Clone the terraform repository to get the tool<br>
-<a href="https://github.com/hashicorp/terraform.git">https://github.com/hashicorp/terraform.git</a></p>
+      
+
+<p>The steps below are what I have followed to create a terraform-bundle to use terraform with non default providers on a server that doesn&rsquo;t have access to Internet. You can find the tool explanation in the below link.<br />
+<a href="https://github.com/hashicorp/terraform/tree/master/tools/terraform-bundle" target="_blank">https://github.com/hashicorp/terraform/tree/master/tools/terraform-bundle</a></p>
+
+<p>installation of golang with msi downloaded here<br />
+<a href="https://golang.org/doc/install" target="_blank">https://golang.org/doc/install</a></p>
+
+<p>Clone the terraform repository to get the tool<br />
+<a href="https://github.com/hashicorp/terraform.git" target="_blank">https://github.com/hashicorp/terraform.git</a></p>
+
 <pre><code>cd terraform-master
 go install .\tools\terraform-bundle
-</code></pre><h4 id="check-the-terraform-version">Check the terraform version</h4>
+</code></pre>
+
+<h4 id="check-the-terraform-version">Check the terraform version</h4>
+
 <pre><code>C:\Users\noyel\Desktop\tfforeach\nsxt&gt;terraform version
 Terraform v0.14.6
 + provider registry.terraform.io/vmware/nsxt v3.0.1
-</code></pre><h4 id="create-a-terraform-bundlehcl-file">Create a terraform-bundle.hcl file</h4>
+</code></pre>
+
+<h4 id="create-a-terraform-bundle-hcl-file">Create a terraform-bundle.hcl file</h4>
+
 <pre><code>terraform {
   # Version of Terraform to include in the bundle. An exact version number
   # is required.
@@ -351,7 +362,10 @@ providers {
     versions = [&quot;~&gt; 3.0.0&quot;]
   }
 }
-</code></pre><h4 id="create-the-bundle">Create the bundle</h4>
+</code></pre>
+
+<h4 id="create-the-bundle">Create the bundle</h4>
+
 <pre><code>C:\Users\noyel\Desktop\tfforeach\nsxt&gt;terraform-bundle package terraform-bundle.hcl
 Fetching Terraform 0.14.6 core package...
 Local plugin directory &quot;.plugins&quot; found; scanning for provider binaries.
@@ -360,8 +374,12 @@ No &quot;.plugins&quot; directory found, skipping local provider discovery.
 - Installing vmware/nsxt v3.0.1...
 Creating terraform_0.14.6-bundle2021021713_windows_amd64.zip ...
 All done!
-</code></pre><p>Move the zip file to the server you want to use. Unzip the file. For a basic utilization move the terraform.exe and plugins in the directory where your terraform files are.</p>
-<h4 id="the-providertf-file-looks">The provider.tf file looks</h4>
+</code></pre>
+
+<p>Move the zip file to the server you want to use. Unzip the file. For a basic utilization move the terraform.exe and plugins in the directory where your terraform files are.</p>
+
+<h4 id="the-provider-tf-file-looks">The provider.tf file looks</h4>
+
 <pre><code>terraform {
   required_providers {
     nsxt = {
@@ -376,11 +394,15 @@ provider &quot;nsxt&quot; {
    username   = &quot;admin&quot;
    password   = &quot;123&quot;
 }
-</code></pre><p>When initialize Terraform with the init command, specify the plugins directory.</p>
+</code></pre>
+
+<p>When initialize Terraform with the init command, specify the plugins directory.</p>
+
 <pre><code>C:\Users\bubibi\terraform\terraform init -plugin-dir=C:\Users\bubibi\terraform\plugins
 
 Terraform has been successfuly initialized!
 </code></pre>
+
     </div>
 
     
@@ -430,7 +452,7 @@ Terraform has been successfuly initialized!
   
 
   <p class="powered-by">
-    Noël Boulène © 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn't reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author´s professional integrity) that any statement contained in a post is true, correct or precise. &middot; 
+    No&euml;l Boul&egrave;ne &copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&acute;s professional integrity) that any statement contained in a post is true, correct or precise. &middot; 
 
     Powered by the
     <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for

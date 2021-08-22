@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="Source Themes Academic 2.4.0">
-  <meta name="generator" content="Hugo 0.87.0" />
+  <meta name="generator" content="Hugo 0.49" />
   <meta name="author" content="Noel">
 
   
@@ -220,7 +220,7 @@
     <h2><a href="/post/nsxt-tf-firewall/">NSX-T Firewall rules as code with Terraform</a></h2>
     <div class="article-style">
       
-      This article is to show an example of how to manage NSX-T firewall rules as a code through Terraform. You can find the project on my github account : [nsxt-frac-tf-cm] and [nsxt-frac-tf-rm]
+      This article is to show an example of how to manage NSX-T firewall rules as a code through Terraform. You can find the project on my github account : nsxt-frac-tf-cm and nsxt-frac-tf-rm
 I will describe the structure of the project, how it works, the data model, the Terraform code explanation and finish with an example.
 Structure of the project The diagram below shows a summary of how I organized the project in order to fully use infrastructre as code.
       
@@ -233,9 +233,9 @@ Structure of the project The diagram below shows a summary of how I organized th
       
       https://www.terraform.io/docs/cli/commands/state/mv.html
 On windows :
-It move resources from a construct like this
-locals {policy1= {rule1 = {source = [&quot;src1&quot;,&quot;src2&quot;]}}policy2 = {rule1 = {source = [&quot;src3&quot;,&quot;src4&quot;]}}}To a structure like this
-locals {policies = {policy1 = {rule1 = {source = [&quot;src1&quot;,&quot;src2&quot;]}}policy2 = {rule2 = {source = [&quot;src3&quot;,&quot;src4&quot;]}}}}The main moving from
+terraform state mv nsxt_policy_security_policy.policy1 nsxt_policy_security_policy.policies[\&ldquo;policy1\&ldquo;]  It move resources from a construct like this
+locals { policy1= { rule1 = { source = [&quot;src1&quot;,&quot;src2&quot;] } } policy2 = { rule1 = { source = [&quot;src3&quot;,&quot;src4&quot;] } } }  To a structure like this
+locals { policies = { policy1 = { rule1 = { source = [&quot;src1&quot;,&quot;src2&quot;] } } policy2 = { rule2 = { source = [&quot;src3&quot;,&quot;src4&quot;] } } } }  The main moving from
       
     </div>
   </div>
@@ -250,7 +250,7 @@ installation of golang with msi downloaded here
 https://golang.org/doc/install
 Clone the terraform repository to get the tool
 https://github.com/hashicorp/terraform.git
-cd terraform-mastergo install .\tools\terraform-bundleCheck the terraform version C:\Users\noyel\Desktop\tfforeach\nsxt&gt;terraform versionTerraform v0.14.6+ provider registry.
+cd terraform-master go install .\tools\terraform-bundle  Check the terraform version C:\Users\noyel\Desktop\tfforeach\nsxt&gt;terraform version Terraform v0.
       
     </div>
   </div>
@@ -264,7 +264,7 @@ cd terraform-mastergo install .\tools\terraform-bundleCheck the terraform vers
   
 
   <p class="powered-by">
-    Noël Boulène © 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn't reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author´s professional integrity) that any statement contained in a post is true, correct or precise. &middot; 
+    No&euml;l Boul&egrave;ne &copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&acute;s professional integrity) that any statement contained in a post is true, correct or precise. &middot; 
 
     Powered by the
     <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for

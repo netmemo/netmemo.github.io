@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="Source Themes Academic 2.4.0">
-  <meta name="generator" content="Hugo 0.87.0" />
+  <meta name="generator" content="Hugo 0.49" />
   <meta name="author" content="Noel">
 
   
@@ -19,7 +19,7 @@
 https://www.cisco.com/c/en/us/support/docs/switches/nexus-7000-series-switches/116647-technote-product-00.html
 =&gt; flanker car avec la commande show hardware internal dev-port-map, il n&rsquo;y a pas d&rsquo;asic Clipper, uniquement des flanker
 Sample of icmp troubleshooting from the Admin VDC
-show moduleattach module 1show hardware internal dev-port-mapelam asic flanker instance 2layer2trigger dbus ipv4 egress if destination-ipv4-address 10.253.108.90startstatuselam asic flanker instance 2layer2trigger dbus ipv4 ingress if destination-ipv4-address 10.253.108.90startstatusOn N5K">
+show module attach module 1 show hardware internal dev-port-map elam asic flanker instance 2 layer2 trigger dbus ipv4 egress if destination-ipv4-address 10.253.108.90 start status  elam asic flanker instance 2 layer2 trigger dbus ipv4 ingress if destination-ipv4-address 10.253.108.90 start status  On N5K">
 
   
   <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/post/troubleshooting-elam-cisco-n7k-n5k/">
@@ -101,7 +101,7 @@ show moduleattach module 1show hardware internal dev-port-mapelam asic flanke
 https://www.cisco.com/c/en/us/support/docs/switches/nexus-7000-series-switches/116647-technote-product-00.html
 =&gt; flanker car avec la commande show hardware internal dev-port-map, il n&rsquo;y a pas d&rsquo;asic Clipper, uniquement des flanker
 Sample of icmp troubleshooting from the Admin VDC
-show moduleattach module 1show hardware internal dev-port-mapelam asic flanker instance 2layer2trigger dbus ipv4 egress if destination-ipv4-address 10.253.108.90startstatuselam asic flanker instance 2layer2trigger dbus ipv4 ingress if destination-ipv4-address 10.253.108.90startstatusOn N5K">
+show module attach module 1 show hardware internal dev-port-map elam asic flanker instance 2 layer2 trigger dbus ipv4 egress if destination-ipv4-address 10.253.108.90 start status  elam asic flanker instance 2 layer2 trigger dbus ipv4 ingress if destination-ipv4-address 10.253.108.90 start status  On N5K">
   
   
     
@@ -240,8 +240,8 @@ show moduleattach module 1show hardware internal dev-port-mapelam asic flanke
 
   <span class="article-date">
     
-    <meta content="2018-10-04 00:48:57 &#43;0200 &#43;0200" itemprop="datePublished">
-    <time datetime="2018-10-04 00:48:57 &#43;0200 &#43;0200" itemprop="dateModified">
+    <meta content="2018-10-04 00:48:57 &#43;0200 CEST" itemprop="datePublished">
+    <time datetime="2018-10-04 00:48:57 &#43;0200 CEST" itemprop="dateModified">
       Oct 4, 2018
     </time>
   </span>
@@ -323,9 +323,13 @@ show moduleattach module 1show hardware internal dev-port-mapelam asic flanke
 
     <div class="article-style" itemprop="articleBody">
       <p>On N7K</p>
-<p><a href="https://www.cisco.com/c/en/us/support/docs/switches/nexus-7000-series-switches/116647-technote-product-00.html">https://www.cisco.com/c/en/us/support/docs/switches/nexus-7000-series-switches/116647-technote-product-00.html</a></p>
+
+<p><a href="https://www.cisco.com/c/en/us/support/docs/switches/nexus-7000-series-switches/116647-technote-product-00.html" target="_blank">https://www.cisco.com/c/en/us/support/docs/switches/nexus-7000-series-switches/116647-technote-product-00.html</a></p>
+
 <p>=&gt; flanker car avec la commande show hardware internal dev-port-map, il n&rsquo;y a pas d&rsquo;asic Clipper, uniquement des flanker</p>
+
 <p>Sample of icmp troubleshooting from the Admin VDC</p>
+
 <pre><code>show module
 attach module 1
 show hardware internal dev-port-map
@@ -334,18 +338,28 @@ layer2
 trigger dbus ipv4 egress if destination-ipv4-address 10.253.108.90
 start
 status
-</code></pre><pre><code>elam asic flanker instance 2
+</code></pre>
+
+<pre><code>elam asic flanker instance 2
 layer2
 trigger dbus ipv4 ingress if destination-ipv4-address 10.253.108.90
 start
 status
-</code></pre><p>On N5K</p>
-<p><a href="https://www.cisco.com/c/en/us/support/docs/switches/nexus-6000-series-switches/118902-technote-nexus-00.html">https://www.cisco.com/c/en/us/support/docs/switches/nexus-6000-series-switches/118902-technote-nexus-00.html</a></p>
+</code></pre>
+
+<p>On N5K</p>
+
+<p><a href="https://www.cisco.com/c/en/us/support/docs/switches/nexus-6000-series-switches/118902-technote-nexus-00.html" target="_blank">https://www.cisco.com/c/en/us/support/docs/switches/nexus-6000-series-switches/118902-technote-nexus-00.html</a></p>
+
 <pre><code>MY-SWITCH# show platform fwm info pif ethernet 2/2 | inc slot_asic
 Eth2/2 pd: slot 1  logical port num 1  slot_asic_num 0  global_asic_num 5 fw_inst 4  phy_fw_inst 1 fc 0
-</code></pre><p>Note: The slot numbers are 0-based, whereas the bigsur instances are 1-based. Therefore, in this example slot 1 corresponds to bigsur instance 2.</p>
+</code></pre>
+
+<p>Note: The slot numbers are 0-based, whereas the bigsur instances are 1-based. Therefore, in this example slot 1 corresponds to bigsur instance 2.</p>
+
 <p>=&gt; slot 1 become 2 in the elam command, the instance stay the same as the slot_asic_num
 =&gt; ingress for the traffic ingressing the interface, egress for the egressing traffic.</p>
+
 <pre><code>elam slot 2 asic bigsur instance 0
 trigger lu ingress ipv4 if source-ipv4-address_ipv4 10.253.108.226 destination-ipv4-address_ipv4 10.253.108.90
 start capture
@@ -353,6 +367,7 @@ show elam asic bigsur
 show capture lu
 stop capture
 </code></pre>
+
     </div>
 
     
@@ -398,7 +413,7 @@ stop capture
   
 
   <p class="powered-by">
-    Noël Boulène © 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn't reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author´s professional integrity) that any statement contained in a post is true, correct or precise. &middot; 
+    No&euml;l Boul&egrave;ne &copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&acute;s professional integrity) that any statement contained in a post is true, correct or precise. &middot; 
 
     Powered by the
     <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for

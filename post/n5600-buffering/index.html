@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="Source Themes Academic 2.4.0">
-  <meta name="generator" content="Hugo 0.87.0" />
+  <meta name="generator" content="Hugo 0.49" />
   <meta name="author" content="Noel">
 
   
@@ -232,8 +232,8 @@
 
   <span class="article-date">
     
-    <meta content="2021-02-23 22:24:44 &#43;0100 &#43;0100" itemprop="datePublished">
-    <time datetime="2021-02-23 22:24:44 &#43;0100 &#43;0100" itemprop="dateModified">
+    <meta content="2021-02-23 22:24:44 &#43;0100 CET" itemprop="datePublished">
+    <time datetime="2021-02-23 22:24:44 &#43;0100 CET" itemprop="dateModified">
       Feb 23, 2021
     </time>
   </span>
@@ -314,74 +314,98 @@
 
 
     <div class="article-style" itemprop="articleBody">
-      <h4 id="qos-voq">QoS VOQ</h4>
+      
+
+<h4 id="qos-voq">QoS VOQ</h4>
+
 <p>On N5K, In the case of unicast traffic, VOQ is an ingress buffer pool for 3 ingress ports (1 ASIC = 3 ports). This buffer pool is split into n x reservable buffer of the size configured in the voq-limit command. If the ingress buffer is 16000 and the VOQ limit is 1024, that mean 16 flow can reserv buffers. When the shared buffer is exausted, the dedicated ingress buffer per port is used then when it&rsquo;s full, the packet is droped.</p>
-<p>VOQ is reservable per egress port per class (pair).<br>
-With small VOQ limit, there is lot of buffer available for non congested flow.<br>
+
+<p>VOQ is reservable per egress port per class (pair).<br />
+With small VOQ limit, there is lot of buffer available for non congested flow.<br />
 With no VOQ limit, a congested port can use up to 50% of the total shared memory and those, 2 congested port can exaust all the ingress resources of an ASIC (3 ingress port) and drop can happen on this ASIC</p>
-<p><a href="https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2015/pdf/BRKDCT-3100.pdf">https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2015/pdf/BRKDCT-3100.pdf</a><br>
-<a href="https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2017/pdf/BRKDCN-3346.pdf">https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2017/pdf/BRKDCN-3346.pdf</a><br>
-<a href="https://www.cisco.com/c/en/us/support/docs/switches/nexus-6000-series-switches/200401-Nexus-5600-6000-Understanding-and-Troub.html">https://www.cisco.com/c/en/us/support/docs/switches/nexus-6000-series-switches/200401-Nexus-5600-6000-Understanding-and-Troub.html</a></p>
-<p>In case of a Nexus 5600. 1 ASIC = 3 * 40Gb or 12*10G ports. Cells are the units in which buffers are allocated. One cell is 320 Bytes. ASIC Ingress buffer size : 48840 of available total cells (16M), shared among all 3x40Gb ports. Egress buffer is 9Mb (dedicated buffer per ASIC).<br>
+
+<p><a href="https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2015/pdf/BRKDCT-3100.pdf" target="_blank">https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2015/pdf/BRKDCT-3100.pdf</a><br />
+<a href="https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2017/pdf/BRKDCN-3346.pdf" target="_blank">https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2017/pdf/BRKDCN-3346.pdf</a><br />
+<a href="https://www.cisco.com/c/en/us/support/docs/switches/nexus-6000-series-switches/200401-Nexus-5600-6000-Understanding-and-Troub.html" target="_blank">https://www.cisco.com/c/en/us/support/docs/switches/nexus-6000-series-switches/200401-Nexus-5600-6000-Understanding-and-Troub.html</a></p>
+
+<p>In case of a Nexus 5600. 1 ASIC = 3 * 40Gb or 12*10G ports. Cells are the units in which buffers are allocated. One cell is 320 Bytes. ASIC Ingress buffer size : 48840 of available total cells (16M), shared among all 3x40Gb ports. Egress buffer is 9Mb (dedicated buffer per ASIC).<br />
 VOQ = Ingress per output port/class queues. E.g with 114 ports on the switch, with 8 queues per port there would be 1152 VOQs. On N5600 Buffer can be shared accrod port and classes, giving more burst absorption capacity.</p>
+
 <h4 id="default-buffer-allocation">Default buffer allocation</h4>
+
 <ul>
-<li>minimum fixed buffer of 312 cells (100KB) is reserved per class (up to 8 classes) per ingress port, rest of the buffer is shared. This is done to guarantee minimum performance.</li>
+<li>minimum fixed buffer of 312 cells (100KB) is reserved per class (up to 8 classes) per ingress port, rest of the buffer is shared. This is done to guarantee minimum performance.<br /></li>
 </ul>
-<p>If there is only 1 class (the class-default for instance), there is only a single fixed/dedicated buffer per port.</p>
-<ul>
-<li>44,331 cells of shared buffer available for data traffic for all ports. shared buffer is used first.</li>
-<li>any drop class can access half of the shared buffer- no-drop class (eg fcoe) can access complete shared buffer.</li>
-<li>&ldquo;queue-limit&rdquo; under &ldquo;network-qos&rdquo; policy specifies the dedicated buffer for each port and each class. The dedicated buffer can be used by the port for only that class of service.</li>
-</ul>
+
+<p>If there is only 1 class (the class-default for instance), there is only a single fixed/dedicated buffer per port.<br />
+- 44,331 cells of shared buffer available for data traffic for all ports. shared buffer is used first.<br />
+- any drop class can access half of the shared buffer- no-drop class (eg fcoe) can access complete shared buffer.<br />
+- &ldquo;queue-limit&rdquo; under &ldquo;network-qos&rdquo; policy specifies the dedicated buffer for each port and each class. The dedicated buffer can be used by the port for only that class of service.</p>
+
 <h4 id="voq-limit">voq-limit</h4>
+
 <p>Command &ldquo;hardware unicast voq-limit [threshold &hellip;]&rdquo;
-enabling voq-limit turns on a shared buffer threshold per each voq.<br>
+enabling voq-limit turns on a shared buffer threshold per each voq.<br />
 limits the amount of buffers usable on the ingress interface, for packets headed towards a specific VoQ (&ldquo;egress port, class&rdquo; pair). Drops happens per VOQ, when its packet in ingress buffer exceed threshold: when the traffic ingress on a port and it consumes all 1024 cells, it will get dropped as discards.</p>
+
 <p>when the second flow traffic comes in, it will tage another 1024 cells as well but in a different VOQ and will not get dropped; this way voq thresholding prevents the non-congested egress port traffic drop.</p>
+
 <h4 id="hold-mitigation-and-voq-thresholding">HOLD mitigation and VOQ thresholding</h4>
+
 <p>Below is discussed for scenario without voq-limit enabledCongestion on one egress port in one CoS eventually bleeds into the congestion of its corresponding VOQ on the ingress port. Once the limit is reached then traffic gets dropped.</p>
-<p>On N5600 ASIC Buffers are allocated per ingress port and are shared by all the egress ports that are seeing traffic from this ingressport.<br>
-A stuck or slow-draining egress port can causse all buffers on one or more ingress ports that are senfing traffic to the egress port to be exhausted, thereby affecting all traffic on these ingress port. This is Head of Line Blocking (HOLB) problem.<br>
-To avoid this scenario, the VOQ for unicast traffic may be configured with a voq-limit threshold, at which point the port will stop accepting any more packets for congested destination (drops the packets or pauses the affected class for non-drop class type). When the queue length decrease and goes below another threshold, the VOQ starts accepting packets again.<br>
+
+<p>On N5600 ASIC Buffers are allocated per ingress port and are shared by all the egress ports that are seeing traffic from this ingressport.<br />
+A stuck or slow-draining egress port can causse all buffers on one or more ingress ports that are senfing traffic to the egress port to be exhausted, thereby affecting all traffic on these ingress port. This is Head of Line Blocking (HOLB) problem.<br />
+To avoid this scenario, the VOQ for unicast traffic may be configured with a voq-limit threshold, at which point the port will stop accepting any more packets for congested destination (drops the packets or pauses the affected class for non-drop class type). When the queue length decrease and goes below another threshold, the VOQ starts accepting packets again.<br />
 By default VOQ Thresholding is disabled for all classes.</p>
+
 <h4 id="questions">Questions</h4>
+
 <ol>
-<li>About the limit of 8000 cells, why not setting directly 16000 or removeing the limitation ?</li>
+<li>About the limit of 8000 cells, why not setting directly 16000 or removeing the limitation ?<br /></li>
 </ol>
+
 <p>Setting larger voq-limit increases the change to improve burst absorption but also leaves non-congested VOQs to be more likely affected by congested VOQs (as the latter can dip more into shared buffer).Disadvantage of having a voq-limit is that when we have a burst traffic comming in (like for distributed storage/VSAN), it connot use more than configured threshold of allocated cells and the bursty flow will have drops even though there is un-used ingress buffer.It&rsquo;s recommanded to remove voq-limit in case of bursty traffic.</p>
-<ol start="2">
-<li>Are the VoQ per UPC or per ingress interface ?</li>
-</ol>
-<p>VOQs are per class per egress interface. E.g. With 114 ports on the switch with 8 queues there would be 1152 VOQs per port.If there is only 1 class (class-defauklt), the number of VOQ is matching the number of egress ports.</p>
-<ol start="3">
-<li>Our undestanding is that if we remove the command voq limit, we might have HOLB while with the command it&rsquo;s not possible. Could you explain how is this possible to have HOLD if VoQ is always used ?</li>
-</ol>
-<p>This can happen because VOQ Thresholding (voq-limit) is not enabled by default. Therefore, each VOQ can borrow from shared buffer and some of non-congested VOQs would not be able to handle traffic due to lack of buffer space, even though they are not congested.</p>
-<ol start="4">
-<li>
-<p>Effect of changing or removing VOQ-limit on the traffic.<br>
-There would be subsecond traffic interruption on all ports.</p>
-</li>
-<li>
-<p>Effect of changing or removing VOQ-Limit on the FEX.<br>
-There should not be any effect on the FEX operation</p>
-</li>
-<li>
-<p>Could you describe the difference in the behavior of buffers (shared, ingress dedicated per port, voq per cos, drop) with the command voq limit default, with the command voq limit configured with the max value, and without the voq limit command ?</p>
-</li>
-</ol>
-<p>A. Without voq-limitShared - used by all ingress ports by default. 3<em>40G (or) 12</em>10G ports compete for usage, when per-port buffers are exhausted.Dedicated - samll, reserved per port per class. Can be adjusted with queue-limit command.VOQ drop thresholds are disabled.Shared is used first, only then overflow to dedicated.One drop class per ASIC can take up to half if the shared buffer.If congestion is constant, it can result in blocking for other VOQs in the same ingress port.Slow draining port can affect others by consuming shared and dedicated buffers.ExempleUnicast traffic coming on a 40G ingress port and egress port are 2x10G. When one of the egress port 10G is congested, it moght be possible that a new ingress flow from this 40G interface to another 10G interface can get affected as well because of non-availability of the ingress buffer.</p>
-<p><img src="%5Cn5600-buffering.png" alt="N5600 Buffers"></p>
-<p>When the traffic ingress on a port it first fills the shared buffer. Each flow can take up ti 50% of the total shared buffer available (22200 cells or ~7.1MB). After filling 50% of the buffer the same flow will utilize the per-port fixed buffer.When the new flow comes ingress on that port, it tries to fill in the 50% of shared buffer but if shared and per-port buffer are already filled, this traffic would be dropped.We can avoir the new flow, that is goignt o different no-congested port, from getting dropped by enabling VOQ thresholding.</p>
-<p>B. With voq-limit default value 1024Drop happend per VOQ, each limited by 1024 cells.Congestion in one VOQ has minimal chances to affect other VOQsVOQ drop thresholds are minimal, so burst traffic flow coming in it cannot use more than 1024 allocated cells and will have drops even though there is un-used buffer.when the traffic ingress on a port consumes all 1024 cells, it will get dropped as discards.When the second flow traffic with destination to another egress port comes in, it may consume 1024 cells as well but a different VOQ- so will not get dropped.</p>
-<p>C. with voq-limit default value 16384drop happens per VOQ, each limited by 16384 cells.congestion in one VOQ does not affect other VOQs if there is enough shared buffer left.VOQ drop thresholds are at maximum.Burst traffic flow coming can use up to 16384 allocated cells and will have drop everything above it. Other VOQs buffering at the same instance can use remaining buffer (but nor more than 16384each). In theory, 3 VOQs, that are fully congested at the same time, could take all the buffer. It is very difficult to prefict instant buffer usage due to unpredictable nature of bursty flows, so exact values should be taken from production, e.g. Try with 16384 and reduce the threshold if negative impact is seen on non-congested flows.</p>
-<h4 id="couple-of-solutions-to-resolve-bursty-trafic-drop">Couple of solutions to resolve bursty trafic drop:</h4>
+
 <ol>
-<li>Remove VOQ limit completel (heavy burst trafic)</li>
-<li>Increase VOQ Threshold to 8000 or 16384 (max) and monitor the situation with discards=&gt; show hardware profile buffer monitor interface ethernet</li>
-<li>Spread congested links betweek different ASICs.</li>
-<li>Implement policing of the traffic.</li>
+<li>Are the VoQ per UPC or per ingress interface ?<br /></li>
+</ol>
+
+<p>VOQs are per class per egress interface. E.g. With 114 ports on the switch with 8 queues there would be 1152 VOQs per port.If there is only 1 class (class-defauklt), the number of VOQ is matching the number of egress ports.</p>
+
+<ol>
+<li>Our undestanding is that if we remove the command voq limit, we might have HOLB while with the command it&rsquo;s not possible. Could you explain how is this possible to have HOLD if VoQ is always used ?<br /></li>
+</ol>
+
+<p>This can happen because VOQ Thresholding (voq-limit) is not enabled by default. Therefore, each VOQ can borrow from shared buffer and some of non-congested VOQs would not be able to handle traffic due to lack of buffer space, even though they are not congested.</p>
+
+<ol>
+<li><p>Effect of changing or removing VOQ-limit on the traffic.<br />
+There would be subsecond traffic interruption on all ports.</p></li>
+
+<li><p>Effect of changing or removing VOQ-Limit on the FEX.<br />
+There should not be any effect on the FEX operation</p></li>
+
+<li><p>Could you describe the difference in the behavior of buffers (shared, ingress dedicated per port, voq per cos, drop) with the command voq limit default, with the command voq limit configured with the max value, and without the voq limit command ?</p></li>
+</ol>
+
+<p>A. Without voq-limitShared - used by all ingress ports by default. 3*40G (or) 12*10G ports compete for usage, when per-port buffers are exhausted.Dedicated - samll, reserved per port per class. Can be adjusted with queue-limit command.VOQ drop thresholds are disabled.Shared is used first, only then overflow to dedicated.One drop class per ASIC can take up to half if the shared buffer.If congestion is constant, it can result in blocking for other VOQs in the same ingress port.Slow draining port can affect others by consuming shared and dedicated buffers.ExempleUnicast traffic coming on a 40G ingress port and egress port are 2x10G. When one of the egress port 10G is congested, it moght be possible that a new ingress flow from this 40G interface to another 10G interface can get affected as well because of non-availability of the ingress buffer.</p>
+
+<p><img src="n5600-buffering.png" alt="N5600 Buffers" /></p>
+
+<p>When the traffic ingress on a port it first fills the shared buffer. Each flow can take up ti 50% of the total shared buffer available (22200 cells or ~7.1MB). After filling 50% of the buffer the same flow will utilize the per-port fixed buffer.When the new flow comes ingress on that port, it tries to fill in the 50% of shared buffer but if shared and per-port buffer are already filled, this traffic would be dropped.We can avoir the new flow, that is goignt o different no-congested port, from getting dropped by enabling VOQ thresholding.</p>
+
+<p>B. With voq-limit default value 1024Drop happend per VOQ, each limited by 1024 cells.Congestion in one VOQ has minimal chances to affect other VOQsVOQ drop thresholds are minimal, so burst traffic flow coming in it cannot use more than 1024 allocated cells and will have drops even though there is un-used buffer.when the traffic ingress on a port consumes all 1024 cells, it will get dropped as discards.When the second flow traffic with destination to another egress port comes in, it may consume 1024 cells as well but a different VOQ- so will not get dropped.</p>
+
+<p>C. with voq-limit default value 16384drop happens per VOQ, each limited by 16384 cells.congestion in one VOQ does not affect other VOQs if there is enough shared buffer left.VOQ drop thresholds are at maximum.Burst traffic flow coming can use up to 16384 allocated cells and will have drop everything above it. Other VOQs buffering at the same instance can use remaining buffer (but nor more than 16384each). In theory, 3 VOQs, that are fully congested at the same time, could take all the buffer. It is very difficult to prefict instant buffer usage due to unpredictable nature of bursty flows, so exact values should be taken from production, e.g. Try with 16384 and reduce the threshold if negative impact is seen on non-congested flows.</p>
+
+<h4 id="couple-of-solutions-to-resolve-bursty-trafic-drop">Couple of solutions to resolve bursty trafic drop:</h4>
+
+<ol>
+<li>Remove VOQ limit completel (heavy burst trafic)<br /></li>
+<li>Increase VOQ Threshold to 8000 or 16384 (max) and monitor the situation with discards=&gt; show hardware profile buffer monitor interface ethernet<br /></li>
+<li>Spread congested links betweek different ASICs.<br /></li>
+<li>Implement policing of the traffic.<br /></li>
 </ol>
 
     </div>
@@ -431,7 +455,7 @@ There should not be any effect on the FEX operation</p>
   
 
   <p class="powered-by">
-    Noël Boulène © 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn't reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author´s professional integrity) that any statement contained in a post is true, correct or precise. &middot; 
+    No&euml;l Boul&egrave;ne &copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&acute;s professional integrity) that any statement contained in a post is true, correct or precise. &middot; 
 
     Powered by the
     <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for

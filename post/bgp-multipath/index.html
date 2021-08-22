@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="Source Themes Academic 2.4.0">
-  <meta name="generator" content="Hugo 0.87.0" />
+  <meta name="generator" content="Hugo 0.49" />
   <meta name="author" content="Noel">
 
   
@@ -19,8 +19,14 @@
 Is PIC supported by default ?
 https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/configuration/xe-3s/irg-xe-3s-book/irg-bgp-mp-pic.html
 =&gt; With BGP Multipath, the BGP prefix-independant convergence (PIC) feature is supported
-Attribut that should be identical 
- Weight LP AS Path (AS Number unless relax us used, AS length) Origin Code MED IGP Metric Next hop should be different  Add Path If the path are equal, allow to advertise more than one bes oath (need to test in eBGP).">
+ Attribut that should be identical 
+- Weight
+- LP
+- AS Path (AS Number unless relax us used, AS length)
+- Origin Code
+- MED
+- IGP Metric Next hop should be different
+Add Path If the path are equal, allow to advertise more than one bes oath (need to test in eBGP).">
 
   
   <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/post/bgp-multipath/">
@@ -102,8 +108,14 @@ Attribut that should be identical
 Is PIC supported by default ?
 https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/configuration/xe-3s/irg-xe-3s-book/irg-bgp-mp-pic.html
 =&gt; With BGP Multipath, the BGP prefix-independant convergence (PIC) feature is supported
-Attribut that should be identical 
- Weight LP AS Path (AS Number unless relax us used, AS length) Origin Code MED IGP Metric Next hop should be different  Add Path If the path are equal, allow to advertise more than one bes oath (need to test in eBGP).">
+ Attribut that should be identical 
+- Weight
+- LP
+- AS Path (AS Number unless relax us used, AS length)
+- Origin Code
+- MED
+- IGP Metric Next hop should be different
+Add Path If the path are equal, allow to advertise more than one bes oath (need to test in eBGP).">
   
   
     
@@ -237,8 +249,8 @@ Attribut that should be identical
 
   <span class="article-date">
     
-    <meta content="2020-05-11 08:02:21 &#43;0200 &#43;0200" itemprop="datePublished">
-    <time datetime="2020-05-11 08:02:21 &#43;0200 &#43;0200" itemprop="dateModified">
+    <meta content="2020-05-11 08:02:21 &#43;0200 CEST" itemprop="datePublished">
+    <time datetime="2020-05-11 08:02:21 &#43;0200 CEST" itemprop="dateModified">
       May 11, 2020
     </time>
   </span>
@@ -309,56 +321,66 @@ Attribut that should be identical
 
 
     <div class="article-style" itemprop="articleBody">
-      <h3 id="maximum-path">Maximum path</h3>
+      
+
+<h3 id="maximum-path">Maximum path</h3>
+
 <p>In the RIB + FIB ECMP (multipath)</p>
-<p>Is PIC supported by default ?<br>
-<a href="https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/configuration/xe-3s/irg-xe-3s-book/irg-bgp-mp-pic.html">https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/configuration/xe-3s/irg-xe-3s-book/irg-bgp-mp-pic.html</a><br>
+
+<p>Is PIC supported by default ?<br />
+<a href="https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/configuration/xe-3s/irg-xe-3s-book/irg-bgp-mp-pic.html" target="_blank">https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/configuration/xe-3s/irg-xe-3s-book/irg-bgp-mp-pic.html</a><br />
 =&gt; With BGP Multipath, the BGP prefix-independant convergence (PIC) feature is supported</p>
-<p><strong><!-- raw HTML omitted --> Attribut that should be identical <!-- raw HTML omitted --></strong></p>
-<ul>
-<li>Weight</li>
-<li>LP</li>
-<li>AS Path (AS Number unless relax us used, AS length)</li>
-<li>Origin Code</li>
-<li>MED</li>
-<li>IGP Metric Next hop should be different</li>
-</ul>
+
+<p><strong><ins> Attribut that should be identical </ins></strong><br />
+- Weight<br />
+- LP<br />
+- AS Path (AS Number unless relax us used, AS length)<br />
+- Origin Code<br />
+- MED<br />
+- IGP Metric Next hop should be different</p>
+
 <h3 id="add-path">Add Path</h3>
-<p>If the path are equal, allow to advertise more than one bes oath (need to test in eBGP).<br>
-Mostly used with BGP without MPLS. If MPLS is used it&rsquo;s better to have an RD different for each VRF of each router (easier to troubleshoot).<br>
-<a href="https://orhanergun.net/wp-content/uploads/2019/11/BGP-Add-path-vs-Shadow-RR-vs-Shadow-Session-vs-Unique-RD.pdf">https://orhanergun.net/wp-content/uploads/2019/11/BGP-Add-path-vs-Shadow-RR-vs-Shadow-Session-vs-Unique-RD.pdf</a></p>
+
+<p>If the path are equal, allow to advertise more than one bes oath (need to test in eBGP).<br />
+Mostly used with BGP without MPLS. If MPLS is used it&rsquo;s better to have an RD different for each VRF of each router (easier to troubleshoot).<br />
+<a href="https://orhanergun.net/wp-content/uploads/2019/11/BGP-Add-path-vs-Shadow-RR-vs-Shadow-Session-vs-Unique-RD.pdf" target="_blank">https://orhanergun.net/wp-content/uploads/2019/11/BGP-Add-path-vs-Shadow-RR-vs-Shadow-Session-vs-Unique-RD.pdf</a></p>
+
 <h3 id="pic">PIC</h3>
-<p><a href="https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2016/pdf/BRKRST-3321.pdf">https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2016/pdf/BRKRST-3321.pdf</a>
+
+<p><a href="https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2016/pdf/BRKRST-3321.pdf" target="_blank">https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2016/pdf/BRKRST-3321.pdf</a>
 I don&rsquo;t neded it at the moment because we don&rsquo;t need this level if convergence (couple of minutes vs ms if you have hundres of thousand of prefixes)</p>
-<p><a href="https://blog.ipspace.net/2012/01/prefix-independent-convergence-pic.html">https://blog.ipspace.net/2012/01/prefix-independent-convergence-pic.html</a></p>
+
+<p><a href="https://blog.ipspace.net/2012/01/prefix-independent-convergence-pic.html" target="_blank">https://blog.ipspace.net/2012/01/prefix-independent-convergence-pic.html</a></p>
+
 <p>The generic optimization of the RIB-to-FIB update process is known as Prefix-Independent Convergence (PIC) - if the routing protocols can pre-compute alternate paths, suitably designed FIB can use that information to cache alternate next hops. Updating such a FIB no longer involves numerous updates to individual prefixes; you have to change only the next hop reachability information.</p>
+
 <h3 id="best-external">Best External</h3>
+
 <p>Allow a router to advertise it&rsquo;s best external path even if in it&rsquo;s BGP table it does have a beter route from inside</p>
+
 <h3 id="label-allocation">LABEL ALLOCATION</h3>
+
 <h5 id="per-vrf">Per VRF</h5>
-<p><strong><!-- raw HTML omitted --> Cons <!-- raw HTML omitted --></strong></p>
-<ul>
-<li>IP Lookup needed after label lookup (can be a benefit, cf route sum issue)</li>
-<li>No granular load balancing because the bottom label is the same for all prefixes, if platform load balances on bottom label</li>
-<li>Potential forwarding loop during local traffic diversion to support PIC (Transient loop)</li>
-<li>No support for EIBGP multipath</li>
-</ul>
-<p><strong><!-- raw HTML omitted --> Pros <!-- raw HTML omitted --></strong></p>
-<ul>
-<li>1 label per vrf (less label used)</li>
-</ul>
+
+<p><strong><ins> Cons </ins></strong><br />
+- IP Lookup needed after label lookup (can be a benefit, cf route sum issue)<br />
+- No granular load balancing because the bottom label is the same for all prefixes, if platform load balances on bottom label<br />
+- Potential forwarding loop during local traffic diversion to support PIC (Transient loop)<br />
+- No support for EIBGP multipath</p>
+
+<p><strong><ins> Pros </ins></strong><br />
+- 1 label per vrf (less label used)</p>
+
 <h5 id="per-ce">Per CE</h5>
-<p><strong><!-- raw HTML omitted --> Cons <!-- raw HTML omitted --></strong></p>
-<ul>
-<li>No granular load balancing because the bottom label is the same for all prefixes from one CE, if platform load balances on bottom label</li>
-<li>eBGPload balancing &amp; BGP PIC is not supported (it makes usage of label diversity), unless resilient per-ce label</li>
-<li>Only single hop eBGPsupported, no multihop</li>
-</ul>
-<p><strong><!-- raw HTML omitted --> Pros <!-- raw HTML omitted --></strong></p>
-<ul>
-<li>No IP lookup needed after label lookup</li>
-<li>Per-CE : one MPLS label per next-hop (so per connected CE router)(Number of MPLS labels used is very low)</li>
-</ul>
+
+<p><strong><ins> Cons </ins></strong><br />
+- No granular load balancing because the bottom label is the same for all prefixes from one CE, if platform load balances on bottom label<br />
+- eBGPload balancing &amp; BGP PIC is not supported (it makes usage of label diversity), unless resilient per-ce label<br />
+- Only single hop eBGPsupported, no multihop</p>
+
+<p><strong><ins> Pros </ins></strong><br />
+- No IP lookup needed after label lookup<br />
+- Per-CE : one MPLS label per next-hop (so per connected CE router)(Number of MPLS labels used is very low)</p>
 
     </div>
 
@@ -391,7 +413,7 @@ I don&rsquo;t neded it at the moment because we don&rsquo;t need this level if c
   
 
   <p class="powered-by">
-    Noël Boulène © 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn't reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author´s professional integrity) that any statement contained in a post is true, correct or precise. &middot; 
+    No&euml;l Boul&egrave;ne &copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&acute;s professional integrity) that any statement contained in a post is true, correct or precise. &middot; 
 
     Powered by the
     <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for

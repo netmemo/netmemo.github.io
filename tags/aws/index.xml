@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>AWS on netmemo.github.io</title>
@@ -7,7 +7,11 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&amp;acute;s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
-    <lastBuildDate>Wed, 17 Feb 2021 20:59:49 +0100</lastBuildDate><atom:link href="https://netmemo.github.io/tags/aws/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 17 Feb 2021 20:59:49 +0100</lastBuildDate>
+    
+	<atom:link href="https://netmemo.github.io/tags/aws/index.xml" rel="self" type="application/rss+xml" />
+    
+    
     <item>
       <title>Using Terraform for_each to create subnets in AWS VPC</title>
       <link>https://netmemo.github.io/post/tf-for-each/</link>
@@ -16,7 +20,9 @@
       <guid>https://netmemo.github.io/post/tf-for-each/</guid>
       <description>An extended explanation of the differences between for_each, for and count can be find on the link below https://blog.gruntwork.io/terraform-tips-tricks-loops-if-statements-and-gotchas-f739bbae55f9
 The two main drawbacks of using count are :
- Can&amp;rsquo;t be used to loop over inline blocks Difficult to remove entry from a list because it changes the index and those Terraform may want to destroy the resource because it has a different index  Below is an example of the variables used to create subnets within AWS VPCs and the main file with the for_each.</description>
+- Can&amp;rsquo;t be used to loop over inline blocks
+- Difficult to remove entry from a list because it changes the index and those Terraform may want to destroy the resource because it has a different index
+Below is an example of the variables used to create subnets within AWS VPCs and the main file with the for_each.</description>
     </item>
     
   </channel>

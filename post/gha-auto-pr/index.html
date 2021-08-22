@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="Source Themes Academic 2.4.0">
-  <meta name="generator" content="Hugo 0.87.0" />
+  <meta name="generator" content="Hugo 0.49" />
   <meta name="author" content="Noel">
 
   
@@ -227,8 +227,8 @@
 
   <span class="article-date">
     
-    <meta content="2021-08-12 17:01:57 &#43;0200 &#43;0200" itemprop="datePublished">
-    <time datetime="2021-08-12 17:01:57 &#43;0200 &#43;0200" itemprop="dateModified">
+    <meta content="2021-08-12 17:01:57 &#43;0200 CEST" itemprop="datePublished">
+    <time datetime="2021-08-12 17:01:57 &#43;0200 CEST" itemprop="dateModified">
       Aug 12, 2021
     </time>
   </span>
@@ -309,12 +309,14 @@
 
 
     <div class="article-style" itemprop="articleBody">
-      <p>This post is to explain one of the pain point I have encountered while trying to do <a href="https://netmemo.github.io/post/tf-gha-nsxt-cicd">Github Actions with Terraform Cloud for CI/CD of NSX-T</a>.
+      <p>This post is to explain one of the pain point I have encountered while trying to do <a href="https://netmemo.github.io/post/tf-gha-nsxt-cicd" target="_blank">Github Actions with Terraform Cloud for CI/CD of NSX-T</a>.
 The difficulty is to chain workflow/pipeline automatically. In my case, I wanted to launch a workflow base of a PR create by another workflow.
 When you use Github Actions to interface with Github, you need to authenticate your Github Actions script against Github.
-You can then use the <a href="https://docs.github.com/en/actions/reference/authentication-in-a-workflow">GITHUB_TOKEN</a> that has been made for this purpose. As this token is known from Github to be automation token, to avoid loops, you can use it to create a PR to trigger another workflow.
+You can then use the <a href="https://docs.github.com/en/actions/reference/authentication-in-a-workflow" target="_blank">GITHUB_TOKEN</a> that has been made for this purpose. As this token is known from Github to be automation token, to avoid loops, you can use it to create a PR to trigger another workflow.
 The workaround to this [known limitation] is to create the PR with a personal access token.</p>
-<p>You can find below an example of using the personal access token to create a PR. To create the <a href="https://octokit.github.io/rest.js/v18#pulls-create">Pull Request</a> we are using <a href="https://github.com/marketplace/actions/github-script?version=v4.0.2">github-script</a> that will send a REST API query thanks to the <em>github</em> pre-authenticated <a href="https://octokit.github.io/rest.js/v18">octokit/rest.js</a> client with pagination plugins.</p>
+
+<p>You can find below an example of using the personal access token to create a PR. To create the <a href="https://octokit.github.io/rest.js/v18#pulls-create" target="_blank">Pull Request</a> we are using <a href="https://github.com/marketplace/actions/github-script?version=v4.0.2" target="_blank">github-script</a> that will send a REST API query thanks to the <em>github</em> pre-authenticated <a href="https://octokit.github.io/rest.js/v18" target="_blank">octokit/rest.js</a> client with pagination plugins.</p>
+
 <pre><code>      - name: CreatePR if apply succeed
         uses: actions/github-script@v4.0.2
         if: steps.apply.outcome == 'success'
@@ -329,6 +331,7 @@ The workaround to this [known limitation] is to create the PR with a personal ac
               base: &quot;main&quot;
             });
 </code></pre>
+
     </div>
 
     
@@ -342,7 +345,7 @@ The workaround to this [known limitation] is to create the PR with a personal ac
   
   <a class="badge badge-light" href="/tags/github/">Github</a>
   
-  <a class="badge badge-light" href="">Github Actions</a>
+  <a class="badge badge-light" href="/tags/github-actions/">Github Actions</a>
   
 </div>
 
@@ -382,7 +385,7 @@ The workaround to this [known limitation] is to create the PR with a personal ac
   
 
   <p class="powered-by">
-    Noël Boulène © 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn't reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author´s professional integrity) that any statement contained in a post is true, correct or precise. &middot; 
+    No&euml;l Boul&egrave;ne &copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&acute;s professional integrity) that any statement contained in a post is true, correct or precise. &middot; 
 
     Powered by the
     <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for

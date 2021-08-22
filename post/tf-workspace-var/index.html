@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="Source Themes Academic 2.4.0">
-  <meta name="generator" content="Hugo 0.87.0" />
+  <meta name="generator" content="Hugo 0.49" />
   <meta name="author" content="Noel">
 
   
@@ -16,7 +16,7 @@
     
   
   <meta name="description" content="This blog post is to explain how I did to automatically change Terraform Cloud workspace from Github Actions. As explained in the documentation remote workspace, you can use different remote workspace by specifying the prefix of you workspace in the Terraform backend configuration.
- backend &quot;remote&quot; { organization = &quot;netmemo&quot; workspaces { prefix = &quot;netmemo-&quot; } } After that, you only need to select the proper workspace by entering the terraform workspace select [suffix] command.">
+ backend &quot;remote&quot; { organization = &quot;netmemo&quot; workspaces { prefix = &quot;netmemo-&quot; } }  After that, you only need to select the proper workspace by entering the terraform workspace select [suffix] command.">
 
   
   <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/post/tf-workspace-var/">
@@ -95,7 +95,7 @@
   <meta property="og:url" content="https://netmemo.github.io/post/tf-workspace-var/">
   <meta property="og:title" content="Changing Terraform Cloud workspace in Github Actions | netmemo.github.io">
   <meta property="og:description" content="This blog post is to explain how I did to automatically change Terraform Cloud workspace from Github Actions. As explained in the documentation remote workspace, you can use different remote workspace by specifying the prefix of you workspace in the Terraform backend configuration.
- backend &quot;remote&quot; { organization = &quot;netmemo&quot; workspaces { prefix = &quot;netmemo-&quot; } } After that, you only need to select the proper workspace by entering the terraform workspace select [suffix] command.">
+ backend &quot;remote&quot; { organization = &quot;netmemo&quot; workspaces { prefix = &quot;netmemo-&quot; } }  After that, you only need to select the proper workspace by entering the terraform workspace select [suffix] command.">
   
   
     
@@ -229,8 +229,8 @@
 
   <span class="article-date">
     
-    <meta content="2021-08-12 15:22:40 &#43;0200 &#43;0200" itemprop="datePublished">
-    <time datetime="2021-08-12 15:22:40 &#43;0200 &#43;0200" itemprop="dateModified">
+    <meta content="2021-08-12 15:22:40 &#43;0200 CEST" itemprop="datePublished">
+    <time datetime="2021-08-12 15:22:40 &#43;0200 CEST" itemprop="dateModified">
       Aug 12, 2021
     </time>
   </span>
@@ -312,7 +312,8 @@
 
     <div class="article-style" itemprop="articleBody">
       <p>This blog post is to explain how I did to automatically change Terraform Cloud workspace from Github Actions.
-As explained in the documentation <a href="https://www.terraform.io/docs/language/settings/backends/remote.html#workspaces">remote workspace</a>, you can use different remote workspace by specifying the prefix of you workspace in the Terraform backend configuration.</p>
+As explained in the documentation <a href="https://www.terraform.io/docs/language/settings/backends/remote.html#workspaces" target="_blank">remote workspace</a>, you can use different remote workspace by specifying the prefix of you workspace in the Terraform backend configuration.</p>
+
 <pre><code>  backend &quot;remote&quot; {
     organization = &quot;netmemo&quot;
 
@@ -320,32 +321,48 @@ As explained in the documentation <a href="https://www.terraform.io/docs/languag
       prefix = &quot;netmemo-&quot;
     }
   }
-</code></pre><p>After that, you only need to select the proper workspace by entering the <em>terraform workspace select [suffix]</em> command.
-The issue comes if you want to do it in a fully automated environment like with Github Actions. You need an extra step which is to set the <a href="https://learn.hashicorp.com/tutorials/terraform/automate-terraform?in=terraform/automation">TF_WORKSPACE</a> variable.</p>
+</code></pre>
+
+<p>After that, you only need to select the proper workspace by entering the <em>terraform workspace select [suffix]</em> command.
+The issue comes if you want to do it in a fully automated environment like with Github Actions. You need an extra step which is to set the <a href="https://learn.hashicorp.com/tutorials/terraform/automate-terraform?in=terraform/automation" target="_blank">TF_WORKSPACE</a> variable.</p>
+
 <p>Below are the 2 steps that are needed to select a specific environment.
 In this blog the workspace will be netmemo-dev where netmemo- is the prefix configured in the main.tf and dev the suffix configured in the .yml file of the Github Actions script.</p>
+
 <p>This step initializes Terraform and set the TF_WORKSPACE variable to indicate that we want to use the dev environment suffix before the initialization.</p>
+
 <pre><code>      - name: Terraform Init
         id: init
         run: terraform init
         env:
           TF_WORKSPACE: &quot;dev&quot;
-</code></pre><p>If we are not setting the <a href="https://learn.hashicorp.com/tutorials/terraform/automate-terraform?in=terraform/automation">TF_WORKSPACE</a>, the init command will try to get the default workspace that doesn&rsquo;t exist and you will have the following error.</p>
+</code></pre>
+
+<p>If we are not setting the <a href="https://learn.hashicorp.com/tutorials/terraform/automate-terraform?in=terraform/automation" target="_blank">TF_WORKSPACE</a>, the init command will try to get the default workspace that doesn&rsquo;t exist and you will have the following error.</p>
+
 <pre><code>The currently selected workspace (default) does not exist.
   This is expected behavior when the selected workspace did not have an
   existing non-empty state. Please enter a number to select a workspace:
   
   1. dev
   2. prod
-</code></pre><p>Even after setting the <a href="https://learn.hashicorp.com/tutorials/terraform/automate-terraform?in=terraform/automation">TF_WORKSPACE</a> variable, we still need to enter the <em>terraform workspace select</em> command to provide the suffix of the workspace.</p>
+</code></pre>
+
+<p>Even after setting the <a href="https://learn.hashicorp.com/tutorials/terraform/automate-terraform?in=terraform/automation" target="_blank">TF_WORKSPACE</a> variable, we still need to enter the <em>terraform workspace select</em> command to provide the suffix of the workspace.</p>
+
 <pre><code>      - name: Terraform Workspace
         id: workspace
         run: terraform workspace select dev
-</code></pre><p>If we forgot to enter the command to select workspace, the Terraform configuration section will try to load a workspace with only the prefix and trigger an error.</p>
+</code></pre>
+
+<p>If we forgot to enter the command to select workspace, the Terraform configuration section will try to load a workspace with only the prefix and trigger an error.</p>
+
 <pre><code>Error: error starting operation: The configured &quot;remote&quot; backend encountered an unexpected error:
 
 invalid value for workspace
-</code></pre><p>You can find a full example of where we need to change workspace automatically in this blog post <a href="https://netmemo.github.io/post/tf-gha-nsxt-cicd">Github Actions with Terraform Cloud for CI/CD of NSX-T</a></p>
+</code></pre>
+
+<p>You can find a full example of where we need to change workspace automatically in this blog post <a href="https://netmemo.github.io/post/tf-gha-nsxt-cicd" target="_blank">Github Actions with Terraform Cloud for CI/CD of NSX-T</a></p>
 
     </div>
 
@@ -360,7 +377,7 @@ invalid value for workspace
   
   <a class="badge badge-light" href="/tags/github/">Github</a>
   
-  <a class="badge badge-light" href="">Github Actions</a>
+  <a class="badge badge-light" href="/tags/github-actions/">Github Actions</a>
   
 </div>
 
@@ -390,7 +407,7 @@ invalid value for workspace
   
 
   <p class="powered-by">
-    Noël Boulène © 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn't reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author´s professional integrity) that any statement contained in a post is true, correct or precise. &middot; 
+    No&euml;l Boul&egrave;ne &copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&acute;s professional integrity) that any statement contained in a post is true, correct or precise. &middot; 
 
     Powered by the
     <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for

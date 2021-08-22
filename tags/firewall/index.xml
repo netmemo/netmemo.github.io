@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Firewall on netmemo.github.io</title>
@@ -7,14 +7,18 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&amp;acute;s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
-    <lastBuildDate>Thu, 29 Jul 2021 19:03:37 +0200</lastBuildDate><atom:link href="https://netmemo.github.io/tags/firewall/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 29 Jul 2021 19:03:37 +0200</lastBuildDate>
+    
+	<atom:link href="https://netmemo.github.io/tags/firewall/index.xml" rel="self" type="application/rss+xml" />
+    
+    
     <item>
       <title>NSX-T Firewall rules as code with Terraform</title>
       <link>https://netmemo.github.io/post/nsxt-tf-firewall/</link>
       <pubDate>Thu, 29 Jul 2021 19:03:37 +0200</pubDate>
       
       <guid>https://netmemo.github.io/post/nsxt-tf-firewall/</guid>
-      <description>This article is to show an example of how to manage NSX-T firewall rules as a code through Terraform. You can find the project on my github account : [nsxt-frac-tf-cm] and [nsxt-frac-tf-rm]
+      <description>This article is to show an example of how to manage NSX-T firewall rules as a code through Terraform. You can find the project on my github account : nsxt-frac-tf-cm and nsxt-frac-tf-rm
 I will describe the structure of the project, how it works, the data model, the Terraform code explanation and finish with an example.
 Structure of the project The diagram below shows a summary of how I organized the project in order to fully use infrastructre as code.</description>
     </item>

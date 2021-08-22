@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="Source Themes Academic 2.4.0">
-  <meta name="generator" content="Hugo 0.87.0" />
+  <meta name="generator" content="Hugo 0.49" />
   <meta name="author" content="Noel">
 
   
@@ -229,8 +229,8 @@ I will describe the structure of the project, the project components, the projec
 
   <span class="article-date">
     
-    <meta content="2021-08-15 14:02:39 &#43;0200 &#43;0200" itemprop="datePublished">
-    <time datetime="2021-08-15 14:02:39 &#43;0200 &#43;0200" itemprop="dateModified">
+    <meta content="2021-08-15 14:02:39 &#43;0200 CEST" itemprop="datePublished">
+    <time datetime="2021-08-15 14:02:39 &#43;0200 CEST" itemprop="dateModified">
       Aug 15, 2021
     </time>
   </span>
@@ -241,7 +241,7 @@ I will describe the structure of the project, the project components, the projec
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    7 min read
+    9 min read
   </span>
   
 
@@ -313,13 +313,20 @@ I will describe the structure of the project, the project components, the projec
 
 
     <div class="article-style" itemprop="articleBody">
-      <p>This post is to show an example of using CI/CD with Terraform Cloud and <a href="https://learn.hashicorp.com/tutorials/terraform/github-actions">Github Actions</a> in order to have a better NetDevOps approach by doing NSX-T Network Infrastructure as code (IaC).
+      
+
+<p>This post is to show an example of using CI/CD with Terraform Cloud and <a href="https://learn.hashicorp.com/tutorials/terraform/github-actions" target="_blank">Github Actions</a> in order to have a better NetDevOps approach by doing NSX-T Network Infrastructure as code (IaC).
 It&rsquo;s almost a bingo, I think I have most of the buzz words of these last years :)</p>
+
 <p>I will describe the structure of the project, the project components, the project workflow and finish with how to test this project.</p>
+
 <h1 id="structure-of-the-project">Structure of the project</h1>
-<p>The diagram below shows a high level view of the <a href="https://github.com/netmemo/tf-gha-nsxt-cicd">project</a>.
-<a href="%5Ctf-gha-cicd-nsx.png"> <img src="%5Ctf-gha-cicd-nsx.png" alt=""> </a></p>
+
+<p>The diagram below shows a high level view of the <a href="https://github.com/netmemo/tf-gha-nsxt-cicd" target="_blank">project</a>.
+<a href="tf-gha-cicd-nsx.png" target="_blank"> <img src="tf-gha-cicd-nsx.png" alt="" /> </a></p>
+
 <p>You can find the file structure of the project below</p>
+
 <pre><code>.
 ├─ main.tf
 ├─ .github
@@ -327,48 +334,75 @@ It&rsquo;s almost a bingo, I think I have most of the buzz words of these last y
        ├── dev-to-pr.yml
        ├── plan-prod.yml
        └── apply-prod.yml
-</code></pre><h1 id="project-components">Project components</h1>
+</code></pre>
+
+<h1 id="project-components">Project components</h1>
+
 <h2 id="nsx-t">NSX-T</h2>
+
 <p>For this project we need two NSXT environments, one for production and one for development. You can either have 2 full blown NSX-T or use different variables for prod and dev or different VRFs.
 In this blog post we will use two different deployments.</p>
+
 <h2 id="terraform-cloud">Terraform Cloud</h2>
+
 <p>Terraform Cloud will be used to store the state of the prod and dev environment. It will also allow to manage Terraform through APIs.
 For the project we need to create 2 differents workspaces, one for production and one for developments.
 The name of the workspaces should be prefix-suffix where the prefix will be what is configured in your terraform configuration file and the sufix will be what is used to select the workspace. We will cover how to select the workspace later in that post.
 For this blog post, the prefix will be netmemo- and the suffix will be either prod or dev.
-<a href="%5Cworkspaces.png"> <img src="%5Cworkspaces.png" alt=""> </a></p>
+<a href="workspaces.png" target="_blank"> <img src="workspaces.png" alt="" /> </a></p>
+
 <p>Once the workspaces are created, we need to add 3 variables for the NSX-T provider:
-<a href="%5Ctf-variables.png"> <img src="%5Ctf-variables.png" alt=""> </a></p>
+<a href="tf-variables.png" target="_blank"> <img src="tf-variables.png" alt="" /> </a></p>
+
 <p>Finally we need to add the API key that Github Actions will use to connect to Terraform Cloud
-<a href="%5Ctf-token.png"> <img src="%5Ctf-token.png" alt=""> </a></p>
+<a href="tf-token.png" target="_blank"> <img src="tf-token.png" alt="" /> </a></p>
+
 <h2 id="github">Github</h2>
+
 <p>Github is where we will store the configuration and execute our CI/CD pipelines.
 Once the project is forked, to make it works, we need to enable Github Actions.
-<a href="%5Cenable-gha.png"> <img src="%5Cenable-gha.png" alt=""> </a></p>
-<p>Create a github <a href="https://github.com/settings/tokens">personal access token</a> <em>REPO_TOKEN</em>. This token will be used by Github Actions to automatically create the pull request.<br>
-<a href="%5Cgh-perso-token.png"> <img src="%5Cgh-perso-token.png" alt=""> </a></p>
-<p>Add the previously created token (TF_API_TOKEN and REPO_TOKEN_SECRET) to your github <a href="https://github.com/netmemo/nsxt-tfc-rm/settings/secrets/actions">repository secrets</a>.<br>
-<a href="%5Crepo-secret.png"> <img src="%5Crepo-secret.png" alt=""> </a></p>
+<a href="enable-gha.png" target="_blank"> <img src="enable-gha.png" alt="" /> </a></p>
+
+<p>Create a github <a href="https://github.com/settings/tokens" target="_blank">personal access token</a> <em>REPO_TOKEN</em>. This token will be used by Github Actions to automatically create the pull request.<br />
+<a href="gh-perso-token.png" target="_blank"> <img src="gh-perso-token.png" alt="" /> </a></p>
+
+<p>Add the previously created token (TF_API_TOKEN and REPO_TOKEN_SECRET) to your github <a href="https://github.com/netmemo/nsxt-tfc-rm/settings/secrets/actions" target="_blank">repository secrets</a>.<br />
+<a href="repo-secret.png" target="_blank"> <img src="repo-secret.png" alt="" /> </a></p>
+
 <h2 id="github-actions">Github Actions</h2>
+
 <p>This project is made from 3 scripts that form 3 pipelines. The first script will handle the dev environment. The second will handle the <em>terraform plan</em> for the prod environments. The third will handle the <em>terraform apply</em> for the prod environment.</p>
-<p>You can find an explanation of the main steps on the below site <a href="https://learn.hashicorp.com/tutorials/terraform/github-actions">Github Actions</a>.</p>
-<h4 id="dev-to-pryml">dev-to-pr.yml</h4>
+
+<p>You can find an explanation of the main steps on the below site <a href="https://learn.hashicorp.com/tutorials/terraform/github-actions" target="_blank">Github Actions</a>.</p>
+
+<h4 id="dev-to-pr-yml">dev-to-pr.yml</h4>
+
 <p>The dev-to-pr.yml Github Actions YAML file will be executed only after a <em>push</em> on the <em>dev</em> branch.</p>
+
 <pre><code>on:
   push:
     branches:
       - dev
-</code></pre><p>The first step is to checkout the current configuration.</p>
+</code></pre>
+
+<p>The first step is to checkout the current configuration.</p>
+
 <pre><code>      - name: Checkout
         uses: actions/checkout@v2
-</code></pre><p>Then the <em>Setup Terraform</em> steps retrieves the Terraform CLI used in the GitHub action workflow.
+</code></pre>
+
+<p>Then the <em>Setup Terraform</em> steps retrieves the Terraform CLI used in the GitHub action workflow.
 This is in this step that we will use the TF_API_TOKEN that we have created previously to access Terraform Cloud from Github Actions.</p>
+
 <pre><code>      - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         with:
           # terraform_version: 0.13.0:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-</code></pre><p>These following steps initialize Terraform and set the <a href="https://netmemo.github.io/post/tf-workspace-var">terraform workspace</a>.</p>
+</code></pre>
+
+<p>These following steps initialize Terraform and set the <a href="https://netmemo.github.io/post/tf-workspace-var" target="_blank">terraform workspace</a>.</p>
+
 <pre><code>      - name: Terraform Init
         id: init
         run: terraform init
@@ -378,16 +412,25 @@ This is in this step that we will use the TF_API_TOKEN that we have created prev
       - name: Terraform Workspace
         id: workspace
         run: terraform workspace select dev
-</code></pre><p>We then validate the Terraform configuration</p>
+</code></pre>
+
+<p>We then validate the Terraform configuration</p>
+
 <pre><code>      - name: Terraform Validate
         id: validate
         run: terraform validate -no-color
-</code></pre><p>This step is to execute the Terraform plan. The plan will be a speculative plan executed in Terraform Cloud. Speculative plans are not directly visible from the Terraform Cloud UI. To access it, you will need to click on the link given in the result of the Terraform plan command.</p>
+</code></pre>
+
+<p>This step is to execute the Terraform plan. The plan will be a speculative plan executed in Terraform Cloud. Speculative plans are not directly visible from the Terraform Cloud UI. To access it, you will need to click on the link given in the result of the Terraform plan command.</p>
+
 <pre><code>      - name: Terraform Plan
         id: plan
         run: terraform plan -no-color
         continue-on-error: true
-</code></pre><p>This step will execute a <a href="https://github.com/marketplace/actions/github-script?version=v4.0.2">github-script</a> that will send a REST API query thanks to the <em>github</em> pre-authenticated <a href="https://octokit.github.io/rest.js/v18">octokit/rest.js</a> client with pagination plugins. It will also create a comment on the commit with the result of the previous steps.</p>
+</code></pre>
+
+<p>This step will execute a <a href="https://github.com/marketplace/actions/github-script?version=v4.0.2" target="_blank">github-script</a> that will send a REST API query thanks to the <em>github</em> pre-authenticated <a href="https://octokit.github.io/rest.js/v18" target="_blank">octokit/rest.js</a> client with pagination plugins. It will also create a comment on the commit with the result of the previous steps.</p>
+
 <pre><code>      - uses: actions/github-script@0.9.0
         if: github.event_name == 'push'
         env:
@@ -411,13 +454,19 @@ This is in this step that we will use the TF_API_TOKEN that we have created prev
               commit_sha: context.sha,
               body: output
             })
-</code></pre><p>This step is to apply the Terraform configuration, only if the <em>terraform plan</em> step result has succeeded.</p>
+</code></pre>
+
+<p>This step is to apply the Terraform configuration, only if the <em>terraform plan</em> step result has succeeded.</p>
+
 <pre><code>      - name: Terraform Apply
         id: apply
         if: steps.plan.outcome == 'success'
         run: terraform apply -auto-approve
-</code></pre><p>If the <em>terraform apply</em> succeeds, we will use the <a href="https://github.com/marketplace/actions/github-script?version=v4.0.2">github-script</a> to create a <a href="https://octokit.github.io/rest.js/v18#pulls-create">Pull Request</a> thanks to the <a href="https://octokit.github.io/rest.js/v18">octokit/rest.js</a> like in the previous steps.
-We will use a personal github token <em>PERSO_GITHUB_TOKEN</em> to create the PR for these steps. If we are not using the personal token, the <a href="https://github.com/peter-evans/create-pull-request/issues/48">PR will not trigger other pipelines</a> that have the <em>on:pull_request trigger</em>.</p>
+</code></pre>
+
+<p>If the <em>terraform apply</em> succeeds, we will use the <a href="https://github.com/marketplace/actions/github-script?version=v4.0.2" target="_blank">github-script</a> to create a <a href="https://octokit.github.io/rest.js/v18#pulls-create" target="_blank">Pull Request</a> thanks to the <a href="https://octokit.github.io/rest.js/v18" target="_blank">octokit/rest.js</a> like in the previous steps.
+We will use a personal github token <em>PERSO_GITHUB_TOKEN</em> to create the PR for these steps. If we are not using the personal token, the <a href="https://github.com/peter-evans/create-pull-request/issues/48" target="_blank">PR will not trigger other pipelines</a> that have the <em>on:pull_request trigger</em>.</p>
+
 <pre><code>      - name: CreatePR if apply succeed
         uses: actions/github-script@v4.0.2
         if: steps.apply.outcome == 'success'
@@ -431,12 +480,19 @@ We will use a personal github token <em>PERSO_GITHUB_TOKEN</em> to create the PR
               head: &quot;dev&quot;,
               base: &quot;main&quot;
             });
-</code></pre><h4 id="plan-prodyml">plan-prod.yml</h4>
+</code></pre>
+
+<h4 id="plan-prod-yml">plan-prod.yml</h4>
+
 <p>The plan-prod.yml Github Actions YAML file will be executed only after a <em>pull request</em>.</p>
+
 <pre><code>on:
   pull_request:
-</code></pre><p>Most of the steps have already been described for the <em>dev-to-pr.yml</em> files, the only difference is the step below.
+</code></pre>
+
+<p>Most of the steps have already been described for the <em>dev-to-pr.yml</em> files, the only difference is the step below.
 It will add a comment on the PR with the description of what has been done.</p>
+
 <pre><code>      - uses: actions/github-script@v4.0.2
         env:
           PLAN: &quot;terraform\n${{ steps.plan.outputs.stdout }}&quot;
@@ -458,18 +514,29 @@ It will add a comment on the PR with the description of what has been done.</p>
               repo: context.repo.repo,
               body: output
             })
-</code></pre><h4 id="apply-prodyml">apply-prod.yml</h4>
+</code></pre>
+
+<h4 id="apply-prod-yml">apply-prod.yml</h4>
+
 <p>The plan-prod.yml Github Actions YAML file will be executed only after a <em>push</em> on the main branch.</p>
+
 <pre><code>on:
   push:
     branches:
       - main
-</code></pre><p>The other steps have already been discussed previously.</p>
+</code></pre>
+
+<p>The other steps have already been discussed previously.</p>
+
 <h2 id="terraform-file">Terraform file</h2>
+
 <p>For this blog post we will have a single main.tf file.
 This Terraform script should have the terraform configuration, the provider definition and the resources definitions.</p>
+
 <h4 id="terraform-variables">Terraform variables</h4>
+
 <p>This is where we declare the Terraform variables that will be defined in the Terrafrom Cloud workspaces. These variables will change according to the environment.</p>
+
 <pre><code>variable &quot;password&quot; {
   type = string
 }
@@ -479,10 +546,14 @@ variable &quot;username&quot; {
 variable &quot;nsxhost&quot; {
   type = string
 }
-</code></pre><h4 id="terraform-configuration-section">Terraform configuration section</h4>
+</code></pre>
+
+<h4 id="terraform-configuration-section">Terraform configuration section</h4>
+
 <p>In this section we are setting the 2 providers needed and the backend.
-The <em>backend &ldquo;<a href="https://www.terraform.io/docs/language/settings/backends/remote.html#workspaces">remote</a>&quot;</em> is where you find the Terraform Cloud organization and workspaces prefixes.
-The workspaces suffixes will be added as seen in the beginning of this post with the <a href="https://learn.hashicorp.com/tutorials/terraform/automate-terraform?in=terraform/automation">TF_WORKSPACE</a> environment variables and the <a href="https://www.terraform.io/docs/language/settings/backends/remote.html#workspaces">terraform workspace select</a> command in the Github Actions steps.</p>
+The <em>backend &ldquo;<a href="https://www.terraform.io/docs/language/settings/backends/remote.html#workspaces" target="_blank">remote</a>&ldquo;</em> is where you find the Terraform Cloud organization and workspaces prefixes.
+The workspaces suffixes will be added as seen in the beginning of this post with the <a href="https://learn.hashicorp.com/tutorials/terraform/automate-terraform?in=terraform/automation" target="_blank">TF_WORKSPACE</a> environment variables and the <a href="https://www.terraform.io/docs/language/settings/backends/remote.html#workspaces" target="_blank">terraform workspace select</a> command in the Github Actions steps.</p>
+
 <pre><code>terraform {
   required_providers {
     random = {
@@ -503,25 +574,41 @@ The workspaces suffixes will be added as seen in the beginning of this post with
     }
   }
 }
-</code></pre><h4 id="provider-configuration">Provider configuration</h4>
+</code></pre>
+
+<h4 id="provider-configuration">Provider configuration</h4>
+
 <p>This is the NSX-T provider configuration. We pass the 3 variables that are defined in the Terraform Cloud workspaces.
 We disable the SSL verification because this is a local lab.</p>
+
 <pre><code>provider &quot;nsxt&quot; {
     host = var.nsxhost
     username = var.username
     password = var.password
     allow_unverified_ssl = true
 }
-</code></pre><h4 id="resource-creation">Resource creation</h4>
-<p>For this blog post we will create a <a href="https://registry.terraform.io/providers/vmware/nsxt/latest/docs/resources/policy_tier1_gateway">NSX-T T1 gateway</a> name <strong>T1-TFC</strong>.</p>
+</code></pre>
+
+<h4 id="resource-creation">Resource creation</h4>
+
+<p>For this blog post we will create a <a href="https://registry.terraform.io/providers/vmware/nsxt/latest/docs/resources/policy_tier1_gateway" target="_blank">NSX-T T1 gateway</a> name <strong>T1-TFC</strong>.</p>
+
 <pre><code>resource &quot;nsxt_policy_tier1_gateway&quot; &quot;tier1_gw&quot; {
   description               = &quot;Tier-1 provisioned by Terraform&quot;
   display_name              = &quot;T1-TFC&quot;
   route_advertisement_types = [&quot;TIER1_CONNECTED&quot;]
 }
-</code></pre><h1 id="project-workflow">Project workflow</h1>
-<p>Clic the arrows to see the detail.</p>
-<!-- raw HTML omitted -->
+</code></pre>
+
+<h1 id="project-workflow">Project workflow</h1>
+
+<p>Clic the arrows to see the detail.
+<details>
+<summary>1. Modify the dev branch on you local git.</summary>
+</details>
+<details>
+<summary>2. Add the modif to git, commit them and push the dev branch to your github repo.</summary></p>
+
 <pre><code>git add .
 
 git commit -am &quot;add T1-GW&quot;
@@ -537,18 +624,57 @@ Total 6 (delta 2), reused 0 (delta 0)
 remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
 To ssh://github.com/netmemo/tf-gha-nsxt-cicd.git
    8534543..a0b946b  dev -&gt; dev
-</code></pre><!-- raw HTML omitted -->
+</code></pre>
+
+<p></details>
+<details>
+<summary>3. Dev pipeline</summary>
+The dev pipeline is triggered, you can see it&rsquo;s starting in the Actions tab. It&rsquo;s tittle will be the commit message.<br />
+<a href="workflow-start.png" target="_blank"> <img src="workflow-start.png" alt="" /> </a>
+To validate that the dev pipeline is completed, you can check the Terraform cloud dev workspace state and the NSX-T dev environment to see that there is a new T1-GW.
+<a href="tfc-state-dev-after.png" target="_blank"> <img src="tfc-state-dev-after.png" alt="" /> </a>
+</details>
+<details>
+<summary>4. Integration pipeline</summary>
+After all the steps in the dev pipeline are passed, the workflow will turn green. The last step of the pipeline will create an automatic PR that will trigger the integration pipeline. This pipeline will validate the configuration and creates a plan against the production environment.
+The PR will have the description <strong>&ldquo;Auto PR generate by Github Action dev pipeline&rdquo;</strong>
+<a href="pr-list.png" target="_blank"> <img src="pr-list.png" alt="" /> </a>
+The integration pipeline will execute the <em>terraform plan</em> command against the production environment. You can then check again the Actions tab to see that the development and integration pipeline has turned green.
+<a href="workflow-2-pipeline-ok.png" target="_blank"> <img src="workflow-2-pipeline-ok.png" alt="" /> </a>
+If the two pipelines are ok, the checks in the PR should be green.<br />
+<a href="\pr-test-ok.png" target="_blank"> <img src="pr-test-ok.png" alt="" /> </a>
+</details>
+<details>
+<summary>5. Merge</summary>
+When the dev and integration pipeline are finished, the dev branch is ready to be merged to the main branch. You can then clic on the <strong>Merge pull request</strong> button to validate the merge and trigger the deployment pipeline.
+<a href="going-to-prod.png" target="_blank"> <img src="going-to-prod.png" alt="" /> </a>
+<a href="pr-merged.png" target="_blank"> <img src="pr-merged.png" alt="" /> </a>
+</details>
+<details>
+<summary>6. Deployment pipeline</summary>
+The deployment pipeline is triggered with the push/merge to the main branch. This is the final workflow that will push the Terraform configuration to production. You can see in Terraform Cloud that Terraform is applying the configuration.
+<a href="tfc-prod-applying.png" target="_blank"> <img src="tfc-prod-applying.png" alt="" /> </a>
+You can now double check in Github Actions that the deployment workflow has been succefully executed, <strong>&ldquo;Merge pull request #10&rdquo;</strong> in the picture below.
+<a href="pipeline-apply-ok-list.png" target="_blank"> <img src="pipeline-apply-ok-list.png" alt="" /> </a>
+</details>
+<details>
+<summary>7. Checks</summary>
+Finally you can now verify that there is a resource on Terraform Cloud and that the T1 Gateway has been created on the production NSX-T.<br />
+<a href="tfc-prod-ok.png" target="_blank"> <img src="tfc-prod-ok.png" alt="" /> </a>
+<a href="nsxt-prod-ok.png" target="_blank"> <img src="nsxt-prod-ok.png" alt="" /> </a>
+</details></p>
+
 <h1 id="how-to-test-this-project">How to test this project.</h1>
-<p>Requirements:</p>
-<ul>
-<li>NSX-T environment (there are examples on the web to use AWS as provider instead of NSX, the concepts are the same).</li>
-<li>Terraform Cloud account with 2 workspaces.</li>
-<li>Github account and git locally.</li>
-</ul>
+
+<p>Requirements:<br />
+- NSX-T environment (there are examples on the web to use AWS as provider instead of NSX, the concepts are the same).<br />
+- Terraform Cloud account with 2 workspaces.<br />
+- Github account and git locally.</p>
+
 <ol>
 <li><strong>[NSX-T]</strong> Prepare your two NSX-T environments.</li>
 <li><strong>[TFC]</strong> Create your two workspaces in TFC with the API Key for Github.</li>
-<li><strong>[GITHUB]</strong> Fork this <a href="https://github.com/netmemo/tf-gha-nsxt-cicd">project</a>, add the TFC API key and your personal API Key to your repo, enable actions.</li>
+<li><strong>[GITHUB]</strong> Fork this <a href="https://github.com/netmemo/tf-gha-nsxt-cicd" target="_blank">project</a>, add the TFC API key and your personal API Key to your repo, enable actions.</li>
 <li><strong>[LOCAL]</strong> Clone your forked project to your local git.</li>
 <li><strong>[LOCAL]</strong> Create the dev branch locally.</li>
 <li><strong>[LOCAL]</strong> Modify the Terraform configuration in the main.tf according to your TFC workspace.</li>
@@ -556,13 +682,21 @@ To ssh://github.com/netmemo/tf-gha-nsxt-cicd.git
 <li><strong>[GITHUB]</strong> Wait until all the test pass.</li>
 <li><strong>[GITHUB]</strong> Click merge to deploy to prod.</li>
 </ol>
+
 <h1 id="pain-points-of-the-project">Pain points of the project.</h1>
+
 <ul>
-<li>Switching <a href="https://netmemo.github.io/post/tf-workspace-var">terraform workspace</a> with github actions.</li>
-<li>Create <a href="https://netmemo.github.io/post/gha-auto-pr">automatically</a> a github PR with with rest.js API of octokit.</li>
+<li>Switching <a href="https://netmemo.github.io/post/tf-workspace-var" target="_blank">terraform workspace</a> with github actions.<br /></li>
+<li>Create <a href="https://netmemo.github.io/post/gha-auto-pr" target="_blank">automatically</a> a github PR with with rest.js API of octokit.<br /></li>
 </ul>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+
+<script src="https://utteranc.es/client.js"
+        repo="[ENTER REPO HERE]"
+        issue-term="pathname"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+</script>
 
     </div>
 
@@ -577,7 +711,7 @@ To ssh://github.com/netmemo/tf-gha-nsxt-cicd.git
   
   <a class="badge badge-light" href="/tags/github/">Github</a>
   
-  <a class="badge badge-light" href="">Github Actions</a>
+  <a class="badge badge-light" href="/tags/github-actions/">Github Actions</a>
   
   <a class="badge badge-light" href="/tags/nsx-t/">NSX-T</a>
   
@@ -623,7 +757,7 @@ To ssh://github.com/netmemo/tf-gha-nsxt-cicd.git
   
 
   <p class="powered-by">
-    Noël Boulène © 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn't reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author´s professional integrity) that any statement contained in a post is true, correct or precise. &middot; 
+    No&euml;l Boul&egrave;ne &copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&acute;s professional integrity) that any statement contained in a post is true, correct or precise. &middot; 
 
     Powered by the
     <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for

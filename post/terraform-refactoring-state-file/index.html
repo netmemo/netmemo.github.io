@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="Source Themes Academic 2.4.0">
-  <meta name="generator" content="Hugo 0.87.0" />
+  <meta name="generator" content="Hugo 0.49" />
   <meta name="author" content="Noel">
 
   
@@ -17,9 +17,9 @@
   
   <meta name="description" content="https://www.terraform.io/docs/cli/commands/state/mv.html
 On windows :
-It move resources from a construct like this
-locals {policy1= {rule1 = {source = [&quot;src1&quot;,&quot;src2&quot;]}}policy2 = {rule1 = {source = [&quot;src3&quot;,&quot;src4&quot;]}}}To a structure like this
-locals {policies = {policy1 = {rule1 = {source = [&quot;src1&quot;,&quot;src2&quot;]}}policy2 = {rule2 = {source = [&quot;src3&quot;,&quot;src4&quot;]}}}}The main moving from">
+terraform state mv nsxt_policy_security_policy.policy1 nsxt_policy_security_policy.policies[\&ldquo;policy1\&ldquo;]  It move resources from a construct like this
+locals { policy1= { rule1 = { source = [&quot;src1&quot;,&quot;src2&quot;] } } policy2 = { rule1 = { source = [&quot;src3&quot;,&quot;src4&quot;] } } }  To a structure like this
+locals { policies = { policy1 = { rule1 = { source = [&quot;src1&quot;,&quot;src2&quot;] } } policy2 = { rule2 = { source = [&quot;src3&quot;,&quot;src4&quot;] } } } }  The main moving from">
 
   
   <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/post/terraform-refactoring-state-file/">
@@ -99,9 +99,9 @@ locals {policies = {policy1 = {rule1 = {source = [&quot;src1&quot;,&quot;src
   <meta property="og:title" content="Terraform Refactoring State File | netmemo.github.io">
   <meta property="og:description" content="https://www.terraform.io/docs/cli/commands/state/mv.html
 On windows :
-It move resources from a construct like this
-locals {policy1= {rule1 = {source = [&quot;src1&quot;,&quot;src2&quot;]}}policy2 = {rule1 = {source = [&quot;src3&quot;,&quot;src4&quot;]}}}To a structure like this
-locals {policies = {policy1 = {rule1 = {source = [&quot;src1&quot;,&quot;src2&quot;]}}policy2 = {rule2 = {source = [&quot;src3&quot;,&quot;src4&quot;]}}}}The main moving from">
+terraform state mv nsxt_policy_security_policy.policy1 nsxt_policy_security_policy.policies[\&ldquo;policy1\&ldquo;]  It move resources from a construct like this
+locals { policy1= { rule1 = { source = [&quot;src1&quot;,&quot;src2&quot;] } } policy2 = { rule1 = { source = [&quot;src3&quot;,&quot;src4&quot;] } } }  To a structure like this
+locals { policies = { policy1 = { rule1 = { source = [&quot;src1&quot;,&quot;src2&quot;] } } policy2 = { rule2 = { source = [&quot;src3&quot;,&quot;src4&quot;] } } } }  The main moving from">
   
   
     
@@ -240,8 +240,8 @@ locals {policies = {policy1 = {rule1 = {source = [&quot;src1&quot;,&quot;src
 
   <span class="article-date">
     
-    <meta content="2021-02-25 21:56:57 &#43;0100 &#43;0100" itemprop="datePublished">
-    <time datetime="2021-02-25 21:56:57 &#43;0100 &#43;0100" itemprop="dateModified">
+    <meta content="2021-02-25 21:56:57 &#43;0100 CET" itemprop="datePublished">
+    <time datetime="2021-02-25 21:56:57 &#43;0100 CET" itemprop="dateModified">
       Feb 25, 2021
     </time>
   </span>
@@ -320,11 +320,13 @@ locals {policies = {policy1 = {rule1 = {source = [&quot;src1&quot;,&quot;src
 
 
     <div class="article-style" itemprop="articleBody">
-      <p><a href="https://www.terraform.io/docs/cli/commands/state/mv.html">https://www.terraform.io/docs/cli/commands/state/mv.html</a><br>
-On windows :</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<p>It move resources from a construct like this</p>
+      <p><a href="https://www.terraform.io/docs/cli/commands/state/mv.html" target="_blank">https://www.terraform.io/docs/cli/commands/state/mv.html</a><br />
+On windows :<br />
+<pre style="color:black">
+terraform state mv nsxt_policy_security_policy.policy1 nsxt_policy_security_policy.policies[\&ldquo;policy1\&ldquo;]
+</pre>
+It move resources from a construct like this</p>
+
 <pre><code>locals {
   policy1= {
       rule1 = {
@@ -337,7 +339,10 @@ On windows :</p>
       }
   }
 }
-</code></pre><p>To a structure like this</p>
+</code></pre>
+
+<p>To a structure like this</p>
+
 <pre><code>locals {
   policies = {
     policy1 = {
@@ -352,7 +357,10 @@ On windows :</p>
     }
   }
 }
-</code></pre><p>The main moving from</p>
+</code></pre>
+
+<p>The main moving from</p>
+
 <pre><code>resource &quot;nsxt_policy_security_policy&quot; &quot;policy1&quot;{
   display_name = &quot;policy1&quot;
   category     = &quot;Environment&quot;
@@ -373,7 +381,10 @@ resource &quot;nsxt_policy_security_policy&quot; &quot;policy2&quot;{
     }
   }
 }
-</code></pre><p>to</p>
+</code></pre>
+
+<p>to</p>
+
 <pre><code>resource &quot;nsxt_policy_security_policy&quot; &quot;policies&quot; {
 for_each = local.policies
   display_name = each.key
@@ -385,8 +396,11 @@ for_each = local.policies
     }
   }
 }
-</code></pre><p>The terraform state moving fromfrom 2 resources to 1 resource with 2 instances<br>
+</code></pre>
+
+<p>The terraform state moving fromfrom 2 resources to 1 resource with 2 instances<br />
 From</p>
+
 <pre><code>{
   &quot;type&quot;: &quot;nsxt_policy_security_policy&quot;,
   &quot;name&quot;: &quot;policy1&quot;
@@ -405,7 +419,10 @@ From</p>
     }
   ]
 }
-</code></pre><p>To</p>
+</code></pre>
+
+<p>To</p>
+
 <pre><code>{
   &quot;type&quot;: &quot;nsxt_policy_security_policy&quot;,
   &quot;name&quot;: &quot;policies&quot;
@@ -419,6 +436,7 @@ From</p>
   ]
 }
 </code></pre>
+
     </div>
 
     
@@ -472,7 +490,7 @@ From</p>
   
 
   <p class="powered-by">
-    Noël Boulène © 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn't reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author´s professional integrity) that any statement contained in a post is true, correct or precise. &middot; 
+    No&euml;l Boul&egrave;ne &copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&acute;s professional integrity) that any statement contained in a post is true, correct or precise. &middot; 
 
     Powered by the
     <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for

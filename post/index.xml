@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on netmemo.github.io</title>
@@ -7,7 +7,11 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&amp;acute;s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
-    <lastBuildDate>Sun, 01 Jan 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://netmemo.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 01 Jan 2017 00:00:00 +0100</lastBuildDate>
+    
+	<atom:link href="https://netmemo.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
     <item>
       <title>Github Actions with Terraform Cloud for CI/CD of NSX-T</title>
       <link>https://netmemo.github.io/post/tf-gha-nsxt-cicd/</link>
@@ -34,7 +38,7 @@ I will describe the structure of the project, the project components, the projec
       
       <guid>https://netmemo.github.io/post/tf-workspace-var/</guid>
       <description>This blog post is to explain how I did to automatically change Terraform Cloud workspace from Github Actions. As explained in the documentation remote workspace, you can use different remote workspace by specifying the prefix of you workspace in the Terraform backend configuration.
- backend &amp;quot;remote&amp;quot; { organization = &amp;quot;netmemo&amp;quot; workspaces { prefix = &amp;quot;netmemo-&amp;quot; } } After that, you only need to select the proper workspace by entering the terraform workspace select [suffix] command.</description>
+ backend &amp;quot;remote&amp;quot; { organization = &amp;quot;netmemo&amp;quot; workspaces { prefix = &amp;quot;netmemo-&amp;quot; } }  After that, you only need to select the proper workspace by entering the terraform workspace select [suffix] command.</description>
     </item>
     
     <item>
@@ -43,7 +47,7 @@ I will describe the structure of the project, the project components, the projec
       <pubDate>Thu, 29 Jul 2021 19:03:37 +0200</pubDate>
       
       <guid>https://netmemo.github.io/post/nsxt-tf-firewall/</guid>
-      <description>This article is to show an example of how to manage NSX-T firewall rules as a code through Terraform. You can find the project on my github account : [nsxt-frac-tf-cm] and [nsxt-frac-tf-rm]
+      <description>This article is to show an example of how to manage NSX-T firewall rules as a code through Terraform. You can find the project on my github account : nsxt-frac-tf-cm and nsxt-frac-tf-rm
 I will describe the structure of the project, how it works, the data model, the Terraform code explanation and finish with an example.
 Structure of the project The diagram below shows a summary of how I organized the project in order to fully use infrastructre as code.</description>
     </item>
@@ -56,7 +60,8 @@ Structure of the project The diagram below shows a summary of how I organized th
       <guid>https://netmemo.github.io/post/subnets-size-mix/</guid>
       <description>Below are some thoughts about subnet sizing and workloads mixing.
 Along my different jobs, one of the things that led to L2 extension and then brought risks and slew down or even blocked projects was big heterogeneous subnets.
-Small subnets size: Pros  Agility, you can do swimlane application design and migration per application without jeopardising the entire company.  Cons  More entry in the routing table but that can be mitigated with summarization.</description>
+Small subnets size: Pros  Agility, you can do swimlane application design and migration per application without jeopardising the entire company.
+  Cons  More entry in the routing table but that can be mitigated with summarization.</description>
     </item>
     
     <item>
@@ -67,9 +72,9 @@ Small subnets size: Pros  Agility, you can do swimlane application design and mi
       <guid>https://netmemo.github.io/post/terraform-refactoring-state-file/</guid>
       <description>https://www.terraform.io/docs/cli/commands/state/mv.html
 On windows :
-It move resources from a construct like this
-locals {policy1= {rule1 = {source = [&amp;quot;src1&amp;quot;,&amp;quot;src2&amp;quot;]}}policy2 = {rule1 = {source = [&amp;quot;src3&amp;quot;,&amp;quot;src4&amp;quot;]}}}To a structure like this
-locals {policies = {policy1 = {rule1 = {source = [&amp;quot;src1&amp;quot;,&amp;quot;src2&amp;quot;]}}policy2 = {rule2 = {source = [&amp;quot;src3&amp;quot;,&amp;quot;src4&amp;quot;]}}}}The main moving from</description>
+terraform state mv nsxt_policy_security_policy.policy1 nsxt_policy_security_policy.policies[\&amp;ldquo;policy1\&amp;ldquo;]  It move resources from a construct like this
+locals { policy1= { rule1 = { source = [&amp;quot;src1&amp;quot;,&amp;quot;src2&amp;quot;] } } policy2 = { rule1 = { source = [&amp;quot;src3&amp;quot;,&amp;quot;src4&amp;quot;] } } }  To a structure like this
+locals { policies = { policy1 = { rule1 = { source = [&amp;quot;src1&amp;quot;,&amp;quot;src2&amp;quot;] } } policy2 = { rule2 = { source = [&amp;quot;src3&amp;quot;,&amp;quot;src4&amp;quot;] } } } }  The main moving from</description>
     </item>
     
     <item>
@@ -79,7 +84,7 @@ locals {policies = {policy1 = {rule1 = {source = [&amp;quot;src1&amp;quot;,&
       
       <guid>https://netmemo.github.io/post/python-package-offline/</guid>
       <description>To install python packages offline (with no internet access), the simplest way is to dowload the packages with the dependencies on a server with internet access and the below command.
-You then need to move all the files to the offline server in a directory and deploy the packages with the below command :</description>
+ C:\Users\Nono\Desktop\pythonpip download requests Collecting requests Using cached requests-2.25.1-py2.py3-none-any.whl (61 kB) Collecting urllib3=1.21.1 Using cached urllib3-1.26.3-py2.py3-none-any.whl (137 kB) Collecting certifi=2017.4.17 Using cached certifi-2020.12.5-py2.py3-none-any.whl (147 kB) Collecting idna=2.5 Using cached idna-2.10-py2.py3-none-any.whl (58 kB) Collecting chardet=3.0.2 Using cached chardet-4.0.0-py2.py3-none-any.whl (178 kB) Saved c:\users\nono\desktop\python\requests-2.</description>
     </item>
     
     <item>
@@ -100,7 +105,7 @@ You then need to move all the files to the offline server in a directory and dep
       <description>The post below shows how to create security policy groups for NSX-T with Terraform nested for_each loop and dynamic.
 The variables are made from one map of list. Each list represents one group composed of tags.
 https://www.hashicorp.com/blog/hashicorp-terraform-0-12-preview-for-and-for-each
-variable &amp;quot;mapgroups&amp;quot; {type	= mapdefault	= {NBO	= [&amp;quot;NBO&amp;quot;]NBO-PROD	= [&amp;quot;NBO&amp;quot;,&amp;quot;PROD&amp;quot;]}}resource &amp;quot;nsxt_policy_group&amp;quot; &amp;quot;nbogroups&amp;quot; {for_each	= var.mapgroupsdisplay_name	= each.keycriteria {dynamic &amp;quot;condition&amp;quot; {for_each = each.</description>
+variable &amp;quot;mapgroups&amp;quot; { type = map default = { NBO = [&amp;quot;NBO&amp;quot;] NBO-PROD = [&amp;quot;NBO&amp;quot;,&amp;quot;PROD&amp;quot;] } } resource &amp;quot;nsxt_policy_group&amp;quot; &amp;quot;nbogroups&amp;quot; { for_each = var.mapgroups display_name = each.key criteria { dynamic &amp;quot;condition&amp;quot; { for_each = each.</description>
     </item>
     
     <item>
@@ -115,7 +120,7 @@ installation of golang with msi downloaded here
 https://golang.org/doc/install
 Clone the terraform repository to get the tool
 https://github.com/hashicorp/terraform.git
-cd terraform-mastergo install .\tools\terraform-bundleCheck the terraform version C:\Users\noyel\Desktop\tfforeach\nsxt&amp;gt;terraform versionTerraform v0.14.6+ provider registry.</description>
+cd terraform-master go install .\tools\terraform-bundle  Check the terraform version C:\Users\noyel\Desktop\tfforeach\nsxt&amp;gt;terraform version Terraform v0.</description>
     </item>
     
     <item>
@@ -126,7 +131,9 @@ cd terraform-mastergo install .\tools\terraform-bundleCheck the terraform vers
       <guid>https://netmemo.github.io/post/tf-for-each/</guid>
       <description>An extended explanation of the differences between for_each, for and count can be find on the link below https://blog.gruntwork.io/terraform-tips-tricks-loops-if-statements-and-gotchas-f739bbae55f9
 The two main drawbacks of using count are :
- Can&amp;rsquo;t be used to loop over inline blocks Difficult to remove entry from a list because it changes the index and those Terraform may want to destroy the resource because it has a different index  Below is an example of the variables used to create subnets within AWS VPCs and the main file with the for_each.</description>
+- Can&amp;rsquo;t be used to loop over inline blocks
+- Difficult to remove entry from a list because it changes the index and those Terraform may want to destroy the resource because it has a different index
+Below is an example of the variables used to create subnets within AWS VPCs and the main file with the for_each.</description>
     </item>
     
     <item>
@@ -162,7 +169,7 @@ SRGB Segment Routing Golbal Block
 Prefix-SID It&amp;rsquo;s global and unique. It identify a prefix. It&amp;rsquo;s called anycast SID when it&amp;rsquo;s send by a group of router.
 Node-SID It&amp;rsquo;s global and unique. Only one per node. It identify the node.
 Adjacent-SID It&amp;rsquo;s local and can use a dynamique range. It&amp;rsquo;s used to identify an interconnection between 2 nodes.
-With Arista EOS 4.23 it&amp;rsquo;s automaticaly allocated from the isis dynamic range show mpls label ranges.</description>
+With Arista EOS 4.</description>
     </item>
     
     <item>
@@ -175,8 +182,14 @@ With Arista EOS 4.23 it&amp;rsquo;s automaticaly allocated from the isis dynamic
 Is PIC supported by default ?
 https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/configuration/xe-3s/irg-xe-3s-book/irg-bgp-mp-pic.html
 =&amp;gt; With BGP Multipath, the BGP prefix-independant convergence (PIC) feature is supported
-Attribut that should be identical 
- Weight LP AS Path (AS Number unless relax us used, AS length) Origin Code MED IGP Metric Next hop should be different  Add Path If the path are equal, allow to advertise more than one bes oath (need to test in eBGP).</description>
+ Attribut that should be identical 
+- Weight
+- LP
+- AS Path (AS Number unless relax us used, AS length)
+- Origin Code
+- MED
+- IGP Metric Next hop should be different
+Add Path If the path are equal, allow to advertise more than one bes oath (need to test in eBGP).</description>
     </item>
     
     <item>
@@ -185,8 +198,8 @@ Attribut that should be identical
       <pubDate>Mon, 11 May 2020 08:00:11 +0200</pubDate>
       
       <guid>https://netmemo.github.io/post/how-to-hugo/</guid>
-      <description>prerequis :
- github desktop hugo  config.toml =&amp;gt; need to be modify to change the copyright date
+      <description>prerequis : - github desktop - hugo
+config.toml =&amp;gt; need to be modify to change the copyright date
 lancer cmd
 Go to the folder blog : C:\Users\noyel\Documents\Site\blog&amp;gt;
 taper : hugo new post/my-first-post.md
@@ -216,7 +229,7 @@ Workarround  If we filter the redistribution that doesn&amp;rsquo;t help because
       <guid>https://netmemo.github.io/post/corelinuxnetmemo/</guid>
       <description>Below is a very light virtual machine based on Core Linux kernel 4.8 (TinyCore) 26 Mo with network tools like iperf3, tcpdump, net-bridging, iproute2, busybox (httpd), tcpreplay, nmap, openssh.
 corelinux1.5.ova
-basic commands/directory /etc/sysconfig/tcedir/optional =&amp;gt; packages/etc/sysconfig/tcedir/onboot.lst =&amp;gt; on boot package to be loadedsudo vi /opt/eth0.sh =&amp;gt; change interfaces parameters#configure an interfacepkill udhcp =&amp;gt; stop dhcp for this interfaceifconfig eth0 10.253.106.2 netmask 255.255.255.192 uproute add default gw 10.</description>
+basic commands/directory /etc/sysconfig/tcedir/optional =&amp;gt; packages /etc/sysconfig/tcedir/onboot.lst =&amp;gt; on boot package to be loaded  sudo vi /opt/eth0.sh =&amp;gt; change interfaces parameters #configure an interface pkill udhcp =&amp;gt; stop dhcp for this interface ifconfig eth0 10.253.106.2 netmask 255.255.255.192 up route add default gw 10.</description>
     </item>
     
     <item>
@@ -228,7 +241,7 @@ basic commands/directory /etc/sysconfig/tcedir/optional =&amp;gt; packages/etc/
       <description>This post is a memo on how I did the installtion of Kubernetes and Calico on VMs. It&amp;rsquo;s not some best pactrices in anyway.
 I&amp;rsquo;ve chose VM because I didn&amp;rsquo;t want to depend on any Cloud infrastructure. I&amp;rsquo;ve also wanted to understand the network interaction between K8s parts from an infrastructure point of view.
 Prerequisite : know how to create VMs on any hypervisors
-Steps to deploy K8s :   Install 1 ubuntu router with 3 interfaces.</description>
+Steps to deploy K8s :  Install 1 ubuntu router with 3 interfaces.</description>
     </item>
     
     <item>
@@ -241,7 +254,7 @@ Steps to deploy K8s :   Install 1 ubuntu router with 3 interfaces.</description>
 https://www.cisco.com/c/en/us/support/docs/switches/nexus-7000-series-switches/116647-technote-product-00.html
 =&amp;gt; flanker car avec la commande show hardware internal dev-port-map, il n&amp;rsquo;y a pas d&amp;rsquo;asic Clipper, uniquement des flanker
 Sample of icmp troubleshooting from the Admin VDC
-show moduleattach module 1show hardware internal dev-port-mapelam asic flanker instance 2layer2trigger dbus ipv4 egress if destination-ipv4-address 10.253.108.90startstatuselam asic flanker instance 2layer2trigger dbus ipv4 ingress if destination-ipv4-address 10.253.108.90startstatusOn N5K</description>
+show module attach module 1 show hardware internal dev-port-map elam asic flanker instance 2 layer2 trigger dbus ipv4 egress if destination-ipv4-address 10.253.108.90 start status  elam asic flanker instance 2 layer2 trigger dbus ipv4 ingress if destination-ipv4-address 10.253.108.90 start status  On N5K</description>
     </item>
     
     <item>
@@ -255,8 +268,8 @@ The following post contain raw entry only for reminder purpose.
 Bellow are the links I&amp;rsquo;ve used to understand/did my lab
 https://fr.wikipedia.org/wiki/Kubernetes#/media/File:Kubernetes.png https://kubernetes.io/docs/setup/independent/install-kubeadm/ https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/ https://kubernetes.io/docs/tutorials/k8s101/ https://kubernetes.io/docs/tutorials/k8s201/ https://kubernetes.io/docs/reference/kubectl/cheatsheet/
 Join a node/worker to the master
-kubeadm join 10.0.1.10:6443 --token d34b9i.v03t2yiozio63cq6 --discovery-token-ca-cert-hash sha256:c21d04ea23790a0bf81cf64118e3a9075ffb63ed90bc697acef5793386e9eb16Delete a deployment
-kubectl delete deployment nginx-deployment-nboTo get the logs of a specific container. -n is to specify the namespace</description>
+kubeadm join 10.0.1.10:6443 --token d34b9i.v03t2yiozio63cq6 --discovery-token-ca-cert-hash sha256:c21d04ea23790a0bf81cf64118e3a9075ffb63ed90bc697acef5793386e9eb16  Delete a deployment
+kubectl delete deployment nginx-deployment-nbo  To get the logs of a specific container. -n is to specify the namespace</description>
     </item>
     
   </channel>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Terraform on netmemo.github.io</title>
@@ -7,14 +7,18 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&amp;acute;s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
-    <lastBuildDate>Thu, 29 Jul 2021 19:03:37 +0200</lastBuildDate><atom:link href="https://netmemo.github.io/categories/terraform/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 29 Jul 2021 19:03:37 +0200</lastBuildDate>
+    
+	<atom:link href="https://netmemo.github.io/categories/terraform/index.xml" rel="self" type="application/rss+xml" />
+    
+    
     <item>
       <title>NSX-T Firewall rules as code with Terraform</title>
       <link>https://netmemo.github.io/post/nsxt-tf-firewall/</link>
       <pubDate>Thu, 29 Jul 2021 19:03:37 +0200</pubDate>
       
       <guid>https://netmemo.github.io/post/nsxt-tf-firewall/</guid>
-      <description>This article is to show an example of how to manage NSX-T firewall rules as a code through Terraform. You can find the project on my github account : [nsxt-frac-tf-cm] and [nsxt-frac-tf-rm]
+      <description>This article is to show an example of how to manage NSX-T firewall rules as a code through Terraform. You can find the project on my github account : nsxt-frac-tf-cm and nsxt-frac-tf-rm
 I will describe the structure of the project, how it works, the data model, the Terraform code explanation and finish with an example.
 Structure of the project The diagram below shows a summary of how I organized the project in order to fully use infrastructre as code.</description>
     </item>
@@ -28,7 +32,7 @@ Structure of the project The diagram below shows a summary of how I organized th
       <description>The post below shows how to create security policy groups for NSX-T with Terraform nested for_each loop and dynamic.
 The variables are made from one map of list. Each list represents one group composed of tags.
 https://www.hashicorp.com/blog/hashicorp-terraform-0-12-preview-for-and-for-each
-variable &amp;quot;mapgroups&amp;quot; {type	= mapdefault	= {NBO	= [&amp;quot;NBO&amp;quot;]NBO-PROD	= [&amp;quot;NBO&amp;quot;,&amp;quot;PROD&amp;quot;]}}resource &amp;quot;nsxt_policy_group&amp;quot; &amp;quot;nbogroups&amp;quot; {for_each	= var.mapgroupsdisplay_name	= each.keycriteria {dynamic &amp;quot;condition&amp;quot; {for_each = each.</description>
+variable &amp;quot;mapgroups&amp;quot; { type = map default = { NBO = [&amp;quot;NBO&amp;quot;] NBO-PROD = [&amp;quot;NBO&amp;quot;,&amp;quot;PROD&amp;quot;] } } resource &amp;quot;nsxt_policy_group&amp;quot; &amp;quot;nbogroups&amp;quot; { for_each = var.mapgroups display_name = each.key criteria { dynamic &amp;quot;condition&amp;quot; { for_each = each.</description>
     </item>
     
     <item>
@@ -43,7 +47,7 @@ installation of golang with msi downloaded here
 https://golang.org/doc/install
 Clone the terraform repository to get the tool
 https://github.com/hashicorp/terraform.git
-cd terraform-mastergo install .\tools\terraform-bundleCheck the terraform version C:\Users\noyel\Desktop\tfforeach\nsxt&amp;gt;terraform versionTerraform v0.14.6+ provider registry.</description>
+cd terraform-master go install .\tools\terraform-bundle  Check the terraform version C:\Users\noyel\Desktop\tfforeach\nsxt&amp;gt;terraform version Terraform v0.</description>
     </item>
     
     <item>
@@ -54,7 +58,9 @@ cd terraform-mastergo install .\tools\terraform-bundleCheck the terraform vers
       <guid>https://netmemo.github.io/post/tf-for-each/</guid>
       <description>An extended explanation of the differences between for_each, for and count can be find on the link below https://blog.gruntwork.io/terraform-tips-tricks-loops-if-statements-and-gotchas-f739bbae55f9
 The two main drawbacks of using count are :
- Can&amp;rsquo;t be used to loop over inline blocks Difficult to remove entry from a list because it changes the index and those Terraform may want to destroy the resource because it has a different index  Below is an example of the variables used to create subnets within AWS VPCs and the main file with the for_each.</description>
+- Can&amp;rsquo;t be used to loop over inline blocks
+- Difficult to remove entry from a list because it changes the index and those Terraform may want to destroy the resource because it has a different index
+Below is an example of the variables used to create subnets within AWS VPCs and the main file with the for_each.</description>
     </item>
     
   </channel>
