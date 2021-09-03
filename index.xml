@@ -1408,7 +1408,7 @@ The number of supported VLAN are less relevent in virtualized environments becau
 When you move an entire subnet somewhere else you can break the summarization of the company but you can always do the summarization again after all the applications have moved or even reIP the entire subnet afterwards. It&amp;rsquo;s less risky and complex than having a L2 streched &amp;ldquo;forever&amp;rdquo;.&lt;/p&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;Distributed routing&lt;br /&gt;
-Now, with distributed routing you don&amp;rsquo;t have to go to the network core where the default gateway was in the old days to route between subnets.&lt;/p&gt;&lt;/li&gt;
+Now, with distributed routing you don&amp;rsquo;t have to go to the network core where the default gateway was in the old days to route between subnets. The trafic have a better distribution in the fabric and you should have less risks to congest uplinks with EST/WEST trafic.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>
