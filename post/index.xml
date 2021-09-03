@@ -60,7 +60,7 @@ Structure of the project The diagram below shows a summary of how I organized th
       <guid>https://netmemo.github.io/post/subnets-size-mix/</guid>
       <description>Below are some thoughts about subnet sizing and workloads mixing.
 Along my different jobs, one of the things that led to L2 extension and then brought risks and slew down or even blocked projects was big heterogeneous subnets.
-Small subnets size: Pros  Agility, you can do swimlane application design and migration per application without jeopardising the entire company.
+Small subnet (scale out) Pros  Agility, you can do swimlane application design and migration per application without jeopardising the entire company.
   Cons  More entry in the routing table but that can be mitigated with summarization.</description>
     </item>
     

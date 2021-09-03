@@ -17,7 +17,7 @@
   
   <meta name="description" content="Below are some thoughts about subnet sizing and workloads mixing.
 Along my different jobs, one of the things that led to L2 extension and then brought risks and slew down or even blocked projects was big heterogeneous subnets.
-Small subnets size: Pros  Agility, you can do swimlane application design and migration per application without jeopardising the entire company.
+Small subnet (scale out) Pros  Agility, you can do swimlane application design and migration per application without jeopardising the entire company.
   Cons  More entry in the routing table but that can be mitigated with summarization.">
 
   
@@ -98,7 +98,7 @@ Small subnets size: Pros  Agility, you can do swimlane application design and mi
   <meta property="og:title" content="Subnet size and mixing workload in a subnet | netmemo.github.io">
   <meta property="og:description" content="Below are some thoughts about subnet sizing and workloads mixing.
 Along my different jobs, one of the things that led to L2 extension and then brought risks and slew down or even blocked projects was big heterogeneous subnets.
-Small subnets size: Pros  Agility, you can do swimlane application design and migration per application without jeopardising the entire company.
+Small subnet (scale out) Pros  Agility, you can do swimlane application design and migration per application without jeopardising the entire company.
   Cons  More entry in the routing table but that can be mitigated with summarization.">
   
   
@@ -108,7 +108,7 @@ Small subnets size: Pros  Agility, you can do swimlane application design and mi
   
   <meta property="article:published_time" content="2021-05-18T22:28:39&#43;02:00">
   
-  <meta property="article:modified_time" content="2021-05-18T22:28:39&#43;02:00">
+  <meta property="article:modified_time" content="2021-09-03T15:47:00&#43;02:00">
   
 
   
@@ -238,9 +238,11 @@ Small subnets size: Pros  Agility, you can do swimlane application design and mi
 
   <span class="article-date">
     
+        Last updated on
+    
     <meta content="2021-05-18 22:28:39 &#43;0200 CEST" itemprop="datePublished">
-    <time datetime="2021-05-18 22:28:39 &#43;0200 CEST" itemprop="dateModified">
-      May 18, 2021
+    <time datetime="2021-09-03 15:47:00 &#43;0200 CEST" itemprop="dateModified">
+      Sep 3, 2021
     </time>
   </span>
   <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
@@ -315,38 +317,38 @@ Small subnets size: Pros  Agility, you can do swimlane application design and mi
 <p>Below are some thoughts about subnet sizing and workloads mixing.<br />
 Along my different jobs, one of the things that led to L2 extension and then brought risks and slew down or even blocked projects was big heterogeneous subnets.</p>
 
-<h3 id="small-subnets-size">Small subnets size:</h3>
+<h1 id="small-subnet-scale-out">Small subnet (scale out)</h1>
 
-<h5 id="pros">Pros</h5>
+<h2 id="pros">Pros</h2>
 
 <ul>
 <li>Agility, you can do <a href="https://blog.ipspace.net/2020/12/50-shades-high-availability.html" target="_blank">swimlane</a> application design and migration per application without jeopardising the entire company.<br /></li>
 </ul>
 
-<h5 id="cons">Cons</h5>
+<h2 id="cons">Cons</h2>
 
 <ul>
 <li>More entry in the routing table but that can be mitigated with summarization.<br /></li>
-<li>Loss of ip addresses 64 x /27 instead of 1 x /21 =&gt; ~1856 vs ~2045 host IPs = 189 lost IPs (does it really matter ? how full are the big subnets ?)<br /></li>
+<li>Loss of ip addresses. If we take a big /21 subnets and split it in 64 x /27 you lost ~ 200 IPs (does it really matter ? how full are the big subnets ?)<br /></li>
 </ul>
 
-<h3 id="big-subnet-with-a-mix-of-workload">Big subnet with a mix of workload</h3>
+<h1 id="big-subnet-scale-up-with-a-mix-of-workload">Big subnet (scale up) with a mix of workload</h1>
 
-<h5 id="pros-1">Pros</h5>
+<h2 id="pros-1">Pros</h2>
 
 <ul>
-<li>IP address saving. Does is that worth it ? Most of the time the subnets are big just to anticipate growth and those IPs are lost anyway.</li>
+<li>IP address saving. Does that worth it ? Most of the time the subnets are big just to anticipate growth and those IPs are lost anyway.</li>
 <li>Simplicity to allocate addresses. Only a couple of big subnets.<br /></li>
 </ul>
 
-<h5 id="cons-1">Cons</h5>
+<h2 id="cons-1">Cons</h2>
 
 <p><u> Big subnets size </u></p>
 
 <p>Most of the time this is to mutualize applications.</p>
 
 <ul>
-<li>Can block application migration because not all the applications have the same requirements. If one of the applications doesn&rsquo;t want to reIP its workload and has been asked to migrate somewhere else, you might be forced to stretch L2.<br /></li>
+<li>Can block application migration because not all the applications have the same requirements. If one of the applications doesn&rsquo;t want to reIP its workloads and has been asked to migrate somewhere else, you might be forced to stretch L2.<br /></li>
 <li>L2 broadcast domain is mitigated by arp suppression on modern fabric but still you have broadcast reaching every VM and thus can have troubles if the <a href="http://yves-louis.com/DCI/wp-content/uploads/2015/10/VXLAN-Multipod-geographically-dispersed-white-paper-final.pdf" target="_blank">stormcontrol is not set properly</a>.<br /></li>
 <li>For all the firewalls in the entreprise that are not relying on tags, you might have to open firewall rules per host instead of per subnets.<br /></li>
 </ul>
@@ -357,11 +359,11 @@ Along my different jobs, one of the things that led to L2 extension and then bro
 <li>Can block application migration because physical devices can&rsquo;t move where the VM is going to and you don&rsquo;t want to reIP the VM or the physical device.<br /></li>
 </ul>
 
-<h3 id="other-considerations">Other considerations</h3>
+<h1 id="other-considerations">Other considerations</h1>
 
 <ul>
 <li><p>Pets vs cattle : VM vs Container<br />
-In the above use cases I&rsquo;m talking essentially of workloads that are not containers. For containers the paradigm is often different because most of the time containers don&rsquo;t share the subnet with physical device and application developper doesn&rsquo;t rely on the container IP address. What matter is the IP address of the service. VM are still considered most of the time as pets and nobody wants to change the IP address mostly to avoid to change firewall rules or hard coded IP addresses in application.</p></li>
+In the above use cases I&rsquo;m talking essentially of workloads that are not containers. For containers the paradigm is often different because most of the time containers don&rsquo;t share the subnet with physical device and application developper doesn&rsquo;t rely on the container IP address. What matter is the <a href="https://en.wikipedia.org/wiki/Fully_qualified_domain_name" target="_blank">FQDN</a> of the service. VM are still considered most of the time as pets and nobody wants to change the IP address mostly to avoid to change firewall rules or hard coded IP addresses in application.</p></li>
 
 <li><p>VLANs Scale<br />
 The number of supported VLAN are less relevent in virtualized environments because most of the time software scale better and you are not limited to 4K vlans (or even 2K in some case for ACI <a href="https://www.cisco.com/c/en/us/td/docs/switches/datacenter/aci/apic/sw/4-x/verified-scalability/Cisco-ACI-Verified-Scalability-Guide-422.html" target="_blank">Bridge Domain</a> and EVPN <a href="https://www.cisco.com/c/en/us/td/docs/switches/datacenter/nexus9000/sw/92x/scalability/guide_923/b_Cisco_Nexus_9000_Series_NX-OS_Verified_Scalability_Guide_923.html" target="_blank">Layer 2 VNIs</a>).</p></li>
