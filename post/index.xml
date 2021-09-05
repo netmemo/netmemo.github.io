@@ -59,7 +59,7 @@ Structure of the project The diagram below shows a summary of how I organized th
       
       <guid>https://netmemo.github.io/post/subnets-size-mix/</guid>
       <description>Along my different jobs, one of the things that led to L2 extension and then brought risks and slew down or even blocked projects was big heterogeneous subnets. In this blog I will try to list the pros and cons of big heterogeneous subnets.
-Small subnet I like to think of using small subnets as a scale out approach. When the subnet is full you just assign a new subnet in the same reserved space.</description>
+Small subnet I like to think of using small subnets as a &amp;ldquo;scale out&amp;rdquo; approach. When the subnet is full you just assign a new subnet in the same reserved space.</description>
     </item>
     
     <item>

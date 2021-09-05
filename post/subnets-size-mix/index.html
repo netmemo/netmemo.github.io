@@ -16,7 +16,7 @@
     
   
   <meta name="description" content="Along my different jobs, one of the things that led to L2 extension and then brought risks and slew down or even blocked projects was big heterogeneous subnets. In this blog I will try to list the pros and cons of big heterogeneous subnets.
-Small subnet I like to think of using small subnets as a scale out approach. When the subnet is full you just assign a new subnet in the same reserved space.">
+Small subnet I like to think of using small subnets as a &ldquo;scale out&rdquo; approach. When the subnet is full you just assign a new subnet in the same reserved space.">
 
   
   <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/post/subnets-size-mix/">
@@ -95,7 +95,7 @@ Small subnet I like to think of using small subnets as a scale out approach. Whe
   <meta property="og:url" content="https://netmemo.github.io/post/subnets-size-mix/">
   <meta property="og:title" content="Subnet sizing and heterogeneous subnets | netmemo.github.io">
   <meta property="og:description" content="Along my different jobs, one of the things that led to L2 extension and then brought risks and slew down or even blocked projects was big heterogeneous subnets. In this blog I will try to list the pros and cons of big heterogeneous subnets.
-Small subnet I like to think of using small subnets as a scale out approach. When the subnet is full you just assign a new subnet in the same reserved space.">
+Small subnet I like to think of using small subnets as a &ldquo;scale out&rdquo; approach. When the subnet is full you just assign a new subnet in the same reserved space.">
   
   
     
@@ -315,7 +315,7 @@ In this blog I will try to list the pros and cons of big heterogeneous subnets.<
 
 <h1 id="small-subnet">Small subnet</h1>
 
-<p>I like to think of using small subnets as a scale out approach. When the subnet is full you just assign a new subnet in the same reserved space.</p>
+<p>I like to think of using small subnets as a &ldquo;scale out&rdquo; approach. When the subnet is full you just assign a new subnet in the same reserved space.</p>
 
 <h2 id="pros">Pros</h2>
 
@@ -332,21 +332,21 @@ In this blog I will try to list the pros and cons of big heterogeneous subnets.<
 
 <h1 id="big-subnet">Big subnet</h1>
 
-<p>This is for me a more &ldquo;scale up&rdquo; approach. You over dimension subnets then when you need a new server, you pick one IP in the big subnet without asking any question.</p>
+<p>This is for me a more &ldquo;scale up&rdquo; approach. You oversize subnets then when you need a new server, you pick one IP in the big subnet without asking any question.</p>
 
 <h2 id="pros-1">Pros</h2>
 
 <ul>
-<li>IP address saving. Does that worth it ? Most of the time the subnets are big just to anticipate growth and those IPs are lost anyway.</li>
+<li>IP address saving. Is it worth it ? Most of the time the subnets are big only to anticipate growth and those IPs are lost anyway.</li>
 <li>Simplicity to allocate addresses. Only a couple of big subnets.<br /></li>
 </ul>
 
 <h2 id="cons-1">Cons</h2>
 
 <ul>
-<li>If the subnet is not full, it&rsquo;s very difficult to carve out the non used space in the subnet to use it somewhere else.</li>
+<li>If the subnet is not full, it&rsquo;s very difficult to carve out the unused space in the subnet to use it somewhere else.</li>
 <li>L2 broadcast domain is mitigated by arp suppression on modern fabric but still you have broadcast reaching every VM and thus can have troubles if the <a href="http://yves-louis.com/DCI/wp-content/uploads/2015/10/VXLAN-Multipod-geographically-dispersed-white-paper-final.pdf" target="_blank">stormcontrol is not set properly</a>.<br /></li>
-<li>For all the firewalls in the entreprise that are not relying on tags, you might have to open firewall rules per host instead of per subnets.<br /></li>
+<li>For all the firewalls in the enterprise that are not relying on tags, you might have to open firewall rules per host instead of per subnets.<br /></li>
 </ul>
 
 <h1 id="heterogeneous-subnet">Heterogeneous subnet</h1>
@@ -356,14 +356,14 @@ In this blog I will try to list the pros and cons of big heterogeneous subnets.<
 <h2 id="pros-2">Pros</h2>
 
 <ul>
-<li>It allows to have physicall devices like NAS or Loadbalancer to be in the same subnet as your application workloads (If you want to avoid to put a FW in between and can&rsquo;t use VRF mechanism)</li>
+<li>It allows physical devices like NAS or Loadbalancer to be in the same subnet as your application workloads (If you want to avoid putting a FW in between and can&rsquo;t use VRF mechanism)</li>
 </ul>
 
 <h2 id="cons-2">Cons</h2>
 
 <ul>
-<li>Application mutualization. It can block applications migration because not all the applications have the same requirements. If one of the application has been asked to migrate somewhere else and nobody want to change IP addresses, you might be forced to stretch L2.<br /></li>
-<li>Mix of workload type (physical/virtual). It can block applications migration because the physical devices can&rsquo;t go where the VMs are going. If nobody want to change IP addresses, you might be forced to stretch L2.<br /></li>
+<li>Application mutualization. It can block applications migration because not all the applications have the same requirements. If one of the application has been asked to migrate somewhere else and nobody wants to change IP addresses, you might be forced to stretch L2.<br /></li>
+<li>Mix of workload type (physical/virtual). It can block applications migration because the physical devices can&rsquo;t go where the VMs are going. If nobody wants to change IP addresses, you might be forced to stretch L2.<br /></li>
 </ul>
 
 <h1 id="other-considerations">Other considerations</h1>

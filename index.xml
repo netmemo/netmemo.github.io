@@ -1355,7 +1355,7 @@ In this blog I will try to list the pros and cons of big heterogeneous subnets.&
 
 &lt;h1 id=&#34;small-subnet&#34;&gt;Small subnet&lt;/h1&gt;
 
-&lt;p&gt;I like to think of using small subnets as a scale out approach. When the subnet is full you just assign a new subnet in the same reserved space.&lt;/p&gt;
+&lt;p&gt;I like to think of using small subnets as a &amp;ldquo;scale out&amp;rdquo; approach. When the subnet is full you just assign a new subnet in the same reserved space.&lt;/p&gt;
 
 &lt;h2 id=&#34;pros&#34;&gt;Pros&lt;/h2&gt;
 
@@ -1372,21 +1372,21 @@ In this blog I will try to list the pros and cons of big heterogeneous subnets.&
 
 &lt;h1 id=&#34;big-subnet&#34;&gt;Big subnet&lt;/h1&gt;
 
-&lt;p&gt;This is for me a more &amp;ldquo;scale up&amp;rdquo; approach. You over dimension subnets then when you need a new server, you pick one IP in the big subnet without asking any question.&lt;/p&gt;
+&lt;p&gt;This is for me a more &amp;ldquo;scale up&amp;rdquo; approach. You oversize subnets then when you need a new server, you pick one IP in the big subnet without asking any question.&lt;/p&gt;
 
 &lt;h2 id=&#34;pros-1&#34;&gt;Pros&lt;/h2&gt;
 
 &lt;ul&gt;
-&lt;li&gt;IP address saving. Does that worth it ? Most of the time the subnets are big just to anticipate growth and those IPs are lost anyway.&lt;/li&gt;
+&lt;li&gt;IP address saving. Is it worth it ? Most of the time the subnets are big only to anticipate growth and those IPs are lost anyway.&lt;/li&gt;
 &lt;li&gt;Simplicity to allocate addresses. Only a couple of big subnets.&lt;br /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&#34;cons-1&#34;&gt;Cons&lt;/h2&gt;
 
 &lt;ul&gt;
-&lt;li&gt;If the subnet is not full, it&amp;rsquo;s very difficult to carve out the non used space in the subnet to use it somewhere else.&lt;/li&gt;
+&lt;li&gt;If the subnet is not full, it&amp;rsquo;s very difficult to carve out the unused space in the subnet to use it somewhere else.&lt;/li&gt;
 &lt;li&gt;L2 broadcast domain is mitigated by arp suppression on modern fabric but still you have broadcast reaching every VM and thus can have troubles if the &lt;a href=&#34;http://yves-louis.com/DCI/wp-content/uploads/2015/10/VXLAN-Multipod-geographically-dispersed-white-paper-final.pdf&#34; target=&#34;_blank&#34;&gt;stormcontrol is not set properly&lt;/a&gt;.&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;For all the firewalls in the entreprise that are not relying on tags, you might have to open firewall rules per host instead of per subnets.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;For all the firewalls in the enterprise that are not relying on tags, you might have to open firewall rules per host instead of per subnets.&lt;br /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h1 id=&#34;heterogeneous-subnet&#34;&gt;Heterogeneous subnet&lt;/h1&gt;
@@ -1396,14 +1396,14 @@ In this blog I will try to list the pros and cons of big heterogeneous subnets.&
 &lt;h2 id=&#34;pros-2&#34;&gt;Pros&lt;/h2&gt;
 
 &lt;ul&gt;
-&lt;li&gt;It allows to have physicall devices like NAS or Loadbalancer to be in the same subnet as your application workloads (If you want to avoid to put a FW in between and can&amp;rsquo;t use VRF mechanism)&lt;/li&gt;
+&lt;li&gt;It allows physical devices like NAS or Loadbalancer to be in the same subnet as your application workloads (If you want to avoid putting a FW in between and can&amp;rsquo;t use VRF mechanism)&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&#34;cons-2&#34;&gt;Cons&lt;/h2&gt;
 
 &lt;ul&gt;
-&lt;li&gt;Application mutualization. It can block applications migration because not all the applications have the same requirements. If one of the application has been asked to migrate somewhere else and nobody want to change IP addresses, you might be forced to stretch L2.&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Mix of workload type (physical/virtual). It can block applications migration because the physical devices can&amp;rsquo;t go where the VMs are going. If nobody want to change IP addresses, you might be forced to stretch L2.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Application mutualization. It can block applications migration because not all the applications have the same requirements. If one of the application has been asked to migrate somewhere else and nobody wants to change IP addresses, you might be forced to stretch L2.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Mix of workload type (physical/virtual). It can block applications migration because the physical devices can&amp;rsquo;t go where the VMs are going. If nobody wants to change IP addresses, you might be forced to stretch L2.&lt;br /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h1 id=&#34;other-considerations&#34;&gt;Other considerations&lt;/h1&gt;
