@@ -1343,32 +1343,36 @@ Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
     </item>
     
     <item>
-      <title>Subnet size and mixing workload in a subnet</title>
+      <title>Subnet sizing and heterogeneous subnets</title>
       <link>https://netmemo.github.io/post/subnets-size-mix/</link>
       <pubDate>Tue, 18 May 2021 22:28:39 +0200</pubDate>
       
       <guid>https://netmemo.github.io/post/subnets-size-mix/</guid>
       <description>
 
-&lt;p&gt;Below are some thoughts about subnet sizing and workloads mixing.&lt;br /&gt;
-Along my different jobs, one of the things that led to L2 extension and then brought risks and slew down or even blocked projects was big heterogeneous subnets.&lt;/p&gt;
+&lt;p&gt;Along my different jobs, one of the things that led to L2 extension and then brought risks and slew down or even blocked projects was big heterogeneous subnets.
+In this blog I will try to list the pros and cons of big heterogeneous subnets.&lt;/p&gt;
 
-&lt;h1 id=&#34;small-subnet-scale-out&#34;&gt;Small subnet (scale out)&lt;/h1&gt;
+&lt;h1 id=&#34;small-subnet&#34;&gt;Small subnet&lt;/h1&gt;
+
+&lt;p&gt;I like to think of using small subnets as a scale out approach. When the subnet is full you just assign a new subnet in the same reserved space.&lt;/p&gt;
 
 &lt;h2 id=&#34;pros&#34;&gt;Pros&lt;/h2&gt;
 
 &lt;ul&gt;
-&lt;li&gt;Agility, you can do &lt;a href=&#34;https://blog.ipspace.net/2020/12/50-shades-high-availability.html&#34; target=&#34;_blank&#34;&gt;swimlane&lt;/a&gt; application design and migration per application without jeopardising the entire company.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Agility. You can do &lt;a href=&#34;https://blog.ipspace.net/2020/12/50-shades-high-availability.html&#34; target=&#34;_blank&#34;&gt;swimlane&lt;/a&gt; application design. If you need to migrate your application you can do it without jeopardising the entire company.&lt;br /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&#34;cons&#34;&gt;Cons&lt;/h2&gt;
 
 &lt;ul&gt;
-&lt;li&gt;More entry in the routing table but that can be mitigated with summarization.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;More entries in the routing table but that can be mitigated with summarization.&lt;br /&gt;&lt;/li&gt;
 &lt;li&gt;Loss of ip addresses. If we take a big /21 subnets and split it in 64 x /27 you lost ~ 200 IPs (does it really matter ? how full are the big subnets ?)&lt;br /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h1 id=&#34;big-subnet-scale-up-with-a-mix-of-workload&#34;&gt;Big subnet (scale up) with a mix of workload&lt;/h1&gt;
+&lt;h1 id=&#34;big-subnet&#34;&gt;Big subnet&lt;/h1&gt;
+
+&lt;p&gt;This is for me a more &amp;ldquo;scale up&amp;rdquo; approach. You over dimension subnets then when you need a new server, you pick one IP in the big subnet without asking any question.&lt;/p&gt;
 
 &lt;h2 id=&#34;pros-1&#34;&gt;Pros&lt;/h2&gt;
 
@@ -1379,27 +1383,34 @@ Along my different jobs, one of the things that led to L2 extension and then bro
 
 &lt;h2 id=&#34;cons-1&#34;&gt;Cons&lt;/h2&gt;
 
-&lt;p&gt;&lt;u&gt; Big subnets size &lt;/u&gt;&lt;/p&gt;
-
-&lt;p&gt;Most of the time this is to mutualize applications.&lt;/p&gt;
-
 &lt;ul&gt;
-&lt;li&gt;Can block application migration because not all the applications have the same requirements. If one of the applications doesn&amp;rsquo;t want to reIP its workloads and has been asked to migrate somewhere else, you might be forced to stretch L2.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;If the subnet is not full, it&amp;rsquo;s very difficult to carve out the non used space in the subnet to use it somewhere else.&lt;/li&gt;
 &lt;li&gt;L2 broadcast domain is mitigated by arp suppression on modern fabric but still you have broadcast reaching every VM and thus can have troubles if the &lt;a href=&#34;http://yves-louis.com/DCI/wp-content/uploads/2015/10/VXLAN-Multipod-geographically-dispersed-white-paper-final.pdf&#34; target=&#34;_blank&#34;&gt;stormcontrol is not set properly&lt;/a&gt;.&lt;br /&gt;&lt;/li&gt;
 &lt;li&gt;For all the firewalls in the entreprise that are not relying on tags, you might have to open firewall rules per host instead of per subnets.&lt;br /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;u&gt; Mix of workloads &lt;/u&gt;&lt;/p&gt;
+&lt;h1 id=&#34;heterogeneous-subnet&#34;&gt;Heterogeneous subnet&lt;/h1&gt;
+
+&lt;p&gt;It&amp;rsquo;s not rare to see big subnets also heterogeneous with a mix of applications and workload type (physical/virtual).&lt;/p&gt;
+
+&lt;h2 id=&#34;pros-2&#34;&gt;Pros&lt;/h2&gt;
 
 &lt;ul&gt;
-&lt;li&gt;Can block application migration because physical devices can&amp;rsquo;t move where the VM is going to and you don&amp;rsquo;t want to reIP the VM or the physical device.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;It allows to have physicall devices like NAS or Loadbalancer to be in the same subnet as your application workloads (If you want to avoid to put a FW in between and can&amp;rsquo;t use VRF mechanism)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;cons-2&#34;&gt;Cons&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Application mutualization. It can block applications migration because not all the applications have the same requirements. If one of the application has been asked to migrate somewhere else and nobody want to change IP addresses, you might be forced to stretch L2.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Mix of workload type (physical/virtual). It can block applications migration because the physical devices can&amp;rsquo;t go where the VMs are going. If nobody want to change IP addresses, you might be forced to stretch L2.&lt;br /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h1 id=&#34;other-considerations&#34;&gt;Other considerations&lt;/h1&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;Pets vs cattle : VM vs Container&lt;br /&gt;
-In the above use cases I&amp;rsquo;m talking essentially of workloads that are not containers. For containers the paradigm is often different because most of the time containers don&amp;rsquo;t share the subnet with physical device and application developper doesn&amp;rsquo;t rely on the container IP address. What matter is the &lt;a href=&#34;https://en.wikipedia.org/wiki/Fully_qualified_domain_name&#34; target=&#34;_blank&#34;&gt;FQDN&lt;/a&gt; of the service. VM are still considered most of the time as pets and nobody wants to change the IP address mostly to avoid to change firewall rules or hard coded IP addresses in application.&lt;/p&gt;&lt;/li&gt;
+In the above use cases I&amp;rsquo;m talking essentially of workloads that are not containers. For containers the paradigm is often different because most of the time containers don&amp;rsquo;t share the subnet with physical device and application developper doesn&amp;rsquo;t rely on the containers IP addresses. What matter is the &lt;a href=&#34;https://en.wikipedia.org/wiki/Fully_qualified_domain_name&#34; target=&#34;_blank&#34;&gt;FQDN&lt;/a&gt; of the service. VM are still considered most of the time as pets and nobody wants to change the IP address mostly to avoid to change firewall rules or hard coded IP addresses in application.&lt;/p&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;VLANs Scale&lt;br /&gt;
 The number of supported VLAN are less relevent in virtualized environments because most of the time software scale better and you are not limited to 4K vlans (or even 2K in some case for ACI &lt;a href=&#34;https://www.cisco.com/c/en/us/td/docs/switches/datacenter/aci/apic/sw/4-x/verified-scalability/Cisco-ACI-Verified-Scalability-Guide-422.html&#34; target=&#34;_blank&#34;&gt;Bridge Domain&lt;/a&gt; and EVPN &lt;a href=&#34;https://www.cisco.com/c/en/us/td/docs/switches/datacenter/nexus9000/sw/92x/scalability/guide_923/b_Cisco_Nexus_9000_Series_NX-OS_Verified_Scalability_Guide_923.html&#34; target=&#34;_blank&#34;&gt;Layer 2 VNIs&lt;/a&gt;).&lt;/p&gt;&lt;/li&gt;
@@ -1408,7 +1419,7 @@ The number of supported VLAN are less relevent in virtualized environments becau
 When you move an entire subnet somewhere else you can break the summarization of the company but you can always do the summarization again after all the applications have moved or even reIP the entire subnet afterwards. It&amp;rsquo;s less risky and complex than having a L2 streched &amp;ldquo;forever&amp;rdquo;.&lt;/p&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;Distributed routing&lt;br /&gt;
-Now, with distributed routing you don&amp;rsquo;t have to go to the network core where the default gateway was in the old days to route between subnets. The trafic have a better distribution in the fabric and you should have less risks to congest uplinks with EST/WEST trafic.&lt;/p&gt;&lt;/li&gt;
+Now, with distributed routing you don&amp;rsquo;t have to go to the network core where the default gateway was in the old days to route between subnets. The trafic have a better distribution in the fabric and you should have less risks to congest uplinks with EAST/WEST trafic.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>

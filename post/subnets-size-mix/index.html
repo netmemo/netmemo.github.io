@@ -15,10 +15,8 @@
   
     
   
-  <meta name="description" content="Below are some thoughts about subnet sizing and workloads mixing.
-Along my different jobs, one of the things that led to L2 extension and then brought risks and slew down or even blocked projects was big heterogeneous subnets.
-Small subnet (scale out) Pros  Agility, you can do swimlane application design and migration per application without jeopardising the entire company.
-  Cons  More entry in the routing table but that can be mitigated with summarization.">
+  <meta name="description" content="Along my different jobs, one of the things that led to L2 extension and then brought risks and slew down or even blocked projects was big heterogeneous subnets. In this blog I will try to list the pros and cons of big heterogeneous subnets.
+Small subnet I like to think of using small subnets as a scale out approach. When the subnet is full you just assign a new subnet in the same reserved space.">
 
   
   <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/post/subnets-size-mix/">
@@ -95,11 +93,9 @@ Small subnet (scale out) Pros  Agility, you can do swimlane application design a
   
   <meta property="og:site_name" content="netmemo.github.io">
   <meta property="og:url" content="https://netmemo.github.io/post/subnets-size-mix/">
-  <meta property="og:title" content="Subnet size and mixing workload in a subnet | netmemo.github.io">
-  <meta property="og:description" content="Below are some thoughts about subnet sizing and workloads mixing.
-Along my different jobs, one of the things that led to L2 extension and then brought risks and slew down or even blocked projects was big heterogeneous subnets.
-Small subnet (scale out) Pros  Agility, you can do swimlane application design and migration per application without jeopardising the entire company.
-  Cons  More entry in the routing table but that can be mitigated with summarization.">
+  <meta property="og:title" content="Subnet sizing and heterogeneous subnets | netmemo.github.io">
+  <meta property="og:description" content="Along my different jobs, one of the things that led to L2 extension and then brought risks and slew down or even blocked projects was big heterogeneous subnets. In this blog I will try to list the pros and cons of big heterogeneous subnets.
+Small subnet I like to think of using small subnets as a scale out approach. When the subnet is full you just assign a new subnet in the same reserved space.">
   
   
     
@@ -108,14 +104,14 @@ Small subnet (scale out) Pros  Agility, you can do swimlane application design a
   
   <meta property="article:published_time" content="2021-05-18T22:28:39&#43;02:00">
   
-  <meta property="article:modified_time" content="2021-09-03T15:47:00&#43;02:00">
+  <meta property="article:modified_time" content="2021-09-05T15:47:00&#43;02:00">
   
 
   
 
   
 
-  <title>Subnet size and mixing workload in a subnet | netmemo.github.io</title>
+  <title>Subnet sizing and heterogeneous subnets | netmemo.github.io</title>
 
 </head>
 <body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" class="dark">
@@ -218,7 +214,7 @@ Small subnet (scale out) Pros  Agility, you can do swimlane application design a
 
 
   <div class="article-container">
-    <h1 itemprop="name">Subnet size and mixing workload in a subnet</h1>
+    <h1 itemprop="name">Subnet sizing and heterogeneous subnets</h1>
 
     
 
@@ -241,8 +237,8 @@ Small subnet (scale out) Pros  Agility, you can do swimlane application design a
         Last updated on
     
     <meta content="2021-05-18 22:28:39 &#43;0200 CEST" itemprop="datePublished">
-    <time datetime="2021-09-03 15:47:00 &#43;0200 CEST" itemprop="dateModified">
-      Sep 3, 2021
+    <time datetime="2021-09-05 15:47:00 &#43;0200 CEST" itemprop="dateModified">
+      Sep 5, 2021
     </time>
   </span>
   <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
@@ -252,7 +248,7 @@ Small subnet (scale out) Pros  Agility, you can do swimlane application design a
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    3 min read
+    4 min read
   </span>
   
 
@@ -270,7 +266,7 @@ Small subnet (scale out) Pros  Agility, you can do swimlane application design a
   <ul class="share">
     <li>
       <a class="twitter"
-         href="https://twitter.com/intent/tweet?text=Subnet%20size%20and%20mixing%20workload%20in%20a%20subnet&amp;url=https%3a%2f%2fnetmemo.github.io%2fpost%2fsubnets-size-mix%2f"
+         href="https://twitter.com/intent/tweet?text=Subnet%20sizing%20and%20heterogeneous%20subnets&amp;url=https%3a%2f%2fnetmemo.github.io%2fpost%2fsubnets-size-mix%2f"
          target="_blank" rel="noopener">
         <i class="fab fa-twitter"></i>
       </a>
@@ -284,21 +280,21 @@ Small subnet (scale out) Pros  Agility, you can do swimlane application design a
     </li>
     <li>
       <a class="linkedin"
-         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fnetmemo.github.io%2fpost%2fsubnets-size-mix%2f&amp;title=Subnet%20size%20and%20mixing%20workload%20in%20a%20subnet"
+         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fnetmemo.github.io%2fpost%2fsubnets-size-mix%2f&amp;title=Subnet%20sizing%20and%20heterogeneous%20subnets"
          target="_blank" rel="noopener">
         <i class="fab fa-linkedin-in"></i>
       </a>
     </li>
     <li>
       <a class="weibo"
-         href="http://service.weibo.com/share/share.php?url=https%3a%2f%2fnetmemo.github.io%2fpost%2fsubnets-size-mix%2f&amp;title=Subnet%20size%20and%20mixing%20workload%20in%20a%20subnet"
+         href="http://service.weibo.com/share/share.php?url=https%3a%2f%2fnetmemo.github.io%2fpost%2fsubnets-size-mix%2f&amp;title=Subnet%20sizing%20and%20heterogeneous%20subnets"
          target="_blank" rel="noopener">
         <i class="fab fa-weibo"></i>
       </a>
     </li>
     <li>
       <a class="email"
-         href="mailto:?subject=Subnet%20size%20and%20mixing%20workload%20in%20a%20subnet&amp;body=https%3a%2f%2fnetmemo.github.io%2fpost%2fsubnets-size-mix%2f">
+         href="mailto:?subject=Subnet%20sizing%20and%20heterogeneous%20subnets&amp;body=https%3a%2f%2fnetmemo.github.io%2fpost%2fsubnets-size-mix%2f">
         <i class="fas fa-envelope"></i>
       </a>
     </li>
@@ -314,25 +310,29 @@ Small subnet (scale out) Pros  Agility, you can do swimlane application design a
     <div class="article-style" itemprop="articleBody">
       
 
-<p>Below are some thoughts about subnet sizing and workloads mixing.<br />
-Along my different jobs, one of the things that led to L2 extension and then brought risks and slew down or even blocked projects was big heterogeneous subnets.</p>
+<p>Along my different jobs, one of the things that led to L2 extension and then brought risks and slew down or even blocked projects was big heterogeneous subnets.
+In this blog I will try to list the pros and cons of big heterogeneous subnets.</p>
 
-<h1 id="small-subnet-scale-out">Small subnet (scale out)</h1>
+<h1 id="small-subnet">Small subnet</h1>
+
+<p>I like to think of using small subnets as a scale out approach. When the subnet is full you just assign a new subnet in the same reserved space.</p>
 
 <h2 id="pros">Pros</h2>
 
 <ul>
-<li>Agility, you can do <a href="https://blog.ipspace.net/2020/12/50-shades-high-availability.html" target="_blank">swimlane</a> application design and migration per application without jeopardising the entire company.<br /></li>
+<li>Agility. You can do <a href="https://blog.ipspace.net/2020/12/50-shades-high-availability.html" target="_blank">swimlane</a> application design. If you need to migrate your application you can do it without jeopardising the entire company.<br /></li>
 </ul>
 
 <h2 id="cons">Cons</h2>
 
 <ul>
-<li>More entry in the routing table but that can be mitigated with summarization.<br /></li>
+<li>More entries in the routing table but that can be mitigated with summarization.<br /></li>
 <li>Loss of ip addresses. If we take a big /21 subnets and split it in 64 x /27 you lost ~ 200 IPs (does it really matter ? how full are the big subnets ?)<br /></li>
 </ul>
 
-<h1 id="big-subnet-scale-up-with-a-mix-of-workload">Big subnet (scale up) with a mix of workload</h1>
+<h1 id="big-subnet">Big subnet</h1>
+
+<p>This is for me a more &ldquo;scale up&rdquo; approach. You over dimension subnets then when you need a new server, you pick one IP in the big subnet without asking any question.</p>
 
 <h2 id="pros-1">Pros</h2>
 
@@ -343,27 +343,34 @@ Along my different jobs, one of the things that led to L2 extension and then bro
 
 <h2 id="cons-1">Cons</h2>
 
-<p><u> Big subnets size </u></p>
-
-<p>Most of the time this is to mutualize applications.</p>
-
 <ul>
-<li>Can block application migration because not all the applications have the same requirements. If one of the applications doesn&rsquo;t want to reIP its workloads and has been asked to migrate somewhere else, you might be forced to stretch L2.<br /></li>
+<li>If the subnet is not full, it&rsquo;s very difficult to carve out the non used space in the subnet to use it somewhere else.</li>
 <li>L2 broadcast domain is mitigated by arp suppression on modern fabric but still you have broadcast reaching every VM and thus can have troubles if the <a href="http://yves-louis.com/DCI/wp-content/uploads/2015/10/VXLAN-Multipod-geographically-dispersed-white-paper-final.pdf" target="_blank">stormcontrol is not set properly</a>.<br /></li>
 <li>For all the firewalls in the entreprise that are not relying on tags, you might have to open firewall rules per host instead of per subnets.<br /></li>
 </ul>
 
-<p><u> Mix of workloads </u></p>
+<h1 id="heterogeneous-subnet">Heterogeneous subnet</h1>
+
+<p>It&rsquo;s not rare to see big subnets also heterogeneous with a mix of applications and workload type (physical/virtual).</p>
+
+<h2 id="pros-2">Pros</h2>
 
 <ul>
-<li>Can block application migration because physical devices can&rsquo;t move where the VM is going to and you don&rsquo;t want to reIP the VM or the physical device.<br /></li>
+<li>It allows to have physicall devices like NAS or Loadbalancer to be in the same subnet as your application workloads (If you want to avoid to put a FW in between and can&rsquo;t use VRF mechanism)</li>
+</ul>
+
+<h2 id="cons-2">Cons</h2>
+
+<ul>
+<li>Application mutualization. It can block applications migration because not all the applications have the same requirements. If one of the application has been asked to migrate somewhere else and nobody want to change IP addresses, you might be forced to stretch L2.<br /></li>
+<li>Mix of workload type (physical/virtual). It can block applications migration because the physical devices can&rsquo;t go where the VMs are going. If nobody want to change IP addresses, you might be forced to stretch L2.<br /></li>
 </ul>
 
 <h1 id="other-considerations">Other considerations</h1>
 
 <ul>
 <li><p>Pets vs cattle : VM vs Container<br />
-In the above use cases I&rsquo;m talking essentially of workloads that are not containers. For containers the paradigm is often different because most of the time containers don&rsquo;t share the subnet with physical device and application developper doesn&rsquo;t rely on the container IP address. What matter is the <a href="https://en.wikipedia.org/wiki/Fully_qualified_domain_name" target="_blank">FQDN</a> of the service. VM are still considered most of the time as pets and nobody wants to change the IP address mostly to avoid to change firewall rules or hard coded IP addresses in application.</p></li>
+In the above use cases I&rsquo;m talking essentially of workloads that are not containers. For containers the paradigm is often different because most of the time containers don&rsquo;t share the subnet with physical device and application developper doesn&rsquo;t rely on the containers IP addresses. What matter is the <a href="https://en.wikipedia.org/wiki/Fully_qualified_domain_name" target="_blank">FQDN</a> of the service. VM are still considered most of the time as pets and nobody wants to change the IP address mostly to avoid to change firewall rules or hard coded IP addresses in application.</p></li>
 
 <li><p>VLANs Scale<br />
 The number of supported VLAN are less relevent in virtualized environments because most of the time software scale better and you are not limited to 4K vlans (or even 2K in some case for ACI <a href="https://www.cisco.com/c/en/us/td/docs/switches/datacenter/aci/apic/sw/4-x/verified-scalability/Cisco-ACI-Verified-Scalability-Guide-422.html" target="_blank">Bridge Domain</a> and EVPN <a href="https://www.cisco.com/c/en/us/td/docs/switches/datacenter/nexus9000/sw/92x/scalability/guide_923/b_Cisco_Nexus_9000_Series_NX-OS_Verified_Scalability_Guide_923.html" target="_blank">Layer 2 VNIs</a>).</p></li>
@@ -372,7 +379,7 @@ The number of supported VLAN are less relevent in virtualized environments becau
 When you move an entire subnet somewhere else you can break the summarization of the company but you can always do the summarization again after all the applications have moved or even reIP the entire subnet afterwards. It&rsquo;s less risky and complex than having a L2 streched &ldquo;forever&rdquo;.</p></li>
 
 <li><p>Distributed routing<br />
-Now, with distributed routing you don&rsquo;t have to go to the network core where the default gateway was in the old days to route between subnets. The trafic have a better distribution in the fabric and you should have less risks to congest uplinks with EST/WEST trafic.</p></li>
+Now, with distributed routing you don&rsquo;t have to go to the network core where the default gateway was in the old days to route between subnets. The trafic have a better distribution in the fabric and you should have less risks to congest uplinks with EAST/WEST trafic.</p></li>
 </ul>
 
     </div>
