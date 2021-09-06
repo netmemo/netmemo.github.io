@@ -1360,7 +1360,8 @@ In this blog I will try to list the pros and cons of big heterogeneous subnets.&
 &lt;h2 id=&#34;pros&#34;&gt;Pros&lt;/h2&gt;
 
 &lt;ul&gt;
-&lt;li&gt;Agility. You can do &lt;a href=&#34;https://blog.ipspace.net/2020/12/50-shades-high-availability.html&#34; target=&#34;_blank&#34;&gt;swimlane&lt;/a&gt; application design. If you need to migrate your application you can do it without jeopardising the entire company.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Agility. You can do &lt;a href=&#34;https://blog.ipspace.net/2020/12/50-shades-high-availability.html&#34; target=&#34;_blank&#34;&gt;swimlane&lt;/a&gt; application design. When mirgration time is comming, you can do it per application.&lt;/li&gt;
+&lt;li&gt;For application migration, if you can&amp;rsquo;t change the ip addresses of the servers, you can reroute the trafic without jeorpadizing the entire company with L2 extension.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&#34;cons&#34;&gt;Cons&lt;/h2&gt;
