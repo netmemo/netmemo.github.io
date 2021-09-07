@@ -1351,7 +1351,7 @@ Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
       <description>
 
 &lt;p&gt;Along my different jobs, one of the things that led to L2 extension and then brought risks and slew down or even blocked projects was big heterogeneous subnets.
-In this blog I will try to list the pros and cons of big heterogeneous subnets.&lt;/p&gt;
+In this blog I will list the pros and cons of small, big and heterogeneous subnets.&lt;/p&gt;
 
 &lt;h1 id=&#34;small-subnet&#34;&gt;Small subnet&lt;/h1&gt;
 
@@ -1360,7 +1360,7 @@ In this blog I will try to list the pros and cons of big heterogeneous subnets.&
 &lt;h2 id=&#34;pros&#34;&gt;Pros&lt;/h2&gt;
 
 &lt;ul&gt;
-&lt;li&gt;Agility. You can do &lt;a href=&#34;https://blog.ipspace.net/2020/12/50-shades-high-availability.html&#34; target=&#34;_blank&#34;&gt;swimlane&lt;/a&gt; application design. When mirgration time is comming, you can do it per application.&lt;/li&gt;
+&lt;li&gt;Agility. You can do &lt;a href=&#34;https://blog.ipspace.net/2020/12/50-shades-high-availability.html&#34; target=&#34;_blank&#34;&gt;swimlane&lt;/a&gt; application design. When migration time is coming, you can do it per application.&lt;/li&gt;
 &lt;li&gt;For application migration, if you can&amp;rsquo;t change the ip addresses of the servers, you can reroute the trafic without jeorpadizing the entire company with L2 extension.&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -1368,7 +1368,7 @@ In this blog I will try to list the pros and cons of big heterogeneous subnets.&
 
 &lt;ul&gt;
 &lt;li&gt;More entries in the routing table but that can be mitigated with summarization.&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Loss of ip addresses. If we take a big /21 subnets and split it in 64 x /27 you lost ~ 200 IPs (does it really matter ? how full are the big subnets ?)&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Loss of ip addresses. Does it really matter ? how full are the big subnets ?&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h1 id=&#34;big-subnet&#34;&gt;Big subnet&lt;/h1&gt;

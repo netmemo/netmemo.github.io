@@ -15,7 +15,7 @@
   
     
   
-  <meta name="description" content="Along my different jobs, one of the things that led to L2 extension and then brought risks and slew down or even blocked projects was big heterogeneous subnets. In this blog I will try to list the pros and cons of big heterogeneous subnets.
+  <meta name="description" content="Along my different jobs, one of the things that led to L2 extension and then brought risks and slew down or even blocked projects was big heterogeneous subnets. In this blog I will list the pros and cons of small, big and heterogeneous subnets.
 Small subnet I like to think of using small subnets as a &ldquo;scale out&rdquo; approach. When the subnet is full you just assign a new subnet in the same reserved space.">
 
   
@@ -94,7 +94,7 @@ Small subnet I like to think of using small subnets as a &ldquo;scale out&rdquo;
   <meta property="og:site_name" content="netmemo.github.io">
   <meta property="og:url" content="https://netmemo.github.io/post/subnets-size-mix/">
   <meta property="og:title" content="Subnet sizing and heterogeneous subnets | netmemo.github.io">
-  <meta property="og:description" content="Along my different jobs, one of the things that led to L2 extension and then brought risks and slew down or even blocked projects was big heterogeneous subnets. In this blog I will try to list the pros and cons of big heterogeneous subnets.
+  <meta property="og:description" content="Along my different jobs, one of the things that led to L2 extension and then brought risks and slew down or even blocked projects was big heterogeneous subnets. In this blog I will list the pros and cons of small, big and heterogeneous subnets.
 Small subnet I like to think of using small subnets as a &ldquo;scale out&rdquo; approach. When the subnet is full you just assign a new subnet in the same reserved space.">
   
   
@@ -104,7 +104,7 @@ Small subnet I like to think of using small subnets as a &ldquo;scale out&rdquo;
   
   <meta property="article:published_time" content="2021-05-18T22:28:39&#43;02:00">
   
-  <meta property="article:modified_time" content="2021-09-05T15:47:00&#43;02:00">
+  <meta property="article:modified_time" content="2021-09-06T15:47:00&#43;02:00">
   
 
   
@@ -237,8 +237,8 @@ Small subnet I like to think of using small subnets as a &ldquo;scale out&rdquo;
         Last updated on
     
     <meta content="2021-05-18 22:28:39 &#43;0200 CEST" itemprop="datePublished">
-    <time datetime="2021-09-05 15:47:00 &#43;0200 CEST" itemprop="dateModified">
-      Sep 5, 2021
+    <time datetime="2021-09-06 15:47:00 &#43;0200 CEST" itemprop="dateModified">
+      Sep 6, 2021
     </time>
   </span>
   <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
@@ -311,7 +311,7 @@ Small subnet I like to think of using small subnets as a &ldquo;scale out&rdquo;
       
 
 <p>Along my different jobs, one of the things that led to L2 extension and then brought risks and slew down or even blocked projects was big heterogeneous subnets.
-In this blog I will try to list the pros and cons of big heterogeneous subnets.</p>
+In this blog I will list the pros and cons of small, big and heterogeneous subnets.</p>
 
 <h1 id="small-subnet">Small subnet</h1>
 
@@ -320,7 +320,7 @@ In this blog I will try to list the pros and cons of big heterogeneous subnets.<
 <h2 id="pros">Pros</h2>
 
 <ul>
-<li>Agility. You can do <a href="https://blog.ipspace.net/2020/12/50-shades-high-availability.html" target="_blank">swimlane</a> application design. When mirgration time is comming, you can do it per application.</li>
+<li>Agility. You can do <a href="https://blog.ipspace.net/2020/12/50-shades-high-availability.html" target="_blank">swimlane</a> application design. When migration time is coming, you can do it per application.</li>
 <li>For application migration, if you can&rsquo;t change the ip addresses of the servers, you can reroute the trafic without jeorpadizing the entire company with L2 extension.</li>
 </ul>
 
@@ -328,7 +328,7 @@ In this blog I will try to list the pros and cons of big heterogeneous subnets.<
 
 <ul>
 <li>More entries in the routing table but that can be mitigated with summarization.<br /></li>
-<li>Loss of ip addresses. If we take a big /21 subnets and split it in 64 x /27 you lost ~ 200 IPs (does it really matter ? how full are the big subnets ?)<br /></li>
+<li>Loss of ip addresses. Does it really matter ? how full are the big subnets ?</li>
 </ul>
 
 <h1 id="big-subnet">Big subnet</h1>
