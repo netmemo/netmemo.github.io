@@ -1350,8 +1350,13 @@ Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
       <guid>https://netmemo.github.io/post/subnets-size-mix/</guid>
       <description>
 
-&lt;p&gt;Along my different jobs, one of the things that led to L2 extension and then brought risks and slew down or even blocked projects was big heterogeneous subnets.
-In this blog I will list the pros and cons of small, big and heterogeneous subnets.&lt;/p&gt;
+&lt;p&gt;Along my different jobs, one of the things that led to L2 extension and then brought risks and slew down or even blocked projects was big heterogeneous subnets.&lt;/p&gt;
+
+&lt;p&gt;Often the initial rational of big heterogeneous subnets was to avoid too much vlans on physical infrastructure. Historically physical infrastructure had vlans and spanning tree limits.
+The problem is that when migration time is coming nobody wants to change IP addresses. Even after arguing, this is the network that bears the risk to break the entire company by stretching L2. No need to say that the layer 2 extension stay forever because it takes ages to migrate everything. After two years, there is no more budget for the dozen of remaining devices and everybody move on leting the network as a battled field.
+Some people are even arguing that with microsementation you only need one vlan&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;In this blog I will list the pros and cons of small, big and heterogeneous subnets.&lt;/p&gt;
 
 &lt;h1 id=&#34;small-subnet&#34;&gt;Small subnet&lt;/h1&gt;
 
