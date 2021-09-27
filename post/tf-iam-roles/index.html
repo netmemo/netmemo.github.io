@@ -15,10 +15,10 @@
   
     
   
-  <meta name="description" content="TL;DR  The principal is WHO will be able to access a resource.
+  <meta name="description" content="An IAM role is an AWS identity with permission policies that determine what the identity can and cannot do in AWS.
+TL;DR  The principal is WHO will be able to access a resource.
  The policy is WHAT the principals associated with the role will be able to do.
- The role links the principals thanks to the assume_role_policy with the inline policy argument. The attachement links the role to a managed policies instead of the inline policy.  
-Terraform resources and AWS API Policy aws_iam_policy | aws create policy API">
+ The role links the principals thanks to the assume_role_policy with the inline policy argument. The attachement links the role to a managed policies instead of the inline policy.">
 
   
   <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/post/tf-iam-roles/">
@@ -96,19 +96,19 @@ Terraform resources and AWS API Policy aws_iam_policy | aws create policy API">
   <meta property="og:site_name" content="netmemo.github.io">
   <meta property="og:url" content="https://netmemo.github.io/post/tf-iam-roles/">
   <meta property="og:title" content="AWS IAM Roles with Terraform | netmemo.github.io">
-  <meta property="og:description" content="TL;DR  The principal is WHO will be able to access a resource.
+  <meta property="og:description" content="An IAM role is an AWS identity with permission policies that determine what the identity can and cannot do in AWS.
+TL;DR  The principal is WHO will be able to access a resource.
  The policy is WHAT the principals associated with the role will be able to do.
- The role links the principals thanks to the assume_role_policy with the inline policy argument. The attachement links the role to a managed policies instead of the inline policy.  
-Terraform resources and AWS API Policy aws_iam_policy | aws create policy API">
+ The role links the principals thanks to the assume_role_policy with the inline policy argument. The attachement links the role to a managed policies instead of the inline policy.">
   
   
     
   <meta property="og:image" content="https://netmemo.github.io/img/icon-192.png">
   <meta property="og:locale" content="en-us">
   
-  <meta property="article:published_time" content="2021-09-01T18:04:31&#43;02:00">
+  <meta property="article:published_time" content="2021-09-27T18:04:31&#43;02:00">
   
-  <meta property="article:modified_time" content="2021-09-01T18:04:31&#43;02:00">
+  <meta property="article:modified_time" content="2021-09-27T18:04:31&#43;02:00">
   
 
   
@@ -238,9 +238,9 @@ Terraform resources and AWS API Policy aws_iam_policy | aws create policy API">
 
   <span class="article-date">
     
-    <meta content="2021-09-01 18:04:31 &#43;0200 CEST" itemprop="datePublished">
-    <time datetime="2021-09-01 18:04:31 &#43;0200 CEST" itemprop="dateModified">
-      Sep 1, 2021
+    <meta content="2021-09-27 18:04:31 &#43;0200 CEST" itemprop="datePublished">
+    <time datetime="2021-09-27 18:04:31 &#43;0200 CEST" itemprop="dateModified">
+      Sep 27, 2021
     </time>
   </span>
   <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
@@ -323,6 +323,8 @@ Terraform resources and AWS API Policy aws_iam_policy | aws create policy API">
 
     <div class="article-style" itemprop="articleBody">
       
+
+<p>An IAM role is an AWS identity with permission policies that determine what the identity can and cannot do in AWS.</p>
 
 <h1 id="tl-dr">TL;DR</h1>
 

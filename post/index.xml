@@ -13,6 +13,18 @@
     
     
     <item>
+      <title>AWS IAM Roles with Terraform</title>
+      <link>https://netmemo.github.io/post/tf-iam-roles/</link>
+      <pubDate>Mon, 27 Sep 2021 18:04:31 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/tf-iam-roles/</guid>
+      <description>An IAM role is an AWS identity with permission policies that determine what the identity can and cannot do in AWS.
+TL;DR  The principal is WHO will be able to access a resource.
+ The policy is WHAT the principals associated with the role will be able to do.
+ The role links the principals thanks to the assume_role_policy with the inline policy argument. The attachement links the role to a managed policies instead of the inline policy.</description>
+    </item>
+    
+    <item>
       <title>Github Actions with Terraform Cloud for CI/CD of NSX-T</title>
       <link>https://netmemo.github.io/post/tf-gha-nsxt-cicd/</link>
       <pubDate>Sun, 15 Aug 2021 14:02:39 +0200</pubDate>
