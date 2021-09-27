@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&amp;acute;s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
-    <lastBuildDate>Wed, 17 Feb 2021 20:59:49 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 01 Sep 2021 18:04:31 +0200</lastBuildDate>
     
 	<atom:link href="https://netmemo.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
@@ -15,7 +15,7 @@
     <item>
       <title>AWS</title>
       <link>https://netmemo.github.io/categories/aws/</link>
-      <pubDate>Wed, 17 Feb 2021 20:59:49 +0100</pubDate>
+      <pubDate>Wed, 01 Sep 2021 18:04:31 +0200</pubDate>
       
       <guid>https://netmemo.github.io/categories/aws/</guid>
       <description></description>
@@ -27,6 +27,15 @@
       <pubDate>Sun, 15 Aug 2021 14:02:39 +0200</pubDate>
       
       <guid>https://netmemo.github.io/categories/automation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CLOUD</title>
+      <link>https://netmemo.github.io/categories/cloud/</link>
+      <pubDate>Wed, 01 Sep 2021 18:04:31 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/categories/cloud/</guid>
       <description></description>
     </item>
     
@@ -69,7 +78,7 @@
     <item>
       <title>IAC</title>
       <link>https://netmemo.github.io/categories/iac/</link>
-      <pubDate>Sun, 15 Aug 2021 14:02:39 +0200</pubDate>
+      <pubDate>Wed, 01 Sep 2021 18:04:31 +0200</pubDate>
       
       <guid>https://netmemo.github.io/categories/iac/</guid>
       <description></description>

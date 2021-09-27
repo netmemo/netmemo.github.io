@@ -11,6 +11,126 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>AWS IAM Roles with Terraform</title>
+      <link>https://netmemo.github.io/post/tf-iam-roles/</link>
+      <pubDate>Wed, 01 Sep 2021 18:04:31 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/tf-iam-roles/</guid>
+      <description>
+
+&lt;h1 id=&#34;tl-dr&#34;&gt;TL;DR&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The &lt;strong&gt;&lt;a href=&#34;https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html&#34; target=&#34;_blank&#34;&gt;principal&lt;/a&gt;&lt;/strong&gt; is &lt;strong&gt;WHO&lt;/strong&gt; will be able to access a resource.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;The &lt;strong&gt;policy&lt;/strong&gt; is &lt;strong&gt;WHAT&lt;/strong&gt; the principals associated with the role will be able to do.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;The &lt;strong&gt;role&lt;/strong&gt; links the principals thanks to the &lt;em&gt;assume_role_policy&lt;/em&gt; with the &lt;em&gt;inline policy&lt;/em&gt; argument.&lt;/li&gt;
+&lt;li&gt;The &lt;strong&gt;attachement&lt;/strong&gt; links the role to a &lt;em&gt;managed policies&lt;/em&gt; instead of the &lt;em&gt;inline policy&lt;/em&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&#34;aws-iam-simple.png&#34; target=&#34;_blank&#34;&gt; &lt;img src=&#34;aws-iam-simple.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;terraform-resources-and-aws-api&#34;&gt;Terraform resources and AWS API&lt;/h1&gt;
+
+&lt;h3 id=&#34;policy&#34;&gt;Policy&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy&#34; target=&#34;_blank&#34;&gt;aws_iam_policy&lt;/a&gt; | &lt;a href=&#34;https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreatePolicy.html&#34; target=&#34;_blank&#34;&gt;aws create policy API&lt;/a&gt;&lt;br /&gt;
+There are 3 types of policies.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Inline :  The policy is defined directly in the object that needs it.&lt;/li&gt;
+&lt;li&gt;Managed : More flexible, can be reused with several roles. Need to be attached with an object.&lt;/li&gt;
+&lt;li&gt;AWS Managed : Same advantages as the managed ones but can&amp;rsquo;t be modified.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Here is a link that helps to &lt;a href=&#34;https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html#choosing-managed-or-inline&#34; target=&#34;_blank&#34;&gt;choose&lt;/a&gt; between them.&lt;/p&gt;
+
+&lt;h3 id=&#34;role&#34;&gt;Role&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role&#34; target=&#34;_blank&#34;&gt;aws_iam_role&lt;/a&gt; | &lt;a href=&#34;https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html&#34; target=&#34;_blank&#34;&gt;aws create role API&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;This is to define the IAM role resource that will link the principals and the policy.&lt;br /&gt;
+If we are using &lt;em&gt;managed policy&lt;/em&gt; we will need to link this role to the &lt;em&gt;managed policy&lt;/em&gt; with an attachment resource. In case of using &lt;em&gt;inline policy&lt;/em&gt;, the &lt;em&gt;inline policy&lt;/em&gt; is declared in the Terraform resource role. With AWS API, it needs &lt;a href=&#34;https://docs.aws.amazon.com/IAM/latest/APIReference/API_PutRolePolicy.html&#34; target=&#34;_blank&#34;&gt;another API call&lt;/a&gt; to set the &lt;em&gt;inline policy&lt;/em&gt; in the &lt;em&gt;role&lt;/em&gt;.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;assume_role_policy&lt;/strong&gt;&lt;br /&gt;
+This is a mandatory argument used in aws_iam_role and aws_iam_role_policy to indicate &lt;strong&gt;WHO&lt;/strong&gt; can temporarily assume the role that we are defining. It&amp;rsquo;s also referred as trust policy.&lt;br /&gt;
+&lt;a href=&#34;https://stackoverflow.com/questions/44628380/terraform-assume-role-policy-similar-but-slightly-different-than-standard-ia&#34; target=&#34;_blank&#34;&gt;explanation 1&lt;/a&gt;, &lt;a href=&#34;https://aws.amazon.com/blogs/security/how-to-use-trust-policies-with-iam-roles/&#34; target=&#34;_blank&#34;&gt;explanation 2&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;attachments&#34;&gt;Attachments&lt;/h3&gt;
+
+&lt;p&gt;Attach a &lt;em&gt;managed policy&lt;/em&gt; to a group, user or role&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_group_policy_attachment&#34; target=&#34;_blank&#34;&gt;aws_iam_group_policy_attachment&lt;/a&gt; | &lt;a href=&#34;https://docs.aws.amazon.com/IAM/latest/APIReference/API_AttachGroupPolicy.html&#34; target=&#34;_blank&#34;&gt;aws attach group policy API&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_user_policy_attachment&#34; target=&#34;_blank&#34;&gt;aws_iam_user_policy_attachment&lt;/a&gt; | &lt;a href=&#34;https://docs.aws.amazon.com/IAM/latest/APIReference/API_AttachUserPolicy.html&#34; target=&#34;_blank&#34;&gt;aws attach user policy API&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment&#34; target=&#34;_blank&#34;&gt;aws_iam_role_policy_attachment&lt;/a&gt; | &lt;a href=&#34;https://docs.aws.amazon.com/IAM/latest/APIReference/API_AttachRolePolicy.html&#34; target=&#34;_blank&#34;&gt;aws attach role policy API&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;possibilities-of-policy-attachment&#34;&gt;Possibilities of policy attachment&lt;/h1&gt;
+
+&lt;p&gt;From the less flexible to the most flexible:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;1 resource: aws_iam_role with &lt;em&gt;inline_policy&lt;/em&gt; argument&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;2 resources: aws_iam_role + aws_iam_role_policy (conflict with aws_iam_role / inline_policy)&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;3 resources: aws_iam_role + aws_iam_policy + aws_iam_role_policy_attachment&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;terraform-specific-resources&#34;&gt;Terraform specific resources&lt;/h1&gt;
+
+&lt;h3 id=&#34;datasource&#34;&gt;Datasource&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document&#34; target=&#34;_blank&#34;&gt;aws_iam_policy_document&lt;/a&gt;.
+This is an optional datasource which is Terraform specific. The policy defined in HCL format is translated to JSON when associated with the inline policy attribute of the role.
+The advantages of using this &lt;a href=&#34;https://learn.hashicorp.com/tutorials/terraform/aws-iam-policy?_ga=2.99142555.466421101.1630266824-70591653.1623679226&#34; target=&#34;_blank&#34;&gt;Policy in HCL format&lt;/a&gt; are:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Being able to overwrite, append, or update policies with this resource by using the source_json and override_json arguments.&lt;/li&gt;
+&lt;li&gt;Terraform error checking automatically formats your policy document into correct JSON when you run your apply.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Data sources make it easier to reuse policies throughout your environment.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;It can be used in the below resources.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;aws_iam_policy / &lt;em&gt;policy&lt;/em&gt; argument&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;aws_iam_role_policy / &lt;em&gt;policy&lt;/em&gt; argument&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;aws_iam_role_policy / &lt;em&gt;assume_role_policy&lt;/em&gt; argument&lt;/li&gt;
+&lt;li&gt;aws_iam_role / &lt;em&gt;assume_role_policy&lt;/em&gt; argument&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;inline-policy-resources&#34;&gt;Inline policy resources&lt;/h3&gt;
+
+&lt;p&gt;Provide an IAM user/role/group with an inline policy.
+These resources are made to reduce the number of objects for a user. You can directly use them instead of creating an user, the policy and the attachement to link both (1 vs 3 resources).
+There is an &lt;strong&gt;overlap&lt;/strong&gt; between the &lt;em&gt;aws_iam_role_policy&lt;/em&gt; and the &lt;em&gt;aws_iam_role&lt;/em&gt; / &lt;em&gt;inline_policy&lt;/em&gt; argument. There are incompatible.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_user_policy&#34; target=&#34;_blank&#34;&gt;aws_iam_user_policy&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy&#34; target=&#34;_blank&#34;&gt;aws_iam_role_policy&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_group_policy&#34; target=&#34;_blank&#34;&gt;aws_iam_group_policy&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;attachment&#34;&gt;Attachment&lt;/h3&gt;
+
+&lt;p&gt;There are lots of &lt;strong&gt;overlap&lt;/strong&gt;, &lt;strong&gt;incompatibility&lt;/strong&gt; and &lt;strong&gt;conflict&lt;/strong&gt; with this resource.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy_attachment&#34; target=&#34;_blank&#34;&gt;aws_iam_policy_attachment&lt;/a&gt; EXCLUSIVE with other attachements.&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;conflict with aws_iam_user_policy_attachment, aws_iam_group_policy_attachment, aws_iam_role_policy_attachment&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;bonus&#34;&gt;Bonus :)&lt;/h3&gt;
+
+&lt;p&gt;As a bonus here are the &lt;a href=&#34;https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html&#34; target=&#34;_blank&#34;&gt;quotas&lt;/a&gt; for IAM and STS&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Github Actions with Terraform Cloud for CI/CD of NSX-T</title>
       <link>https://netmemo.github.io/post/tf-gha-nsxt-cicd/</link>
       <pubDate>Sun, 15 Aug 2021 14:02:39 +0200</pubDate>
@@ -2217,75 +2337,6 @@ Adj IP Address  Local Intf     SID   SID Source                 Flags     Type
 ----------- 
 unprotected 
 &lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Bgp Multipath</title>
-      <link>https://netmemo.github.io/post/bgp-multipath/</link>
-      <pubDate>Mon, 11 May 2020 08:02:21 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/post/bgp-multipath/</guid>
-      <description>
-
-&lt;h3 id=&#34;maximum-path&#34;&gt;Maximum path&lt;/h3&gt;
-
-&lt;p&gt;In the RIB + FIB ECMP (multipath)&lt;/p&gt;
-
-&lt;p&gt;Is PIC supported by default ?&lt;br /&gt;
-&lt;a href=&#34;https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/configuration/xe-3s/irg-xe-3s-book/irg-bgp-mp-pic.html&#34; target=&#34;_blank&#34;&gt;https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/configuration/xe-3s/irg-xe-3s-book/irg-bgp-mp-pic.html&lt;/a&gt;&lt;br /&gt;
-=&amp;gt; With BGP Multipath, the BGP prefix-independant convergence (PIC) feature is supported&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;ins&gt; Attribut that should be identical &lt;/ins&gt;&lt;/strong&gt;&lt;br /&gt;
-- Weight&lt;br /&gt;
-- LP&lt;br /&gt;
-- AS Path (AS Number unless relax us used, AS length)&lt;br /&gt;
-- Origin Code&lt;br /&gt;
-- MED&lt;br /&gt;
-- IGP Metric Next hop should be different&lt;/p&gt;
-
-&lt;h3 id=&#34;add-path&#34;&gt;Add Path&lt;/h3&gt;
-
-&lt;p&gt;If the path are equal, allow to advertise more than one bes oath (need to test in eBGP).&lt;br /&gt;
-Mostly used with BGP without MPLS. If MPLS is used it&amp;rsquo;s better to have an RD different for each VRF of each router (easier to troubleshoot).&lt;br /&gt;
-&lt;a href=&#34;https://orhanergun.net/wp-content/uploads/2019/11/BGP-Add-path-vs-Shadow-RR-vs-Shadow-Session-vs-Unique-RD.pdf&#34; target=&#34;_blank&#34;&gt;https://orhanergun.net/wp-content/uploads/2019/11/BGP-Add-path-vs-Shadow-RR-vs-Shadow-Session-vs-Unique-RD.pdf&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;pic&#34;&gt;PIC&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2016/pdf/BRKRST-3321.pdf&#34; target=&#34;_blank&#34;&gt;https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2016/pdf/BRKRST-3321.pdf&lt;/a&gt;
-I don&amp;rsquo;t neded it at the moment because we don&amp;rsquo;t need this level if convergence (couple of minutes vs ms if you have hundres of thousand of prefixes)&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://blog.ipspace.net/2012/01/prefix-independent-convergence-pic.html&#34; target=&#34;_blank&#34;&gt;https://blog.ipspace.net/2012/01/prefix-independent-convergence-pic.html&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;The generic optimization of the RIB-to-FIB update process is known as Prefix-Independent Convergence (PIC) - if the routing protocols can pre-compute alternate paths, suitably designed FIB can use that information to cache alternate next hops. Updating such a FIB no longer involves numerous updates to individual prefixes; you have to change only the next hop reachability information.&lt;/p&gt;
-
-&lt;h3 id=&#34;best-external&#34;&gt;Best External&lt;/h3&gt;
-
-&lt;p&gt;Allow a router to advertise it&amp;rsquo;s best external path even if in it&amp;rsquo;s BGP table it does have a beter route from inside&lt;/p&gt;
-
-&lt;h3 id=&#34;label-allocation&#34;&gt;LABEL ALLOCATION&lt;/h3&gt;
-
-&lt;h5 id=&#34;per-vrf&#34;&gt;Per VRF&lt;/h5&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;ins&gt; Cons &lt;/ins&gt;&lt;/strong&gt;&lt;br /&gt;
-- IP Lookup needed after label lookup (can be a benefit, cf route sum issue)&lt;br /&gt;
-- No granular load balancing because the bottom label is the same for all prefixes, if platform load balances on bottom label&lt;br /&gt;
-- Potential forwarding loop during local traffic diversion to support PIC (Transient loop)&lt;br /&gt;
-- No support for EIBGP multipath&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;ins&gt; Pros &lt;/ins&gt;&lt;/strong&gt;&lt;br /&gt;
-- 1 label per vrf (less label used)&lt;/p&gt;
-
-&lt;h5 id=&#34;per-ce&#34;&gt;Per CE&lt;/h5&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;ins&gt; Cons &lt;/ins&gt;&lt;/strong&gt;&lt;br /&gt;
-- No granular load balancing because the bottom label is the same for all prefixes from one CE, if platform load balances on bottom label&lt;br /&gt;
-- eBGPload balancing &amp;amp; BGP PIC is not supported (it makes usage of label diversity), unless resilient per-ce label&lt;br /&gt;
-- Only single hop eBGPsupported, no multihop&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;ins&gt; Pros &lt;/ins&gt;&lt;/strong&gt;&lt;br /&gt;
-- No IP lookup needed after label lookup&lt;br /&gt;
-- Per-CE : one MPLS label per next-hop (so per connected CE router)(Number of MPLS labels used is very low)&lt;/p&gt;
 </description>
     </item>
     
