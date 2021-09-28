@@ -105,7 +105,7 @@ The advantages of using this &lt;a href=&#34;https://learn.hashicorp.com/tutoria
 &lt;h3 id=&#34;inline-policy-resources&#34;&gt;Inline policy resources&lt;/h3&gt;
 
 &lt;p&gt;Provide an IAM user/role/group with an inline policy.
-These resources are made to reduce the number of objects for a user. You can directly use them instead of creating an user, the policy and the attachement to link both (2 vs 3 resources).
+The aim is to reduce the number of Terraform resources to give access to a role/user/group. You can directly use them instead of creating a role/user/group, the policy and the attachement to link both (2 vs 3 resources).
 There is an &lt;strong&gt;overlap&lt;/strong&gt; between the &lt;em&gt;aws_iam_role_policy&lt;/em&gt; and the &lt;em&gt;aws_iam_role&lt;/em&gt; / &lt;em&gt;inline_policy&lt;/em&gt; argument. There are incompatible.&lt;/p&gt;
 
 &lt;ul&gt;
