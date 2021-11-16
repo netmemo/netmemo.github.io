@@ -115,7 +115,7 @@ locals { policies = { policy1 = { rule1 = { source = [&amp;quot;src1&amp;quot;,&
       <description>The post below shows how to create security policy groups for NSX-T with Terraform nested for_each loop and dynamic.
 The variables are made from one map of list. Each list represents one group composed of tags.
 https://www.hashicorp.com/blog/hashicorp-terraform-0-12-preview-for-and-for-each
-variable &amp;quot;mapgroups&amp;quot; { type = map default = { NBO = [&amp;quot;NBO&amp;quot;] NBO-PROD = [&amp;quot;NBO&amp;quot;,&amp;quot;PROD&amp;quot;] } } resource &amp;quot;nsxt_policy_group&amp;quot; &amp;quot;nbogroups&amp;quot; { for_each = var.mapgroups display_name = each.key criteria { dynamic &amp;quot;condition&amp;quot; { for_each = each.</description>
+variable &amp;quot;mapgroups&amp;quot; { type	= map default	= { NBO	= [&amp;quot;NBO&amp;quot;] NBO-PROD	= [&amp;quot;NBO&amp;quot;,&amp;quot;PROD&amp;quot;] } } resource &amp;quot;nsxt_policy_group&amp;quot; &amp;quot;nbogroups&amp;quot; { for_each	= var.mapgroups display_name	= each.key criteria { dynamic &amp;quot;condition&amp;quot; { for_each = each.</description>
     </item>
     
     <item>

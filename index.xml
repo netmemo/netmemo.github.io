@@ -1832,28 +1832,28 @@ The variables are made from one map of list. Each list represents one group comp
 &lt;a href=&#34;https://www.hashicorp.com/blog/hashicorp-terraform-0-12-preview-for-and-for-each&#34; target=&#34;_blank&#34;&gt;https://www.hashicorp.com/blog/hashicorp-terraform-0-12-preview-for-and-for-each&lt;/a&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;variable &amp;quot;mapgroups&amp;quot; {
-  type      = map
-  default   = {
-    NBO         = [&amp;quot;NBO&amp;quot;]
-    NBO-PROD    = [&amp;quot;NBO&amp;quot;,&amp;quot;PROD&amp;quot;]
+  type		= map
+  default	= {
+    NBO			= [&amp;quot;NBO&amp;quot;]
+    NBO-PROD	= [&amp;quot;NBO&amp;quot;,&amp;quot;PROD&amp;quot;]
   }
 }
 
 
 resource &amp;quot;nsxt_policy_group&amp;quot; &amp;quot;nbogroups&amp;quot; {
-  for_each      = var.mapgroups
+  for_each		= var.mapgroups
 
-  display_name  = each.key
+  display_name	= each.key
   criteria {
 
     dynamic &amp;quot;condition&amp;quot; {
       for_each = each.value
 
       content {
-        key         = &amp;quot;Tag&amp;quot;
-        member_type = &amp;quot;VirtualMachine&amp;quot;
-        operator    = &amp;quot;EQUALS&amp;quot;
-        value       = condition.value
+        key			= &amp;quot;Tag&amp;quot;
+        member_type	= &amp;quot;VirtualMachine&amp;quot;
+        operator	= &amp;quot;EQUALS&amp;quot;
+        value		= condition.value
       }
     }
   }

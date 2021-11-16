@@ -18,7 +18,7 @@
   <meta name="description" content="The post below shows how to create security policy groups for NSX-T with Terraform nested for_each loop and dynamic.
 The variables are made from one map of list. Each list represents one group composed of tags.
 https://www.hashicorp.com/blog/hashicorp-terraform-0-12-preview-for-and-for-each
-variable &quot;mapgroups&quot; { type = map default = { NBO = [&quot;NBO&quot;] NBO-PROD = [&quot;NBO&quot;,&quot;PROD&quot;] } } resource &quot;nsxt_policy_group&quot; &quot;nbogroups&quot; { for_each = var.mapgroups display_name = each.key criteria { dynamic &quot;condition&quot; { for_each = each.">
+variable &quot;mapgroups&quot; { type	= map default	= { NBO	= [&quot;NBO&quot;] NBO-PROD	= [&quot;NBO&quot;,&quot;PROD&quot;] } } resource &quot;nsxt_policy_group&quot; &quot;nbogroups&quot; { for_each	= var.mapgroups display_name	= each.key criteria { dynamic &quot;condition&quot; { for_each = each.">
 
   
   <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/post/tf-nsxt-nested-for-each/">
@@ -99,7 +99,7 @@ variable &quot;mapgroups&quot; { type = map default = { NBO = [&quot;NBO&quot;] 
   <meta property="og:description" content="The post below shows how to create security policy groups for NSX-T with Terraform nested for_each loop and dynamic.
 The variables are made from one map of list. Each list represents one group composed of tags.
 https://www.hashicorp.com/blog/hashicorp-terraform-0-12-preview-for-and-for-each
-variable &quot;mapgroups&quot; { type = map default = { NBO = [&quot;NBO&quot;] NBO-PROD = [&quot;NBO&quot;,&quot;PROD&quot;] } } resource &quot;nsxt_policy_group&quot; &quot;nbogroups&quot; { for_each = var.mapgroups display_name = each.key criteria { dynamic &quot;condition&quot; { for_each = each.">
+variable &quot;mapgroups&quot; { type	= map default	= { NBO	= [&quot;NBO&quot;] NBO-PROD	= [&quot;NBO&quot;,&quot;PROD&quot;] } } resource &quot;nsxt_policy_group&quot; &quot;nbogroups&quot; { for_each	= var.mapgroups display_name	= each.key criteria { dynamic &quot;condition&quot; { for_each = each.">
   
   
     
@@ -323,28 +323,28 @@ The variables are made from one map of list. Each list represents one group comp
 <a href="https://www.hashicorp.com/blog/hashicorp-terraform-0-12-preview-for-and-for-each" target="_blank">https://www.hashicorp.com/blog/hashicorp-terraform-0-12-preview-for-and-for-each</a></p>
 
 <pre><code>variable &quot;mapgroups&quot; {
-  type      = map
-  default   = {
-    NBO         = [&quot;NBO&quot;]
-    NBO-PROD    = [&quot;NBO&quot;,&quot;PROD&quot;]
+  type		= map
+  default	= {
+    NBO			= [&quot;NBO&quot;]
+    NBO-PROD	= [&quot;NBO&quot;,&quot;PROD&quot;]
   }
 }
 
 
 resource &quot;nsxt_policy_group&quot; &quot;nbogroups&quot; {
-  for_each      = var.mapgroups
+  for_each		= var.mapgroups
 
-  display_name  = each.key
+  display_name	= each.key
   criteria {
 
     dynamic &quot;condition&quot; {
       for_each = each.value
 
       content {
-        key         = &quot;Tag&quot;
-        member_type = &quot;VirtualMachine&quot;
-        operator    = &quot;EQUALS&quot;
-        value       = condition.value
+        key			= &quot;Tag&quot;
+        member_type	= &quot;VirtualMachine&quot;
+        operator	= &quot;EQUALS&quot;
+        value		= condition.value
       }
     }
   }
