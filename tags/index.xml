@@ -33,7 +33,7 @@
     <item>
       <title>AWS</title>
       <link>https://netmemo.github.io/tags/aws/</link>
-      <pubDate>Mon, 27 Sep 2021 18:04:31 +0200</pubDate>
+      <pubDate>Tue, 16 Nov 2021 18:00:45 +0200</pubDate>
       
       <guid>https://netmemo.github.io/tags/aws/</guid>
       <description></description>
@@ -312,7 +312,7 @@
     <item>
       <title>Terraform</title>
       <link>https://netmemo.github.io/tags/terraform/</link>
-      <pubDate>Mon, 27 Sep 2021 18:04:31 +0200</pubDate>
+      <pubDate>Tue, 16 Nov 2021 18:00:45 +0200</pubDate>
       
       <guid>https://netmemo.github.io/tags/terraform/</guid>
       <description></description>
@@ -387,6 +387,15 @@
       <pubDate>Fri, 05 Oct 2018 23:59:19 +0200</pubDate>
       
       <guid>https://netmemo.github.io/tags/kubernetes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>lambda</title>
+      <link>https://netmemo.github.io/tags/lambda/</link>
+      <pubDate>Tue, 16 Nov 2021 18:00:45 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/lambda/</guid>
       <description></description>
     </item>
     

@@ -11,6 +11,277 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Can we ping a Lambda function ?</title>
+      <link>https://netmemo.github.io/post/lambdaping/</link>
+      <pubDate>Tue, 16 Nov 2021 18:00:45 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/lambdaping/</guid>
+      <description>
+
+&lt;h1 id=&#34;context&#34;&gt;Context&lt;/h1&gt;
+
+&lt;p&gt;Can we ping the ENI of a Lambda function within the VPC ? While the answer can be &lt;a href=&#34;#obvious&#34;&gt;obvious&lt;/a&gt; the path to get it was insightful for me and has helped me to be more comfortable with :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;AWS IAM.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Lambdas function.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;AWS Static IP addresses and AWS default subnets.&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This test can be performed with the AWS free tier. You will find the Terraform scripts here : &lt;a href=&#34;https://github.com/netmemo/lambdaping&#34; target=&#34;_blank&#34;&gt;Lambda Ping&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;I am a network engineer, I like diagram. Below you can find the diagram of the test.
+&lt;a href=&#34;lambdaping.png&#34; target=&#34;_blank&#34;&gt; &lt;img src=&#34;lambdaping.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;What needs to be created&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Infrastrusture:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;aws_key_pair&lt;/li&gt;
+&lt;li&gt;aws_default_subnet&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;aws_security_group&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;aws_instance&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Script:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;A python script executed with the lambda function&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;IAM:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;aws_iam_role&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;aws_iam_role_policy_attachment&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;aws_iam_policy&lt;/li&gt;
+&lt;li&gt;aws_iam_policy_document&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Lambda:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;aws_lambda_function&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This test is a good demonstration of one of the terraform benefits. Terraform is taking care of the dependencies and the order of creation between all resources.
+In the case of an imperative model for &lt;strong&gt;aws_key_pair&lt;/strong&gt; and &lt;strong&gt;aws_instance&lt;/strong&gt; you will need to explicitly state that &lt;strong&gt;aws_key_pair&lt;/strong&gt; needs to be created before &lt;strong&gt;aws_instance&lt;/strong&gt; is created. With the declarative approach of Terraform, you just declare the resources you want and Terraform is taking care of the execution order.&lt;/p&gt;
+
+&lt;h1 id=&#34;resources-creation&#34;&gt;Resources creation&lt;/h1&gt;
+
+&lt;h2 id=&#34;infrastructure&#34;&gt;Infrastructure&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;aws_key&lt;/strong&gt;&lt;br /&gt;
+This is to push the public key of the computer that will be allowed to connect to the EC2 VM Instance.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;resource &amp;quot;aws_key_pair&amp;quot; &amp;quot;deployer&amp;quot; {
+	key_name   = &amp;quot;deployer-key&amp;quot;
+	public_key = file(&amp;quot;~/.ssh/id_rsa.pub&amp;quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;aws_default_subnet&lt;/strong&gt;&lt;br /&gt;
+This resource &lt;strong&gt;can&amp;rsquo;t&lt;/strong&gt; modify the default subnet address but it allows you to retrieve it from your default VPC.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;resource &amp;quot;aws_default_subnet&amp;quot; &amp;quot;default_az1&amp;quot; {
+  availability_zone = &amp;quot;us-east-2a&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;aws_security_group&lt;/strong&gt;&lt;br /&gt;
+This will be the security group for the test. This security group will be assigned to the VM and the lambda function to allow SSH to the VM, HTTP, ICMP between each other and outgoing traffic.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;resource &amp;quot;aws_security_group&amp;quot; &amp;quot;sglambdaping&amp;quot; {
+  name        = &amp;quot;sglambdaping&amp;quot;
+  description = &amp;quot;Allow HTTP, ICMP and SSH traffic&amp;quot;
+
+  ingress {
+    description = &amp;quot;SSH&amp;quot;
+    from_port   = 22
+    to_port     = 22
+    protocol    = &amp;quot;tcp&amp;quot;
+    cidr_blocks = [&amp;quot;0.0.0.0/0&amp;quot;]
+  }
+
+  ingress {
+    description = &amp;quot;HTTP&amp;quot;
+    from_port   = 80
+    to_port     = 80
+    protocol    = &amp;quot;tcp&amp;quot;
+    cidr_blocks = [&amp;quot;0.0.0.0/0&amp;quot;]
+  }
+
+  ingress {
+    description = &amp;quot;ALL_ICMP&amp;quot;
+    from_port = -1
+    to_port = -1
+    protocol = &amp;quot;icmp&amp;quot;
+    cidr_blocks = [&amp;quot;0.0.0.0/0&amp;quot;]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = &amp;quot;-1&amp;quot;
+    cidr_blocks = [&amp;quot;0.0.0.0/0&amp;quot;]
+  }
+
+  tags = {
+    Name = &amp;quot;terraform&amp;quot;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;aws_instance&lt;/strong&gt;&lt;br /&gt;
+The t2.micro VM instance. It will host one webserver to test that the &lt;a href=&#34;https://aws.amazon.com/blogs/compute/announcing-improved-vpc-networking-for-aws-lambda-functions/&#34; target=&#34;_blank&#34;&gt;ENI&lt;/a&gt; of the Lambda function works in our VPC by accessing it. This is also from this VM that we will try to ping the Lambda function&amp;rsquo;s ENI. I assign the VM to the default subnet of AZ1 which is normally 172.31.0.0/24. In the Terraform script I&amp;rsquo;m installing the webserver. I also assign a static IP address to be able to access the web server from the lambda function.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;resource &amp;quot;aws_instance&amp;quot; &amp;quot;foo&amp;quot; {
+  ami           = &amp;quot;ami-0443305dabd4be2bc&amp;quot;
+  instance_type = &amp;quot;t2.micro&amp;quot;
+  key_name      = aws_key_pair.deployer.key_name
+
+  user_data     = &amp;lt;&amp;lt;-EOF
+                  #!/bin/bash
+                  sudo su
+                  yum -y install httpd
+                  echo &amp;quot;&amp;lt;p&amp;gt; My Instance! &amp;lt;/p&amp;gt;&amp;quot; &amp;gt;&amp;gt; /var/www/html/index.html
+                  sudo systemctl enable httpd
+                  sudo systemctl start httpd
+                  EOF
+
+  vpc_security_group_ids = [
+    aws_security_group.ubuntu.id
+  ]
+
+  private_ip = &amp;quot;172.31.0.8&amp;quot;
+  subnet_id  = aws_default_subnet.default_az1.id
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;python-script&#34;&gt;Python script&lt;/h2&gt;
+
+&lt;p&gt;For the lambda part we first need a code that the function will execute. In this example it will be a HTTP request to our EC2 VM done with python urllib3 library.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;#import json
+import urllib3
+
+print(&#39;Loading function&#39;)
+def lambda_handler(event, context):
+    http = urllib3.PoolManager()
+    resp = http.request(&amp;quot;GET&amp;quot;, &amp;quot;http://172.31.0.8&amp;quot;)
+    print(resp.data)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Once the script is ready, you need to zip it then place the zip in the same directory as your Terraform script that will create the function.
+We then need to create the lambda resources.&lt;/p&gt;
+
+&lt;h2 id=&#34;iam&#34;&gt;IAM&lt;/h2&gt;
+
+&lt;p&gt;In this &lt;a href=&#34;https://netmemo.github.io/post/tf-iam-roles/&#34; target=&#34;_blank&#34;&gt;post&lt;/a&gt; I explain in detail what the role, the assume_role_policy and the policy are used for.&lt;/p&gt;
+
+&lt;p&gt;First we load a default AWS Managed Policy that will allow the lambda function to create the ENI in the VPC.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;aws_iam_policy&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;data &amp;quot;aws_iam_policy&amp;quot; &amp;quot;vpcpolicy&amp;quot; {
+ name = &amp;quot;AWSLambdaVPCAccessExecutionRole&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We then create the role that will use this policy.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;aws_iam_role&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;resource &amp;quot;aws_iam_role&amp;quot; &amp;quot;role-lambda&amp;quot; {
+  name               = &amp;quot;nbolambdarole&amp;quot;
+  assume_role_policy = data.aws_iam_policy_document.lambda_role.json
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this role we need to mention who will use it. In our case this is the lambda function. This action is done by defining a policy document where the principal is a lambda function.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;aws_iam_policy_document&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;data &amp;quot;aws_iam_policy_document&amp;quot; &amp;quot;lambda_role&amp;quot; {
+  statement {
+    effect  = &amp;quot;Allow&amp;quot;
+    actions = [&amp;quot;sts:AssumeRole&amp;quot;]
+
+    principals {
+      type        = &amp;quot;Service&amp;quot;
+      identifiers = [&amp;quot;lambda.amazonaws.com&amp;quot;]
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then we assign this policy to the assume_role_policy of the role&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  assume_role_policy = data.aws_iam_policy_document.lambda_role.json
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The last step of the IAM configuration is to attach the role and the policy together.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;aws_iam_role_policy_attachment&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;resource &amp;quot;aws_iam_role_policy_attachment&amp;quot; &amp;quot;role-policy-attach&amp;quot; {
+  role       = aws_iam_role.role-lambda.name
+  policy_arn = data.aws_iam_policy.vpcpolicy.arn
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;lambda&#34;&gt;Lambda&lt;/h2&gt;
+
+&lt;p&gt;Once the IAM part is done, we can create the lambda function. In our case we assign the previously created role to the function and the python script zip file.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;aws_lambda_function&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;resource &amp;quot;aws_lambda_function&amp;quot; &amp;quot;lambda-get&amp;quot; {
+  function_name = &amp;quot;nbo-tf-helloword-3&amp;quot;
+  role          = aws_iam_role.role-lambda.arn
+  filename         = &amp;quot;lambda_function.zip&amp;quot;
+  source_code_hash = filebase64sha256(&amp;quot;lambda_function.zip&amp;quot;)
+  runtime = &amp;quot;python3.9&amp;quot;
+  handler = &amp;quot;lambda_function.lambda_handler&amp;quot;
+
+  vpc_config {
+      subnet_ids = [aws_default_subnet.default_az1.id]
+      security_group_ids = [aws_security_group.sglambda.id]
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The &lt;strong&gt;source_code_hash&lt;/strong&gt; is used to see if the lambda function has changed and then need to be updated.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;The &lt;a href=&#34;https://docs.aws.amazon.com/lambda/latest/dg/python-handler.html&#34; target=&#34;_blank&#34;&gt;handler&lt;/a&gt; is normally the name of the python script dot the name of the python method you want to execute.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;vpc_config&lt;/strong&gt; is the VPC part of the lambda configuration to specify the security group associated to the lambda ENI and the subnet where the ENI will be.&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;the-tests&#34;&gt;The tests&lt;/h2&gt;
+
+&lt;p&gt;Lambda will access the web server to validate the communication. To launch the test, we need to create an empty event that will be selected when we will click on the orange test button.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;test-event.png&#34; target=&#34;_blank&#34;&gt; &lt;img src=&#34;test-event.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Click on the orange test button :) It should reply &amp;ldquo;My Instance&amp;rdquo;
+&lt;a href=&#34;lambda-request.png&#34; target=&#34;_blank&#34;&gt; &lt;img src=&#34;lambda-request.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&#34;obvious&#34;&gt;&lt;/a&gt;&lt;br /&gt;
+After the communication is validated, we can connect to the EC2 VM instance to launch the ping command. It will fail to ping the Lambda function.&lt;br /&gt;
+&lt;a href=&#34;ping-fail.png&#34; target=&#34;_blank&#34;&gt; &lt;img src=&#34;ping-fail.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;challenges-of-this-test&#34;&gt;Challenges of this test&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Understand the AWS IAM concept for the lambda function. The lambda function needs VPC rights to create the ENI in the VPC.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Find what default python library was available with AWS python to execute the HTTP request.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Understand how the lambda tests are done and what is a &lt;a href=&#34;https://docs.aws.amazon.com/lambda/latest/dg/python-handler.html&#34; target=&#34;_blank&#34;&gt;handler&lt;/a&gt;.&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
       <title>AWS IAM Roles with Terraform</title>
       <link>https://netmemo.github.io/post/tf-iam-roles/</link>
       <pubDate>Mon, 27 Sep 2021 18:04:31 +0200</pubDate>
@@ -2105,240 +2376,6 @@ For some organisations, this scenario will be a nightmare and probably cost more
 &lt;p&gt;You need EVPN anyway for multisite.&lt;/p&gt;
 
 &lt;p&gt;You need automation anyway because it&amp;rsquo;s too complex to manage via the GUI and you want to standardise all the conf.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Arista basic ISIS-SR</title>
-      <link>https://netmemo.github.io/post/aristabasesr/</link>
-      <pubDate>Tue, 24 Nov 2020 18:12:05 +0100</pubDate>
-      
-      <guid>https://netmemo.github.io/post/aristabasesr/</guid>
-      <description>
-
-&lt;h3 id=&#34;isis-segment-routing-basics-for-arista-eos&#34;&gt;ISIS Segment routing basics for Arista EOS&lt;/h3&gt;
-
-&lt;p&gt;References:&lt;br /&gt;
-&lt;a href=&#34;https://www.arista.com/en/um-eos/eos-section-35-3-is-is-segment-routing&#34; target=&#34;_blank&#34;&gt;https://www.arista.com/en/um-eos/eos-section-35-3-is-is-segment-routing&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;aristabasesr.png&#34; alt=&#34;arista isis sr&#34; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&#34;srgb&#34;&gt;SRGB&lt;/h4&gt;
-
-&lt;p&gt;Segment Routing Golbal Block&lt;/p&gt;
-
-&lt;h4 id=&#34;prefix-sid&#34;&gt;Prefix-SID&lt;/h4&gt;
-
-&lt;p&gt;It&amp;rsquo;s global and unique. It identify a prefix. It&amp;rsquo;s called anycast SID when it&amp;rsquo;s send by a group of router.&lt;/p&gt;
-
-&lt;h4 id=&#34;node-sid&#34;&gt;Node-SID&lt;/h4&gt;
-
-&lt;p&gt;It&amp;rsquo;s global and unique. Only one per node. It identify the node.&lt;/p&gt;
-
-&lt;h4 id=&#34;adjacent-sid&#34;&gt;Adjacent-SID&lt;/h4&gt;
-
-&lt;p&gt;It&amp;rsquo;s local and can use a dynamique range. It&amp;rsquo;s used to identify an interconnection between 2 nodes.&lt;br /&gt;
-With Arista EOS 4.23 it&amp;rsquo;s automaticaly allocated from the isis dynamic range &lt;strong&gt;show mpls label ranges&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;h4 id=&#34;basic-config-for-arista&#34;&gt;Basic config for ARISTA&lt;/h4&gt;
-
-&lt;p&gt;I have added the prefix-sid to test it end to end between the VPC but actually it can work without the prefix-sid. In the next article I will add the L3 VPN on top of SR without using prefix-sid
-In bold you find the ISIS-SR specific command require to enable ISIS-SR&lt;/p&gt;
-
-&lt;h5 id=&#34;r1&#34;&gt;R1&lt;/h5&gt;
-
-&lt;pre style=&#34;color:black&#34;&gt;
-interface Loopback1
-   ip address 1.1.1.1/32
-   &lt;b&gt;node-segment ipv4 index 1&lt;/b&gt;
-   isis enable ISIS-SR
-!
-
-interface Ethernet1
-   no switchport
-   ip address 10.10.12.1/24
-   isis enable ISIS-SR
-!
-interface Ethernet2
-   no switchport
-   ip address 10.10.10.1/24
-   isis enable ISIS-SR
-!
-ip routing
-!
-mpls ip
-!
-
-router isis ISIS-SR
-   net 10.0000.0010.0100.1001.00
-   is-type level-2
-   !
-   address-family ipv4 unicast
-   !
-   &lt;b&gt;segment-routing mpls &lt;/b&gt; 
-      &lt;b&gt;no shutdown&lt;/b&gt;
-      prefix-segment 10.10.10.0/24 index 51
-!
-&lt;/pre&gt;
-
-&lt;h5 id=&#34;r2&#34;&gt;R2&lt;/h5&gt;
-
-&lt;pre style=&#34;color:black&#34;&gt;
-interface Loopback1
-   ip address 2.2.2.2/32
-   &lt;b&gt;node-segment ipv4 index 2&lt;/b&gt;
-   isis enable ISIS-SR
-!
-
-interface Ethernet1
-   no switchport
-   ip address 10.10.12.2/24
-   isis enable ISIS-SR
-!
-
-interface Ethernet2
-   no switchport
-   ip address 10.10.23.2/24
-   isis enable ISIS-SR
-!
-
-ip routing
-!
-mpls ip
-!
-
-router isis ISIS-SR
-   net 10.0000.0020.0200.2002.00
-   is-type level-2
-   !
-   address-family ipv4 unicast
-   !
-   &lt;b&gt;segment-routing mpls&lt;/b&gt;
-      &lt;b&gt;no shutdown&lt;/b&gt;
-!
-&lt;/pre&gt;
-
-&lt;h5 id=&#34;r3&#34;&gt;R3&lt;/h5&gt;
-
-&lt;pre style=&#34;color:black&#34;&gt;
-interface Loopback1
-   ip address 3.3.3.3/32
-   &lt;b&gt;node-segment ipv4 index 3&lt;/b&gt;
-   isis enable ISIS-SR
-!
-
-interface Ethernet1
-   no switchport
-   ip address 10.10.23.3/24
-   isis enable ISIS-SR
-!
-interface Ethernet2
-   no switchport
-   ip address 10.10.30.1/24
-   isis enable ISIS-SR
-!
-ip routing
-!
-mpls ip
-!
-
-router isis ISIS-SR
-   net 10.0000.0030.0300.3003.00
-   is-type level-2
-   !
-   address-family ipv4 unicast
-   !
-   &lt;b&gt;segment-routing mpls&lt;/b&gt;
-      &lt;b&gt;no shutdown&lt;/b&gt;
-      prefix-segment 10.10.30.0/24 index 53
-!
-&lt;/pre&gt;
-
-&lt;h3 id=&#34;show-commands&#34;&gt;show commands&lt;/h3&gt;
-
-&lt;pre style=&#34;color:black&#34;&gt;
-&lt;b&gt;R1#show isis segment-routing&lt;/b&gt;
-
-System ID: R1                   Instance: ISIS-SR
-SR supported Data-plane: MPLS                   SR Router ID: 1.1.1.1
-SR Global Block( SRGB ): Base: 900000           Size: 65536           
-Adj-SID allocation mode: SR-adjacencies
-Adj-SID allocation pool: Base: 100000     Size: 16384
-
-All Prefix Segments have    : P:0 E:0 V:0 L:0
-IS-IS Reachability Algorithm : SPF (0)
-
-Number of IS-IS segment routing capable peers: 2
-
-Self-Originated Segment Statistics:
-Node-Segments       : 1
-Prefix-Segments     : 1
-Proxy-Node-Segments : 0
-Adjacency Segments  : 1
-&lt;/pre&gt;
-
-&lt;pre style=&#34;color:black&#34;&gt;
-&lt;b&gt;R1#show mpls segment-routing bindings&lt;/b&gt;
-
-1.1.1.1/32
-   Local binding:  Label: imp-null
-   Remote binding: Peer ID: 0020.0200.2002, Label: 900001
-2.2.2.2/32
-   Local binding:  Label: 900002
-   Remote binding: Peer ID: 0020.0200.2002, Label: imp-null
-3.3.3.3/32
-   Local binding:  Label: 900003
-   Remote binding: Peer ID: 0020.0200.2002, Label: 900003
-10.10.10.0/24
-   Local binding:  Label: imp-null
-   Remote binding: Peer ID: 0020.0200.2002, Label: 900051
-10.10.30.0/24
-   Local binding:  Label: 900053
-   Remote binding: Peer ID: 0020.0200.2002, Label: 900053
-&lt;/pre&gt;
-
-&lt;pre style=&#34;color:black&#34;&gt;
-&lt;b&gt;R1#show isis segment-routing prefix-segments&lt;/b&gt;
-
-System ID: 0010.0100.1001                       Instance: &#39;ISIS-SR&#39;
-SR supported Data-plane: MPLS                   SR Router ID: 1.1.1.1
-
-Node: 3      Proxy-Node: 0      Prefix: 2       Total Segments: 5
-
-Flag Descriptions: R: Re-advertised, N: Node Segment, P: no-PHP
-                   E: Explicit-NULL, V: Value, L: Local
-Segment status codes: * - Self originated Prefix, L1 - level 1, L2 - level 2
-  Prefix                      SID Type       Flags                   System ID       Level Protection
-  ------------------------- ----- ---------- ----------------------- --------------- ----- ----------
-* 1.1.1.1/32                    1 Node       R:0 N:1 P:0 E:0 V:0 L:0 0010.0100.1001  L2    unprotected
-  2.2.2.2/32                    2 Node       R:0 N:1 P:0 E:0 V:0 L:0 0020.0200.2002  L2    unprotected
-  3.3.3.3/32                    3 Node       R:0 N:1 P:0 E:0 V:0 L:0 0030.0300.3003  L2    unprotected
-* 10.10.10.0/24                51 Prefix     R:0 N:0 P:0 E:0 V:0 L:0 0010.0100.1001  L2    unprotected
-  10.10.30.0/24                53 Prefix     R:0 N:0 P:0 E:0 V:0 L:0 0030.0300.3003  L2    unprotected
-&lt;/pre&gt;
-
-&lt;pre style=&#34;color:black&#34;&gt;
-&lt;b&gt;R1#show isis segment-routing adjacency-segments&lt;/b&gt;
-
-System ID: R1                   Instance: ISIS-SR
-SR supported Data-plane: MPLS                   SR Router ID: 1.1.1.1
-Adj-SID allocation mode: SR-adjacencies
-Adj-SID allocation pool: Base: 100000     Size: 16384
-Adjacency Segment Count: 1
-Flag Descriptions: F: Ipv6 address family, B: Backup, V: Value
-                   L: Local, S: Set
-
-Segment Status codes: L1 - Level-1 adjacency, L2 - Level-2 adjacency, P2P - Point-to-Point adjacency, LAN - Broadcast adjacency
-
-Locally Originated Adjacency Segments
-Adj IP Address  Local Intf     SID   SID Source                 Flags     Type  
---------------- ----------- ------- ------------ --------------------- -------- 
-    10.10.12.2         Et1  100000      Dynamic   F:0 B:0 V:1 L:1 S:0   LAN L2  
-
- Protection 
------------ 
-unprotected 
-&lt;/pre&gt;
 </description>
     </item>
     
