@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 2.4.0">
+  <meta name="generator" content="Hugo 0.49" />
+  <meta name="author" content="Noel">
+
+  
+  
+  
+  
+    
+  
+  <meta name="description" content="Context Can we ping the ENI of a Lambda function within the VPC ? While the answer can be obvious the path to get it was insightful for me and has helped me to be more comfortable with :
+ AWS IAM.
+ Lambdas function.
+ AWS Static IP addresses and AWS default subnets.
+  This test can be performed with the AWS free tier. You will find the Terraform scripts here : Lambda Ping">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/post/lambdaping/">
+
+  
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <meta name="theme-color" content="hsl(190, 90%, 68%)">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/dracula.min.css" crossorigin="anonymous">
+        
+      
+    
+
+    
+
+    
+
+  
+
+  
+  
+  <link rel="stylesheet" href=//fonts.googleapis.com/css?family=Montserrat:400,700|Roboto:400,400italic,700|Roboto+Mono>
+  
+
+  <link rel="stylesheet" href="/styles.css">
+  
+
+  
+  
+  
+
+  
+  <link rel="alternate" href="https://netmemo.github.io/index.xml" type="application/rss+xml" title="netmemo.github.io">
+  <link rel="feed" href="https://netmemo.github.io/index.xml" type="application/rss+xml" title="netmemo.github.io">
+  
+
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="icon" type="image/png" href="/img/icon.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
+
+  <link rel="canonical" href="https://netmemo.github.io/post/lambdaping/">
+
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="og:site_name" content="netmemo.github.io">
+  <meta property="og:url" content="https://netmemo.github.io/post/lambdaping/">
+  <meta property="og:title" content="Can we ping a Lambda function ? | netmemo.github.io">
+  <meta property="og:description" content="Context Can we ping the ENI of a Lambda function within the VPC ? While the answer can be obvious the path to get it was insightful for me and has helped me to be more comfortable with :
+ AWS IAM.
+ Lambdas function.
+ AWS Static IP addresses and AWS default subnets.
+  This test can be performed with the AWS free tier. You will find the Terraform scripts here : Lambda Ping">
+  
+  
+    
+  <meta property="og:image" content="https://netmemo.github.io/img/icon-192.png">
+  <meta property="og:locale" content="en-us">
+  
+  <meta property="article:published_time" content="2021-11-16T18:00:45&#43;02:00">
+  
+  <meta property="article:modified_time" content="2021-11-16T18:00:45&#43;02:00">
+  
+
+  
+
+  
+
+  <title>Can we ping a Lambda function ? | netmemo.github.io</title>
+
+</head>
+<body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" class="dark">
+
+<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0" id="navbar-main">
+  <div class="container">
+
+    
+      <a class="navbar-brand" href="/">netmemo.github.io</a>
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+    
+    <div class="collapse navbar-collapse" id="navbar">
+
+      
+      
+      <ul class="navbar-nav ml-auto">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/#hero">
+            
+            <span>Home</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/#posts">
+            
+            <span>Posts</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/#about">
+            
+            <span>About</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+      
+
+        
+
+        
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+<article class="article" itemscope itemtype="http://schema.org/Article">
+
+  
+
+
+
+
+
+  <div class="article-container">
+    <h1 itemprop="name">Can we ping a Lambda function ?</h1>
+
+    
+
+<div class="article-metadata">
+
+  
+  
+  
+  <div>
+    
+    <span itemscope itemprop="author" itemtype="http://schema.org/Person">
+      <span itemprop="name">Noel</span>
+    </span>
+    
+  </div>
+  
+
+  <span class="article-date">
+    
+    <meta content="2021-11-16 18:00:45 &#43;0200 &#43;0200" itemprop="datePublished">
+    <time datetime="2021-11-16 18:00:45 &#43;0200 &#43;0200" itemprop="dateModified">
+      Nov 16, 2021
+    </time>
+  </span>
+  <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Noel">
+  </span>
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    5 min read
+  </span>
+  
+
+  
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder"></i>
+    
+    <a href="/categories/cloud/">Cloud</a>, 
+    
+    <a href="/categories/networking/">Networking</a>
+    
+  </span>
+  
+  
+
+  
+  
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    <li>
+      <a class="twitter"
+         href="https://twitter.com/intent/tweet?text=Can%20we%20ping%20a%20Lambda%20function%20%3f&amp;url=https%3a%2f%2fnetmemo.github.io%2fpost%2flambdaping%2f"
+         target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+    <li>
+      <a class="facebook"
+         href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fnetmemo.github.io%2fpost%2flambdaping%2f"
+         target="_blank" rel="noopener">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+    </li>
+    <li>
+      <a class="linkedin"
+         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fnetmemo.github.io%2fpost%2flambdaping%2f&amp;title=Can%20we%20ping%20a%20Lambda%20function%20%3f"
+         target="_blank" rel="noopener">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+    </li>
+    <li>
+      <a class="weibo"
+         href="http://service.weibo.com/share/share.php?url=https%3a%2f%2fnetmemo.github.io%2fpost%2flambdaping%2f&amp;title=Can%20we%20ping%20a%20Lambda%20function%20%3f"
+         target="_blank" rel="noopener">
+        <i class="fab fa-weibo"></i>
+      </a>
+    </li>
+    <li>
+      <a class="email"
+         href="mailto:?subject=Can%20we%20ping%20a%20Lambda%20function%20%3f&amp;body=https%3a%2f%2fnetmemo.github.io%2fpost%2flambdaping%2f">
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+  
+
+</div>
+
+
+    <div class="article-style" itemprop="articleBody">
+      
+
+<h1 id="context">Context</h1>
+
+<p>Can we ping the ENI of a Lambda function within the VPC ? While the answer can be <a href="#obvious">obvious</a> the path to get it was insightful for me and has helped me to be more comfortable with :</p>
+
+<ul>
+<li>AWS IAM.<br /></li>
+<li>Lambdas function.<br /></li>
+<li>AWS Static IP addresses and AWS default subnets.<br /></li>
+</ul>
+
+<p>This test can be performed with the AWS free tier. You will find the Terraform scripts here : <a href="https://github.com/netmemo/lambdaping" target="_blank">Lambda Ping</a></p>
+
+<p>I am a network engineer, I like diagram. Below you can find the diagram of the test.
+<a href="lambdaping.png" target="_blank"> <img src="lambdaping.png" alt="" /> </a></p>
+
+<p><strong>What needs to be created</strong></p>
+
+<p>Infrastrusture:</p>
+
+<ul>
+<li>aws_key_pair</li>
+<li>aws_default_subnet<br /></li>
+<li>aws_security_group<br /></li>
+<li>aws_instance</li>
+</ul>
+
+<p>Script:</p>
+
+<ul>
+<li>A python script executed with the lambda function</li>
+</ul>
+
+<p>IAM:</p>
+
+<ul>
+<li>aws_iam_role<br /></li>
+<li>aws_iam_role_policy_attachment<br /></li>
+<li>aws_iam_policy</li>
+<li>aws_iam_policy_document<br /></li>
+</ul>
+
+<p>Lambda:</p>
+
+<ul>
+<li>aws_lambda_function<br /></li>
+</ul>
+
+<p>This test is a good demonstration of one of the terraform benefits. Terraform is taking care of the dependencies and the order of creation between all resources.
+In the case of an imperative model for <strong>aws_key_pair</strong> and <strong>aws_instance</strong> you will need to explicitly state that <strong>aws_key_pair</strong> needs to be created before <strong>aws_instance</strong> is created. With the declarative approach of Terraform, you just declare the resources you want and Terraform is taking care of the execution order.</p>
+
+<h1 id="resources-creation">Resources creation</h1>
+
+<h2 id="infrastructure">Infrastructure</h2>
+
+<p><strong>aws_key</strong><br />
+This is to push the public key of the computer that will be allowed to connect to the EC2 VM Instance.</p>
+
+<pre><code>resource &quot;aws_key_pair&quot; &quot;deployer&quot; {
+	key_name   = &quot;deployer-key&quot;
+	public_key = file(&quot;~/.ssh/id_rsa.pub&quot;)
+}
+</code></pre>
+
+<p><strong>aws_default_subnet</strong><br />
+This resource <strong>can&rsquo;t</strong> modify the default subnet address but it allows you to retrieve it from your default VPC.</p>
+
+<pre><code>resource &quot;aws_default_subnet&quot; &quot;default_az1&quot; {
+  availability_zone = &quot;us-east-2a&quot;
+}
+</code></pre>
+
+<p><strong>aws_security_group</strong><br />
+This will be the security group for the test. This security group will be assigned to the VM and the lambda function to allow SSH to the VM, HTTP, ICMP between each other and outgoing traffic.</p>
+
+<pre><code>resource &quot;aws_security_group&quot; &quot;sglambdaping&quot; {
+  name        = &quot;sglambdaping&quot;
+  description = &quot;Allow HTTP, ICMP and SSH traffic&quot;
+
+  ingress {
+    description = &quot;SSH&quot;
+    from_port   = 22
+    to_port     = 22
+    protocol    = &quot;tcp&quot;
+    cidr_blocks = [&quot;0.0.0.0/0&quot;]
+  }
+
+  ingress {
+    description = &quot;HTTP&quot;
+    from_port   = 80
+    to_port     = 80
+    protocol    = &quot;tcp&quot;
+    cidr_blocks = [&quot;0.0.0.0/0&quot;]
+  }
+
+  ingress {
+    description = &quot;ALL_ICMP&quot;
+    from_port = -1
+    to_port = -1
+    protocol = &quot;icmp&quot;
+    cidr_blocks = [&quot;0.0.0.0/0&quot;]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = &quot;-1&quot;
+    cidr_blocks = [&quot;0.0.0.0/0&quot;]
+  }
+
+  tags = {
+    Name = &quot;terraform&quot;
+  }
+}
+</code></pre>
+
+<p><strong>aws_instance</strong><br />
+The t2.micro VM instance. It will host one webserver to test that the <a href="https://aws.amazon.com/blogs/compute/announcing-improved-vpc-networking-for-aws-lambda-functions/" target="_blank">ENI</a> of the Lambda function works in our VPC by accessing it. This is also from this VM that we will try to ping the Lambda function&rsquo;s ENI. I assign the VM to the default subnet of AZ1 which is normally 172.31.0.0/24. In the Terraform script I&rsquo;m installing the webserver. I also assign a static IP address to be able to access the web server from the lambda function.</p>
+
+<pre><code>resource &quot;aws_instance&quot; &quot;foo&quot; {
+  ami           = &quot;ami-0443305dabd4be2bc&quot;
+  instance_type = &quot;t2.micro&quot;
+  key_name      = aws_key_pair.deployer.key_name
+
+  user_data     = &lt;&lt;-EOF
+                  #!/bin/bash
+                  sudo su
+                  yum -y install httpd
+                  echo &quot;&lt;p&gt; My Instance! &lt;/p&gt;&quot; &gt;&gt; /var/www/html/index.html
+                  sudo systemctl enable httpd
+                  sudo systemctl start httpd
+                  EOF
+
+  vpc_security_group_ids = [
+    aws_security_group.ubuntu.id
+  ]
+
+  private_ip = &quot;172.31.0.8&quot;
+  subnet_id  = aws_default_subnet.default_az1.id
+}
+</code></pre>
+
+<h2 id="python-script">Python script</h2>
+
+<p>For the lambda part we first need a code that the function will execute. In this example it will be a HTTP request to our EC2 VM done with python urllib3 library.</p>
+
+<pre><code class="language-python">#import json
+import urllib3
+
+print('Loading function')
+def lambda_handler(event, context):
+    http = urllib3.PoolManager()
+    resp = http.request(&quot;GET&quot;, &quot;http://172.31.0.8&quot;)
+    print(resp.data)
+</code></pre>
+
+<p>Once the script is ready, you need to zip it then place the zip in the same directory as your Terraform script that will create the function.
+We then need to create the lambda resources.</p>
+
+<h2 id="iam">IAM</h2>
+
+<p>In this <a href="https://netmemo.github.io/post/tf-iam-roles/" target="_blank">post</a> I explain in detail what the role, the assume_role_policy and the policy are used for.</p>
+
+<p>First we load a default AWS Managed Policy that will allow the lambda function to create the ENI in the VPC.</p>
+
+<p><strong>aws_iam_policy</strong></p>
+
+<pre><code>data &quot;aws_iam_policy&quot; &quot;vpcpolicy&quot; {
+ name = &quot;AWSLambdaVPCAccessExecutionRole&quot;
+}
+</code></pre>
+
+<p>We then create the role that will use this policy.</p>
+
+<p><strong>aws_iam_role</strong></p>
+
+<pre><code>resource &quot;aws_iam_role&quot; &quot;role-lambda&quot; {
+  name               = &quot;nbolambdarole&quot;
+  assume_role_policy = data.aws_iam_policy_document.lambda_role.json
+}
+</code></pre>
+
+<p>In this role we need to mention who will use it. In our case this is the lambda function. This action is done by defining a policy document where the principal is a lambda function.</p>
+
+<p><strong>aws_iam_policy_document</strong></p>
+
+<pre><code>data &quot;aws_iam_policy_document&quot; &quot;lambda_role&quot; {
+  statement {
+    effect  = &quot;Allow&quot;
+    actions = [&quot;sts:AssumeRole&quot;]
+
+    principals {
+      type        = &quot;Service&quot;
+      identifiers = [&quot;lambda.amazonaws.com&quot;]
+    }
+  }
+}
+</code></pre>
+
+<p>Then we assign this policy to the assume_role_policy of the role</p>
+
+<pre><code>  assume_role_policy = data.aws_iam_policy_document.lambda_role.json
+</code></pre>
+
+<p>The last step of the IAM configuration is to attach the role and the policy together.</p>
+
+<p><strong>aws_iam_role_policy_attachment</strong></p>
+
+<pre><code>resource &quot;aws_iam_role_policy_attachment&quot; &quot;role-policy-attach&quot; {
+  role       = aws_iam_role.role-lambda.name
+  policy_arn = data.aws_iam_policy.vpcpolicy.arn
+}
+</code></pre>
+
+<h2 id="lambda">Lambda</h2>
+
+<p>Once the IAM part is done, we can create the lambda function. In our case we assign the previously created role to the function and the python script zip file.</p>
+
+<p><strong>aws_lambda_function</strong></p>
+
+<pre><code>resource &quot;aws_lambda_function&quot; &quot;lambda-get&quot; {
+  function_name = &quot;nbo-tf-helloword-3&quot;
+  role          = aws_iam_role.role-lambda.arn
+  filename         = &quot;lambda_function.zip&quot;
+  source_code_hash = filebase64sha256(&quot;lambda_function.zip&quot;)
+  runtime = &quot;python3.9&quot;
+  handler = &quot;lambda_function.lambda_handler&quot;
+
+  vpc_config {
+      subnet_ids = [aws_default_subnet.default_az1.id]
+      security_group_ids = [aws_security_group.sglambda.id]
+  }
+}
+</code></pre>
+
+<ul>
+<li>The <strong>source_code_hash</strong> is used to see if the lambda function has changed and then need to be updated.<br /></li>
+<li>The <a href="https://docs.aws.amazon.com/lambda/latest/dg/python-handler.html" target="_blank">handler</a> is normally the name of the python script dot the name of the python method you want to execute.<br /></li>
+<li><strong>vpc_config</strong> is the VPC part of the lambda configuration to specify the security group associated to the lambda ENI and the subnet where the ENI will be.<br /></li>
+</ul>
+
+<h2 id="the-tests">The tests</h2>
+
+<p>Lambda will access the web server to validate the communication. To launch the test, we need to create an empty event that will be selected when we will click on the orange test button.</p>
+
+<p><a href="test-event.png" target="_blank"> <img src="test-event.png" alt="" /> </a></p>
+
+<p>Click on the orange test button :) It should reply &ldquo;My Instance&rdquo;
+<a href="lambda-request.png" target="_blank"> <img src="lambda-request.png" alt="" /> </a></p>
+
+<p><a name="obvious"></a><br />
+After the communication is validated, we can connect to the EC2 VM instance to launch the ping command. It will fail to ping the Lambda function.<br />
+<a href="ping-fail.png" target="_blank"> <img src="ping-fail.png" alt="" /> </a></p>
+
+<h2 id="challenges-of-this-test">Challenges of this test</h2>
+
+<ul>
+<li>Understand the AWS IAM concept for the lambda function. The lambda function needs VPC rights to create the ENI in the VPC.<br /></li>
+<li>Find what default python library was available with AWS python to execute the HTTP request.<br /></li>
+<li>Understand how the lambda tests are done and what is a <a href="https://docs.aws.amazon.com/lambda/latest/dg/python-handler.html" target="_blank">handler</a>.<br /></li>
+</ul>
+
+    </div>
+
+    
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/aws/">AWS</a>
+  
+  <a class="badge badge-light" href="/tags/terraform/">Terraform</a>
+  
+  <a class="badge badge-light" href="/tags/lambda/">lambda</a>
+  
+</div>
+
+
+
+
+    
+    
+    <div class="article-widget">
+      <div class="hr-light"></div>
+      <h3>Related</h3>
+      <ul>
+        
+        <li><a href="/post/tf-iam-roles/">AWS IAM Roles with Terraform</a></li>
+        
+        <li><a href="/post/tf-for-each/">Using Terraform for_each to create subnets in AWS VPC</a></li>
+        
+        <li><a href="/post/nsxt-tf-firewall/">NSX-T Firewall rules as code with Terraform</a></li>
+        
+        <li><a href="/post/terraform-refactoring-state-file/">Terraform Refactoring State File</a></li>
+        
+        <li><a href="/post/tf-nsxt-nested-for-each/">Terraform nested for_each for NSX-T with dynamic</a></li>
+        
+      </ul>
+    </div>
+    
+
+    
+
+    <script src="https://utteranc.es/client.js"
+        repo="netmemo/netmemo.github.io"
+        issue-term="pathname"
+        label="blogcomment"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+  </div>
+</article>
+
+<div class="container">
+  <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    No&euml;l Boul&egrave;ne &copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&acute;s professional integrity) that any statement contained in a post is true, correct or precise. &middot; 
+
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" id="back_to_top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+</div>
+
+
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha512-+NqPlbbtM1QqiK8ZAo4Yrj2c4lNQoGv8P79DPtKzj++l5jnN39rHA/xsqn8zE9l0uSoxaCdrOgFs6yjyfbBxSg==" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.3/imagesloaded.pkgd.min.js" integrity="sha512-umsR78NN0D23AzgoZ11K7raBD+R6hqKojyBZs1w8WvYlsI+QuKRGBx3LFCwhatzBunCjDuJpDHwxD13sLMbpRA==" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha256-VsEqElsCHSGmnmHXGQzvoWjWwoznFSZc6hs7ARLRacQ=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.4/isotope.pkgd.min.js" integrity="sha512-VDBOIlDbuC4VWxGJNmuFRQ0Li0SKkDpmGyuhAG5LTDLd/dJ/S0WMVxriR2Y+CyPL5gzjpN4f/6iqWVBJlht0tQ==" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin="anonymous"></script>
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+        
+      
+
+      
+      
+    
+
+    <script src="/js/hugo-academic.js"></script>
+    
+
+    
+    
+
+    
+    
+    
+
+    
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    
+    
+    <script>
+      const search_index_filename = "/index.json";
+      const i18n = {
+        'placeholder': "Search...",
+        'results': "Search Results",
+        'no_results': "No results found"
+      };
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    <script src="/js/search.js"></script>
+    
+
+    
+    
+
+  </body>
+</html>
+
