@@ -15,9 +15,9 @@
   
     
   
-  <meta name="description" content="Context Can we ping the ENI of a Lambda function within the VPC ? While the answer can be obvious the path to get it was insightful for me and has helped me to be more comfortable with :
+  <meta name="description" content="Context Can we ping the ENI of an AWS Lambda function within the VPC ? While the answer can be obvious the path to get it was insightful for me and has helped me to be more comfortable with :
  AWS IAM.
- Lambdas function.
+ AWS Lambdas function.
  AWS Static IP addresses and AWS default subnets.
   This test can be performed with the AWS free tier. You will find the Terraform scripts here : Lambda Ping">
 
@@ -96,10 +96,10 @@
   
   <meta property="og:site_name" content="netmemo.github.io">
   <meta property="og:url" content="https://netmemo.github.io/post/lambdaping/">
-  <meta property="og:title" content="Can we ping a Lambda function ? | netmemo.github.io">
-  <meta property="og:description" content="Context Can we ping the ENI of a Lambda function within the VPC ? While the answer can be obvious the path to get it was insightful for me and has helped me to be more comfortable with :
+  <meta property="og:title" content="Can we ping an AWS Lambda function ? | netmemo.github.io">
+  <meta property="og:description" content="Context Can we ping the ENI of an AWS Lambda function within the VPC ? While the answer can be obvious the path to get it was insightful for me and has helped me to be more comfortable with :
  AWS IAM.
- Lambdas function.
+ AWS Lambdas function.
  AWS Static IP addresses and AWS default subnets.
   This test can be performed with the AWS free tier. You will find the Terraform scripts here : Lambda Ping">
   
@@ -117,7 +117,7 @@
 
   
 
-  <title>Can we ping a Lambda function ? | netmemo.github.io</title>
+  <title>Can we ping an AWS Lambda function ? | netmemo.github.io</title>
 
 </head>
 <body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" class="dark">
@@ -220,7 +220,7 @@
 
 
   <div class="article-container">
-    <h1 itemprop="name">Can we ping a Lambda function ?</h1>
+    <h1 itemprop="name">Can we ping an AWS Lambda function ?</h1>
 
     
 
@@ -280,7 +280,7 @@
   <ul class="share">
     <li>
       <a class="twitter"
-         href="https://twitter.com/intent/tweet?text=Can%20we%20ping%20a%20Lambda%20function%20%3f&amp;url=https%3a%2f%2fnetmemo.github.io%2fpost%2flambdaping%2f"
+         href="https://twitter.com/intent/tweet?text=Can%20we%20ping%20an%20AWS%20Lambda%20function%20%3f&amp;url=https%3a%2f%2fnetmemo.github.io%2fpost%2flambdaping%2f"
          target="_blank" rel="noopener">
         <i class="fab fa-twitter"></i>
       </a>
@@ -294,21 +294,21 @@
     </li>
     <li>
       <a class="linkedin"
-         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fnetmemo.github.io%2fpost%2flambdaping%2f&amp;title=Can%20we%20ping%20a%20Lambda%20function%20%3f"
+         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fnetmemo.github.io%2fpost%2flambdaping%2f&amp;title=Can%20we%20ping%20an%20AWS%20Lambda%20function%20%3f"
          target="_blank" rel="noopener">
         <i class="fab fa-linkedin-in"></i>
       </a>
     </li>
     <li>
       <a class="weibo"
-         href="http://service.weibo.com/share/share.php?url=https%3a%2f%2fnetmemo.github.io%2fpost%2flambdaping%2f&amp;title=Can%20we%20ping%20a%20Lambda%20function%20%3f"
+         href="http://service.weibo.com/share/share.php?url=https%3a%2f%2fnetmemo.github.io%2fpost%2flambdaping%2f&amp;title=Can%20we%20ping%20an%20AWS%20Lambda%20function%20%3f"
          target="_blank" rel="noopener">
         <i class="fab fa-weibo"></i>
       </a>
     </li>
     <li>
       <a class="email"
-         href="mailto:?subject=Can%20we%20ping%20a%20Lambda%20function%20%3f&amp;body=https%3a%2f%2fnetmemo.github.io%2fpost%2flambdaping%2f">
+         href="mailto:?subject=Can%20we%20ping%20an%20AWS%20Lambda%20function%20%3f&amp;body=https%3a%2f%2fnetmemo.github.io%2fpost%2flambdaping%2f">
         <i class="fas fa-envelope"></i>
       </a>
     </li>
@@ -326,11 +326,11 @@
 
 <h1 id="context">Context</h1>
 
-<p>Can we ping the ENI of a Lambda function within the VPC ? While the answer can be <a href="#obvious">obvious</a> the path to get it was insightful for me and has helped me to be more comfortable with :</p>
+<p>Can we ping the ENI of an AWS Lambda function within the VPC ? While the answer can be <a href="#obvious">obvious</a> the path to get it was insightful for me and has helped me to be more comfortable with :</p>
 
 <ul>
 <li>AWS IAM.<br /></li>
-<li>Lambdas function.<br /></li>
+<li>AWS Lambdas function.<br /></li>
 <li>AWS Static IP addresses and AWS default subnets.<br /></li>
 </ul>
 
@@ -353,7 +353,7 @@
 <p>Script:</p>
 
 <ul>
-<li>A python script executed with the lambda function</li>
+<li>A python script executed with the AWS lambda function</li>
 </ul>
 
 <p>IAM:</p>
@@ -396,7 +396,7 @@ This resource <strong>can&rsquo;t</strong> modify the default subnet address but
 </code></pre>
 
 <p><strong>aws_security_group</strong><br />
-This will be the security group for the test. This security group will be assigned to the VM and the lambda function to allow SSH to the VM, HTTP, ICMP between each other and outgoing traffic.</p>
+This will be the security group for the test. This security group will be assigned to the VM and the AWS lambda function to allow SSH to the VM, HTTP, ICMP between each other and outgoing traffic.</p>
 
 <pre><code>resource &quot;aws_security_group&quot; &quot;sglambdaping&quot; {
   name        = &quot;sglambdaping&quot;

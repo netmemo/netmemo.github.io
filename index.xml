@@ -11,7 +11,7 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>Can we ping a Lambda function ?</title>
+      <title>Can we ping an AWS Lambda function ?</title>
       <link>https://netmemo.github.io/post/lambdaping/</link>
       <pubDate>Tue, 16 Nov 2021 18:00:45 +0200</pubDate>
       
@@ -20,11 +20,11 @@
 
 &lt;h1 id=&#34;context&#34;&gt;Context&lt;/h1&gt;
 
-&lt;p&gt;Can we ping the ENI of a Lambda function within the VPC ? While the answer can be &lt;a href=&#34;#obvious&#34;&gt;obvious&lt;/a&gt; the path to get it was insightful for me and has helped me to be more comfortable with :&lt;/p&gt;
+&lt;p&gt;Can we ping the ENI of an AWS Lambda function within the VPC ? While the answer can be &lt;a href=&#34;#obvious&#34;&gt;obvious&lt;/a&gt; the path to get it was insightful for me and has helped me to be more comfortable with :&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;AWS IAM.&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Lambdas function.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;AWS Lambdas function.&lt;br /&gt;&lt;/li&gt;
 &lt;li&gt;AWS Static IP addresses and AWS default subnets.&lt;br /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -47,7 +47,7 @@
 &lt;p&gt;Script:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;A python script executed with the lambda function&lt;/li&gt;
+&lt;li&gt;A python script executed with the AWS lambda function&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;IAM:&lt;/p&gt;
@@ -90,7 +90,7 @@ This resource &lt;strong&gt;can&amp;rsquo;t&lt;/strong&gt; modify the default su
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;strong&gt;aws_security_group&lt;/strong&gt;&lt;br /&gt;
-This will be the security group for the test. This security group will be assigned to the VM and the lambda function to allow SSH to the VM, HTTP, ICMP between each other and outgoing traffic.&lt;/p&gt;
+This will be the security group for the test. This security group will be assigned to the VM and the AWS lambda function to allow SSH to the VM, HTTP, ICMP between each other and outgoing traffic.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;resource &amp;quot;aws_security_group&amp;quot; &amp;quot;sglambdaping&amp;quot; {
   name        = &amp;quot;sglambdaping&amp;quot;
