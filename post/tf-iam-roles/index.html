@@ -93,6 +93,9 @@ TL;DR  The principal is WHO will be able to access a resource.
 
   <meta property="twitter:card" content="summary_large_image">
   
+  <meta property="twitter:site" content="@noyelb">
+  <meta property="twitter:creator" content="@noyelb">
+  
   <meta property="og:site_name" content="netmemo.github.io">
   <meta property="og:url" content="https://netmemo.github.io/post/tf-iam-roles/">
   <meta property="og:title" content="AWS IAM Roles with Terraform | netmemo.github.io">
@@ -124,7 +127,7 @@ TL;DR  The principal is WHO will be able to access a resource.
   <div class="container">
 
     
-      <a class="navbar-brand" href="/">netmemo.github.io</a>
+      <a class="navbar-brand" href="/"><img src="/img/logo-netmemo.png" alt="netmemo.github.io"></a>
       
       <button type="button" class="navbar-toggler" data-toggle="collapse"
               data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -329,19 +332,19 @@ TL;DR  The principal is WHO will be able to access a resource.
 <h1 id="tl-dr">TL;DR</h1>
 
 <ul>
-<li>The <strong><a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html" target="_blank">principal</a></strong> is <strong>WHO</strong> will be able to access a resource.<br /></li>
+<li>The <strong><a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html">principal</a></strong> is <strong>WHO</strong> will be able to access a resource.<br /></li>
 <li>The <strong>policy</strong> is <strong>WHAT</strong> the principals associated with the role will be able to do.<br /></li>
 <li>The <strong>role</strong> links the principals thanks to the <em>assume_role_policy</em> with the <em>inline policy</em> argument.</li>
 <li>The <strong>attachement</strong> links the role to a <em>managed policies</em> instead of the <em>inline policy</em>.</li>
 </ul>
 
-<p><a href="aws-iam-simple.png" target="_blank"> <img src="aws-iam-simple.png" alt="" /> </a></p>
+<p><a href="aws-iam-simple.png"> <img src="aws-iam-simple.png" alt="" /> </a></p>
 
 <h1 id="terraform-resources-and-aws-api">Terraform resources and AWS API</h1>
 
 <h3 id="policy">Policy</h3>
 
-<p><a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy" target="_blank">aws_iam_policy</a> | <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreatePolicy.html" target="_blank">aws create policy API</a><br />
+<p><a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy">aws_iam_policy</a> | <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreatePolicy.html">aws create policy API</a><br />
 There are 3 types of policies.</p>
 
 <ul>
@@ -350,19 +353,19 @@ There are 3 types of policies.</p>
 <li>AWS Managed : Same advantages as the managed ones but can&rsquo;t be modified.</li>
 </ul>
 
-<p>Here is a link that helps to <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html#choosing-managed-or-inline" target="_blank">choose</a> between them.</p>
+<p>Here is a link that helps to <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html#choosing-managed-or-inline">choose</a> between them.</p>
 
 <h3 id="role">Role</h3>
 
-<p><a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role" target="_blank">aws_iam_role</a> | <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html" target="_blank">aws create role API</a></p>
+<p><a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role">aws_iam_role</a> | <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">aws create role API</a></p>
 
 <p>This is to define the IAM role resource that will link the principals and the policy.<br />
-If we are using <em>managed policy</em> we will need to link this role to the <em>managed policy</em> with an attachment resource. In case of using <em>inline policy</em>, the <em>inline policy</em> is declared in the Terraform resource role. With AWS API, it needs <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_PutRolePolicy.html" target="_blank">another API call</a> to set the <em>inline policy</em> in the <em>role</em>.</p>
+If we are using <em>managed policy</em> we will need to link this role to the <em>managed policy</em> with an attachment resource. In case of using <em>inline policy</em>, the <em>inline policy</em> is declared in the Terraform resource role. With AWS API, it needs <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_PutRolePolicy.html">another API call</a> to set the <em>inline policy</em> in the <em>role</em>.</p>
 
 <blockquote>
 <p><strong>assume_role_policy</strong><br />
 This is a mandatory argument used in aws_iam_role and aws_iam_role_policy to indicate <strong>WHO</strong> can temporarily assume the role that we are defining. It&rsquo;s also referred as trust policy.<br />
-<a href="https://stackoverflow.com/questions/44628380/terraform-assume-role-policy-similar-but-slightly-different-than-standard-ia" target="_blank">explanation 1</a>, <a href="https://aws.amazon.com/blogs/security/how-to-use-trust-policies-with-iam-roles/" target="_blank">explanation 2</a></p>
+<a href="https://stackoverflow.com/questions/44628380/terraform-assume-role-policy-similar-but-slightly-different-than-standard-ia">explanation 1</a>, <a href="https://aws.amazon.com/blogs/security/how-to-use-trust-policies-with-iam-roles/">explanation 2</a></p>
 </blockquote>
 
 <h3 id="attachments">Attachments</h3>
@@ -370,9 +373,9 @@ This is a mandatory argument used in aws_iam_role and aws_iam_role_policy to ind
 <p>Attach a <em>managed policy</em> to a group, user or role</p>
 
 <ul>
-<li><a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_group_policy_attachment" target="_blank">aws_iam_group_policy_attachment</a> | <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_AttachGroupPolicy.html" target="_blank">aws attach group policy API</a></li>
-<li><a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_user_policy_attachment" target="_blank">aws_iam_user_policy_attachment</a> | <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_AttachUserPolicy.html" target="_blank">aws attach user policy API</a><br /></li>
-<li><a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment" target="_blank">aws_iam_role_policy_attachment</a> | <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_AttachRolePolicy.html" target="_blank">aws attach role policy API</a><br /></li>
+<li><a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_group_policy_attachment">aws_iam_group_policy_attachment</a> | <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_AttachGroupPolicy.html">aws attach group policy API</a></li>
+<li><a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_user_policy_attachment">aws_iam_user_policy_attachment</a> | <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_AttachUserPolicy.html">aws attach user policy API</a><br /></li>
+<li><a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment">aws_iam_role_policy_attachment</a> | <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_AttachRolePolicy.html">aws attach role policy API</a><br /></li>
 </ul>
 
 <h1 id="possibilities-of-policy-attachment">Possibilities of policy attachment</h1>
@@ -389,9 +392,9 @@ This is a mandatory argument used in aws_iam_role and aws_iam_role_policy to ind
 
 <h3 id="datasource">Datasource</h3>
 
-<p><a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document" target="_blank">aws_iam_policy_document</a>.
+<p><a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document">aws_iam_policy_document</a>.
 This is an optional datasource which is Terraform specific. The policy defined in HCL format is translated to JSON when associated with the inline policy attribute of the role.
-The advantages of using this <a href="https://learn.hashicorp.com/tutorials/terraform/aws-iam-policy?_ga=2.99142555.466421101.1630266824-70591653.1623679226" target="_blank">Policy in HCL format</a> are:</p>
+The advantages of using this <a href="https://learn.hashicorp.com/tutorials/terraform/aws-iam-policy?_ga=2.99142555.466421101.1630266824-70591653.1623679226">Policy in HCL format</a> are:</p>
 
 <ul>
 <li>Being able to overwrite, append, or update policies with this resource by using the source_json and override_json arguments.</li>
@@ -415,9 +418,9 @@ The aim is to reduce the number of Terraform resources to give access to a role/
 There is an <strong>overlap</strong> between the <em>aws_iam_role_policy</em> and the <em>aws_iam_role</em> / <em>inline_policy</em> argument. There are incompatible.</p>
 
 <ul>
-<li><a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_user_policy" target="_blank">aws_iam_user_policy</a></li>
-<li><a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy" target="_blank">aws_iam_role_policy</a></li>
-<li><a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_group_policy" target="_blank">aws_iam_group_policy</a><br /></li>
+<li><a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_user_policy">aws_iam_user_policy</a></li>
+<li><a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy">aws_iam_role_policy</a></li>
+<li><a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_group_policy">aws_iam_group_policy</a><br /></li>
 </ul>
 
 <h3 id="attachment">Attachment</h3>
@@ -425,7 +428,7 @@ There is an <strong>overlap</strong> between the <em>aws_iam_role_policy</em> an
 <p>There are lots of <strong>overlap</strong>, <strong>incompatibility</strong> and <strong>conflict</strong> with this resource.</p>
 
 <ul>
-<li><a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy_attachment" target="_blank">aws_iam_policy_attachment</a> EXCLUSIVE with other attachements.<br /></li>
+<li><a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy_attachment">aws_iam_policy_attachment</a> EXCLUSIVE with other attachements.<br /></li>
 </ul>
 
 <blockquote>
@@ -434,7 +437,7 @@ There is an <strong>overlap</strong> between the <em>aws_iam_role_policy</em> an
 
 <h3 id="bonus">Bonus :)</h3>
 
-<p>As a bonus here are the <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html" target="_blank">quotas</a> for IAM and STS</p>
+<p>As a bonus here are the <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html">quotas</a> for IAM and STS</p>
 
     </div>
 

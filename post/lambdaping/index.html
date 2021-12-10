@@ -94,6 +94,9 @@
 
   <meta property="twitter:card" content="summary_large_image">
   
+  <meta property="twitter:site" content="@noyelb">
+  <meta property="twitter:creator" content="@noyelb">
+  
   <meta property="og:site_name" content="netmemo.github.io">
   <meta property="og:url" content="https://netmemo.github.io/post/lambdaping/">
   <meta property="og:title" content="Can we ping an AWS Lambda function ? | netmemo.github.io">
@@ -126,7 +129,7 @@
   <div class="container">
 
     
-      <a class="navbar-brand" href="/">netmemo.github.io</a>
+      <a class="navbar-brand" href="/"><img src="/img/logo-netmemo.png" alt="netmemo.github.io"></a>
       
       <button type="button" class="navbar-toggler" data-toggle="collapse"
               data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -334,10 +337,10 @@
 <li>AWS Static IP addresses and AWS default subnets.<br /></li>
 </ul>
 
-<p>This test can be performed with the AWS free tier. You will find the Terraform scripts here : <a href="https://github.com/netmemo/lambdaping" target="_blank">Lambda Ping</a></p>
+<p>This test can be performed with the AWS free tier. You will find the Terraform scripts here : <a href="https://github.com/netmemo/lambdaping">Lambda Ping</a></p>
 
 <p>I am a network engineer, I like diagram. Below you can find the diagram of the test.
-<a href="lambdaping.png" target="_blank"> <img src="lambdaping.png" alt="" /> </a></p>
+<a href="lambdaping.png"> <img src="lambdaping.png" alt="" /> </a></p>
 
 <p><strong>What needs to be created</strong></p>
 
@@ -440,7 +443,7 @@ This will be the security group for the test. This security group will be assign
 </code></pre>
 
 <p><strong>aws_instance</strong><br />
-The t2.micro VM instance. It will host one webserver to test that the <a href="https://aws.amazon.com/blogs/compute/announcing-improved-vpc-networking-for-aws-lambda-functions/" target="_blank">ENI</a> of the Lambda function works in our VPC by accessing it. This is also from this VM that we will try to ping the Lambda function&rsquo;s ENI. I assign the VM to the default subnet of AZ1 which is normally 172.31.0.0/24. In the Terraform script I&rsquo;m installing the webserver. I also assign a static IP address to be able to access the web server from the lambda function.</p>
+The t2.micro VM instance. It will host one webserver to test that the <a href="https://aws.amazon.com/blogs/compute/announcing-improved-vpc-networking-for-aws-lambda-functions/">ENI</a> of the Lambda function works in our VPC by accessing it. This is also from this VM that we will try to ping the Lambda function&rsquo;s ENI. I assign the VM to the default subnet of AZ1 which is normally 172.31.0.0/24. In the Terraform script I&rsquo;m installing the webserver. I also assign a static IP address to be able to access the web server from the lambda function.</p>
 
 <pre><code>resource &quot;aws_instance&quot; &quot;foo&quot; {
   ami           = &quot;ami-0443305dabd4be2bc&quot;
@@ -484,7 +487,7 @@ We then need to create the lambda resources.</p>
 
 <h2 id="iam">IAM</h2>
 
-<p>In this <a href="https://netmemo.github.io/post/tf-iam-roles/" target="_blank">post</a> I explain in detail what the role, the assume_role_policy and the policy are used for.</p>
+<p>In this <a href="https://netmemo.github.io/post/tf-iam-roles/">post</a> I explain in detail what the role, the assume_role_policy and the policy are used for.</p>
 
 <p>First we load a default AWS Managed Policy that will allow the lambda function to create the ENI in the VPC.</p>
 
@@ -560,7 +563,7 @@ We then need to create the lambda resources.</p>
 
 <ul>
 <li>The <strong>source_code_hash</strong> is used to see if the lambda function has changed and then need to be updated.<br /></li>
-<li>The <a href="https://docs.aws.amazon.com/lambda/latest/dg/python-handler.html" target="_blank">handler</a> is normally the name of the python script dot the name of the python method you want to execute.<br /></li>
+<li>The <a href="https://docs.aws.amazon.com/lambda/latest/dg/python-handler.html">handler</a> is normally the name of the python script dot the name of the python method you want to execute.<br /></li>
 <li><strong>vpc_config</strong> is the VPC part of the lambda configuration to specify the security group associated to the lambda ENI and the subnet where the ENI will be.<br /></li>
 </ul>
 
@@ -568,21 +571,21 @@ We then need to create the lambda resources.</p>
 
 <p>Lambda will access the web server to validate the communication. To launch the test, we need to create an empty event that will be selected when we will click on the orange test button.</p>
 
-<p><a href="test-event.png" target="_blank"> <img src="test-event.png" alt="" /> </a></p>
+<p><a href="test-event.png"> <img src="test-event.png" alt="" /> </a></p>
 
 <p>Click on the orange test button :) It should reply &ldquo;My Instance&rdquo;
-<a href="lambda-request.png" target="_blank"> <img src="lambda-request.png" alt="" /> </a></p>
+<a href="lambda-request.png"> <img src="lambda-request.png" alt="" /> </a></p>
 
 <p><a name="obvious"></a><br />
 After the communication is validated, we can connect to the EC2 VM instance to launch the ping command. It will fail to ping the Lambda function.<br />
-<a href="ping-fail.png" target="_blank"> <img src="ping-fail.png" alt="" /> </a></p>
+<a href="ping-fail.png"> <img src="ping-fail.png" alt="" /> </a></p>
 
 <h2 id="challenges-of-this-test">Challenges of this test</h2>
 
 <ul>
 <li>Understand the AWS IAM concept for the lambda function. The lambda function needs VPC rights to create the ENI in the VPC.<br /></li>
 <li>Find what default python library was available with AWS python to execute the HTTP request.<br /></li>
-<li>Understand how the lambda tests are done and what is a <a href="https://docs.aws.amazon.com/lambda/latest/dg/python-handler.html" target="_blank">handler</a>.<br /></li>
+<li>Understand how the lambda tests are done and what is a <a href="https://docs.aws.amazon.com/lambda/latest/dg/python-handler.html">handler</a>.<br /></li>
 </ul>
 
     </div>

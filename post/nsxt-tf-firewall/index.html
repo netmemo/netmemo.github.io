@@ -92,6 +92,9 @@ Structure of the project The diagram below shows a summary of how I organized th
 
   <meta property="twitter:card" content="summary_large_image">
   
+  <meta property="twitter:site" content="@noyelb">
+  <meta property="twitter:creator" content="@noyelb">
+  
   <meta property="og:site_name" content="netmemo.github.io">
   <meta property="og:url" content="https://netmemo.github.io/post/nsxt-tf-firewall/">
   <meta property="og:title" content="NSX-T Firewall rules as code with Terraform | netmemo.github.io">
@@ -122,7 +125,7 @@ Structure of the project The diagram below shows a summary of how I organized th
   <div class="container">
 
     
-      <a class="navbar-brand" href="/">netmemo.github.io</a>
+      <a class="navbar-brand" href="/"><img src="/img/logo-netmemo.png" alt="netmemo.github.io"></a>
       
       <button type="button" class="navbar-toggler" data-toggle="collapse"
               data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -323,14 +326,14 @@ Structure of the project The diagram below shows a summary of how I organized th
       
 
 <p>This article is to show an example of how to manage NSX-T firewall rules as a code through Terraform.
-You can find the project on my github account : <a href="https://github.com/netmemo/nsxt-frac-tf-cm" target="_blank">nsxt-frac-tf-cm</a> and <a href="https://github.com/netmemo/nsxt-frac-tf-rm" target="_blank">nsxt-frac-tf-rm</a></p>
+You can find the project on my github account : <a href="https://github.com/netmemo/nsxt-frac-tf-cm">nsxt-frac-tf-cm</a> and <a href="https://github.com/netmemo/nsxt-frac-tf-rm">nsxt-frac-tf-rm</a></p>
 
 <p>I will describe the structure of the project, how it works, the data model, the Terraform code explanation and finish with an example.</p>
 
 <h1 id="structure-of-the-project">Structure of the project</h1>
 
 <p>The diagram below shows a summary of how I organized the project in order to fully use infrastructre as code.<br />
-<a href="nsxt-tf-firewall.png" target="_blank"> <img src="nsxt-tf-firewall.png" alt="" /> </a></p>
+<a href="nsxt-tf-firewall.png"> <img src="nsxt-tf-firewall.png" alt="" /> </a></p>
 
 <p>Below is the file structure</p>
 
@@ -405,7 +408,7 @@ The <em>output.tf</em> file is defined in <em>nsxt-tf-rm-grpsvc</em> root module
 
 <h1 id="data-model">Data model</h1>
 
-<p>To have more details of the possible attributes used, you can refer to the NSX-T Terraform official <a href="https://registry.terraform.io/providers/vmware/nsxt/latest/docs" target="_blank">documentation</a>.</p>
+<p>To have more details of the possible attributes used, you can refer to the NSX-T Terraform official <a href="https://registry.terraform.io/providers/vmware/nsxt/latest/docs">documentation</a>.</p>
 
 <h2 id="services">Services</h2>
 
@@ -506,7 +509,7 @@ This is the map variable passed to the child module.</p>
 <p><strong>nsxt-tf-cm-grp and nsxt-tf-cm-svc child modules</strong></p>
 
 <p>These child modules use nested for_each with conditional nested dynamic.<br />
-A brief example of the nested for_each used with dynamic can be found <a href="https://netmemo.github.io/post/tf-nsxt-nested-for-each/" target="_blank">here</a>. The conditional behavior is done thanks to the filter of the for loop. You can find the documentation on this <a href="https://www.terraform.io/docs/language/expressions/for.html" target="_blank">link</a>.</p>
+A brief example of the nested for_each used with dynamic can be found <a href="https://netmemo.github.io/post/tf-nsxt-nested-for-each/">here</a>. The conditional behavior is done thanks to the filter of the for loop. You can find the documentation on this <a href="https://www.terraform.io/docs/language/expressions/for.html">link</a>.</p>
 
 <p>Dynamic terraform blocks allow to create a block for all the elements in the map you give to the for_each loop. In our child modules, the element of the dynamic for_each loop are also filtered with a for loop and a if.</p>
 
@@ -630,7 +633,7 @@ Below is the code to refer to a remote state, in this case the remote state is l
 <ul>
 <li>Terraform 0.14+<br /></li>
 <li>NSX-T 3.0.2+<br /></li>
-<li>Clone the root module <a href="https://github.com/netmemo/nsxt-frac-tf-rm" target="_blank">nsxt-frac-tf-rm</a></li>
+<li>Clone the root module <a href="https://github.com/netmemo/nsxt-frac-tf-rm">nsxt-frac-tf-rm</a></li>
 </ul>
 
 <p>To make a test, you need to follow the steps below (clic to see the detail):</p>
@@ -1154,9 +1157,9 @@ Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
 <p></details>
 <details>
 <summary>7.Check the result through the UI</summary>
-<a href="nsx-services.png" target="_blank"> <img src="nsx-services.png" alt="" /> </a><br />
-<a href="nsx-groups.png" target="_blank"> <img src="nsx-groups.png" alt="" /> </a><br />
-<a href="nsx-dfw.png" target="_blank"> <img src="nsx-dfw.png" alt="" /> </a><br />
+<a href="nsx-services.png"> <img src="nsx-services.png" alt="" /> </a><br />
+<a href="nsx-groups.png"> <img src="nsx-groups.png" alt="" /> </a><br />
+<a href="nsx-dfw.png"> <img src="nsx-dfw.png" alt="" /> </a><br />
 </details></p>
 
     </div>

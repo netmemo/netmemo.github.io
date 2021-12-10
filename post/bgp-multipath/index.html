@@ -101,6 +101,9 @@ Add Path If the path are equal, allow to advertise more than one bes oath (need 
 
   <meta property="twitter:card" content="summary_large_image">
   
+  <meta property="twitter:site" content="@noyelb">
+  <meta property="twitter:creator" content="@noyelb">
+  
   <meta property="og:site_name" content="netmemo.github.io">
   <meta property="og:url" content="https://netmemo.github.io/post/bgp-multipath/">
   <meta property="og:title" content="Bgp Multipath | netmemo.github.io">
@@ -140,7 +143,7 @@ Add Path If the path are equal, allow to advertise more than one bes oath (need 
   <div class="container">
 
     
-      <a class="navbar-brand" href="/">netmemo.github.io</a>
+      <a class="navbar-brand" href="/"><img src="/img/logo-netmemo.png" alt="netmemo.github.io"></a>
       
       <button type="button" class="navbar-toggler" data-toggle="collapse"
               data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -328,7 +331,7 @@ Add Path If the path are equal, allow to advertise more than one bes oath (need 
 <p>In the RIB + FIB ECMP (multipath)</p>
 
 <p>Is PIC supported by default ?<br />
-<a href="https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/configuration/xe-3s/irg-xe-3s-book/irg-bgp-mp-pic.html" target="_blank">https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/configuration/xe-3s/irg-xe-3s-book/irg-bgp-mp-pic.html</a><br />
+<a href="https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/configuration/xe-3s/irg-xe-3s-book/irg-bgp-mp-pic.html">https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/configuration/xe-3s/irg-xe-3s-book/irg-bgp-mp-pic.html</a><br />
 =&gt; With BGP Multipath, the BGP prefix-independant convergence (PIC) feature is supported</p>
 
 <p><strong><ins> Attribut that should be identical </ins></strong><br />
@@ -343,14 +346,14 @@ Add Path If the path are equal, allow to advertise more than one bes oath (need 
 
 <p>If the path are equal, allow to advertise more than one bes oath (need to test in eBGP).<br />
 Mostly used with BGP without MPLS. If MPLS is used it&rsquo;s better to have an RD different for each VRF of each router (easier to troubleshoot).<br />
-<a href="https://orhanergun.net/wp-content/uploads/2019/11/BGP-Add-path-vs-Shadow-RR-vs-Shadow-Session-vs-Unique-RD.pdf" target="_blank">https://orhanergun.net/wp-content/uploads/2019/11/BGP-Add-path-vs-Shadow-RR-vs-Shadow-Session-vs-Unique-RD.pdf</a></p>
+<a href="https://orhanergun.net/wp-content/uploads/2019/11/BGP-Add-path-vs-Shadow-RR-vs-Shadow-Session-vs-Unique-RD.pdf">https://orhanergun.net/wp-content/uploads/2019/11/BGP-Add-path-vs-Shadow-RR-vs-Shadow-Session-vs-Unique-RD.pdf</a></p>
 
 <h3 id="pic">PIC</h3>
 
-<p><a href="https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2016/pdf/BRKRST-3321.pdf" target="_blank">https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2016/pdf/BRKRST-3321.pdf</a>
+<p><a href="https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2016/pdf/BRKRST-3321.pdf">https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2016/pdf/BRKRST-3321.pdf</a>
 I don&rsquo;t neded it at the moment because we don&rsquo;t need this level if convergence (couple of minutes vs ms if you have hundres of thousand of prefixes)</p>
 
-<p><a href="https://blog.ipspace.net/2012/01/prefix-independent-convergence-pic.html" target="_blank">https://blog.ipspace.net/2012/01/prefix-independent-convergence-pic.html</a></p>
+<p><a href="https://blog.ipspace.net/2012/01/prefix-independent-convergence-pic.html">https://blog.ipspace.net/2012/01/prefix-independent-convergence-pic.html</a></p>
 
 <p>The generic optimization of the RIB-to-FIB update process is known as Prefix-Independent Convergence (PIC) - if the routing protocols can pre-compute alternate paths, suitably designed FIB can use that information to cache alternate next hops. Updating such a FIB no longer involves numerous updates to individual prefixes; you have to change only the next hop reachability information.</p>
 

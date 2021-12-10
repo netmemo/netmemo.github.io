@@ -90,6 +90,9 @@
 
   <meta property="twitter:card" content="summary_large_image">
   
+  <meta property="twitter:site" content="@noyelb">
+  <meta property="twitter:creator" content="@noyelb">
+  
   <meta property="og:site_name" content="netmemo.github.io">
   <meta property="og:url" content="https://netmemo.github.io/post/n5600-buffering/">
   <meta property="og:title" content="N5600 Buffering | netmemo.github.io">
@@ -118,7 +121,7 @@
   <div class="container">
 
     
-      <a class="navbar-brand" href="/">netmemo.github.io</a>
+      <a class="navbar-brand" href="/"><img src="/img/logo-netmemo.png" alt="netmemo.github.io"></a>
       
       <button type="button" class="navbar-toggler" data-toggle="collapse"
               data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -324,9 +327,9 @@
 With small VOQ limit, there is lot of buffer available for non congested flow.<br />
 With no VOQ limit, a congested port can use up to 50% of the total shared memory and those, 2 congested port can exaust all the ingress resources of an ASIC (3 ingress port) and drop can happen on this ASIC</p>
 
-<p><a href="https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2015/pdf/BRKDCT-3100.pdf" target="_blank">https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2015/pdf/BRKDCT-3100.pdf</a><br />
-<a href="https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2017/pdf/BRKDCN-3346.pdf" target="_blank">https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2017/pdf/BRKDCN-3346.pdf</a><br />
-<a href="https://www.cisco.com/c/en/us/support/docs/switches/nexus-6000-series-switches/200401-Nexus-5600-6000-Understanding-and-Troub.html" target="_blank">https://www.cisco.com/c/en/us/support/docs/switches/nexus-6000-series-switches/200401-Nexus-5600-6000-Understanding-and-Troub.html</a></p>
+<p><a href="https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2015/pdf/BRKDCT-3100.pdf">https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2015/pdf/BRKDCT-3100.pdf</a><br />
+<a href="https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2017/pdf/BRKDCN-3346.pdf">https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2017/pdf/BRKDCN-3346.pdf</a><br />
+<a href="https://www.cisco.com/c/en/us/support/docs/switches/nexus-6000-series-switches/200401-Nexus-5600-6000-Understanding-and-Troub.html">https://www.cisco.com/c/en/us/support/docs/switches/nexus-6000-series-switches/200401-Nexus-5600-6000-Understanding-and-Troub.html</a></p>
 
 <p>In case of a Nexus 5600. 1 ASIC = 3 * 40Gb or 12*10G ports. Cells are the units in which buffers are allocated. One cell is 320 Bytes. ASIC Ingress buffer size : 48840 of available total cells (16M), shared among all 3x40Gb ports. Egress buffer is 9Mb (dedicated buffer per ASIC).<br />
 VOQ = Ingress per output port/class queues. E.g with 114 ports on the switch, with 8 queues per port there would be 1152 VOQs. On N5600 Buffer can be shared accrod port and classes, giving more burst absorption capacity.</p>

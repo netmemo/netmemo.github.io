@@ -91,6 +91,9 @@ Often the initial rational of big heterogeneous subnets was to avoid too much vl
 
   <meta property="twitter:card" content="summary_large_image">
   
+  <meta property="twitter:site" content="@noyelb">
+  <meta property="twitter:creator" content="@noyelb">
+  
   <meta property="og:site_name" content="netmemo.github.io">
   <meta property="og:url" content="https://netmemo.github.io/post/subnets-size-mix/">
   <meta property="og:title" content="Subnet sizing and heterogeneous subnets | netmemo.github.io">
@@ -120,7 +123,7 @@ Often the initial rational of big heterogeneous subnets was to avoid too much vl
   <div class="container">
 
     
-      <a class="navbar-brand" href="/">netmemo.github.io</a>
+      <a class="navbar-brand" href="/"><img src="/img/logo-netmemo.png" alt="netmemo.github.io"></a>
       
       <button type="button" class="navbar-toggler" data-toggle="collapse"
               data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -325,7 +328,7 @@ Some people are even arguing that with microsementation you only need one vlan&h
 <h2 id="pros">Pros</h2>
 
 <ul>
-<li>Agility. You can do <a href="https://blog.ipspace.net/2020/12/50-shades-high-availability.html" target="_blank">swimlane</a> application design. When migration time is coming, you can do it per application.</li>
+<li>Agility. You can do <a href="https://blog.ipspace.net/2020/12/50-shades-high-availability.html">swimlane</a> application design. When migration time is coming, you can do it per application.</li>
 <li>For application migration, if you can&rsquo;t change the ip addresses of the servers, you can reroute the trafic without jeorpadizing the entire company with L2 extension.</li>
 </ul>
 
@@ -351,7 +354,7 @@ Some people are even arguing that with microsementation you only need one vlan&h
 
 <ul>
 <li>If the subnet is not full, it&rsquo;s very difficult to carve out the unused space in the subnet to use it somewhere else.</li>
-<li>L2 broadcast domain is mitigated by arp suppression on modern fabric but still you have broadcast reaching every VM and thus can have troubles if the <a href="http://yves-louis.com/DCI/wp-content/uploads/2015/10/VXLAN-Multipod-geographically-dispersed-white-paper-final.pdf" target="_blank">stormcontrol is not set properly</a>.<br /></li>
+<li>L2 broadcast domain is mitigated by arp suppression on modern fabric but still you have broadcast reaching every VM and thus can have troubles if the <a href="http://yves-louis.com/DCI/wp-content/uploads/2015/10/VXLAN-Multipod-geographically-dispersed-white-paper-final.pdf">stormcontrol is not set properly</a>.<br /></li>
 <li>For all the firewalls in the enterprise that are not relying on tags, you might have to open firewall rules per host instead of per subnets.<br /></li>
 </ul>
 
@@ -376,10 +379,10 @@ Some people are even arguing that with microsementation you only need one vlan&h
 
 <ul>
 <li><p>Pets vs cattle : VM vs Container<br />
-In the above use cases I&rsquo;m talking essentially of workloads that are not containers. For containers the paradigm is often different because most of the time containers don&rsquo;t share the subnet with physical device and application developper doesn&rsquo;t rely on the containers IP addresses. What matter is the <a href="https://en.wikipedia.org/wiki/Fully_qualified_domain_name" target="_blank">FQDN</a> of the service. VM are still considered most of the time as pets and nobody wants to change the IP address mostly to avoid to change firewall rules or hard coded IP addresses in application.</p></li>
+In the above use cases I&rsquo;m talking essentially of workloads that are not containers. For containers the paradigm is often different because most of the time containers don&rsquo;t share the subnet with physical device and application developper doesn&rsquo;t rely on the containers IP addresses. What matter is the <a href="https://en.wikipedia.org/wiki/Fully_qualified_domain_name">FQDN</a> of the service. VM are still considered most of the time as pets and nobody wants to change the IP address mostly to avoid to change firewall rules or hard coded IP addresses in application.</p></li>
 
 <li><p>VLANs Scale<br />
-The number of supported VLAN are less relevent in virtualized environments because most of the time software scale better and you are not limited to 4K vlans (or even 2K in some case for ACI <a href="https://www.cisco.com/c/en/us/td/docs/switches/datacenter/aci/apic/sw/4-x/verified-scalability/Cisco-ACI-Verified-Scalability-Guide-422.html" target="_blank">Bridge Domain</a> and EVPN <a href="https://www.cisco.com/c/en/us/td/docs/switches/datacenter/nexus9000/sw/92x/scalability/guide_923/b_Cisco_Nexus_9000_Series_NX-OS_Verified_Scalability_Guide_923.html" target="_blank">Layer 2 VNIs</a>).</p></li>
+The number of supported VLAN are less relevent in virtualized environments because most of the time software scale better and you are not limited to 4K vlans (or even 2K in some case for ACI <a href="https://www.cisco.com/c/en/us/td/docs/switches/datacenter/aci/apic/sw/4-x/verified-scalability/Cisco-ACI-Verified-Scalability-Guide-422.html">Bridge Domain</a> and EVPN <a href="https://www.cisco.com/c/en/us/td/docs/switches/datacenter/nexus9000/sw/92x/scalability/guide_923/b_Cisco_Nexus_9000_Series_NX-OS_Verified_Scalability_Guide_923.html">Layer 2 VNIs</a>).</p></li>
 
 <li><p>Suboptimal IP addressing plan<br />
 When you move an entire subnet somewhere else you can break the summarization of the company but you can always do the summarization again after all the applications have moved or even reIP the entire subnet afterwards. It&rsquo;s less risky and complex than having a L2 streched &ldquo;forever&rdquo;.</p></li>

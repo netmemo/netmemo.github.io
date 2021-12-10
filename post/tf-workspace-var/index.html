@@ -91,6 +91,9 @@
 
   <meta property="twitter:card" content="summary_large_image">
   
+  <meta property="twitter:site" content="@noyelb">
+  <meta property="twitter:creator" content="@noyelb">
+  
   <meta property="og:site_name" content="netmemo.github.io">
   <meta property="og:url" content="https://netmemo.github.io/post/tf-workspace-var/">
   <meta property="og:title" content="Changing Terraform Cloud workspace in Github Actions | netmemo.github.io">
@@ -120,7 +123,7 @@
   <div class="container">
 
     
-      <a class="navbar-brand" href="/">netmemo.github.io</a>
+      <a class="navbar-brand" href="/"><img src="/img/logo-netmemo.png" alt="netmemo.github.io"></a>
       
       <button type="button" class="navbar-toggler" data-toggle="collapse"
               data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -312,7 +315,7 @@
 
     <div class="article-style" itemprop="articleBody">
       <p>This blog post is to explain how I did to automatically change Terraform Cloud workspace from Github Actions.
-As explained in the documentation <a href="https://www.terraform.io/docs/language/settings/backends/remote.html#workspaces" target="_blank">remote workspace</a>, you can use different remote workspace by specifying the prefix of you workspace in the Terraform backend configuration.</p>
+As explained in the documentation <a href="https://www.terraform.io/docs/language/settings/backends/remote.html#workspaces">remote workspace</a>, you can use different remote workspace by specifying the prefix of you workspace in the Terraform backend configuration.</p>
 
 <pre><code>  backend &quot;remote&quot; {
     organization = &quot;netmemo&quot;
@@ -324,7 +327,7 @@ As explained in the documentation <a href="https://www.terraform.io/docs/languag
 </code></pre>
 
 <p>After that, you only need to select the proper workspace by entering the <em>terraform workspace select [suffix]</em> command.
-The issue comes if you want to do it in a fully automated environment like with Github Actions. You need an extra step which is to set the <a href="https://learn.hashicorp.com/tutorials/terraform/automate-terraform?in=terraform/automation" target="_blank">TF_WORKSPACE</a> variable.</p>
+The issue comes if you want to do it in a fully automated environment like with Github Actions. You need an extra step which is to set the <a href="https://learn.hashicorp.com/tutorials/terraform/automate-terraform?in=terraform/automation">TF_WORKSPACE</a> variable.</p>
 
 <p>Below are the 2 steps that are needed to select a specific environment.
 In this blog the workspace will be netmemo-dev where netmemo- is the prefix configured in the main.tf and dev the suffix configured in the .yml file of the Github Actions script.</p>
@@ -338,7 +341,7 @@ In this blog the workspace will be netmemo-dev where netmemo- is the prefix conf
           TF_WORKSPACE: &quot;dev&quot;
 </code></pre>
 
-<p>If we are not setting the <a href="https://learn.hashicorp.com/tutorials/terraform/automate-terraform?in=terraform/automation" target="_blank">TF_WORKSPACE</a>, the init command will try to get the default workspace that doesn&rsquo;t exist and you will have the following error.</p>
+<p>If we are not setting the <a href="https://learn.hashicorp.com/tutorials/terraform/automate-terraform?in=terraform/automation">TF_WORKSPACE</a>, the init command will try to get the default workspace that doesn&rsquo;t exist and you will have the following error.</p>
 
 <pre><code>The currently selected workspace (default) does not exist.
   This is expected behavior when the selected workspace did not have an
@@ -348,7 +351,7 @@ In this blog the workspace will be netmemo-dev where netmemo- is the prefix conf
   2. prod
 </code></pre>
 
-<p>Even after setting the <a href="https://learn.hashicorp.com/tutorials/terraform/automate-terraform?in=terraform/automation" target="_blank">TF_WORKSPACE</a> variable, we still need to enter the <em>terraform workspace select</em> command to provide the suffix of the workspace.</p>
+<p>Even after setting the <a href="https://learn.hashicorp.com/tutorials/terraform/automate-terraform?in=terraform/automation">TF_WORKSPACE</a> variable, we still need to enter the <em>terraform workspace select</em> command to provide the suffix of the workspace.</p>
 
 <pre><code>      - name: Terraform Workspace
         id: workspace
@@ -362,7 +365,7 @@ In this blog the workspace will be netmemo-dev where netmemo- is the prefix conf
 invalid value for workspace
 </code></pre>
 
-<p>You can find a full example of where we need to change workspace automatically in this blog post <a href="https://netmemo.github.io/post/tf-gha-nsxt-cicd" target="_blank">Github Actions with Terraform Cloud for CI/CD of NSX-T</a></p>
+<p>You can find a full example of where we need to change workspace automatically in this blog post <a href="https://netmemo.github.io/post/tf-gha-nsxt-cicd">Github Actions with Terraform Cloud for CI/CD of NSX-T</a></p>
 
     </div>
 

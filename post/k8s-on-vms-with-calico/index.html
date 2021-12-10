@@ -93,6 +93,9 @@ Steps to deploy K8s :  Install 1 ubuntu router with 3 interfaces.">
 
   <meta property="twitter:card" content="summary_large_image">
   
+  <meta property="twitter:site" content="@noyelb">
+  <meta property="twitter:creator" content="@noyelb">
+  
   <meta property="og:site_name" content="netmemo.github.io">
   <meta property="og:url" content="https://netmemo.github.io/post/k8s-on-vms-with-calico/">
   <meta property="og:title" content="K8s on Vms With Calico | netmemo.github.io">
@@ -124,7 +127,7 @@ Steps to deploy K8s :  Install 1 ubuntu router with 3 interfaces.">
   <div class="container">
 
     
-      <a class="navbar-brand" href="/">netmemo.github.io</a>
+      <a class="navbar-brand" href="/"><img src="/img/logo-netmemo.png" alt="netmemo.github.io"></a>
       
       <button type="button" class="navbar-toggler" data-toggle="collapse"
               data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -366,12 +369,12 @@ I&rsquo;ve chose VM because I didn&rsquo;t want to depend on any Cloud infrastru
 The magic happen in myfile where you describe what you want to create.</p>
 
 <p>Below the capture after the lab is completed
-<a href="cpt-calico-k8s-ipip-raw.cap" target="_blank">CaptureCalicok8s</a></p>
+<a href="cpt-calico-k8s-ipip-raw.cap">CaptureCalicok8s</a></p>
 
 <h3 id="details-of-the-tasks">Details of the tasks</h3>
 
 <p>3.
-<a href="https://kubernetes.io/docs/setup/independent/install-kubeadm/#installing-runtime" target="_blank">https://kubernetes.io/docs/setup/independent/install-kubeadm/#installing-runtime</a></p>
+<a href="https://kubernetes.io/docs/setup/independent/install-kubeadm/#installing-runtime">https://kubernetes.io/docs/setup/independent/install-kubeadm/#installing-runtime</a></p>
 
 <p>I&rsquo;ve needed to add the following commands</p>
 
@@ -380,7 +383,7 @@ systemctl start docker.service
 </code></pre>
 
 <p>4.
-<a href="https://kubernetes.io/docs/setup/independent/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl" target="_blank">https://kubernetes.io/docs/setup/independent/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl</a></p>
+<a href="https://kubernetes.io/docs/setup/independent/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl">https://kubernetes.io/docs/setup/independent/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl</a></p>
 
 <pre><code>apt-get update &amp;amp;&amp;amp; apt-get install -y apt-transport-https curl
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
