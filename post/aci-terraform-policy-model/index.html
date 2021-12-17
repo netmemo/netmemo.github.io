@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
@@ -17,10 +15,10 @@
   
     
   
-  <meta name="description" content="Independent Network Architect">
+  <meta name="description" content="The big picture This blog post is a memo for the ACI Terraform policy model. I have struggled to find equivalences between ACI REST API Call / Classes and Terraform resources. Below you can find the full diagram. The diagram is not exhaustive but I think I have reached a point where I can published something. I will probably modify or add things if I use more resources or if people correct me but I think it is a good start.">
 
   
-  <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/categories/">
+  <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/post/aci-terraform-policy-model/">
 
   
 
@@ -80,15 +78,15 @@
   
 
   
-  <link rel="alternate" href="https://netmemo.github.io/categories/index.xml" type="application/rss+xml" title="netmemo.github.io">
-  <link rel="feed" href="https://netmemo.github.io/categories/index.xml" type="application/rss+xml" title="netmemo.github.io">
+  <link rel="alternate" href="https://netmemo.github.io/index.xml" type="application/rss+xml" title="netmemo.github.io">
+  <link rel="feed" href="https://netmemo.github.io/index.xml" type="application/rss+xml" title="netmemo.github.io">
   
 
   <link rel="manifest" href="/site.webmanifest">
   <link rel="icon" type="image/png" href="/img/icon.png">
   <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
 
-  <link rel="canonical" href="https://netmemo.github.io/categories/">
+  <link rel="canonical" href="https://netmemo.github.io/post/aci-terraform-policy-model/">
 
   <meta property="twitter:card" content="summary_large_image">
   
@@ -96,23 +94,25 @@
   <meta property="twitter:creator" content="@noyelb">
   
   <meta property="og:site_name" content="netmemo.github.io">
-  <meta property="og:url" content="https://netmemo.github.io/categories/">
-  <meta property="og:title" content="Categories | netmemo.github.io">
-  <meta property="og:description" content="Independent Network Architect">
+  <meta property="og:url" content="https://netmemo.github.io/post/aci-terraform-policy-model/">
+  <meta property="og:title" content="Cisco ACI Terraform Policy Model | netmemo.github.io">
+  <meta property="og:description" content="The big picture This blog post is a memo for the ACI Terraform policy model. I have struggled to find equivalences between ACI REST API Call / Classes and Terraform resources. Below you can find the full diagram. The diagram is not exhaustive but I think I have reached a point where I can published something. I will probably modify or add things if I use more resources or if people correct me but I think it is a good start.">
   
   
     
   <meta property="og:image" content="https://netmemo.github.io/img/icon-192.png">
   <meta property="og:locale" content="en-us">
   
-  <meta property="og:updated_time" content="2021-12-15T18:40:34&#43;01:00">
+  <meta property="article:published_time" content="2021-12-15T18:40:34&#43;01:00">
+  
+  <meta property="article:modified_time" content="2021-12-15T18:40:34&#43;01:00">
   
 
   
 
   
 
-  <title>Categories | netmemo.github.io</title>
+  <title>Cisco ACI Terraform Policy Model | netmemo.github.io</title>
 
 </head>
 <body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" class="dark">
@@ -206,102 +206,187 @@
 </nav>
 
 
+<article class="article" itemscope itemtype="http://schema.org/Article">
+
+  
+
 
 
 
 
+  <div class="article-container">
+    <h1 itemprop="name">Cisco ACI Terraform Policy Model</h1>
 
-
-<div class="universal-wrapper">
-  <h1>Categories</h1>
-
-  
-
-  
-  
-  <div>
-    <h2><a href="/categories/aci/">ACI</a></h2>
-    <div class="article-style">
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/categories/aws/">AWS</a></h2>
-    <div class="article-style">
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/categories/automation/">Automation</a></h2>
-    <div class="article-style">
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/categories/cloud/">CLOUD</a></h2>
-    <div class="article-style">
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/categories/cisco/">Cisco</a></h2>
-    <div class="article-style">
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/categories/cloud/">Cloud</a></h2>
-    <div class="article-style">
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/categories/convergence/">Convergence</a></h2>
-    <div class="article-style">
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/categories/dc/">DC</a></h2>
-    <div class="article-style">
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/categories/iac/">IAC</a></h2>
-    <div class="article-style">
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/categories/iac/">IaC</a></h2>
-    <div class="article-style">
-      
-    </div>
-  </div>
-  
-
-  
-<nav>
-  <ul class="pagination justify-content-center">
     
+
+<div class="article-metadata">
+
+  
+  
+  
+  <div>
     
-    <li class="page-item"><a class="page-link" href="/categories/page/2/">&raquo;</a></li>
+    <span itemscope itemprop="author" itemtype="http://schema.org/Person">
+      <span itemprop="name">Noel</span>
+    </span>
     
+  </div>
+  
+
+  <span class="article-date">
+    
+    <meta content="2021-12-15 18:40:34 &#43;0100 CET" itemprop="datePublished">
+    <time datetime="2021-12-15 18:40:34 &#43;0100 CET" itemprop="dateModified">
+      Dec 15, 2021
+    </time>
+  </span>
+  <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Noel">
+  </span>
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    1 min read
+  </span>
+  
+
+  
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder"></i>
+    
+    <a href="/categories/aci/">ACI</a>, 
+    
+    <a href="/categories/terraform/">Terraform</a>
+    
+  </span>
+  
+  
+
+  
+  
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    <li>
+      <a class="twitter"
+         href="https://twitter.com/intent/tweet?text=Cisco%20ACI%20Terraform%20Policy%20Model&amp;url=https%3a%2f%2fnetmemo.github.io%2fpost%2faci-terraform-policy-model%2f"
+         target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+    <li>
+      <a class="facebook"
+         href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fnetmemo.github.io%2fpost%2faci-terraform-policy-model%2f"
+         target="_blank" rel="noopener">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+    </li>
+    <li>
+      <a class="linkedin"
+         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fnetmemo.github.io%2fpost%2faci-terraform-policy-model%2f&amp;title=Cisco%20ACI%20Terraform%20Policy%20Model"
+         target="_blank" rel="noopener">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+    </li>
+    <li>
+      <a class="weibo"
+         href="http://service.weibo.com/share/share.php?url=https%3a%2f%2fnetmemo.github.io%2fpost%2faci-terraform-policy-model%2f&amp;title=Cisco%20ACI%20Terraform%20Policy%20Model"
+         target="_blank" rel="noopener">
+        <i class="fab fa-weibo"></i>
+      </a>
+    </li>
+    <li>
+      <a class="email"
+         href="mailto:?subject=Cisco%20ACI%20Terraform%20Policy%20Model&amp;body=https%3a%2f%2fnetmemo.github.io%2fpost%2faci-terraform-policy-model%2f">
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
   </ul>
-</nav>
+</div>
 
+
+  
 
 </div>
+
+
+    <div class="article-style" itemprop="articleBody">
+      
+
+<h1 id="the-big-picture">The big picture</h1>
+
+<p>This blog post is a memo for the ACI Terraform policy model. I have struggled to find equivalences between ACI REST API Call / Classes and Terraform resources. Below you can find the full diagram. The diagram is not exhaustive but I think I have reached a point where I can published something. I will probably modify or add things if I use more resources or if people correct me but I think it is a good start. L3 out is very complex that&rsquo;s why the diagram ends up being complex. I don&rsquo;t cover all cases for L3 out, only the one I have been using so far.</p>
+
+<p>You will be able to find the source of this diagram <a href="https://github.com/netmemo/netmemo.github.io/tree/master/post/aci-l3out-blog.drawio/aci-l3out-blog.drawio">here</a></p>
+
+<p><a href="ACI-L3out-3-full.drawio.png"> <img src="ACI-L3out-3-full.drawio.png" alt="" /> </a></p>
+
+<h1 id="the-small-picture">The small picture</h1>
+
+<p>This second diagram is lighter. This is when you are not using L3out or static path bing and contracts. It looks more like the &ldquo;Figure 1.&rdquo; in Fabric Connectivity chapter of <a href="https://www.cisco.com/c/en/us/td/docs/switches/datacenter/aci/apic/sw/1-x/Operating_ACI/guide/b_Cisco_Operating_ACI/b_Cisco_Operating_ACI_chapter_0110.html">Operating Cisco Application Centric Infrastructure</a></p>
+
+<p><a href="ACI-L3out-3-light.drawio.png"> <img src="ACI-L3out-3-light.drawio.png" alt="" /> </a></p>
+
+    </div>
+
+    
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/aci/">ACI</a>
+  
+  <a class="badge badge-light" href="/tags/terraform/">Terraform</a>
+  
+  <a class="badge badge-light" href="/tags/cheat-sheet/">Cheat Sheet</a>
+  
+</div>
+
+
+
+
+    
+    
+    <div class="article-widget">
+      <div class="hr-light"></div>
+      <h3>Related</h3>
+      <ul>
+        
+        <li><a href="/post/lambdaping/">Can we ping an AWS Lambda function ?</a></li>
+        
+        <li><a href="/post/tf-iam-roles/">AWS IAM Roles with Terraform</a></li>
+        
+        <li><a href="/post/nsxt-tf-firewall/">NSX-T Firewall rules as code with Terraform</a></li>
+        
+        <li><a href="/post/terraform-refactoring-state-file/">Terraform Refactoring State File</a></li>
+        
+        <li><a href="/post/tf-nsxt-nested-for-each/">Terraform nested for_each for NSX-T with dynamic</a></li>
+        
+      </ul>
+    </div>
+    
+
+    
+
+    <script src="https://utteranc.es/client.js"
+        repo="netmemo/netmemo.github.io"
+        issue-term="pathname"
+        label="blogcomment"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+  </div>
+</article>
+
 <div class="container">
   <footer class="site-footer">
   
@@ -440,6 +525,4 @@
 
   </body>
 </html>
-
-
 

@@ -11,6 +11,30 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Cisco ACI Terraform Policy Model</title>
+      <link>https://netmemo.github.io/post/aci-terraform-policy-model/</link>
+      <pubDate>Wed, 15 Dec 2021 18:40:34 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/post/aci-terraform-policy-model/</guid>
+      <description>
+
+&lt;h1 id=&#34;the-big-picture&#34;&gt;The big picture&lt;/h1&gt;
+
+&lt;p&gt;This blog post is a memo for the ACI Terraform policy model. I have struggled to find equivalences between ACI REST API Call / Classes and Terraform resources. Below you can find the full diagram. The diagram is not exhaustive but I think I have reached a point where I can published something. I will probably modify or add things if I use more resources or if people correct me but I think it is a good start. L3 out is very complex that&amp;rsquo;s why the diagram ends up being complex. I don&amp;rsquo;t cover all cases for L3 out, only the one I have been using so far.&lt;/p&gt;
+
+&lt;p&gt;You will be able to find the source of this diagram &lt;a href=&#34;https://github.com/netmemo/netmemo.github.io/tree/master/post/aci-l3out-blog.drawio/aci-l3out-blog.drawio&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;ACI-L3out-3-full.drawio.png&#34;&gt; &lt;img src=&#34;ACI-L3out-3-full.drawio.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;the-small-picture&#34;&gt;The small picture&lt;/h1&gt;
+
+&lt;p&gt;This second diagram is lighter. This is when you are not using L3out or static path bing and contracts. It looks more like the &amp;ldquo;Figure 1.&amp;rdquo; in Fabric Connectivity chapter of &lt;a href=&#34;https://www.cisco.com/c/en/us/td/docs/switches/datacenter/aci/apic/sw/1-x/Operating_ACI/guide/b_Cisco_Operating_ACI/b_Cisco_Operating_ACI_chapter_0110.html&#34;&gt;Operating Cisco Application Centric Infrastructure&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;ACI-L3out-3-light.drawio.png&#34;&gt; &lt;img src=&#34;ACI-L3out-3-light.drawio.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Can we ping an AWS Lambda function ?</title>
       <link>https://netmemo.github.io/post/lambdaping/</link>
       <pubDate>Tue, 16 Nov 2021 18:00:45 +0200</pubDate>
@@ -2316,66 +2340,6 @@ resource &amp;quot;aws_subnet&amp;quot; &amp;quot;main-subnet&amp;quot; {
 &lt;p&gt;Is there any benefit by enabling BFD on directly connected interface ?&lt;/p&gt;
 
 &lt;p&gt;Sometime it can be enabled to help veryfied that there are no issues on physical layer and data link layer of an interface. It can help if on the data link layer you are not using UDLD or LACP.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>ACI from an other angle</title>
-      <link>https://netmemo.github.io/post/aci-other-angle/</link>
-      <pubDate>Sat, 28 Nov 2020 19:11:36 +0100</pubDate>
-      
-      <guid>https://netmemo.github.io/post/aci-other-angle/</guid>
-      <description>
-
-&lt;h3 id=&#34;several-of-these-protocols-are-standards&#34;&gt;&amp;ldquo;Several of these protocols are standards&amp;rdquo;&lt;/h3&gt;
-
-&lt;p&gt;My understanding is that even if the protocols look standard, Cisco made some modifications on them : VXLAN (fiels to transport ACI Policies), ISIS (added the multidestination tree) and hence are note standard anymore.&lt;/p&gt;
-
-&lt;h3 id=&#34;does-it-require-proprietary-server&#34;&gt;&amp;ldquo;Does it require proprietary server ?&amp;rdquo;&lt;/h3&gt;
-
-&lt;p&gt;Not prorietary servers but proprietary switches&amp;hellip;So you are locked in regarding the software and the hardware. Both can&amp;rsquo;t be decoupled. If you choose to move to another switch vendor, you need to change the hardware and sart learning new software and protocols skills. Previously while you probably still need to change the software and the hardware, you didn&amp;rsquo;t need to learn everything from scratch regarding the protocols.&lt;br /&gt;
-In the past with Fabric Path, I have already had issues by beeing locked-in with both. When Cisco will end up the support, you then need to change the hardware and learn new software/protocols skills.&lt;/p&gt;
-
-&lt;h3 id=&#34;security-lock-in&#34;&gt;Security lock-in&lt;/h3&gt;
-
-&lt;p&gt;The security policies in ACI are another lock-in. If you use the Cisco Application Centric mode, it’s even worse. When Cisco decides it’s not bankable anymore and starts moving away from it, you will need to migrate the hardware, learn new software, new protocols and migrate the security to something completely different.&lt;br /&gt;
-For some organisations, this scenario will be a nightmare and probably cost more money than investing regulary in people.&lt;/p&gt;
-
-&lt;p&gt;If you don&amp;rsquo;t want to use the Application Centric mode and just use the Network Centric mode, you still have an expensive solution with lots of options you will pay for but never use. Moreover you will inherit all the software complexity and associated bugs for features that are useless for you.&lt;/p&gt;
-
-&lt;h3 id=&#34;summ-up&#34;&gt;Summ up&lt;/h3&gt;
-
-&lt;p&gt;Standard Protocols not so standard:&lt;br /&gt;
-    ISIS (Multidestination tree ftag)&lt;br /&gt;
-    BGP for multi site&lt;br /&gt;
-    VXLAN (Field to transport ACI policies)&lt;/p&gt;
-
-&lt;p&gt;Proprietary Protocols&lt;br /&gt;
-    COOP&lt;/p&gt;
-
-&lt;p&gt;Very little public documentation&lt;/p&gt;
-
-&lt;p&gt;Lock in : Hardware, software, security&lt;br /&gt;
-    Previously : some features or knobs were proprietary or tied to hardware but not the all system&lt;br /&gt;
-    =&amp;gt; EIGRP, software lock in but you can ignore it if you want&lt;br /&gt;
-    =&amp;gt; FP at the time of the launch no other option were  standard&lt;/p&gt;
-
-&lt;p&gt;Software complexity due to all the features you don&amp;rsquo;t want + software has been thought to be application aware and even if you don&amp;rsquo;t want to use it, you will anyway inherit the code complexity of it.&lt;/p&gt;
-
-&lt;p&gt;Everything centralized in a box right in the middle of the data path (Spine COOP devices).&lt;/p&gt;
-
-&lt;p&gt;Stopped product:&lt;br /&gt;
-&lt;ul&gt;
-&lt;li&gt; Loadbalancing : ACE/CSS  &lt;/li&gt;
-&lt;li&gt; Fabric Path  &lt;/li&gt;
-&lt;li&gt; Ironport ?  &lt;/li&gt;
-&lt;li&gt; iWAN  &lt;/li&gt;
-&lt;li&gt; VPn Concentrator  &lt;/li&gt;
-&lt;/ul&gt;&lt;/p&gt;
-
-&lt;p&gt;You need EVPN anyway for multisite.&lt;/p&gt;
-
-&lt;p&gt;You need automation anyway because it&amp;rsquo;s too complex to manage via the GUI and you want to standardise all the conf.&lt;/p&gt;
 </description>
     </item>
     

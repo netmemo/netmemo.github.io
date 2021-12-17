@@ -13,6 +13,15 @@
     
     
     <item>
+      <title>Cisco ACI Terraform Policy Model</title>
+      <link>https://netmemo.github.io/post/aci-terraform-policy-model/</link>
+      <pubDate>Wed, 15 Dec 2021 18:40:34 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/post/aci-terraform-policy-model/</guid>
+      <description>The big picture This blog post is a memo for the ACI Terraform policy model. I have struggled to find equivalences between ACI REST API Call / Classes and Terraform resources. Below you can find the full diagram. The diagram is not exhaustive but I think I have reached a point where I can published something. I will probably modify or add things if I use more resources or if people correct me but I think it is a good start.</description>
+    </item>
+    
+    <item>
       <title>Can we ping an AWS Lambda function ?</title>
       <link>https://netmemo.github.io/post/lambdaping/</link>
       <pubDate>Tue, 16 Nov 2021 18:00:45 +0200</pubDate>
