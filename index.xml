@@ -22,7 +22,7 @@
 
 &lt;p&gt;This blog post is a memo for the ACI Terraform policy model. I have struggled to find equivalences between ACI REST API Call / Classes and Terraform resources. Below you can find the full diagram. The diagram is not exhaustive but I think I have reached a point where I can published something. I will probably modify or add things if I use more resources or if people correct me but I think it is a good start. L3 out is very complex that&amp;rsquo;s why the diagram ends up being complex. I don&amp;rsquo;t cover all cases for L3 out, only the one I have been using so far.&lt;/p&gt;
 
-&lt;p&gt;You will be able to find the source of this diagram &lt;a href=&#34;https://github.com/netmemo/netmemo.github.io/tree/master/post/aci-l3out-blog.drawio/aci-l3out-blog.drawio&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;You will be able to find the source of this diagram &lt;a href=&#34;https://github.com/netmemo/netmemo.github.io/tree/master/post/aci-terraform-policy-model/aci-l3out-blog.drawio&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&#34;ACI-L3out-3-full.drawio.png&#34;&gt; &lt;img src=&#34;ACI-L3out-3-full.drawio.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;/p&gt;
 
