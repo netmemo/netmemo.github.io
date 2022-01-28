@@ -321,7 +321,7 @@
     <item>
       <title>Terraform</title>
       <link>https://netmemo.github.io/tags/terraform/</link>
-      <pubDate>Wed, 15 Dec 2021 18:40:34 +0100</pubDate>
+      <pubDate>Wed, 26 Jan 2022 22:00:26 +0100</pubDate>
       
       <guid>https://netmemo.github.io/tags/terraform/</guid>
       <description></description>
@@ -423,6 +423,15 @@
       <pubDate>Thu, 25 Feb 2021 21:46:14 +0100</pubDate>
       
       <guid>https://netmemo.github.io/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tf-tutorial</title>
+      <link>https://netmemo.github.io/tags/tf-tutorial/</link>
+      <pubDate>Wed, 26 Jan 2022 22:00:26 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/tf-tutorial/</guid>
       <description></description>
     </item>
     

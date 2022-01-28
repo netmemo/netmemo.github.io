@@ -11,6 +11,636 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Terraform One Step Further</title>
+      <link>https://netmemo.github.io/post/terraform-one-step-further/</link>
+      <pubDate>Wed, 26 Jan 2022 22:00:26 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/post/terraform-one-step-further/</guid>
+      <description>
+
+&lt;p&gt;This blog is in two parts. The &lt;a href=&#34;../terraform-bootstrap/&#34;&gt;first part&lt;/a&gt; explains what is needed to start with Terraform. This second part is to go one step further but still targets beginners.&lt;/p&gt;
+
+&lt;h1 id=&#34;table-of-contents&#34;&gt;Table of contents&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;../terraform-bootstrap/&#34;&gt;Terraform Bare minimum&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#terraform-one-step-further&#34;&gt;Terraform one step further&lt;/a&gt;&lt;br /&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#what-happens-in-the-background&#34;&gt;What happens in the background ?&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#what-happens-if-we-modify-the-object-on-gui&#34;&gt;What happens if we modify the object on GUI ?&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#how-do-i-remove-configuration&#34;&gt;How do I remove configuration ?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#what-can-we-find-in-the-state-file&#34;&gt;What can we find in the state file ?&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#terraform-components&#34;&gt;Terraform components&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#variables&#34;&gt;Variables&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#variables&#34;&gt;Files&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#commands&#34;&gt;Commands&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#modules&#34;&gt;Modules&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#scaling&#34;&gt;Scaling&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#workspaces&#34;&gt;Workspaces&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#dry&#34;&gt;DRY&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;terraform-one-step-further&#34;&gt;Terraform one step further&lt;/h1&gt;
+
+&lt;h3 id=&#34;what-happens-in-the-background&#34;&gt;What happens in the background ?&lt;/h3&gt;
+
+&lt;p&gt;When the configuration is applied for the first time, it creates a state file to keep track of what is managed by Terraform.
+The Terraform state file is a json file that you can read easily.&lt;/p&gt;
+
+&lt;p&gt;&lt;details&gt;
+&lt;summary&gt;Click to display a state file&lt;/summary&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+  &amp;quot;version&amp;quot;: 4,
+  &amp;quot;terraform_version&amp;quot;: &amp;quot;1.0.0&amp;quot;,
+  &amp;quot;serial&amp;quot;: 5,
+  &amp;quot;lineage&amp;quot;: &amp;quot;177474d1-df80-f405-45d1-c3a6b043b4b5&amp;quot;,
+  &amp;quot;outputs&amp;quot;: {},
+  &amp;quot;resources&amp;quot;: [
+    {
+      &amp;quot;mode&amp;quot;: &amp;quot;managed&amp;quot;,
+      &amp;quot;type&amp;quot;: &amp;quot;aws_vpc&amp;quot;,
+      &amp;quot;name&amp;quot;: &amp;quot;netmemo&amp;quot;,
+      &amp;quot;provider&amp;quot;: &amp;quot;provider[\&amp;quot;registry.terraform.io/hashicorp/aws\&amp;quot;]&amp;quot;,
+      &amp;quot;instances&amp;quot;: [
+        {
+          &amp;quot;schema_version&amp;quot;: 1,
+          &amp;quot;attributes&amp;quot;: {
+            &amp;quot;arn&amp;quot;: &amp;quot;arn:aws:ec2:us-east-2:919821450090:vpc/vpc-0c53f54e268772136&amp;quot;,
+            &amp;quot;assign_generated_ipv6_cidr_block&amp;quot;: false,
+            &amp;quot;cidr_block&amp;quot;: &amp;quot;10.0.0.0/16&amp;quot;,
+            &amp;quot;default_network_acl_id&amp;quot;: &amp;quot;acl-0856dd4ead6188e7c&amp;quot;,
+            &amp;quot;default_route_table_id&amp;quot;: &amp;quot;rtb-02f6f1824fca2ea83&amp;quot;,
+            &amp;quot;default_security_group_id&amp;quot;: &amp;quot;sg-082ca88831aa7e0e5&amp;quot;,
+            &amp;quot;dhcp_options_id&amp;quot;: &amp;quot;dopt-b98bcbd2&amp;quot;,
+            &amp;quot;enable_classiclink&amp;quot;: null,
+            &amp;quot;enable_classiclink_dns_support&amp;quot;: null,
+            &amp;quot;enable_dns_hostnames&amp;quot;: false,
+            &amp;quot;enable_dns_support&amp;quot;: true,
+            &amp;quot;id&amp;quot;: &amp;quot;vpc-0c53f54e268772136&amp;quot;,
+            &amp;quot;instance_tenancy&amp;quot;: &amp;quot;default&amp;quot;,
+            &amp;quot;ipv6_association_id&amp;quot;: &amp;quot;&amp;quot;,
+            &amp;quot;ipv6_cidr_block&amp;quot;: &amp;quot;&amp;quot;,
+            &amp;quot;main_route_table_id&amp;quot;: &amp;quot;rtb-02f6f1824fca2ea83&amp;quot;,
+            &amp;quot;owner_id&amp;quot;: &amp;quot;919821450090&amp;quot;,
+            &amp;quot;tags&amp;quot;: null,
+            &amp;quot;tags_all&amp;quot;: {}
+          },
+          &amp;quot;sensitive_attributes&amp;quot;: [],
+          &amp;quot;private&amp;quot;: &amp;quot;eyJzY2hlbWFfdmVyc2lvbiI6IjEifQ==&amp;quot;
+        }
+      ]
+    }
+  ]
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/details&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;terraform-state.png&#34;&gt; &lt;img src=&#34;terraform-state.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;what-happens-if-we-modify-the-object-on-gui&#34;&gt;What happens if we modify the object on GUI ?&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;The configuration file is the intended configuration, it becomes the source of truth.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;The resource is now managed by Terraform.&lt;/strong&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;If you apply the configuration again, it will compare it to the state file we have. If the resource is managed by Terraform it will implement the delta to make the production back as it was intended in the configuration file.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;details&gt;
+&lt;summary&gt;Click to see what happens if you change the name of a VPC from the GUI and try to apply the configuration through Terraform again&lt;/summary&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;aws_vpc.netmemo: Refreshing state... [id=vpc-0fdab0a3c74e847ec]
+
+Note: Objects have changed outside of Terraform
+
+Terraform detected the following changes made outside of Terraform since the last &amp;quot;terraform apply&amp;quot;:
+
+  # aws_vpc.netmemo has been changed
+  ~ resource &amp;quot;aws_vpc&amp;quot; &amp;quot;netmemo&amp;quot; {
+        id                               = &amp;quot;vpc-0fdab0a3c74e847ec&amp;quot;
+      + tags                             = {
+          + &amp;quot;Name&amp;quot; = &amp;quot;netmemo-vpc&amp;quot;
+        }
+      ~ tags_all                         = {
+          + &amp;quot;Name&amp;quot; = &amp;quot;netmemo-vpc&amp;quot;
+        }
+        # (12 unchanged attributes hidden)
+    }
+
+Unless you have made equivalent changes to your configuration, or ignored the relevant attributes using ignore_changes, the following plan may include actions to undo or respond to these changes.
+
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # aws_vpc.netmemo will be updated in-place
+  ~ resource &amp;quot;aws_vpc&amp;quot; &amp;quot;netmemo&amp;quot; {
+        id                               = &amp;quot;vpc-0fdab0a3c74e847ec&amp;quot;
+      ~ tags                             = {
+          - &amp;quot;Name&amp;quot; = &amp;quot;netmemo-vpc&amp;quot; -&amp;gt; null
+        }
+      ~ tags_all                         = {
+          - &amp;quot;Name&amp;quot; = &amp;quot;netmemo-vpc&amp;quot;
+        } -&amp;gt; (known after apply)
+        # (12 unchanged attributes hidden)
+    }
+
+Plan: 0 to add, 1 to change, 0 to destroy.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/details&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;how-do-i-remove-configuration&#34;&gt;How do I remove configuration ?&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;If you want to delete a specific resource, you just need to remove it from the Terraform configuration file. Terraform will take care of all the steps to delete it. It manages all the steps for you.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;It is the difference between a declarative approach and an imperative/procedural approach where you need to specify all the steps you need to do.&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;details&gt;
+&lt;summary&gt;Click to see what happens when you destroy a configuration&lt;/summary&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Terraform will perform the following actions:
+
+  # aws_vpc.netmemo will be destroyed
+  - resource &amp;quot;aws_vpc&amp;quot; &amp;quot;netmemo&amp;quot; {
+      - arn                              = &amp;quot;arn:aws:ec2:us-east-2:919821450090:vpc/vpc-0fdab0a3c74e847ec&amp;quot; -&amp;gt; null
+      - assign_generated_ipv6_cidr_block = false -&amp;gt; null
+      - cidr_block                       = &amp;quot;10.0.0.0/16&amp;quot; -&amp;gt; null
+      - default_network_acl_id           = &amp;quot;acl-0e677ba2378eaf56e&amp;quot; -&amp;gt; null
+      - default_route_table_id           = &amp;quot;rtb-0ecb3bbec21918662&amp;quot; -&amp;gt; null
+      - default_security_group_id        = &amp;quot;sg-0c41be3848fca4e83&amp;quot; -&amp;gt; null
+      - dhcp_options_id                  = &amp;quot;dopt-b98bcbd2&amp;quot; -&amp;gt; null
+      - enable_dns_hostnames             = false -&amp;gt; null
+      - enable_dns_support               = true -&amp;gt; null
+      - id                               = &amp;quot;vpc-0fdab0a3c74e847ec&amp;quot; -&amp;gt; null
+      - instance_tenancy                 = &amp;quot;default&amp;quot; -&amp;gt; null
+      - main_route_table_id              = &amp;quot;rtb-0ecb3bbec21918662&amp;quot; -&amp;gt; null
+      - owner_id                         = &amp;quot;919821450090&amp;quot; -&amp;gt; null
+      - tags                             = {
+          - &amp;quot;Name&amp;quot; = &amp;quot;netmemo-vpc&amp;quot;
+        } -&amp;gt; null
+      - tags_all                         = {
+          - &amp;quot;Name&amp;quot; = &amp;quot;netmemo-vpc&amp;quot;
+        } -&amp;gt; null
+    }
+
+Plan: 0 to add, 0 to change, 1 to destroy.
+
+Changes to Outputs:
+  - test-output = &amp;quot;iam testing&amp;quot; -&amp;gt; null
+
+Do you really want to destroy all resources?
+  Terraform will destroy all your managed infrastructure, as shown above.
+  There is no undo. Only &#39;yes&#39; will be accepted to confirm.
+
+  Enter a value: yes
+
+aws_vpc.netmemo: Destroying... [id=vpc-0fdab0a3c74e847ec]
+aws_vpc.netmemo: Destruction complete after 1s
+
+Destroy complete! Resources: 1 destroyed.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/details&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;what-can-we-find-in-the-state-file&#34;&gt;What can we find in the state file ?&lt;/h3&gt;
+
+&lt;p&gt;There are 3 types of objects in the state file:&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Object&lt;/th&gt;
+&lt;th&gt;Mode&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Resource&lt;/td&gt;
+&lt;td&gt;Managed&lt;/td&gt;
+&lt;td&gt;What we create and manage through our Terraform script&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Datasource&lt;/td&gt;
+&lt;td&gt;Data&lt;/td&gt;
+&lt;td&gt;import production object and work with their attributes. For instance, import a VPC that is not managed by Terraform and use the vpc_id to assign a subnet&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Output&lt;/td&gt;
+&lt;td&gt;N/A&lt;/td&gt;
+&lt;td&gt;Variables&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;details&gt;
+&lt;summary&gt;Click to see a resource&lt;/summary&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+    &amp;quot;mode&amp;quot;: &amp;quot;managed&amp;quot;,
+    &amp;quot;type&amp;quot;: &amp;quot;aws_vpc&amp;quot;,
+    &amp;quot;name&amp;quot;: &amp;quot;netmemo&amp;quot;,
+    &amp;quot;provider&amp;quot;: &amp;quot;provider[\&amp;quot;registry.terraform.io/hashicorp/aws\&amp;quot;]&amp;quot;,
+    &amp;quot;instances&amp;quot;: [
+      {
+        &amp;quot;schema_version&amp;quot;: 1,
+        &amp;quot;attributes&amp;quot;: {
+          &amp;lt;snip&amp;gt; ..... &amp;lt;snip&amp;gt;
+        },
+        &amp;quot;sensitive_attributes&amp;quot;: [],
+        &amp;quot;private&amp;quot;: &amp;quot;*****fdmVyc2lvbiI6IjEifQ==&amp;quot;
+      }
+    ]
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/details&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;details&gt;
+&lt;summary&gt;Click to see a datasource&lt;/summary&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    {
+      &amp;quot;mode&amp;quot;: &amp;quot;data&amp;quot;,
+      &amp;quot;type&amp;quot;: &amp;quot;aws_iam_policy&amp;quot;,
+      &amp;quot;name&amp;quot;: &amp;quot;vpcpolicy&amp;quot;,
+      &amp;quot;provider&amp;quot;: &amp;quot;provider[\&amp;quot;registry.terraform.io/hashicorp/aws\&amp;quot;]&amp;quot;,
+      &amp;quot;instances&amp;quot;: [
+        {
+          &amp;quot;schema_version&amp;quot;: 0,
+          &amp;quot;attributes&amp;quot;: {
+            &amp;lt;snip&amp;gt; ..... &amp;lt;snip&amp;gt;
+          },
+          &amp;quot;sensitive_attributes&amp;quot;: []
+        }
+      ]
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/details&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;details&gt;
+&lt;summary&gt;Click to see an output&lt;/summary&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  &amp;quot;outputs&amp;quot;: {
+    &amp;quot;test-output&amp;quot;: {
+      &amp;quot;value&amp;quot;: &amp;quot;iam testint&amp;quot;,
+      &amp;quot;type&amp;quot;: &amp;quot;string&amp;quot;
+    }
+  }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/details&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;terraform-components&#34;&gt;Terraform components&lt;/h1&gt;
+
+&lt;h3 id=&#34;variables&#34;&gt;Variables&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Outputs:
+This will store variables in the output section of the state file. It will also be displayed at the screen terminal when the command “plan” and “apply” are executed. Only output variables can be accessed from other Terraform modules.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Locals:
+Allow to define named values that you can refer to in your configuration. It helps to do variable manipulation or substitution to make the code more readable. Use local values only in moderation, in situation where a single value or result is used in many places and that value is likely to be changed in future. The ability to easily change the value in a central place is the key advantage of local values.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;locals {
+# Ids for multiple sets of EC2 instances, merged together
+instance_ids = concat(aws_instance.blue.*.id, aws_instance.green.*.id)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Inputs:
+It serves as parameters for a Terraform module.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Comparing to traditional programming language
+Output values are like function return values.
+Local values are like a function’s temporary local variables.
+Input variables are like function arguments&lt;/p&gt;
+
+&lt;h3 id=&#34;files&#34;&gt;Files&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;├─ main.tf
+├─ provider.tf
+├─ variables.tf
+├─ outputs.tf
+├─ terraform.tfvars
+├─ terraform.tfstate
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;.tf&lt;/strong&gt;&lt;br /&gt;
+The main file can be split into different files for the readers&amp;rsquo; convenience. The name of the .tf file can be anything. Most of the time we find:&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;File&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;main.tf&lt;/td&gt;
+&lt;td&gt;Resources definition&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;provider.tf&lt;/td&gt;
+&lt;td&gt;Provider definition&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;variable.tf&lt;/td&gt;
+&lt;td&gt;Variable &lt;strong&gt;declaration&lt;/strong&gt; (name + type)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;outputs.tf&lt;/td&gt;
+&lt;td&gt;outputs variables&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;terraform.tfvars&lt;/strong&gt;&lt;br /&gt;
+It contains the input variables &lt;strong&gt;definitions&lt;/strong&gt; (value). This is used with “module” where we need different variables per infrastructure. Otherwise, the variable definition can be embedded in the default section of the variable declaration in the Terraform configuration file.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;terraform.tfstate&lt;/strong&gt;&lt;br /&gt;
+To store the current state of the Terraform managed infrastructure.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;variable-declaration-and-definition&#34;&gt;Variable declaration and definition&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt; #declaration + type
+ variable &amp;quot;cidr&amp;quot; {
+     type = string
+ }
+ 
+ #value
+ cidr = &amp;quot;10.0.0.0/24&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;commands&#34;&gt;Commands&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;terraform init&lt;/code&gt; : Download the providers.&lt;br /&gt;
+&lt;code&gt;terraform plan&lt;/code&gt; : Allow to dissociate the “plan” from the “apply”. It compares the previous state and the intended config and tells you what it will plan to do to make the production as intended. With this command you can save the plan to directly apply it with the apply command when you are ready.&lt;br /&gt;
+&lt;code&gt;terraform show&lt;/code&gt; : Display the current state file or the plan file created with the plan command.&lt;br /&gt;
+&lt;code&gt;terraform apply&lt;/code&gt; : Push the configuration to production.&lt;br /&gt;
+&lt;code&gt;terraform destroy&lt;/code&gt; : Delete all the configuration. It can be useful in CI/CD environment when we want to test things and destroy afterwards.&lt;/p&gt;
+
+&lt;h3 id=&#34;modules&#34;&gt;Modules&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;terraform-module.png&#34;&gt; &lt;img src=&#34;terraform-module.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Root module.&lt;br /&gt;
+This is the main program that will create the infrastructure.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Child module.&lt;br /&gt;
+This is the module called from the root module. It allows to externalize repeatable code. By centralizing the code, it becomes more manageable.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;scaling&#34;&gt;Scaling&lt;/h1&gt;
+
+&lt;h3 id=&#34;workspaces&#34;&gt;Workspaces&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Workspaces&lt;br /&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Shared storage for state files : Access to all members of the team&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Locking state files : Prevent concurrent modification&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Isolating state files : Several environments and variables&lt;br /&gt;
+&lt;BR&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Terraform Cloud/Enterprise&lt;br /&gt;
+This is an infrastructure component SaaS for Terraform Cloud and on-premises server for Terraform Enterprise.
+This software allows to manage workspaces, variables, state file locking, password and provide API to interface Terraform with other software like Github.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&#34;terraform-tfe.png&#34;&gt; &lt;img src=&#34;terraform-tfe.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;dry&#34;&gt;DRY&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Keep your code DRY (Don’t Repeat Yourself)&lt;br /&gt;
+&lt;code&gt;for_each&lt;/code&gt; : Allow to loop over a resource to create it several times according to variables that you define in your variable.tf file.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Without for_each&lt;/strong&gt;&lt;br /&gt;
+Every time you add a subnet you need to create an entire block of resources.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;resource “aws_subnet” “subnet1” {
+   cidr_block	= “10.0.1.0/24”
+   vpc_id	= “myvpcid”
+}
+
+resource “aws_subnet” “subnet2” {
+   cidr_block	= “10.0.2.0/24”
+   vpc_id	= “myvpcid”
+}
+
+resource “aws_subnet” “subnet13” {
+   cidr_block	= “10.0.3.0/24”
+   vpc_id	= “myvpcid”
+}
+
+resource “aws_subnet” “subnet4” {
+   cidr_block	= “10.0.4.0/24”
+   vpc_id	= “myvpcid”
+}
+
+resource “aws_subnet” “subnet5” {
+   cidr_block	= “10.0.5.0/24”
+   vpc_id	= “myvpcid”
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;With for_each&lt;/strong&gt;&lt;br /&gt;
+Every time you add a subnet you need add a line in the variable.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#variable declaration
+variable “setofsubnet” {
+    type = set(string)
+}
+
+#variable definition
+setofsubnet = [
+   “10.0.1.0/24”,
+   “10.0.2.0/24”,
+   “10.0.3.0/24”,
+   “10.0.4.0/24”,
+   “10.0.5.0/24”
+]
+
+#resource creation
+resource “aws_subnet” “main-subnet” {
+   for_each = var.listofsubnet
+   cidr_block = each.key
+   vpc_id = “myvpcid”
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Terraform Bootstrap</title>
+      <link>https://netmemo.github.io/post/terraform-bootstrap/</link>
+      <pubDate>Wed, 19 Jan 2022 18:40:34 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/post/terraform-bootstrap/</guid>
+      <description>
+
+&lt;p&gt;This blog is in two parts. This first part explains what is needed to start with Terraform, the &lt;a href=&#34;../terraform-one-step-further/&#34;&gt;second part&lt;/a&gt; is to go one step further but still targets beginners.&lt;/p&gt;
+
+&lt;h1 id=&#34;table-of-content&#34;&gt;Table of content&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#terraform-bare-minimum&#34;&gt;Terraform bare minimum&lt;/a&gt;&lt;br /&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#terraform-what-is-it&#34;&gt;Terraform, what is it ?&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#what-do-you-need-to-provision-something-with-terraform&#34;&gt;What do I need to provision something with Terraform ?&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#how-do-i-know-what-to-create&#34;&gt;How do I know what to create ?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#the-configuration-is-made-of-3-blocks&#34;&gt;The configuration is made of 3 blocks&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#you-need-2-commands-to-push-your-first-configuration&#34;&gt;You need 2 commands to push your first configuration&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#demo-time&#34;&gt;Demo time&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;../terraform-one-step-further/&#34;&gt;One step further&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;terraform-bare-minimum&#34;&gt;Terraform bare minimum&lt;/h1&gt;
+
+&lt;h3 id=&#34;terraform-what-is-it&#34;&gt;Terraform, what is it ?&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.terraform.io/&#34;&gt;Terraform&lt;/a&gt; allows to manage infrastructure thanks to the configuration file known as infrastructure as Code (IaC). It allows to create reproducible infrastructure.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.terraform.io/&#34;&gt;Terraform&lt;/a&gt; determines what has changed and creates incremental execution plans that respect dependencies. It is &lt;a href=&#34;https://en.wikipedia.org/wiki/Idempotence&#34;&gt;idempotent&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;what-do-i-need-to-provision-something-with-terraform&#34;&gt;What do I need to provision something with Terraform ?&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.terraform.io/downloads&#34;&gt;terraform.exe&lt;/a&gt; file&lt;/li&gt;
+&lt;li&gt;One configuration file&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&#34;terraform-simple.png&#34;&gt; &lt;img src=&#34;terraform-simple.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;how-do-i-know-what-to-create&#34;&gt;How do I know what to create ?&lt;/h3&gt;
+
+&lt;p&gt;Most of the time you need the &lt;a href=&#34;https://registry.terraform.io/namespaces/hashicorp&#34;&gt;documentation&lt;/a&gt; of the provider you want to use. The &lt;a href=&#34;https://registry.terraform.io/namespaces/hashicorp&#34;&gt;documentation&lt;/a&gt; often respect the same structure and it&amp;rsquo;s easy to browse.
+These are the main providers that I use &lt;a href=&#34;https://registry.terraform.io/providers/vmware/nsxt/latest/docs&#34;&gt;NSX-T&lt;/a&gt;/&lt;a href=&#34;https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs&#34;&gt;ACI&lt;/a&gt;/&lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/aws/latest/docs&#34;&gt;AWS&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;the-configuration-is-made-of-3-blocks&#34;&gt;The configuration is made of 3 blocks&lt;/h3&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Block&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Terraform&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;What&lt;/strong&gt; provider to use&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Provider&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;Where&lt;/strong&gt; to push the configuration&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Resources&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;What&lt;/strong&gt; to create&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;pre&gt;&lt;code&gt;terraform provider{
+    required_provider{
+        aws = {
+            source  = &amp;quot;hashicorp/aws&amp;quot;
+            version = &amp;quot;3.55.0&amp;quot;
+        }
+    }
+}
+
+provider &amp;quot;aws&amp;quot; {
+    region = &amp;quot;us-east-2&amp;quot;
+    access_-_key = &amp;quot;**********&amp;quot;
+    secret_key = &amp;quot;**********&amp;quot;
+}
+
+resource &amp;quot;aws_s3_bucket&amp;quot; &amp;quot;netmemo_bucket&amp;quot; {
+    bucket = &amp;quot;netmemo_bucket&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;you-need-2-commands-to-push-your-first-configuration&#34;&gt;You need 2 commands to push your first configuration&lt;/h3&gt;
+
+&lt;p&gt;When the first initialization has been done, you will only need the apply command for the next infrastructure modifications.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;terraform init&lt;/code&gt;      =&amp;gt; Download and configure the provider&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;terraform apply&lt;/code&gt;     =&amp;gt; It tells you what it will do then push the configuration&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;proxy-white-listing&#34;&gt;Proxy white listing&lt;/h3&gt;
+
+&lt;p&gt;In enterprise, don’t forget to whitelist URLs. Below is an example for AWS.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;To download the providers / backend init&lt;br /&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://registry.terraform.io&#34;&gt;https://registry.terraform.io&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://releases.hashicorp.com&#34;&gt;https://releases.hashicorp.com&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;To authenticate to the providers
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://iam.amazonaws.com/&#34;&gt;https://iam.amazonaws.com/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://sts.amazonaws.com/&#34;&gt;https://sts.amazonaws.com/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;To push the configuration
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://us-east-2.amazonaws.com/&#34;&gt;https://us-east-2.amazonaws.com/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;demo-time&#34;&gt;DEMO TIME&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;terraform-demo.gif&#34;&gt; &lt;img src=&#34;terraform-demo.gif&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Cisco ACI Terraform Policy Model</title>
       <link>https://netmemo.github.io/post/aci-terraform-policy-model/</link>
       <pubDate>Wed, 15 Dec 2021 18:40:34 +0100</pubDate>
@@ -2241,105 +2871,6 @@ provider &amp;quot;nsxt&amp;quot; {
 
 Terraform has been successfuly initialized!
 &lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Using Terraform for_each to create subnets in AWS VPC</title>
-      <link>https://netmemo.github.io/post/tf-for-each/</link>
-      <pubDate>Wed, 17 Feb 2021 20:59:49 +0100</pubDate>
-      
-      <guid>https://netmemo.github.io/post/tf-for-each/</guid>
-      <description>
-
-&lt;p&gt;An extended explanation of the differences between for_each, for and count can be find on the link below
-&lt;a href=&#34;https://blog.gruntwork.io/terraform-tips-tricks-loops-if-statements-and-gotchas-f739bbae55f9&#34;&gt;https://blog.gruntwork.io/terraform-tips-tricks-loops-if-statements-and-gotchas-f739bbae55f9&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;The two main drawbacks of using count are :&lt;br /&gt;
-- Can&amp;rsquo;t be used to loop over inline blocks&lt;br /&gt;
-- Difficult to remove entry from a list because it changes the index and those Terraform may want to destroy the resource because it has a different index&lt;/p&gt;
-
-&lt;p&gt;Below is an example of the variables used to create subnets within AWS VPCs and the main file with the for_each.
-The variables contain a map of subnets maps with cidr and az (availability zone) attributes.
-The for_each loop over the map of subnets maps to create the subnets.&lt;/p&gt;
-
-&lt;h4 id=&#34;variables-tf&#34;&gt;variables.tf&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code&gt;variable &amp;quot;tag_name&amp;quot; {
-   default = &amp;quot;main-vpc&amp;quot;
-}
-
-variable &amp;quot;vpc-cidr&amp;quot; {
-   default = &amp;quot;10.0.0.0/16&amp;quot;
-}
-
-variable &amp;quot;basename&amp;quot; {
-   description = &amp;quot;Prefix used for all resources names&amp;quot;
-   default = &amp;quot;nbo&amp;quot;
-}
-
-#map of maps for create subnets
-variable &amp;quot;prefix&amp;quot; {
-   type = map
-   default = {
-      sub-1 = {
-         az = &amp;quot;use2-az1&amp;quot;
-         cidr = &amp;quot;10.0.198.0/24&amp;quot;
-      }
-      sub-2 = {
-         az = &amp;quot;use2-az2&amp;quot;
-         cidr = &amp;quot;10.0.199.0/24&amp;quot;
-      }
-      sub-3 = {
-         az = &amp;quot;use2-az3&amp;quot;
-         cidr = &amp;quot;10.0.200.0/24&amp;quot;
-      }
-   }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;main-tf&#34;&gt;main.tf&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code&gt;resource &amp;quot;aws_vpc&amp;quot; &amp;quot;main-vpc&amp;quot; {
-  cidr_block = var.vpc-cidr
-
-  tags = {
-    Name = var.tag_name
-  }
-}
-
-resource &amp;quot;aws_subnet&amp;quot; &amp;quot;main-subnet&amp;quot; {
-  for_each = var.prefix
- 
-  availability_zone_id = each.value[&amp;quot;az&amp;quot;]
-  cidr_block = each.value[&amp;quot;cidr&amp;quot;]
-  vpc_id     = aws_vpc.main-vpc.id
-
-  tags = {
-    Name = &amp;quot;${var.basename}-subnet-${each.key}&amp;quot;
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You can find the output of the terraform plan/apply, the terraform.state and the others tf files in the below links.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://github.com/netmemo/tf-for-each-exemple&#34;&gt;https://github.com/netmemo/tf-for-each-exemple&lt;/a&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>BFD on directly connected</title>
-      <link>https://netmemo.github.io/post/bfd-directly-connected/</link>
-      <pubDate>Wed, 02 Dec 2020 09:29:50 +0100</pubDate>
-      
-      <guid>https://netmemo.github.io/post/bfd-directly-connected/</guid>
-      <description>&lt;p&gt;One article that can help understanding and make decisions about fast failover
-&lt;a href=&#34;https://blog.ipspace.net/2020/11/detecting-network-failure.html&#34;&gt;https://blog.ipspace.net/2020/11/detecting-network-failure.html&lt;/a&gt;
-&lt;a href=&#34;https://blog.ipspace.net/2012/09/do-we-need-lacp-and-udld.html&#34;&gt;https://blog.ipspace.net/2012/09/do-we-need-lacp-and-udld.html&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Is there any benefit by enabling BFD on directly connected interface ?&lt;/p&gt;
-
-&lt;p&gt;Sometime it can be enabled to help veryfied that there are no issues on physical layer and data link layer of an interface. It can help if on the data link layer you are not using UDLD or LACP.&lt;/p&gt;
 </description>
     </item>
     

@@ -4,6 +4,22 @@
     
     <url>
     
+      <loc>https://netmemo.github.io/post/terraform-one-step-further/</loc>
+      <lastmod>2022-01-26T22:00:26+01:00</lastmod>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/post/terraform-bootstrap/</loc>
+      <lastmod>2022-01-19T18:40:34+01:00</lastmod>
+    </url>
+    
+  
+    
+    <url>
+    
       <loc>https://netmemo.github.io/post/aci-terraform-policy-model/</loc>
       <lastmod>2021-12-15T18:40:34+01:00</lastmod>
     </url>
@@ -672,7 +688,7 @@
     <url>
     
       <loc>https://netmemo.github.io/tags/terraform/</loc>
-      <lastmod>2021-12-15T18:40:34+01:00</lastmod>
+      <lastmod>2022-01-26T22:00:26+01:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -681,7 +697,7 @@
     <url>
     
       <loc>https://netmemo.github.io/categories/terraform/</loc>
-      <lastmod>2021-12-15T18:40:34+01:00</lastmod>
+      <lastmod>2022-01-26T22:00:26+01:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -835,6 +851,15 @@
     
       <loc>https://netmemo.github.io/tags/python/</loc>
       <lastmod>2021-02-25T21:46:14+01:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/tags/tf-tutorial/</loc>
+      <lastmod>2022-01-26T22:00:26+01:00</lastmod>
       <priority>0</priority>
     </url>
     
