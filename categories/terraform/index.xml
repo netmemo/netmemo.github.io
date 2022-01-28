@@ -19,10 +19,10 @@
       
       <guid>https://netmemo.github.io/post/terraform-one-step-further/</guid>
       <description>This blog is in two parts. The first part explains what is needed to start with Terraform. This second part is to go one step further but still targets beginners.
+You can find more in depth articles on Gruntwork blog and the Terraform documentation is also very good.
 Table of contents  Terraform Bare minimum Terraform one step further
  What happens in the background ?
- What happens if we modify the object on GUI ?
- How do I remove configuration ? What can we find in the state file ?</description>
+ What happens if we modify the object on GUI ?</description>
     </item>
     
     <item>

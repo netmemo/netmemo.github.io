@@ -16,10 +16,10 @@
     
   
   <meta name="description" content="This blog is in two parts. The first part explains what is needed to start with Terraform. This second part is to go one step further but still targets beginners.
+You can find more in depth articles on Gruntwork blog and the Terraform documentation is also very good.
 Table of contents  Terraform Bare minimum Terraform one step further
  What happens in the background ?
- What happens if we modify the object on GUI ?
- How do I remove configuration ? What can we find in the state file ?">
+ What happens if we modify the object on GUI ?">
 
   
   <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/post/terraform-one-step-further/">
@@ -101,10 +101,10 @@ Table of contents  Terraform Bare minimum Terraform one step further
   <meta property="og:url" content="https://netmemo.github.io/post/terraform-one-step-further/">
   <meta property="og:title" content="Terraform One Step Further | netmemo.github.io">
   <meta property="og:description" content="This blog is in two parts. The first part explains what is needed to start with Terraform. This second part is to go one step further but still targets beginners.
+You can find more in depth articles on Gruntwork blog and the Terraform documentation is also very good.
 Table of contents  Terraform Bare minimum Terraform one step further
  What happens in the background ?
- What happens if we modify the object on GUI ?
- How do I remove configuration ? What can we find in the state file ?">
+ What happens if we modify the object on GUI ?">
   
   
     
@@ -321,6 +321,8 @@ Table of contents  Terraform Bare minimum Terraform one step further
       
 
 <p>This blog is in two parts. The <a href="../terraform-bootstrap/">first part</a> explains what is needed to start with Terraform. This second part is to go one step further but still targets beginners.</p>
+
+<p>You can find more in depth articles on <a href="https://blog.gruntwork.io/an-introduction-to-terraform-f17df9c6d180">Gruntwork</a> blog and the <a href="https://www.terraform.io/language">Terraform documentation</a> is also very good.</p>
 
 <h1 id="table-of-contents">Table of contents</h1>
 
@@ -747,7 +749,7 @@ This software allows to manage workspaces, variables, state file locking, passwo
 
 <ul>
 <li>Keep your code DRY (Don’t Repeat Yourself)<br />
-<code>for_each</code> : Allow to loop over a resource to create it several times according to variables that you define in your variable.tf file.</li>
+<a href="https://www.terraform.io/language/meta-arguments/for_each">for_each</a> : Allow to loop over a resource to create it several times according to variables that you define in your variable.tf file.</li>
 </ul>
 
 <p><strong>Without for_each</strong><br />
@@ -803,6 +805,8 @@ resource “aws_subnet” “main-subnet” {
    vpc_id = “myvpcid”
 }
 </code></pre>
+
+<p>You can find very good <a href="https://blog.gruntwork.io/terraform-tips-tricks-loops-if-statements-and-gotchas-f739bbae55f9">tips</a> around loops on the Gruntwork blog.</p>
 
     </div>
 

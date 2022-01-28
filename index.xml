@@ -20,6 +20,8 @@
 
 &lt;p&gt;This blog is in two parts. The &lt;a href=&#34;../terraform-bootstrap/&#34;&gt;first part&lt;/a&gt; explains what is needed to start with Terraform. This second part is to go one step further but still targets beginners.&lt;/p&gt;
 
+&lt;p&gt;You can find more in depth articles on &lt;a href=&#34;https://blog.gruntwork.io/an-introduction-to-terraform-f17df9c6d180&#34;&gt;Gruntwork&lt;/a&gt; blog and the &lt;a href=&#34;https://www.terraform.io/language&#34;&gt;Terraform documentation&lt;/a&gt; is also very good.&lt;/p&gt;
+
 &lt;h1 id=&#34;table-of-contents&#34;&gt;Table of contents&lt;/h1&gt;
 
 &lt;ul&gt;
@@ -445,7 +447,7 @@ This software allows to manage workspaces, variables, state file locking, passwo
 
 &lt;ul&gt;
 &lt;li&gt;Keep your code DRY (Don’t Repeat Yourself)&lt;br /&gt;
-&lt;code&gt;for_each&lt;/code&gt; : Allow to loop over a resource to create it several times according to variables that you define in your variable.tf file.&lt;/li&gt;
+&lt;a href=&#34;https://www.terraform.io/language/meta-arguments/for_each&#34;&gt;for_each&lt;/a&gt; : Allow to loop over a resource to create it several times according to variables that you define in your variable.tf file.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;strong&gt;Without for_each&lt;/strong&gt;&lt;br /&gt;
@@ -501,6 +503,8 @@ resource “aws_subnet” “main-subnet” {
    vpc_id = “myvpcid”
 }
 &lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can find very good &lt;a href=&#34;https://blog.gruntwork.io/terraform-tips-tricks-loops-if-statements-and-gotchas-f739bbae55f9&#34;&gt;tips&lt;/a&gt; around loops on the Gruntwork blog.&lt;/p&gt;
 </description>
     </item>
     
