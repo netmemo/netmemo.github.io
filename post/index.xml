@@ -13,6 +13,15 @@
     
     
     <item>
+      <title>NSX-T Uplinks Memo</title>
+      <link>https://netmemo.github.io/post/nsx-t-uplinks/</link>
+      <pubDate>Mon, 14 Mar 2022 22:32:59 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/post/nsx-t-uplinks/</guid>
+      <description>This is a memo regarding NSX-T uplinks. I think this is the most confusing and difficult part to understand in NSX-T. This post is made from 3 sections, Diagram with a more visual approach, Component with remarks/comments on uplinks components and a Q&amp;amp;A section based on questions I was asking myself. You can find duplicate information but slightly rephrased in every section. I kept it that way as some time some form are easier to understand than other.</description>
+    </item>
+    
+    <item>
       <title>Terraform One Step Further</title>
       <link>https://netmemo.github.io/post/terraform-one-step-further/</link>
       <pubDate>Wed, 26 Jan 2022 22:00:26 +0100</pubDate>

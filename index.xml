@@ -11,6 +11,193 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>NSX-T Uplinks Memo</title>
+      <link>https://netmemo.github.io/post/nsx-t-uplinks/</link>
+      <pubDate>Mon, 14 Mar 2022 22:32:59 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/post/nsx-t-uplinks/</guid>
+      <description>
+
+&lt;p&gt;This is a memo regarding NSX-T uplinks. I think this is the most confusing and difficult part to understand in NSX-T.
+This post is made from 3 sections, &lt;strong&gt;Diagram&lt;/strong&gt; with a more visual approach, &lt;strong&gt;Component&lt;/strong&gt; with remarks/comments on uplinks components and a &lt;strong&gt;Q&amp;amp;A&lt;/strong&gt; section based on questions I was asking myself. You can find duplicate information but slightly rephrased in every section. I kept it that way as some time some form are easier to understand than other. If you spot errors don&amp;rsquo;t hesitate to contact me.&lt;/p&gt;
+
+&lt;h1 id=&#34;diagram&#34;&gt;Diagram&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&#34;nvds-vs-vds7.png&#34;&gt; &lt;img src=&#34;nvds-vs-vds7.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;legend&#34;&gt;Legend&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Switch port trunk (vlan id of vteps + uplinks)&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Prior to vDS7, physical interfaces are exclusive to NVDS or vDS.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;The association is done when the host is configured for NSXT then the &lt;strong&gt;uplink profile&lt;/strong&gt; is associated to the transport node.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;If you want to use the same physical interfaces as the default profile, the uplink name on the named teaming policy has to be identical.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;If you put 2 active interfaces in your named teaming policy you lose the benefit of having deterministic uplink for you Edge/T0 uplinks. If you put active/standby interface here, you can&amp;rsquo;t have active/active interfaces in the default teaming policy.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;This VM interface is attached through vcenter to the NSX Switch or vDS7 port group. This is like the interface of the host connected to the physical switch in the first point.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Uplink to interface mapping is done when the &lt;strong&gt;uplink profile&lt;/strong&gt; association to the transport node is done.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;If we add a second standby uplink in the named teaming policy, it&amp;rsquo;s impact the default teaming policy. You will not be able to have the 2 uplinks active at the same time. It&amp;rsquo;s those better to have a single uplink in the named teaming policy if you want to have active/active links in the default teaming policy. Named teaming policy are available only for segment of type vlan. See also point 5.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;In the &lt;strong&gt;Transport Zone&lt;/strong&gt;, any &lt;strong&gt;Named Teaming Policy&lt;/strong&gt; from any &lt;strong&gt;Uplink Profile&lt;/strong&gt; can be selected. On the segment vlan, any named teaming policy associated with the TZ can be chosen. The issue being that if the &lt;strong&gt;Segment Vlan&lt;/strong&gt; is then use on a &lt;strong&gt;Transport Node&lt;/strong&gt; with an &lt;strong&gt;Uplink Profile&lt;/strong&gt; which don&amp;rsquo;t have the &lt;strong&gt;Named Teaming Policy&lt;/strong&gt; defined it will not works. NSX-T doesn&amp;rsquo;t see any error. Also you never know if the &lt;strong&gt;Named Teaming Policy&lt;/strong&gt; define in an &lt;strong&gt;Uplink Profile&lt;/strong&gt; are used.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Default behavior if we don&amp;rsquo;t want any specific behavior for the uplinks.&lt;br /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&#34;component&#34;&gt;Component&lt;/h1&gt;
+
+&lt;h3 id=&#34;location-nsx-3-1&#34;&gt;Location (NSX 3.1)&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;System -&amp;gt; Fabric -&amp;gt; Profiles -&amp;gt; Uplink Profile  
+   - Transport VLAN  
+   - MTU  
+   - LAG  
+   - Teamings  
+      - Default Teaming -&amp;gt; Uplink  
+      - Add -&amp;gt; Named (Named teaming policy) -&amp;gt; Uplink  
+
+System -&amp;gt; Fabric -&amp;gt; Transport Zone  
+  - Named teaming policy  
+
+System -&amp;gt; Nodes  
+  - hostswitch name/vds name  
+  - Transport Zone  
+  - Uplink profile  
+     - Uplink -&amp;gt; physical nic  
+
+Networking -&amp;gt; Segment  
+   - Transport Zone (vlan or overlay)  
+   - Uplink Teaming Policy (Named teaming policy only for TZ Vlan)  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;remarks&#34;&gt;Remarks&lt;/h3&gt;
+
+&lt;p&gt;&lt;u&gt;&lt;strong&gt;Uplink profile&lt;/strong&gt;&lt;/u&gt;&lt;br /&gt;
+Used with Transport Node (Edge and Host)&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Teaming policy&lt;br /&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Named policy can be selected in &amp;ldquo;Uplink Teaming Policy&amp;rdquo; of segment VLAN configuration&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;The default is the one selected for the overlay uplink/VTEP and is the same for all overlay segment.&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;u&gt;&lt;strong&gt;Teaming policy&lt;/strong&gt;&lt;/u&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;On the vlan segment&lt;br /&gt;
+Only named teaming policy that are associated to the transport zone vlan can be selected&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;On the overlay segment&lt;br /&gt;
+The teaming policy of the uplink can&amp;rsquo;t be changed. It&amp;rsquo;s inherited from the one applied to the transport node via the &lt;strong&gt;uplink profile&lt;/strong&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;On the transport node&lt;br /&gt;
+The &lt;strong&gt;uplink profile&lt;/strong&gt; selected define the default teaming policy that will be applied and the possible named teaming policy for the segment vlan (Edge)&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;u&gt;&lt;strong&gt;Transport Zone&lt;/strong&gt;&lt;/u&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Used with Transport Node (Edge and Host)&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Allows to tie the segments to the TN.&lt;br /&gt;
+The named uplink policy can be used by the segment vlan. if there is nothing that mean it will pick the default policy of the &lt;strong&gt;uplink profile&lt;/strong&gt; associated with the TN&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Uplink interfaces of the Edge VM are define in the uplink of the TN according to the &lt;strong&gt;uplink profile&lt;/strong&gt; (if in the profile you have dedicated interface for uplinks, you need to create named teaming policy for them with different uplink names).&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;u&gt;&lt;strong&gt;Edge Uplinks&lt;/strong&gt;&lt;/u&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;The IP address of the uplink is assigned on the T0 within a &lt;strong&gt;logical/virtual&lt;/strong&gt; interface. You can&amp;rsquo;t select the physical interface, you select the edge node and the segment where to assign the IP. You then can have 1 or 2 physical uplinks based on the default teaming policy of the uplink profile of the edge node or the named teaming policy associated on the segment vlan. This policy can have active/active teaming and those the link selected for the outgoing traffic is based on the load balance algorithm of the teaming policy. See also Q&amp;amp;A point 4.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;To have different behavior between the overlay uplinks and the exit uplinks you need to have the exit uplinks behavior configured as named teaming policy in the &lt;strong&gt;uplink profile&lt;/strong&gt; that you will associate to the TN.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;On the physical links you end up having policies for the TN, VM Edge uplink, VM Edge overlay.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;q-a&#34;&gt;Q&amp;amp;A&lt;/h1&gt;
+
+&lt;p&gt;&lt;details&gt;
+&lt;summary&gt;Click to see the Q&amp;amp;A&lt;/summary&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Does the overlay inherit the &lt;strong&gt;uplink profile&lt;/strong&gt; associated with the TN ?&lt;br /&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Yes&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Is the port group on the vCenter VDS7 only for vlan segment (non overlay) ?&lt;br /&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Yes, for Edge VM uplink&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Does the teaming and failover policy of the port group of the host conflict with the uplink profile of the Edge VM ?&lt;br /&gt;
+
+&lt;ul&gt;
+&lt;li&gt;No, there is no conflict, just different purposes. The one on the port group will define what interface you will use as uplink for the host. If you use two physical interfaces as uplinks in the Port Group while you have only one virtual interface of the Edge VM connected on it, you loose the purpose to have deterministic uplinks.&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Is this possible to have 2 interfaces active/active for an uplink transport vlan ?&lt;br /&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Yes, the interface selected will be based on the load balancing method.&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Can we have different policies between overlay interface and uplink interfaces ?&lt;br /&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Yes, you need to specify named teaming policy and associate it to the segment vlan of the uplink.&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;What if no named teaming policy is selected on the segment vlan ?&lt;br /&gt;
+
+&lt;ul&gt;
+&lt;li&gt;It uses the default teaming policy of the uplink profile of the node where the segment is deployed.&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Is this possible to have a named teaming policy for overlay?&lt;br /&gt;
+
+&lt;ul&gt;
+&lt;li&gt;No&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Does the uplink profile on the transport node override the one of the transport node profile ? Who take precedence ?&lt;br /&gt;
+
+&lt;ul&gt;
+&lt;li&gt;If you change the transport node profile parameters it will override the node configuration as much as there is no TZ already used or interface already configured, otherwise an error will be thrown. You can override the transport node profile by changing the parameters individually on a node but then you have a warning message because you have mismatches in the node cluster between transport node.&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Uplink overlay of the Edge VM are defined on the same physical link as the Host transport node, can it have different policy ?&lt;br /&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Yes, see the diagram. If you use named teaming policy (NVDS) or port group (vDS7) for the Edge VM interfaces.&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;How to know what vteps goes to what interface ?&lt;br /&gt;
+
+&lt;ul&gt;
+&lt;li&gt;I don&amp;rsquo;t think you can.&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;What is the behavior of a host with a single vtep if the two uplinks are active/active ?
+
+&lt;ul&gt;
+&lt;li&gt;I think it&amp;rsquo;s behave in the point 4.&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;What if we use the same vtep subnets for Edge VM and host ?&lt;br /&gt;
+
+&lt;ul&gt;
+&lt;li&gt;This is only possible starting from &lt;a href=&#34;https://www.virten.net/2020/11/nsx-t-3-1-enhancement-shared-esxi-and-edge-transport-vlan-with-a-single-uplink/&#34;&gt;3.1&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;How many virtual switch and &lt;strong&gt;Transport Zone&lt;/strong&gt; can we have on a TN ?&lt;br /&gt;
+Those numbers can change and are not official. Don&amp;rsquo;t quote me on these.&lt;br /&gt;
+
+&lt;ul&gt;
+&lt;li&gt;TN can have up to 4 N-VDS (hostswitch)&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;N-VDS can only have one TZ Overlay&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Host TN can have multiple TZ Overlay, 1 per N-VDS so 4 in total&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Edge TN can have only one TZ Overlay&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;One N-VDS can have multiple TZ VLAN&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;If we want 4 TZ Overlay it&amp;rsquo;s better to have the TZ vlan on the same NVDS as the TZ Overlay.&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;/details&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;examples&#34;&gt;Examples&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&#34;nsxt-uplink-example.png&#34;&gt; &lt;img src=&#34;nsxt-uplink-example.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Terraform One Step Further</title>
       <link>https://netmemo.github.io/post/terraform-one-step-further/</link>
       <pubDate>Wed, 26 Jan 2022 22:00:26 +0100</pubDate>
@@ -2787,93 +2974,6 @@ resource &amp;quot;nsxt_policy_group&amp;quot; &amp;quot;nbogroups&amp;quot; {
     }
   }
 }
-&lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Create portable Terraform and plugins with Terraform-bundle for Windows</title>
-      <link>https://netmemo.github.io/post/tf-bundle-windows/</link>
-      <pubDate>Wed, 17 Feb 2021 21:32:37 +0100</pubDate>
-      
-      <guid>https://netmemo.github.io/post/tf-bundle-windows/</guid>
-      <description>
-
-&lt;p&gt;The steps below are what I have followed to create a terraform-bundle to use terraform with non default providers on a server that doesn&amp;rsquo;t have access to Internet. You can find the tool explanation in the below link.&lt;br /&gt;
-&lt;a href=&#34;https://github.com/hashicorp/terraform/tree/master/tools/terraform-bundle&#34;&gt;https://github.com/hashicorp/terraform/tree/master/tools/terraform-bundle&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;installation of golang with msi downloaded here&lt;br /&gt;
-&lt;a href=&#34;https://golang.org/doc/install&#34;&gt;https://golang.org/doc/install&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Clone the terraform repository to get the tool&lt;br /&gt;
-&lt;a href=&#34;https://github.com/hashicorp/terraform.git&#34;&gt;https://github.com/hashicorp/terraform.git&lt;/a&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;cd terraform-master
-go install .\tools\terraform-bundle
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;check-the-terraform-version&#34;&gt;Check the terraform version&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code&gt;C:\Users\noyel\Desktop\tfforeach\nsxt&amp;gt;terraform version
-Terraform v0.14.6
-+ provider registry.terraform.io/vmware/nsxt v3.0.1
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;create-a-terraform-bundle-hcl-file&#34;&gt;Create a terraform-bundle.hcl file&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code&gt;terraform {
-  # Version of Terraform to include in the bundle. An exact version number
-  # is required.
-  version = &amp;quot;0.14.6&amp;quot;
-}
-
-# Define which provider plugins are to be included
-providers {
-  # Include the newest &amp;quot;nsxt&amp;quot; provider version in the 1.0 series.
-  nsxt = {
-    source = &amp;quot;vmware/nsxt&amp;quot;
-    versions = [&amp;quot;~&amp;gt; 3.0.0&amp;quot;]
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;create-the-bundle&#34;&gt;Create the bundle&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code&gt;C:\Users\noyel\Desktop\tfforeach\nsxt&amp;gt;terraform-bundle package terraform-bundle.hcl
-Fetching Terraform 0.14.6 core package...
-Local plugin directory &amp;quot;.plugins&amp;quot; found; scanning for provider binaries.
-No &amp;quot;.plugins&amp;quot; directory found, skipping local provider discovery.
-- Finding vmware/nsxt versions matching &amp;quot;~&amp;gt; 3.0.0&amp;quot;...
-- Installing vmware/nsxt v3.0.1...
-Creating terraform_0.14.6-bundle2021021713_windows_amd64.zip ...
-All done!
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Move the zip file to the server you want to use. Unzip the file. For a basic utilization move the terraform.exe and plugins in the directory where your terraform files are.&lt;/p&gt;
-
-&lt;h4 id=&#34;the-provider-tf-file-looks&#34;&gt;The provider.tf file looks&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code&gt;terraform {
-  required_providers {
-    nsxt = {
-      source = &amp;quot;vmware/nsxt&amp;quot;
-      version = &amp;quot;3.0.1&amp;quot;
-    }
-  }
-}
-
-provider &amp;quot;nsxt&amp;quot; {
-   host = &amp;quot;1.2.3.4&amp;quot;
-   username   = &amp;quot;admin&amp;quot;
-   password   = &amp;quot;123&amp;quot;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;When initialize Terraform with the init command, specify the plugins directory.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;C:\Users\bubibi\terraform\terraform init -plugin-dir=C:\Users\bubibi\terraform\plugins
-
-Terraform has been successfuly initialized!
 &lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
