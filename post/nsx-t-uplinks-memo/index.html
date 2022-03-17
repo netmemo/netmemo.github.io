@@ -261,7 +261,7 @@
   <span class="article-categories">
     <i class="fas fa-folder"></i>
     
-    <a href="/categories/nsxt/">NSXT</a>
+    <a href="/categories/nsx-t/">NSX-T</a>
     
   </span>
   
@@ -329,19 +329,19 @@ This post is made from 3 sections, <strong>Diagram</strong> with a more visual a
 <ol>
 <li>Switch port trunk (vlan id of vteps + uplinks)<br /></li>
 <li>Prior to vDS7, physical interfaces are exclusive to NVDS or vDS.<br /></li>
-<li>The association is done when the host is configured for NSXT then the <strong>uplink profile</strong> is associated to the transport node.<br /></li>
+<li>The association is done when the host is configured for NSX-T then the <strong>uplink profile</strong> is associated to the transport node.<br /></li>
 <li>If you want to use the same physical interfaces as the default profile, the uplink name on the named teaming policy has to be identical.<br /></li>
 <li>If you put 2 active interfaces in your named teaming policy you lose the benefit of having deterministic uplink for you Edge/T0 uplinks. If you put active/standby interface here, you can&rsquo;t have active/active interfaces in the default teaming policy.<br /></li>
-<li>This VM interface is attached through vcenter to the NSX Switch or vDS7 port group. This is like the interface of the host connected to the physical switch in the first point.<br /></li>
+<li>This Edge VM interface is attached through vcenter to the NSX-T Switch or vDS7 port group. This is like the interface of the host connected to the physical switch in the first point.<br /></li>
 <li>Uplink to interface mapping is done when the <strong>uplink profile</strong> association to the transport node is done.<br /></li>
 <li>If we add a second standby uplink in the named teaming policy, it&rsquo;s impact the default teaming policy. You will not be able to have the 2 uplinks active at the same time. It&rsquo;s those better to have a single uplink in the named teaming policy if you want to have active/active links in the default teaming policy. Named teaming policy are available only for segment of type vlan. See also point 5.<br /></li>
-<li>In the <strong>Transport Zone</strong>, any <strong>Named Teaming Policy</strong> from any <strong>Uplink Profile</strong> can be selected. On the segment vlan, any named teaming policy associated with the TZ can be chosen. The issue being that if the <strong>Segment Vlan</strong> is then use on a <strong>Transport Node</strong> with an <strong>Uplink Profile</strong> which don&rsquo;t have the <strong>Named Teaming Policy</strong> defined it will not works. NSX-T doesn&rsquo;t see any error. Also you never know if the <strong>Named Teaming Policy</strong> define in an <strong>Uplink Profile</strong> are used.<br /></li>
+<li>In the <strong>Transport Zone</strong>, any <strong>Named Teaming Policy</strong> from any <strong>Uplink Profile</strong> can be selected. On the segment vlan, any <strong>Named Teaming Policy</strong> associated with the TZ can be chosen. The issue being that if the <strong>Segment Vlan</strong> is then use on a <strong>Transport Node</strong> with an <strong>Uplink Profile</strong> which don&rsquo;t have the <strong>Named Teaming Policy</strong> defined it will not works. NSX-T doesn&rsquo;t see any error. Also you never know if the <strong>Named Teaming Policy</strong> defined in an <strong>Uplink Profile</strong> are used.<br /></li>
 <li>Default behavior if we don&rsquo;t want any specific behavior for the uplinks.<br /></li>
 </ol>
 
 <h1 id="component">Component</h1>
 
-<h3 id="location-nsx-3-1">Location (NSX 3.1)</h3>
+<h3 id="location-nsx-t-3-1">Location (NSX-T 3.1)</h3>
 
 <pre><code>System -&gt; Fabric -&gt; Profiles -&gt; Uplink Profile  
    - Transport VLAN  
@@ -383,11 +383,11 @@ Used with Transport Node (Edge and Host)</p>
 
 <ul>
 <li>On the vlan segment<br />
-Only named teaming policy that are associated to the transport zone vlan can be selected<br /></li>
+Only <strong>Named Teaming Policy</strong> that are associated to the <strong>Transport Zone</strong> vlan can be selected<br /></li>
 <li>On the overlay segment<br />
 The teaming policy of the uplink can&rsquo;t be changed. It&rsquo;s inherited from the one applied to the transport node via the <strong>uplink profile</strong><br /></li>
 <li>On the transport node<br />
-The <strong>uplink profile</strong> selected define the default teaming policy that will be applied and the possible named teaming policy for the segment vlan (Edge)<br /></li>
+The <strong>uplink profile</strong> selected define the default teaming policy that will be applied and the possible <strong>Named Teaming Policy</strong> for the segment vlan (Edge)<br /></li>
 </ul>
 
 <p><u><strong>Transport Zone</strong></u></p>
@@ -395,18 +395,18 @@ The <strong>uplink profile</strong> selected define the default teaming policy t
 <ul>
 <li>Used with Transport Node (Edge and Host)<br /></li>
 <li>Allows to tie the segments to the TN.<br />
-The named uplink policy can be used by the segment vlan. if there is nothing that mean it will pick the default policy of the <strong>uplink profile</strong> associated with the TN<br /></li>
-<li>Uplink interfaces of the Edge VM are define in the uplink of the TN according to the <strong>uplink profile</strong> (if in the profile you have dedicated interface for uplinks, you need to create named teaming policy for them with different uplink names).<br /></li>
+The <strong>Named Uplink Policy</strong> is the <strong>Named Teaming Policy</strong> that can be used by a segment vlan tie to the Transport Zone. If there is nothing that mean it will pick the default policy of the <strong>uplink profile</strong> associated with the TN<br /></li>
+<li>Uplink interfaces of the Edge VM are defined in the uplink of the TN according to the <strong>uplink profile</strong> (if in the profile you have dedicated interface for uplinks, you need to create <strong>Named Teaming Policy</strong> for them with different uplink names).<br /></li>
 </ul>
 
 <p><u><strong>Edge Uplinks</strong></u></p>
 
 <ul>
-<li><p>The IP address of the uplink is assigned on the T0 within a <strong>logical/virtual</strong> interface. You can&rsquo;t select the physical interface, you select the edge node and the segment where to assign the IP. You then can have 1 or 2 physical uplinks based on the default teaming policy of the uplink profile of the edge node or the named teaming policy associated on the segment vlan. This policy can have active/active teaming and those the link selected for the outgoing traffic is based on the load balance algorithm of the teaming policy. See also Q&amp;A point 4.</p></li>
+<li><p>The IP address of the uplink is assigned on the T0 within a <strong>logical/virtual</strong> interface. You can&rsquo;t select the physical interface, you select the edge node and the segment where to assign the IP. You then can have 1 or 2 physical uplinks based on the <strong>default teaming policy</strong> of the uplink profile of the edge node or the <strong>named teaming policy</strong> associated on the segment vlan. This policy can have active/active teaming and those the link selected for the outgoing traffic is based on the load balance algorithm of the teaming policy. See also Q&amp;A point 4.</p></li>
 
-<li><p>To have different behavior between the overlay uplinks and the exit uplinks you need to have the exit uplinks behavior configured as named teaming policy in the <strong>uplink profile</strong> that you will associate to the TN.</p></li>
+<li><p>To have different behavior between the overlay uplinks and the exit uplinks you need to have the exit uplinks behavior configured as <strong>Named Teaming Policy</strong> in the <strong>uplink profile</strong> that you will associate to the TN.</p></li>
 
-<li><p>On the physical links you end up having policies for the TN, VM Edge uplink, VM Edge overlay.</p></li>
+<li><p>On the physical links you can end up having policies for the Host overlay (default teaming policy of the <strong>host</strong> uplink profile), Edge VM overlay (default teaming policy of the <strong>edge VM</strong> uplink profile), Edge VM uplink (named teaming policy of the <strong>edge VM</strong> uplink profile).</p></li>
 </ul>
 
 <h1 id="q-a">Q&amp;A</h1>
@@ -415,7 +415,7 @@ The named uplink policy can be used by the segment vlan. if there is nothing tha
 <summary>Click to see the Q&amp;A</summary></p>
 
 <ol>
-<li>Does the overlay inherit the <strong>uplink profile</strong> associated with the TN ?<br />
+<li>Does the vtep of a transport node inherit the <strong>uplink profile</strong> associated with the transport node ?<br />
 
 <ul>
 <li>Yes<br /></li>
@@ -450,17 +450,17 @@ The named uplink policy can be used by the segment vlan. if there is nothing tha
 <ul>
 <li>No<br /></li>
 </ul></li>
-<li>Does the uplink profile on the transport node override the one of the transport node profile ? Who take precedence ?<br />
+<li>Does the <strong>uplink profile</strong> on the transport node override the one of the <strong>Transport Node Profile</strong> ? Who take precedence ?<br />
 
 <ul>
-<li>If you change the transport node profile parameters it will override the node configuration as much as there is no TZ already used or interface already configured, otherwise an error will be thrown. You can override the transport node profile by changing the parameters individually on a node but then you have a warning message because you have mismatches in the node cluster between transport node.<br /></li>
+<li>If you change the <strong>Transport Node Profile</strong> parameters it will override the node configuration as much as there is no Transport Zone already used or interface already configured, otherwise an error will be triggered. You can override the <strong>Transport Node Profile</strong> by changing the parameters individually on a node but then you have a warning message because you have mismatches in the node cluster between transport node.<br /></li>
 </ul></li>
 <li>Uplink overlay of the Edge VM are defined on the same physical link as the Host transport node, can it have different policy ?<br />
 
 <ul>
 <li>Yes, see the diagram. If you use named teaming policy (NVDS) or port group (vDS7) for the Edge VM interfaces.<br /></li>
 </ul></li>
-<li>How to know what vteps goes to what interface ?<br />
+<li>In the case where you have 2 active physical interfaces, how do you know the physical interface used by the vteps IP address ?<br />
 
 <ul>
 <li>I don&rsquo;t think you can.<br /></li>
@@ -468,7 +468,7 @@ The named uplink policy can be used by the segment vlan. if there is nothing tha
 <li>What is the behavior of a host with a single vtep if the two uplinks are active/active ?
 
 <ul>
-<li>I think it&rsquo;s behave in the point 4.<br /></li>
+<li>I think it&rsquo;s behave like in the point 4.<br /></li>
 </ul></li>
 <li>What if we use the same vtep subnets for Edge VM and host ?<br />
 
@@ -501,7 +501,7 @@ Those numbers can change and are not official. Don&rsquo;t quote me on these.<br
 
 <div class="article-tags">
   
-  <a class="badge badge-light" href="/tags/nsxt/">NSXT</a>
+  <a class="badge badge-light" href="/tags/nsx-t/">NSX-T</a>
   
 </div>
 
@@ -515,11 +515,9 @@ Those numbers can change and are not official. Don&rsquo;t quote me on these.<br
       <h3>Related</h3>
       <ul>
         
-        <li><a href="/post/nsxt-tf-firewall/">NSX-T Firewall rules as code with Terraform</a></li>
+        <li><a href="/post/tf-gha-nsxt-cicd/">Github Actions with Terraform Cloud for CI/CD of NSX-T</a></li>
         
-        <li><a href="/post/terraform-refactoring-state-file/">Terraform Refactoring State File</a></li>
-        
-        <li><a href="/post/tf-bundle-windows/">Create portable Terraform and plugins with Terraform-bundle for Windows</a></li>
+        <li><a href="/post/tf-nsxt-nested-for-each/">Terraform nested for_each for NSX-T with dynamic</a></li>
         
       </ul>
     </div>
