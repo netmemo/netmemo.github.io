@@ -13,16 +13,6 @@
     
     
     <item>
-      <title>Hashicorp Sentinel policy - Variable check</title>
-      <link>https://netmemo.github.io/post/sentinel-variable-check/</link>
-      <pubDate>Mon, 18 Apr 2022 18:35:27 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/post/sentinel-variable-check/</guid>
-      <description>This blog is a minimalist example of a Hashicorp Sentinel policy to check the content of a string variable. I&amp;rsquo;ve struggled a bit to write my first policy and had difficulties to understand all the needed elements.
-Hashicorps sentinel policy are policies as code that will allow you to control what users are pushing through Terraform Enterprise/Cloud. This is a paid feature, Open Policy Agent is the open source alternative.</description>
-    </item>
-    
-    <item>
       <title>NSX-T Uplinks Memo</title>
       <link>https://netmemo.github.io/post/nsx-t-uplinks-memo/</link>
       <pubDate>Tue, 15 Mar 2022 19:17:50 +0100</pubDate>
