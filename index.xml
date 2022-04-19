@@ -11,6 +11,295 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Hashicorp Sentinel policy - Variable check</title>
+      <link>https://netmemo.github.io/post/sentinel-variable-check/</link>
+      <pubDate>Thu, 07 Apr 2022 18:35:27 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/sentinel-variable-check/</guid>
+      <description>
+
+&lt;p&gt;This blog is a minimalist example of a Hashicorp Sentinel policy to check the content of a string variable.
+I&amp;rsquo;ve struggled a bit to write my first policy and had difficulties to understand all the needed elements.&lt;/p&gt;
+
+&lt;p&gt;Hashicorps sentinel policy are policies as code that will allow you to control what users are pushing through Terraform Enterprise/Cloud. This is a paid feature, Open Policy Agent is the open source alternative.&lt;/p&gt;
+
+&lt;p&gt;The use case in this example is to check a variable in a Terraform script that we don&amp;rsquo;t want the user to be able to modify.
+Let say for instance that a variable named prefix is used to prefix all Terraform resources of an environment and we don&amp;rsquo;t want the user to be able to change it. The aim of this policy is to ensure that there is a variable &amp;ldquo;prefix&amp;rdquo; with the value &amp;ldquo;ABC&amp;rdquo; in the Terraform script. This is the equivalent of enforcing a variable to be in read only mode.&lt;/p&gt;
+
+&lt;p&gt;This article is made of 3 sections:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#the-policy&#34;&gt;The policy&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#the-test-environment&#34;&gt;The test environment&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#the-production-environment&#34;&gt;The production environment&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;the-policy&#34;&gt;THE POLICY&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code&gt;import &amp;quot;tfplan/v2&amp;quot; as tfplan
+
+#Get variable prefix
+variablesPrefix = filter tfplan.variables as _, v {
+    v.name is &amp;quot;prefix&amp;quot; and v.value is &amp;quot;ABC&amp;quot;
+}
+
+#This policy will be true if the variable &amp;quot;prefix&amp;quot; exist and its value is ABC
+main = rule { length(variablesPrefix) is not 0 }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;The import &lt;a href=&#34;https://www.terraform.io/cloud-docs/sentinel/import/tfplan-v2&#34;&gt;tfplan/v2&lt;/a&gt; allow to get access to all the information of a plan.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Then the policy is using the &lt;a href=&#34;https://docs.hashicorp.com/sentinel/language/spec#quantifier-expressions-any-all-filter-map&#34;&gt;Quantifier&lt;/a&gt; Expression &lt;strong&gt;filter&lt;/strong&gt; to get all variables named &lt;strong&gt;prefix&lt;/strong&gt; with a value equal to &lt;strong&gt;ABC&lt;/strong&gt;.&lt;br /&gt;
+Below you have the output of the variablesPrefix after the filer has been applied and found the &lt;strong&gt;prefix&lt;/strong&gt; variable with the value &lt;strong&gt;ABC&lt;/strong&gt; :&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;Print messages:
+
+{&amp;quot;prefix&amp;quot;: {&amp;quot;name&amp;quot;: &amp;quot;prefix&amp;quot;, &amp;quot;value&amp;quot;: &amp;quot;ABC&amp;quot;}}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The last line is the main rule that must be true to pass the &lt;a href=&#34;https://docs.hashicorp.com/sentinel/concepts/enforcement-levels&#34;&gt;enforcement_level&lt;/a&gt;. According to the enforcement level, you will be able to apply the configuration. In this case, if the length of the result is 0 that mean there is no &lt;strong&gt;prefix&lt;/strong&gt; variable with the value &lt;strong&gt;ABC&lt;/strong&gt; so the rule is not respected and the policy will fail.&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;the-test-environment&#34;&gt;THE TEST ENVIRONMENT&lt;/h1&gt;
+
+&lt;p&gt;When we develop the policy it will be very difficult to push a configuration to see if the policy behave as we want. Hashicorp provide a test environment to ease the development of the policies.&lt;/p&gt;
+
+&lt;h3 id=&#34;test-environment-setup-steps&#34;&gt;Test environment setup steps&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://learn.hashicorp.com/tutorials/terraform/sentinel-install?in=terraform/policy&#34;&gt;Install&lt;/a&gt; sentinel policy CLI&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Download the mock file that will feed our test environment :
+&lt;details&gt;
+&lt;summary&gt;Click on &amp;ldquo;Download Sentinel mocks&amp;rdquo;&lt;/summary&gt;
+&lt;a href=&#34;downloadSentinelPolicy.png&#34;&gt; &lt;img src=&#34;downloadSentinelPolicy.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;
+&lt;/details&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Unzip the file.&lt;br /&gt;
+We will have all the possible environment of a Terraform Enterprise/Cloud mocked in files. In our case, as we will only use the tfplan/v2, the only file that is relevent is &lt;strong&gt;mock-tfplan-v2.sentinel&lt;/strong&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Create test scenario.&lt;br /&gt;
+The folder structure MUST be /test/&amp;lt;policy&amp;gt;/*.hcl.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;test is the parent directory of the tests.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&amp;lt;policy&amp;gt; must match the tested policy name.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;.hcl is the test scenario file.&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Move the mocked data into the directory after the test file structure has been created. In our case we move the &lt;strong&gt;mock-tfplan-v2.sentinel&lt;/strong&gt; file that we had unziped previously. The final directory and file structure should be like below.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;.
+├── first_pol.sentinel
+└── test
+    └── first_pol
+        ├── mock-tfplan-v2.sentinel
+        └── mypasstest.hcl
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;test-file-scenario&#34;&gt;Test file scenario&lt;/h3&gt;
+
+&lt;p&gt;In the hcl test file, you will have 2 blocks.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The mock block that refer to the file that cater the data for the test scenario.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;the test block that will represent the conditions to pass the test.&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In our case it will be&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mock &amp;quot;tfplan/v2&amp;quot; {
+  module {
+    source = &amp;quot;mock-tfplan-v2.sentinel&amp;quot;
+  }
+}
+
+test {
+    rules = {
+        main = true
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We can then issue the command &lt;strong&gt;sentinel test&lt;/strong&gt; to test our policy&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sentinel test
+PASS - first_pol.sentinel
+  PASS - test/first_pol/mypasstest.hcl
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;fail-test-scenario&#34;&gt;Fail test scenario&lt;/h3&gt;
+
+&lt;p&gt;If we want to go a step further, in software world it&amp;rsquo;s a common practice to write failed test case scenario. It ensure your software is handling failure and that there are no regression when you iterate your code.&lt;/p&gt;
+
+&lt;p&gt;In such case, you also need to create a fail test scenario file such /test/&amp;lt;policy&amp;gt;/myfailtest.hcl with the failing condition and the mocked data with the data that will ensure the test will fail.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;What can cause confusion is that this test case should PASS if your test FAIL because you are expecting it to fail.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The test plan will look like as below with the main rule equal to &lt;strong&gt;false&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mock &amp;quot;tfplan/v2&amp;quot; {
+  module {
+    source = &amp;quot;mock-tfplan-v2-fail.sentinel&amp;quot;
+  }
+}
+
+test {
+    rules = {
+        main = false
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We then need to modify the mocked data to fail the policy and so PASS the test. For our example we change the value from ABC to DEF.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;variables = {
+	&amp;quot;prefix&amp;quot;: {
+		&amp;quot;name&amp;quot;:  &amp;quot;prefix&amp;quot;,
+		&amp;quot;value&amp;quot;: &amp;quot;DEF&amp;quot;,
+	},
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The file structure will look like below.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;.
+├── first_pol.sentinel
+└── test
+    └── first_pol
+        ├── mock-tfplan-v2-fail.sentinel
+        ├── mock-tfplan-v2.sentinel
+        ├── myfailtest.hcl
+        └── mypasstest.hcl
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Finaly we can test our policy again.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sentinel test
+PASS - first_pol.sentinel
+  PASS - test/first_pol/myfailtest.hcl
+  PASS - test/first_pol/mypasstest.hcl
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;the-production-environment&#34;&gt;THE PRODUCTION ENVIRONMENT&lt;/h1&gt;
+
+&lt;p&gt;When your policy is ready, you then need to deploy it into production. you can write a policy set that you will store to a VCS (version control system) or you can add the policy individually in the GUI and attach it to the a policy set that you would have created on the GUI.&lt;/p&gt;
+
+&lt;h3 id=&#34;vcs-policy-set&#34;&gt;VCS Policy set&lt;/h3&gt;
+
+&lt;p&gt;For the VCS policy set, once you have created the policy, you then need to create a repository on a VCS. In this repository you will have 2 kind of files. The policies with the &lt;strong&gt;.sentinel&lt;/strong&gt; extension and the configuration file &lt;strong&gt;sentinel.hcl&lt;/strong&gt;.
+In the .hcl you only need to specify the source file that will define the policy and the &lt;a href=&#34;https://docs.hashicorp.com/sentinel/concepts/enforcement-levels&#34;&gt;enforcement_level&lt;/a&gt;. As hard-mandatory is the default enforcement level we can even omit it.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;policy &amp;quot;first_pol&amp;quot; {
+  source = &amp;quot;./first_pol.sentinel&amp;quot;
+  enforcement_level = &amp;quot;hard-mandatory&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The repository will look like :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;.
+├── first_pol.sentinel
+└── sentinel.hcl
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;gui-policy-set-and-policy&#34;&gt;GUI policy set and policy&lt;/h3&gt;
+
+&lt;p&gt;If you don&amp;rsquo;t want to use a VCS, you need to create the policy set and the policy through the GUI. Follow the below steps.&lt;/p&gt;
+
+&lt;p&gt;&lt;details&gt;
+&lt;summary&gt;1. Create the policy set&lt;/summary&gt;
+Create the policy set and attach it the the right workspace, in our case netmemo-sentinel&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;connect-pol-set.png&#34;&gt; &lt;img src=&#34;connect-pol-set.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;
+&lt;a href=&#34;connect-pol-set-2.png&#34;&gt; &lt;img src=&#34;connect-pol-set-2.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;
+&lt;/details&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;details&gt;
+&lt;summary&gt;2. Create the policy&lt;/summary&gt;
+Create the policy and attach it the the right policy set, in our case netmemo-policy-set
+&lt;a href=&#34;create-new-policy-2.png&#34;&gt; &lt;img src=&#34;create-new-policy-2.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;
+&lt;/details&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;example&#34;&gt;Example&lt;/h3&gt;
+
+&lt;p&gt;Once the policy is ready, you can plan the Terraform configuration.
+If the policy pass you should have the below output&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;snip&amp;gt;
+------------------------------------------------------------------------
+
+Organization policy check:
+
+================ Results for policy set: &amp;lt;empty policy set name&amp;gt; ===============
+
+Sentinel Result: true
+
+This result means that all Sentinel policies passed and the protected
+behavior is allowed.
+
+1 policies evaluated.
+
+## Policy 1: stringCheck (hard-mandatory)
+
+Result: true
+
+./stringCheck.sentinel:9:1 - Rule &amp;quot;main&amp;quot;
+  Description:
+    This policy will be true if the variable &amp;quot;prefix&amp;quot; exist and its
+    value is ABC
+
+  Value:
+    true
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If the policy fail you should have the below output&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;snip&amp;gt;
+------------------------------------------------------------------------
+
+Organization policy check:
+
+================ Results for policy set: &amp;lt;empty policy set name&amp;gt; ===============
+
+Sentinel Result: false
+
+This result means that one or more Sentinel policies failed. More than likely,
+this was due to the discovery of violations by the main rule and other
+sub-rules. Please see the details of the policies executed below to find the
+violation(s), which is usually indicated by a rule with a false boolean value,
+or non-zero collection data.
+
+1 policies evaluated.
+
+## Policy 1: stringCheck (hard-mandatory)
+
+Result: false
+
+./stringCheck.sentinel:9:1 - Rule &amp;quot;main&amp;quot;
+  Description:
+    This policy will be true if the variable &amp;quot;prefix&amp;quot; exist and its
+    value is ABC
+
+  Value:
+    false
+
+
+╷
+│ Error: Organization policy check hard failed.
+│ 
+│ 
+╵
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
       <title>NSX-T Uplinks Memo</title>
       <link>https://netmemo.github.io/post/nsx-t-uplinks-memo/</link>
       <pubDate>Tue, 15 Mar 2022 19:17:50 +0100</pubDate>
@@ -2934,47 +3223,6 @@ There should not be any effect on the FEX operation&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;Spread congested links betweek different ASICs.&lt;br /&gt;&lt;/li&gt;
 &lt;li&gt;Implement policing of the traffic.&lt;br /&gt;&lt;/li&gt;
 &lt;/ol&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Terraform nested for_each for NSX-T with dynamic</title>
-      <link>https://netmemo.github.io/post/tf-nsxt-nested-for-each/</link>
-      <pubDate>Fri, 19 Feb 2021 22:06:50 +0100</pubDate>
-      
-      <guid>https://netmemo.github.io/post/tf-nsxt-nested-for-each/</guid>
-      <description>&lt;p&gt;The post below shows how to create security policy groups for NSX-T with Terraform nested for_each loop and dynamic.&lt;br /&gt;
-The variables are made from one map of list. Each list represents one group composed of tags.&lt;br /&gt;
-&lt;a href=&#34;https://www.hashicorp.com/blog/hashicorp-terraform-0-12-preview-for-and-for-each&#34;&gt;https://www.hashicorp.com/blog/hashicorp-terraform-0-12-preview-for-and-for-each&lt;/a&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;variable &amp;quot;mapgroups&amp;quot; {
-  type		= map
-  default	= {
-    NBO			= [&amp;quot;NBO&amp;quot;]
-    NBO-PROD	= [&amp;quot;NBO&amp;quot;,&amp;quot;PROD&amp;quot;]
-  }
-}
-
-
-resource &amp;quot;nsxt_policy_group&amp;quot; &amp;quot;nbogroups&amp;quot; {
-  for_each		= var.mapgroups
-
-  display_name	= each.key
-  criteria {
-
-    dynamic &amp;quot;condition&amp;quot; {
-      for_each = each.value
-
-      content {
-        key			= &amp;quot;Tag&amp;quot;
-        member_type	= &amp;quot;VirtualMachine&amp;quot;
-        operator	= &amp;quot;EQUALS&amp;quot;
-        value		= condition.value
-      }
-    }
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     

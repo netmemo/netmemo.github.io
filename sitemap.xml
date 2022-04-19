@@ -4,6 +4,14 @@
     
     <url>
     
+      <loc>https://netmemo.github.io/post/sentinel-variable-check/</loc>
+      <lastmod>2022-04-07T18:35:27+02:00</lastmod>
+    </url>
+    
+  
+    
+    <url>
+    
       <loc>https://netmemo.github.io/post/nsx-t-uplinks-memo/</loc>
       <lastmod>2022-03-15T19:17:50+01:00</lastmod>
     </url>
@@ -624,6 +632,15 @@
     
     <url>
     
+      <loc>https://netmemo.github.io/categories/policyascode/</loc>
+      <lastmod>2022-04-07T18:35:27+02:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
       <loc>https://netmemo.github.io/publication_types/</loc>
       <priority>0</priority>
     </url>
@@ -688,6 +705,24 @@
     
       <loc>https://netmemo.github.io/tags/segment-routing/</loc>
       <lastmod>2020-11-24T18:12:05+01:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/tags/sentinel/</loc>
+      <lastmod>2022-04-07T18:35:27+02:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/categories/sentinel/</loc>
+      <lastmod>2022-04-07T18:35:27+02:00</lastmod>
       <priority>0</priority>
     </url>
     
