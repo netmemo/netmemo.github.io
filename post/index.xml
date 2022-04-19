@@ -15,7 +15,7 @@
     <item>
       <title>Hashicorp Sentinel policy - Variable check</title>
       <link>https://netmemo.github.io/post/sentinel-variable-check/</link>
-      <pubDate>Thu, 07 Apr 2022 18:35:27 +0200</pubDate>
+      <pubDate>Mon, 18 Apr 2022 18:35:27 +0200</pubDate>
       
       <guid>https://netmemo.github.io/post/sentinel-variable-check/</guid>
       <description>This blog is a minimalist example of a Hashicorp Sentinel policy to check the content of a string variable. I&amp;rsquo;ve struggled a bit to write my first policy and had difficulties to understand all the needed elements.
