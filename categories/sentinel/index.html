@@ -105,7 +105,7 @@
   <meta property="og:image" content="https://netmemo.github.io/img/icon-192.png">
   <meta property="og:locale" content="en-us">
   
-  <meta property="og:updated_time" content="2022-04-18T18:35:27&#43;02:00">
+  <meta property="og:updated_time" content="2022-04-19T09:08:48&#43;02:00">
   
 
   
@@ -220,11 +220,33 @@
   
   
   <div>
-    <h2><a href="/post/sentinel-variable-check/">Hashicorp Sentinel policy - Variable check</a></h2>
+    <h2><a href="/post/sentinel-variable-check/">How to check a variable in a Hashicorp Sentinel policy</a></h2>
     <div class="article-style">
       
-      This blog is a minimalist example of a Hashicorp Sentinel policy to check the content of a string variable. I&rsquo;ve struggled a bit to write my first policy and had difficulties to understand all the needed elements.
+      This blog is a minimalist example of a Hashicorp Sentinel policy to check the content of a string variable. I&rsquo;ve struggled a bit to write my first policy and had difficulties to understand all the needed elements. The Nico Vibert&rsquo;s blog has helped a lot.
 Hashicorps sentinel policy are policies as code that will allow you to control what users are pushing through Terraform Enterprise/Cloud. This is a paid feature, Open Policy Agent is the open source alternative.
+      
+    </div>
+  </div>
+  
+  <div>
+    <h2><a href="/post/hashicorp-sentinel-prod/">How to publish a Hashicorp Sentinel</a></h2>
+    <div class="article-style">
+      
+      In this third and last post of the serie, I will describe how to move the Sentinel policy into the production environment.
+This serie is made of 3 posts:
+ The policy The test environment The production environment  THE PRODUCTION ENVIRONMENT When your policy is ready, you then need to deploy it into production. you can write a policy set that you will store to a VCS (version control system) or you can add the policy individually in the GUI and attach it to the a policy set that you would have created on the GUI.
+      
+    </div>
+  </div>
+  
+  <div>
+    <h2><a href="/post/hashicorp-sentinel-test/">How to test a Hashicorp Sentinel policy</a></h2>
+    <div class="article-style">
+      
+      In this second post of the serie, I will describe the steps I&rsquo;ve done to setup the test environment to test my Sentinel policy.
+This serie is made of 3 posts:
+ The policy The test environment The production environment  THE TEST ENVIRONMENT When we develop the policy it will be very difficult to push a configuration to see if the policy behave as we want. Hashicorp provide a test environment to ease the development of the policies.
       
     </div>
   </div>

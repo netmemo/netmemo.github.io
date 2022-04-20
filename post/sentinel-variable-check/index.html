@@ -15,7 +15,7 @@
   
     
   
-  <meta name="description" content="This blog is a minimalist example of a Hashicorp Sentinel policy to check the content of a string variable. I&rsquo;ve struggled a bit to write my first policy and had difficulties to understand all the needed elements.
+  <meta name="description" content="This blog is a minimalist example of a Hashicorp Sentinel policy to check the content of a string variable. I&rsquo;ve struggled a bit to write my first policy and had difficulties to understand all the needed elements. The Nico Vibert&rsquo;s blog has helped a lot.
 Hashicorps sentinel policy are policies as code that will allow you to control what users are pushing through Terraform Enterprise/Cloud. This is a paid feature, Open Policy Agent is the open source alternative.">
 
   
@@ -96,8 +96,8 @@ Hashicorps sentinel policy are policies as code that will allow you to control w
   
   <meta property="og:site_name" content="netmemo.github.io">
   <meta property="og:url" content="https://netmemo.github.io/post/sentinel-variable-check/">
-  <meta property="og:title" content="Hashicorp Sentinel policy - Variable check | netmemo.github.io">
-  <meta property="og:description" content="This blog is a minimalist example of a Hashicorp Sentinel policy to check the content of a string variable. I&rsquo;ve struggled a bit to write my first policy and had difficulties to understand all the needed elements.
+  <meta property="og:title" content="How to check a variable in a Hashicorp Sentinel policy | netmemo.github.io">
+  <meta property="og:description" content="This blog is a minimalist example of a Hashicorp Sentinel policy to check the content of a string variable. I&rsquo;ve struggled a bit to write my first policy and had difficulties to understand all the needed elements. The Nico Vibert&rsquo;s blog has helped a lot.
 Hashicorps sentinel policy are policies as code that will allow you to control what users are pushing through Terraform Enterprise/Cloud. This is a paid feature, Open Policy Agent is the open source alternative.">
   
   
@@ -105,16 +105,16 @@ Hashicorps sentinel policy are policies as code that will allow you to control w
   <meta property="og:image" content="https://netmemo.github.io/img/icon-192.png">
   <meta property="og:locale" content="en-us">
   
-  <meta property="article:published_time" content="2022-04-18T18:35:27&#43;02:00">
+  <meta property="article:published_time" content="2022-04-19T09:08:48&#43;02:00">
   
-  <meta property="article:modified_time" content="2022-04-18T18:35:27&#43;02:00">
-  
-
+  <meta property="article:modified_time" content="2022-04-19T09:08:48&#43;02:00">
   
 
   
 
-  <title>Hashicorp Sentinel policy - Variable check | netmemo.github.io</title>
+  
+
+  <title>How to check a variable in a Hashicorp Sentinel policy | netmemo.github.io</title>
 
 </head>
 <body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" class="dark">
@@ -217,7 +217,7 @@ Hashicorps sentinel policy are policies as code that will allow you to control w
 
 
   <div class="article-container">
-    <h1 itemprop="name">Hashicorp Sentinel policy - Variable check</h1>
+    <h1 itemprop="name">How to check a variable in a Hashicorp Sentinel policy</h1>
 
     
 
@@ -237,9 +237,9 @@ Hashicorps sentinel policy are policies as code that will allow you to control w
 
   <span class="article-date">
     
-    <meta content="2022-04-18 18:35:27 &#43;0200 CEST" itemprop="datePublished">
-    <time datetime="2022-04-18 18:35:27 &#43;0200 CEST" itemprop="dateModified">
-      Apr 18, 2022
+    <meta content="2022-04-19 09:08:48 &#43;0200 CEST" itemprop="datePublished">
+    <time datetime="2022-04-19 09:08:48 &#43;0200 CEST" itemprop="dateModified">
+      Apr 19, 2022
     </time>
   </span>
   <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
@@ -249,7 +249,7 @@ Hashicorps sentinel policy are policies as code that will allow you to control w
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    6 min read
+    2 min read
   </span>
   
 
@@ -277,7 +277,7 @@ Hashicorps sentinel policy are policies as code that will allow you to control w
   <ul class="share">
     <li>
       <a class="twitter"
-         href="https://twitter.com/intent/tweet?text=Hashicorp%20Sentinel%20policy%20-%20Variable%20check&amp;url=https%3a%2f%2fnetmemo.github.io%2fpost%2fsentinel-variable-check%2f"
+         href="https://twitter.com/intent/tweet?text=How%20to%20check%20a%20variable%20in%20a%20Hashicorp%20Sentinel%20policy&amp;url=https%3a%2f%2fnetmemo.github.io%2fpost%2fsentinel-variable-check%2f"
          target="_blank" rel="noopener">
         <i class="fab fa-twitter"></i>
       </a>
@@ -291,21 +291,21 @@ Hashicorps sentinel policy are policies as code that will allow you to control w
     </li>
     <li>
       <a class="linkedin"
-         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fnetmemo.github.io%2fpost%2fsentinel-variable-check%2f&amp;title=Hashicorp%20Sentinel%20policy%20-%20Variable%20check"
+         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fnetmemo.github.io%2fpost%2fsentinel-variable-check%2f&amp;title=How%20to%20check%20a%20variable%20in%20a%20Hashicorp%20Sentinel%20policy"
          target="_blank" rel="noopener">
         <i class="fab fa-linkedin-in"></i>
       </a>
     </li>
     <li>
       <a class="weibo"
-         href="http://service.weibo.com/share/share.php?url=https%3a%2f%2fnetmemo.github.io%2fpost%2fsentinel-variable-check%2f&amp;title=Hashicorp%20Sentinel%20policy%20-%20Variable%20check"
+         href="http://service.weibo.com/share/share.php?url=https%3a%2f%2fnetmemo.github.io%2fpost%2fsentinel-variable-check%2f&amp;title=How%20to%20check%20a%20variable%20in%20a%20Hashicorp%20Sentinel%20policy"
          target="_blank" rel="noopener">
         <i class="fab fa-weibo"></i>
       </a>
     </li>
     <li>
       <a class="email"
-         href="mailto:?subject=Hashicorp%20Sentinel%20policy%20-%20Variable%20check&amp;body=https%3a%2f%2fnetmemo.github.io%2fpost%2fsentinel-variable-check%2f">
+         href="mailto:?subject=How%20to%20check%20a%20variable%20in%20a%20Hashicorp%20Sentinel%20policy&amp;body=https%3a%2f%2fnetmemo.github.io%2fpost%2fsentinel-variable-check%2f">
         <i class="fas fa-envelope"></i>
       </a>
     </li>
@@ -322,19 +322,19 @@ Hashicorps sentinel policy are policies as code that will allow you to control w
       
 
 <p>This blog is a minimalist example of a Hashicorp Sentinel policy to check the content of a string variable.
-I&rsquo;ve struggled a bit to write my first policy and had difficulties to understand all the needed elements.</p>
+I&rsquo;ve struggled a bit to write my first policy and had difficulties to understand all the needed elements. The <a href="https://nicovibert.com/2020/09/21/hashicorp-sentinel-policy-as-code/">Nico Vibert</a>&rsquo;s blog has helped a lot.</p>
 
 <p>Hashicorps sentinel policy are policies as code that will allow you to control what users are pushing through Terraform Enterprise/Cloud. This is a paid feature, Open Policy Agent is the open source alternative.</p>
 
 <p>The use case in this example is to check a variable in a Terraform script that we don&rsquo;t want the user to be able to modify.
 Let say for instance that a variable named prefix is used to prefix all Terraform resources of an environment and we don&rsquo;t want the user to be able to change it. The aim of this policy is to ensure that there is a variable &ldquo;prefix&rdquo; with the value &ldquo;ABC&rdquo; in the Terraform script. This is the equivalent of enforcing a variable to be in read only mode.</p>
 
-<p>This article is made of 3 sections:</p>
+<p>As this is my first blog on Hashicorp Sentinel policy, I created a serie of 3 posts to also explain how I tested and pushed to production the policy :</p>
 
 <ul>
-<li><a href="#the-policy">The policy</a></li>
-<li><a href="#the-test-environment">The test environment</a></li>
-<li><a href="#the-production-environment">The production environment</a></li>
+<li><a href="../sentinel-variable-check/">The policy</a></li>
+<li><a href="../hashicorp-sentinel-test/">The test environment</a></li>
+<li><a href="../hashicorp-sentinel-prod/">The production environment</a></li>
 </ul>
 
 <h1 id="the-policy">THE POLICY</h1>
@@ -366,240 +366,6 @@ Below you have the output of the variablesPrefix after the filer has been applie
 <li>The last line is the main rule that must be true to pass the <a href="https://docs.hashicorp.com/sentinel/concepts/enforcement-levels">enforcement_level</a>. According to the enforcement level, you will be able to apply the configuration. In this case, if the length of the result is 0 that mean there is no <strong>prefix</strong> variable with the value <strong>ABC</strong> so the rule is not respected and the policy will fail.<br /></li>
 </ul>
 
-<h1 id="the-test-environment">THE TEST ENVIRONMENT</h1>
-
-<p>When we develop the policy it will be very difficult to push a configuration to see if the policy behave as we want. Hashicorp provide a test environment to ease the development of the policies.</p>
-
-<h3 id="test-environment-setup-steps">Test environment setup steps</h3>
-
-<ul>
-<li><p><a href="https://learn.hashicorp.com/tutorials/terraform/sentinel-install?in=terraform/policy">Install</a> sentinel policy CLI</p></li>
-
-<li><p>Download the mock file that will feed our test environment :
-<details>
-<summary>Click on &ldquo;Download Sentinel mocks&rdquo;</summary>
-<a href="downloadSentinelPolicy.png"> <img src="downloadSentinelPolicy.png" alt="" /> </a>
-</details></p></li>
-
-<li><p>Unzip the file.<br />
-We will have all the possible environment of a Terraform Enterprise/Cloud mocked in files. In our case, as we will only use the tfplan/v2, the only file that is relevent is <strong>mock-tfplan-v2.sentinel</strong></p></li>
-
-<li><p>Create test scenario.<br />
-The folder structure MUST be /test/&lt;policy&gt;/*.hcl.</p>
-
-<ul>
-<li>test is the parent directory of the tests.<br /></li>
-<li>&lt;policy&gt; must match the tested policy name.<br /></li>
-<li>.hcl is the test scenario file.<br /></li>
-</ul></li>
-
-<li><p>Move the mocked data into the directory after the test file structure has been created. In our case we move the <strong>mock-tfplan-v2.sentinel</strong> file that we had unziped previously. The final directory and file structure should be like below.</p></li>
-</ul>
-
-<pre><code>.
-├── first_pol.sentinel
-└── test
-    └── first_pol
-        ├── mock-tfplan-v2.sentinel
-        └── mypasstest.hcl
-</code></pre>
-
-<h3 id="test-file-scenario">Test file scenario</h3>
-
-<p>In the hcl test file, you will have 2 blocks.</p>
-
-<ul>
-<li>The mock block that refer to the file that cater the data for the test scenario.<br /></li>
-<li>the test block that will represent the conditions to pass the test.<br /></li>
-</ul>
-
-<p>In our case it will be</p>
-
-<pre><code>mock &quot;tfplan/v2&quot; {
-  module {
-    source = &quot;mock-tfplan-v2.sentinel&quot;
-  }
-}
-
-test {
-    rules = {
-        main = true
-    }
-}
-</code></pre>
-
-<p>We can then issue the command <strong>sentinel test</strong> to test our policy</p>
-
-<pre><code>$ sentinel test
-PASS - first_pol.sentinel
-  PASS - test/first_pol/mypasstest.hcl
-</code></pre>
-
-<h3 id="fail-test-scenario">Fail test scenario</h3>
-
-<p>If we want to go a step further, in software world it&rsquo;s a common practice to write failed test case scenario. It ensure your software is handling failure and that there are no regression when you iterate your code.</p>
-
-<p>In such case, you also need to create a fail test scenario file such /test/&lt;policy&gt;/myfailtest.hcl with the failing condition and the mocked data with the data that will ensure the test will fail.</p>
-
-<p><strong>What can cause confusion is that this test case should PASS if your test FAIL because you are expecting it to fail.</strong></p>
-
-<p>The test plan will look like as below with the main rule equal to <strong>false</strong></p>
-
-<pre><code>mock &quot;tfplan/v2&quot; {
-  module {
-    source = &quot;mock-tfplan-v2-fail.sentinel&quot;
-  }
-}
-
-test {
-    rules = {
-        main = false
-    }
-}
-</code></pre>
-
-<p>We then need to modify the mocked data to fail the policy and so PASS the test. For our example we change the value from ABC to DEF.</p>
-
-<pre><code>variables = {
-	&quot;prefix&quot;: {
-		&quot;name&quot;:  &quot;prefix&quot;,
-		&quot;value&quot;: &quot;DEF&quot;,
-	},
-}
-</code></pre>
-
-<p>The file structure will look like below.</p>
-
-<pre><code>.
-├── first_pol.sentinel
-└── test
-    └── first_pol
-        ├── mock-tfplan-v2-fail.sentinel
-        ├── mock-tfplan-v2.sentinel
-        ├── myfailtest.hcl
-        └── mypasstest.hcl
-</code></pre>
-
-<p>Finaly we can test our policy again.</p>
-
-<pre><code>$ sentinel test
-PASS - first_pol.sentinel
-  PASS - test/first_pol/myfailtest.hcl
-  PASS - test/first_pol/mypasstest.hcl
-</code></pre>
-
-<h1 id="the-production-environment">THE PRODUCTION ENVIRONMENT</h1>
-
-<p>When your policy is ready, you then need to deploy it into production. you can write a policy set that you will store to a VCS (version control system) or you can add the policy individually in the GUI and attach it to the a policy set that you would have created on the GUI.</p>
-
-<h3 id="vcs-policy-set">VCS Policy set</h3>
-
-<p>For the VCS policy set, once you have created the policy, you then need to create a repository on a VCS. In this repository you will have 2 kind of files. The policies with the <strong>.sentinel</strong> extension and the configuration file <strong>sentinel.hcl</strong>.
-In the .hcl you only need to specify the source file that will define the policy and the <a href="https://docs.hashicorp.com/sentinel/concepts/enforcement-levels">enforcement_level</a>. As hard-mandatory is the default enforcement level we can even omit it.</p>
-
-<pre><code>policy &quot;first_pol&quot; {
-  source = &quot;./first_pol.sentinel&quot;
-  enforcement_level = &quot;hard-mandatory&quot;
-}
-</code></pre>
-
-<p>The repository will look like :</p>
-
-<pre><code>.
-├── first_pol.sentinel
-└── sentinel.hcl
-</code></pre>
-
-<h3 id="gui-policy-set-and-policy">GUI policy set and policy</h3>
-
-<p>If you don&rsquo;t want to use a VCS, you need to create the policy set and the policy through the GUI. Follow the below steps.</p>
-
-<p><details>
-<summary>1. Create the policy set</summary>
-Create the policy set and attach it the the right workspace, in our case netmemo-sentinel</p>
-
-<p><a href="connect-pol-set.png"> <img src="connect-pol-set.png" alt="" /> </a>
-<a href="connect-pol-set-2.png"> <img src="connect-pol-set-2.png" alt="" /> </a>
-</details></p>
-
-<p><details>
-<summary>2. Create the policy</summary>
-Create the policy and attach it the the right policy set, in our case netmemo-policy-set
-<a href="create-new-policy-2.png"> <img src="create-new-policy-2.png" alt="" /> </a>
-</details></p>
-
-<h3 id="example">Example</h3>
-
-<p>Once the policy is ready, you can plan the Terraform configuration.
-If the policy pass you should have the below output</p>
-
-<pre><code>&lt;snip&gt;
-------------------------------------------------------------------------
-
-Organization policy check:
-
-================ Results for policy set: &lt;empty policy set name&gt; ===============
-
-Sentinel Result: true
-
-This result means that all Sentinel policies passed and the protected
-behavior is allowed.
-
-1 policies evaluated.
-
-## Policy 1: stringCheck (hard-mandatory)
-
-Result: true
-
-./stringCheck.sentinel:9:1 - Rule &quot;main&quot;
-  Description:
-    This policy will be true if the variable &quot;prefix&quot; exist and its
-    value is ABC
-
-  Value:
-    true
-
-</code></pre>
-
-<p>If the policy fail you should have the below output</p>
-
-<pre><code>&lt;snip&gt;
-------------------------------------------------------------------------
-
-Organization policy check:
-
-================ Results for policy set: &lt;empty policy set name&gt; ===============
-
-Sentinel Result: false
-
-This result means that one or more Sentinel policies failed. More than likely,
-this was due to the discovery of violations by the main rule and other
-sub-rules. Please see the details of the policies executed below to find the
-violation(s), which is usually indicated by a rule with a false boolean value,
-or non-zero collection data.
-
-1 policies evaluated.
-
-## Policy 1: stringCheck (hard-mandatory)
-
-Result: false
-
-./stringCheck.sentinel:9:1 - Rule &quot;main&quot;
-  Description:
-    This policy will be true if the variable &quot;prefix&quot; exist and its
-    value is ABC
-
-  Value:
-    false
-
-
-╷
-│ Error: Organization policy check hard failed.
-│ 
-│ 
-╵
-</code></pre>
-
     </div>
 
     
@@ -615,6 +381,18 @@ Result: false
 
 
     
+    
+    <div class="article-widget">
+      <div class="hr-light"></div>
+      <h3>Related</h3>
+      <ul>
+        
+        <li><a href="/post/hashicorp-sentinel-prod/">How to publish a Hashicorp Sentinel</a></li>
+        
+        <li><a href="/post/hashicorp-sentinel-test/">How to test a Hashicorp Sentinel policy</a></li>
+        
+      </ul>
+    </div>
     
 
     
