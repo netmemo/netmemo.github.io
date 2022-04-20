@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>IAM on netmemo.github.io</title>
+    <link>https://netmemo.github.io/tags/iam/</link>
+    <description>Recent content in IAM on netmemo.github.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&amp;acute;s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
+    <lastBuildDate>Mon, 27 Sep 2021 18:04:31 +0200</lastBuildDate>
+    
+	<atom:link href="https://netmemo.github.io/tags/iam/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>AWS IAM Roles with Terraform</title>
+      <link>https://netmemo.github.io/post/tf-iam-roles/</link>
+      <pubDate>Mon, 27 Sep 2021 18:04:31 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/tf-iam-roles/</guid>
+      <description>An IAM role is an AWS identity with permission policies that determine what the identity can and cannot do in AWS.
+TL;DR  The principal is WHO will be able to access a resource.
+ The policy is WHAT the principals associated with the role will be able to do.
+ The role links the principals thanks to the assume_role_policy with the inline policy argument. The attachement links the role to a managed policies instead of the inline policy.</description>
+    </item>
+    
+  </channel>
+</rss>

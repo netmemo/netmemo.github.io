@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tf-tutorial on netmemo.github.io</title>
+    <link>https://netmemo.github.io/tags/tf-tutorial/</link>
+    <description>Recent content in tf-tutorial on netmemo.github.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&amp;acute;s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
+    <lastBuildDate>Wed, 26 Jan 2022 22:00:26 +0100</lastBuildDate>
+    
+	<atom:link href="https://netmemo.github.io/tags/tf-tutorial/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Terraform One Step Further</title>
+      <link>https://netmemo.github.io/post/terraform-one-step-further/</link>
+      <pubDate>Wed, 26 Jan 2022 22:00:26 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/post/terraform-one-step-further/</guid>
+      <description>This blog is in two parts. The first part explains what is needed to start with Terraform. This second part is to go one step further but still targets beginners.
+You can find more in depth articles on Gruntwork blog and the Terraform documentation is also very good.
+Table of contents  Terraform Bare minimum Terraform one step further
+ What happens in the background ?
+ What happens if we modify the object on GUI ?</description>
+    </item>
+    
+    <item>
+      <title>Terraform Bootstrap</title>
+      <link>https://netmemo.github.io/post/terraform-bootstrap/</link>
+      <pubDate>Wed, 19 Jan 2022 18:40:34 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/post/terraform-bootstrap/</guid>
+      <description>This blog is in two parts. This first part explains what is needed to start with Terraform, the second part is to go one step further but still targets beginners.
+Table of content  Terraform bare minimum
+ Terraform, what is it ?
+ What do I need to provision something with Terraform ?
+ How do I know what to create ? The configuration is made of 3 blocks</description>
+    </item>
+    
+  </channel>
+</rss>

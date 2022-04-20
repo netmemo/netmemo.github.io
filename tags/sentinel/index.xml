@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Sentinel on netmemo.github.io</title>
+    <link>https://netmemo.github.io/tags/sentinel/</link>
+    <description>Recent content in Sentinel on netmemo.github.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&amp;acute;s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
+    <lastBuildDate>Tue, 19 Apr 2022 09:08:48 +0200</lastBuildDate>
+    
+	<atom:link href="https://netmemo.github.io/tags/sentinel/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>How to check a variable in a Hashicorp Sentinel policy</title>
+      <link>https://netmemo.github.io/post/sentinel-variable-check/</link>
+      <pubDate>Tue, 19 Apr 2022 09:08:48 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/sentinel-variable-check/</guid>
+      <description>This blog is a minimalist example of a Hashicorp Sentinel policy to check the content of a string variable. I&amp;rsquo;ve struggled a bit to write my first policy and had difficulties understanding the elements required. Nico Vibert&amp;rsquo;s blog has helped a lot.
+Hashicorps sentinel policy are policies as code that will allow you to control what users are pushing through Terraform Enterprise/Cloud. This is a paid feature, Open Policy Agent is the open source alternative.</description>
+    </item>
+    
+    <item>
+      <title>How to publish a Hashicorp Sentinel</title>
+      <link>https://netmemo.github.io/post/hashicorp-sentinel-prod/</link>
+      <pubDate>Tue, 19 Apr 2022 09:08:32 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/hashicorp-sentinel-prod/</guid>
+      <description>In this third and last post of the serie, I will describe how to move the Sentinel policy into the production environment.
+This serie is made of 3 posts:
+ The policy The test environment The production environment  THE PRODUCTION ENVIRONMENT When your policy is ready, you then need to deploy it into production. you can write a policy set that you will store to a VCS (version control system) or you can add the policy individually in the GUI and attach it to the a policy set that you would have created on the GUI.</description>
+    </item>
+    
+    <item>
+      <title>How to test a Hashicorp Sentinel policy</title>
+      <link>https://netmemo.github.io/post/hashicorp-sentinel-test/</link>
+      <pubDate>Tue, 19 Apr 2022 09:08:28 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/hashicorp-sentinel-test/</guid>
+      <description>In this second post of the serie, I will describe the steps I&amp;rsquo;ve done to setup the test environment to test my Sentinel policy.
+This serie is made of 3 posts:
+ The policy The test environment The production environment  THE TEST ENVIRONMENT When we develop the policy it will be very difficult to push a configuration to see if the policy behave as we want. Hashicorp provide a test environment to ease the development of the policies.</description>
+    </item>
+    
+  </channel>
+</rss>

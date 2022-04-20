@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>DC on netmemo.github.io</title>
+    <link>https://netmemo.github.io/categories/dc/</link>
+    <description>Recent content in DC on netmemo.github.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&amp;acute;s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
+    <lastBuildDate>Sat, 28 Nov 2020 19:11:36 +0100</lastBuildDate>
+    
+	<atom:link href="https://netmemo.github.io/categories/dc/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>ACI from an other angle</title>
+      <link>https://netmemo.github.io/post/aci-other-angle/</link>
+      <pubDate>Sat, 28 Nov 2020 19:11:36 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/post/aci-other-angle/</guid>
+      <description>&amp;ldquo;Several of these protocols are standards&amp;rdquo; My understanding is that even if the protocols look standard, Cisco made some modifications on them : VXLAN (fiels to transport ACI Policies), ISIS (added the multidestination tree) and hence are note standard anymore.
+&amp;ldquo;Does it require proprietary server ?&amp;rdquo; Not prorietary servers but proprietary switches&amp;hellip;So you are locked in regarding the software and the hardware. Both can&amp;rsquo;t be decoupled. If you choose to move to another switch vendor, you need to change the hardware and sart learning new software and protocols skills.</description>
+    </item>
+    
+  </channel>
+</rss>

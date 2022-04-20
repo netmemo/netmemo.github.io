@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on netmemo.github.io</title>
+    <link>https://netmemo.github.io/tags/</link>
+    <description>Recent content in Tags on netmemo.github.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&amp;acute;s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
+    <lastBuildDate>Wed, 15 Dec 2021 18:40:34 +0100</lastBuildDate>
+    
+	<atom:link href="https://netmemo.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>ACI</title>
+      <link>https://netmemo.github.io/tags/aci/</link>
+      <pubDate>Wed, 15 Dec 2021 18:40:34 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/aci/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ANYCAST</title>
+      <link>https://netmemo.github.io/tags/anycast/</link>
+      <pubDate>Mon, 11 May 2020 08:00:11 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/anycast/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>AWS</title>
+      <link>https://netmemo.github.io/tags/aws/</link>
+      <pubDate>Tue, 16 Nov 2021 18:00:45 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/aws/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Addressing</title>
+      <link>https://netmemo.github.io/tags/addressing/</link>
+      <pubDate>Tue, 18 May 2021 22:28:39 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/addressing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Arista</title>
+      <link>https://netmemo.github.io/tags/arista/</link>
+      <pubDate>Tue, 24 Nov 2020 18:12:05 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/arista/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>BFD</title>
+      <link>https://netmemo.github.io/tags/bfd/</link>
+      <pubDate>Wed, 02 Dec 2020 09:29:50 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/bfd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>BGP</title>
+      <link>https://netmemo.github.io/tags/bgp/</link>
+      <pubDate>Mon, 11 May 2020 08:00:11 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/bgp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Buffer</title>
+      <link>https://netmemo.github.io/tags/buffer/</link>
+      <pubDate>Tue, 23 Feb 2021 22:24:44 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/buffer/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Buffering</title>
+      <link>https://netmemo.github.io/tags/buffering/</link>
+      <pubDate>Tue, 23 Feb 2021 22:24:44 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/buffering/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cheat Sheet</title>
+      <link>https://netmemo.github.io/tags/cheat-sheet/</link>
+      <pubDate>Wed, 15 Dec 2021 18:40:34 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/cheat-sheet/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cisco</title>
+      <link>https://netmemo.github.io/tags/cisco/</link>
+      <pubDate>Tue, 23 Feb 2021 22:24:44 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/cisco/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cloud</title>
+      <link>https://netmemo.github.io/tags/cloud/</link>
+      <pubDate>Sun, 15 Aug 2021 14:02:39 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/cloud/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Core Linux</title>
+      <link>https://netmemo.github.io/tags/core-linux/</link>
+      <pubDate>Mon, 22 Oct 2018 15:35:55 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/core-linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>DC</title>
+      <link>https://netmemo.github.io/tags/dc/</link>
+      <pubDate>Sat, 28 Nov 2020 19:11:36 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/dc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Design</title>
+      <link>https://netmemo.github.io/tags/design/</link>
+      <pubDate>Tue, 18 May 2021 22:28:39 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/design/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>EOS</title>
+      <link>https://netmemo.github.io/tags/eos/</link>
+      <pubDate>Tue, 24 Nov 2020 18:12:05 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/eos/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Firewall</title>
+      <link>https://netmemo.github.io/tags/firewall/</link>
+      <pubDate>Thu, 29 Jul 2021 19:03:37 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/firewall/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Github</title>
+      <link>https://netmemo.github.io/tags/github/</link>
+      <pubDate>Sun, 15 Aug 2021 14:02:39 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/github/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Github Actions</title>
+      <link>https://netmemo.github.io/tags/github-actions/</link>
+      <pubDate>Sun, 15 Aug 2021 14:02:39 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/github-actions/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>IAM</title>
+      <link>https://netmemo.github.io/tags/iam/</link>
+      <pubDate>Mon, 27 Sep 2021 18:04:31 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/iam/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>IP Plan</title>
+      <link>https://netmemo.github.io/tags/ip-plan/</link>
+      <pubDate>Tue, 18 May 2021 22:28:39 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/ip-plan/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ISIS</title>
+      <link>https://netmemo.github.io/tags/isis/</link>
+      <pubDate>Tue, 24 Nov 2020 18:12:05 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/isis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>IaC</title>
+      <link>https://netmemo.github.io/tags/iac/</link>
+      <pubDate>Thu, 29 Jul 2021 19:03:37 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/iac/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>N5600</title>
+      <link>https://netmemo.github.io/tags/n5600/</link>
+      <pubDate>Tue, 23 Feb 2021 22:24:44 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/n5600/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>N5K</title>
+      <link>https://netmemo.github.io/tags/n5k/</link>
+      <pubDate>Thu, 04 Oct 2018 00:48:57 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/n5k/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>N7K</title>
+      <link>https://netmemo.github.io/tags/n7k/</link>
+      <pubDate>Thu, 04 Oct 2018 00:48:57 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/n7k/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>NSX-T</title>
+      <link>https://netmemo.github.io/tags/nsx-t/</link>
+      <pubDate>Tue, 15 Mar 2022 19:17:50 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/nsx-t/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>NSXT</title>
+      <link>https://netmemo.github.io/tags/nsxt/</link>
+      <pubDate>Thu, 29 Jul 2021 19:03:37 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/nsxt/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Nexus</title>
+      <link>https://netmemo.github.io/tags/nexus/</link>
+      <pubDate>Tue, 23 Feb 2021 22:24:44 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/nexus/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>OSPF</title>
+      <link>https://netmemo.github.io/tags/ospf/</link>
+      <pubDate>Mon, 11 May 2020 08:00:11 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/ospf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>QOS</title>
+      <link>https://netmemo.github.io/tags/qos/</link>
+      <pubDate>Tue, 23 Feb 2021 22:24:44 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/qos/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ROUTING</title>
+      <link>https://netmemo.github.io/tags/routing/</link>
+      <pubDate>Mon, 11 May 2020 08:00:11 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/routing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SR</title>
+      <link>https://netmemo.github.io/tags/sr/</link>
+      <pubDate>Tue, 24 Nov 2020 18:12:05 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/sr/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Segment Routing</title>
+      <link>https://netmemo.github.io/tags/segment-routing/</link>
+      <pubDate>Tue, 24 Nov 2020 18:12:05 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/segment-routing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Sentinel</title>
+      <link>https://netmemo.github.io/tags/sentinel/</link>
+      <pubDate>Tue, 19 Apr 2022 09:08:48 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/sentinel/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Terraform</title>
+      <link>https://netmemo.github.io/tags/terraform/</link>
+      <pubDate>Wed, 26 Jan 2022 22:00:26 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/terraform/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Terrfaorm</title>
+      <link>https://netmemo.github.io/tags/terrfaorm/</link>
+      <pubDate>Sun, 15 Aug 2021 14:02:39 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/terrfaorm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>VM</title>
+      <link>https://netmemo.github.io/tags/vm/</link>
+      <pubDate>Mon, 22 Oct 2018 15:35:55 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/vm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>calico</title>
+      <link>https://netmemo.github.io/tags/calico/</link>
+      <pubDate>Fri, 05 Oct 2018 23:59:19 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/calico/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cisco</title>
+      <link>https://netmemo.github.io/tags/cisco/</link>
+      <pubDate>Thu, 04 Oct 2018 00:48:57 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/cisco/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>docker</title>
+      <link>https://netmemo.github.io/tags/docker/</link>
+      <pubDate>Fri, 05 Oct 2018 23:59:19 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>elam</title>
+      <link>https://netmemo.github.io/tags/elam/</link>
+      <pubDate>Thu, 04 Oct 2018 00:48:57 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/elam/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>k8s</title>
+      <link>https://netmemo.github.io/tags/k8s/</link>
+      <pubDate>Fri, 05 Oct 2018 23:59:19 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/k8s/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kubernetes</title>
+      <link>https://netmemo.github.io/tags/kubernetes/</link>
+      <pubDate>Fri, 05 Oct 2018 23:59:19 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/kubernetes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>lambda</title>
+      <link>https://netmemo.github.io/tags/lambda/</link>
+      <pubDate>Tue, 16 Nov 2021 18:00:45 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/lambda/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>netplan</title>
+      <link>https://netmemo.github.io/tags/netplan/</link>
+      <pubDate>Fri, 05 Oct 2018 23:59:19 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/netplan/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>python</title>
+      <link>https://netmemo.github.io/tags/python/</link>
+      <pubDate>Thu, 25 Feb 2021 21:46:14 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tf-tutorial</title>
+      <link>https://netmemo.github.io/tags/tf-tutorial/</link>
+      <pubDate>Wed, 26 Jan 2022 22:00:26 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/tf-tutorial/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tools</title>
+      <link>https://netmemo.github.io/tags/tools/</link>
+      <pubDate>Mon, 22 Oct 2018 15:35:55 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/tools/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>troubleshooting</title>
+      <link>https://netmemo.github.io/tags/troubleshooting/</link>
+      <pubDate>Thu, 04 Oct 2018 00:48:57 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/troubleshooting/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ubuntu</title>
+      <link>https://netmemo.github.io/tags/ubuntu/</link>
+      <pubDate>Fri, 05 Oct 2018 23:59:19 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/ubuntu/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>virtualbox</title>
+      <link>https://netmemo.github.io/tags/virtualbox/</link>
+      <pubDate>Fri, 05 Oct 2018 23:59:19 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/virtualbox/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

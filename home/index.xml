@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Homes on netmemo.github.io</title>
+    <link>https://netmemo.github.io/home/</link>
+    <description>Recent content in Homes on netmemo.github.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&amp;acute;s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
+    <lastBuildDate>Sun, 15 Oct 2017 00:00:00 +0200</lastBuildDate>
+    
+	<atom:link href="https://netmemo.github.io/home/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title></title>
+      <link>https://netmemo.github.io/home/hero/</link>
+      <pubDate>Sun, 15 Oct 2017 00:00:00 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/home/hero/</guid>
+      <description>A blog about networking and maybe more, who knows ?</description>
+    </item>
+    
+    <item>
+      <title>Recent Posts</title>
+      <link>https://netmemo.github.io/home/posts/</link>
+      <pubDate>Wed, 20 Apr 2016 00:00:00 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/home/posts/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://netmemo.github.io/home/about/</link>
+      <pubDate>Wed, 20 Apr 2016 00:00:00 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/home/about/</guid>
+      <description>Biography I&amp;rsquo;m a network engineer with 10+ years&amp;rsquo; experience over 3 differents countries. I like to learn and share hence this blog.</description>
+    </item>
+    
+    <item>
+      <title>Search</title>
+      <link>https://netmemo.github.io/home/search/</link>
+      <pubDate>Mon, 23 Jul 2018 00:00:00 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/home/search/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

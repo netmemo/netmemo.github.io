@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>QOS on netmemo.github.io</title>
+    <link>https://netmemo.github.io/categories/qos/</link>
+    <description>Recent content in QOS on netmemo.github.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&amp;acute;s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
+    <lastBuildDate>Tue, 23 Feb 2021 22:24:44 +0100</lastBuildDate>
+    
+	<atom:link href="https://netmemo.github.io/categories/qos/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>N5600 Buffering</title>
+      <link>https://netmemo.github.io/post/n5600-buffering/</link>
+      <pubDate>Tue, 23 Feb 2021 22:24:44 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/post/n5600-buffering/</guid>
+      <description>QoS VOQ On N5K, In the case of unicast traffic, VOQ is an ingress buffer pool for 3 ingress ports (1 ASIC = 3 ports). This buffer pool is split into n x reservable buffer of the size configured in the voq-limit command. If the ingress buffer is 16000 and the VOQ limit is 1024, that mean 16 flow can reserv buffers. When the shared buffer is exausted, the dedicated ingress buffer per port is used then when it&amp;rsquo;s full, the packet is droped.</description>
+    </item>
+    
+  </channel>
+</rss>
