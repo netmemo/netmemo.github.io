@@ -23,7 +23,7 @@ Hashicorps sentinel policy are policies as code that will allow you to control w
     </item>
     
     <item>
-      <title>How to publish a Hashicorp Sentinel</title>
+      <title>How to put in production a Hashicorp Sentinel policy</title>
       <link>https://netmemo.github.io/post/hashicorp-sentinel-prod/</link>
       <pubDate>Tue, 19 Apr 2022 09:08:32 +0200</pubDate>
       
