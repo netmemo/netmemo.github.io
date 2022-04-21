@@ -85,11 +85,11 @@ Below you have the output of the &lt;strong&gt;variablesPrefix&lt;/strong&gt; af
 
 &lt;h1 id=&#34;the-production-environment&#34;&gt;THE PRODUCTION ENVIRONMENT&lt;/h1&gt;
 
-&lt;p&gt;When your policy is ready, you then need to deploy it into production. you can write a policy set that you will store to a VCS (version control system) or you can add the policy individually in the GUI and attach it to the a policy set that you would have created on the GUI.&lt;/p&gt;
+&lt;p&gt;When your policy is ready, you need to deploy it into production. You can write a policy set that you will store to a VCS (version control system) or you can add the policy individually in the GUI and attach it to the a policy set that you would have created on the GUI.&lt;/p&gt;
 
 &lt;h3 id=&#34;vcs-policy-set&#34;&gt;VCS Policy set&lt;/h3&gt;
 
-&lt;p&gt;For the VCS policy set, once you have created the policy, you then need to create a repository on a VCS. In this repository you will have 2 kind of files. The policies with the &lt;strong&gt;.sentinel&lt;/strong&gt; extension and the configuration file &lt;strong&gt;sentinel.hcl&lt;/strong&gt;.
+&lt;p&gt;For the VCS policy set, once you have created the policy, you need to create a repository on a VCS. In this repository you will have 2 kind of files. The policies with the &lt;strong&gt;.sentinel&lt;/strong&gt; extension and the configuration file &lt;strong&gt;sentinel.hcl&lt;/strong&gt;.
 In the .hcl you only need to specify the source file that will define the policy and the &lt;a href=&#34;https://docs.hashicorp.com/sentinel/concepts/enforcement-levels&#34;&gt;enforcement_level&lt;/a&gt;. As hard-mandatory is the default enforcement level we can even omit it.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;policy &amp;quot;first_pol&amp;quot; {
@@ -126,7 +126,7 @@ Create the policy and attach it the the right policy set, in our case netmemo-po
 &lt;h3 id=&#34;example&#34;&gt;Example&lt;/h3&gt;
 
 &lt;p&gt;Once the policy is ready, you can plan the Terraform configuration.
-If the policy pass you should have the below output&lt;/p&gt;
+If the policy passes you should have the below output&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;&amp;lt;snip&amp;gt;
 ------------------------------------------------------------------------
@@ -156,7 +156,7 @@ Result: true
 
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;If the policy fail you should have the below output&lt;/p&gt;
+&lt;p&gt;If the policy fails you should have the below output&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;&amp;lt;snip&amp;gt;
 ------------------------------------------------------------------------
@@ -205,7 +205,7 @@ Result: false
       <guid>https://netmemo.github.io/post/hashicorp-sentinel-test/</guid>
       <description>
 
-&lt;p&gt;In this second post of the serie, I will describe the steps I&amp;rsquo;ve done to setup the test environment to test my Sentinel policy.&lt;/p&gt;
+&lt;p&gt;In this second post of the serie, I will describe the steps I have done to set up the test environment to test my Sentinel policy.&lt;/p&gt;
 
 &lt;p&gt;This serie is made of 3 posts:&lt;/p&gt;
 
@@ -217,7 +217,7 @@ Result: false
 
 &lt;h1 id=&#34;the-test-environment&#34;&gt;THE TEST ENVIRONMENT&lt;/h1&gt;
 
-&lt;p&gt;When we develop the policy it will be very difficult to push a configuration to see if the policy behave as we want. Hashicorp provide a test environment to ease the development of the policies.&lt;/p&gt;
+&lt;p&gt;When we develop the policy it will be very difficult to push a configuration to see if the policy behaves like we want. Hashicorp provide a test environment to ease the development of the policies.&lt;/p&gt;
 
 &lt;h3 id=&#34;test-environment-setup-steps&#34;&gt;Test environment setup steps&lt;/h3&gt;
 
@@ -231,7 +231,7 @@ Result: false
 &lt;/details&gt;&lt;/p&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;Unzip the file.&lt;br /&gt;
-We will have all the possible environment of a Terraform Enterprise/Cloud mocked in files. In our case, as we will only use the tfplan/v2, the only file that is relevent is &lt;strong&gt;mock-tfplan-v2.sentinel&lt;/strong&gt;&lt;/p&gt;&lt;/li&gt;
+We will have all the possible environments of a Terraform Enterprise/Cloud mocked in files. In our case, as we will only use the tfplan/v2, the only file that is relevant is &lt;strong&gt;mock-tfplan-v2.sentinel&lt;/strong&gt;&lt;/p&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;Create test scenario.&lt;br /&gt;
 The folder structure MUST be /test/&amp;lt;policy&amp;gt;/*.hcl.&lt;/p&gt;
@@ -277,7 +277,7 @@ test {
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;We can then issue the command &lt;strong&gt;sentinel test&lt;/strong&gt; to test our policy&lt;/p&gt;
+&lt;p&gt;The we can issue the command &lt;strong&gt;sentinel test&lt;/strong&gt; to test our policy&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ sentinel test
 PASS - first_pol.sentinel
@@ -286,7 +286,7 @@ PASS - first_pol.sentinel
 
 &lt;h3 id=&#34;fail-test-scenario&#34;&gt;Fail test scenario&lt;/h3&gt;
 
-&lt;p&gt;If we want to go a step further, in software world it&amp;rsquo;s a common practice to write failed test case scenario. It ensure your software is handling failure and that there are no regression when you iterate your code.&lt;/p&gt;
+&lt;p&gt;If we want to go a step further, in software world it&amp;rsquo;s a common practice to write failed test case scenario. It ensures your software is able to handle failure and that there are no regression when you iterate your code.&lt;/p&gt;
 
 &lt;p&gt;In such case, you also need to create a fail test scenario file such /test/&amp;lt;policy&amp;gt;/myfailtest.hcl with the failing condition and the mocked data with the data that will ensure the test will fail.&lt;/p&gt;
 
@@ -307,7 +307,7 @@ test {
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;We then need to modify the mocked data to fail the policy and so PASS the test. For our example we change the value from ABC to DEF.&lt;/p&gt;
+&lt;p&gt;Then we need to modify the mocked data to fail the policy and so PASS the test. For our example we change the value from ABC to DEF.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;variables = {
 	&amp;quot;prefix&amp;quot;: {
@@ -329,7 +329,7 @@ test {
         └── mypasstest.hcl
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Finaly we can test our policy again.&lt;/p&gt;
+&lt;p&gt;Finally we can test our policy again.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ sentinel test
 PASS - first_pol.sentinel

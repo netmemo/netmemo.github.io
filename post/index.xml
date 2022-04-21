@@ -30,7 +30,7 @@ Hashicorps sentinel policy are policies as code that will allow you to control w
       <guid>https://netmemo.github.io/post/hashicorp-sentinel-prod/</guid>
       <description>In this third and last post of the serie, I will describe how to move the Sentinel policy into the production environment.
 This serie is made of 3 posts:
- The policy The test environment The production environment  THE PRODUCTION ENVIRONMENT When your policy is ready, you then need to deploy it into production. you can write a policy set that you will store to a VCS (version control system) or you can add the policy individually in the GUI and attach it to the a policy set that you would have created on the GUI.</description>
+ The policy The test environment The production environment  THE PRODUCTION ENVIRONMENT When your policy is ready, you need to deploy it into production. You can write a policy set that you will store to a VCS (version control system) or you can add the policy individually in the GUI and attach it to the a policy set that you would have created on the GUI.</description>
     </item>
     
     <item>
@@ -39,9 +39,9 @@ This serie is made of 3 posts:
       <pubDate>Tue, 19 Apr 2022 09:08:28 +0200</pubDate>
       
       <guid>https://netmemo.github.io/post/hashicorp-sentinel-test/</guid>
-      <description>In this second post of the serie, I will describe the steps I&amp;rsquo;ve done to setup the test environment to test my Sentinel policy.
+      <description>In this second post of the serie, I will describe the steps I have done to set up the test environment to test my Sentinel policy.
 This serie is made of 3 posts:
- The policy The test environment The production environment  THE TEST ENVIRONMENT When we develop the policy it will be very difficult to push a configuration to see if the policy behave as we want. Hashicorp provide a test environment to ease the development of the policies.</description>
+ The policy The test environment The production environment  THE TEST ENVIRONMENT When we develop the policy it will be very difficult to push a configuration to see if the policy behaves like we want. Hashicorp provide a test environment to ease the development of the policies.</description>
     </item>
     
     <item>

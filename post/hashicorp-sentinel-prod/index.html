@@ -17,7 +17,7 @@
   
   <meta name="description" content="In this third and last post of the serie, I will describe how to move the Sentinel policy into the production environment.
 This serie is made of 3 posts:
- The policy The test environment The production environment  THE PRODUCTION ENVIRONMENT When your policy is ready, you then need to deploy it into production. you can write a policy set that you will store to a VCS (version control system) or you can add the policy individually in the GUI and attach it to the a policy set that you would have created on the GUI.">
+ The policy The test environment The production environment  THE PRODUCTION ENVIRONMENT When your policy is ready, you need to deploy it into production. You can write a policy set that you will store to a VCS (version control system) or you can add the policy individually in the GUI and attach it to the a policy set that you would have created on the GUI.">
 
   
   <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/post/hashicorp-sentinel-prod/">
@@ -100,7 +100,7 @@ This serie is made of 3 posts:
   <meta property="og:title" content="How to put in production a Hashicorp Sentinel policy | netmemo.github.io">
   <meta property="og:description" content="In this third and last post of the serie, I will describe how to move the Sentinel policy into the production environment.
 This serie is made of 3 posts:
- The policy The test environment The production environment  THE PRODUCTION ENVIRONMENT When your policy is ready, you then need to deploy it into production. you can write a policy set that you will store to a VCS (version control system) or you can add the policy individually in the GUI and attach it to the a policy set that you would have created on the GUI.">
+ The policy The test environment The production environment  THE PRODUCTION ENVIRONMENT When your policy is ready, you need to deploy it into production. You can write a policy set that you will store to a VCS (version control system) or you can add the policy individually in the GUI and attach it to the a policy set that you would have created on the GUI.">
   
   
     
@@ -335,11 +335,11 @@ This serie is made of 3 posts:
 
 <h1 id="the-production-environment">THE PRODUCTION ENVIRONMENT</h1>
 
-<p>When your policy is ready, you then need to deploy it into production. you can write a policy set that you will store to a VCS (version control system) or you can add the policy individually in the GUI and attach it to the a policy set that you would have created on the GUI.</p>
+<p>When your policy is ready, you need to deploy it into production. You can write a policy set that you will store to a VCS (version control system) or you can add the policy individually in the GUI and attach it to the a policy set that you would have created on the GUI.</p>
 
 <h3 id="vcs-policy-set">VCS Policy set</h3>
 
-<p>For the VCS policy set, once you have created the policy, you then need to create a repository on a VCS. In this repository you will have 2 kind of files. The policies with the <strong>.sentinel</strong> extension and the configuration file <strong>sentinel.hcl</strong>.
+<p>For the VCS policy set, once you have created the policy, you need to create a repository on a VCS. In this repository you will have 2 kind of files. The policies with the <strong>.sentinel</strong> extension and the configuration file <strong>sentinel.hcl</strong>.
 In the .hcl you only need to specify the source file that will define the policy and the <a href="https://docs.hashicorp.com/sentinel/concepts/enforcement-levels">enforcement_level</a>. As hard-mandatory is the default enforcement level we can even omit it.</p>
 
 <pre><code>policy &quot;first_pol&quot; {
@@ -376,7 +376,7 @@ Create the policy and attach it the the right policy set, in our case netmemo-po
 <h3 id="example">Example</h3>
 
 <p>Once the policy is ready, you can plan the Terraform configuration.
-If the policy pass you should have the below output</p>
+If the policy passes you should have the below output</p>
 
 <pre><code>&lt;snip&gt;
 ------------------------------------------------------------------------
@@ -406,7 +406,7 @@ Result: true
 
 </code></pre>
 
-<p>If the policy fail you should have the below output</p>
+<p>If the policy fails you should have the below output</p>
 
 <pre><code>&lt;snip&gt;
 ------------------------------------------------------------------------

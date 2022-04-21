@@ -15,9 +15,9 @@
   
     
   
-  <meta name="description" content="In this second post of the serie, I will describe the steps I&rsquo;ve done to setup the test environment to test my Sentinel policy.
+  <meta name="description" content="In this second post of the serie, I will describe the steps I have done to set up the test environment to test my Sentinel policy.
 This serie is made of 3 posts:
- The policy The test environment The production environment  THE TEST ENVIRONMENT When we develop the policy it will be very difficult to push a configuration to see if the policy behave as we want. Hashicorp provide a test environment to ease the development of the policies.">
+ The policy The test environment The production environment  THE TEST ENVIRONMENT When we develop the policy it will be very difficult to push a configuration to see if the policy behaves like we want. Hashicorp provide a test environment to ease the development of the policies.">
 
   
   <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/post/hashicorp-sentinel-test/">
@@ -98,9 +98,9 @@ This serie is made of 3 posts:
   <meta property="og:site_name" content="netmemo.github.io">
   <meta property="og:url" content="https://netmemo.github.io/post/hashicorp-sentinel-test/">
   <meta property="og:title" content="How to test a Hashicorp Sentinel policy | netmemo.github.io">
-  <meta property="og:description" content="In this second post of the serie, I will describe the steps I&rsquo;ve done to setup the test environment to test my Sentinel policy.
+  <meta property="og:description" content="In this second post of the serie, I will describe the steps I have done to set up the test environment to test my Sentinel policy.
 This serie is made of 3 posts:
- The policy The test environment The production environment  THE TEST ENVIRONMENT When we develop the policy it will be very difficult to push a configuration to see if the policy behave as we want. Hashicorp provide a test environment to ease the development of the policies.">
+ The policy The test environment The production environment  THE TEST ENVIRONMENT When we develop the policy it will be very difficult to push a configuration to see if the policy behaves like we want. Hashicorp provide a test environment to ease the development of the policies.">
   
   
     
@@ -323,7 +323,7 @@ This serie is made of 3 posts:
     <div class="article-style" itemprop="articleBody">
       
 
-<p>In this second post of the serie, I will describe the steps I&rsquo;ve done to setup the test environment to test my Sentinel policy.</p>
+<p>In this second post of the serie, I will describe the steps I have done to set up the test environment to test my Sentinel policy.</p>
 
 <p>This serie is made of 3 posts:</p>
 
@@ -335,7 +335,7 @@ This serie is made of 3 posts:
 
 <h1 id="the-test-environment">THE TEST ENVIRONMENT</h1>
 
-<p>When we develop the policy it will be very difficult to push a configuration to see if the policy behave as we want. Hashicorp provide a test environment to ease the development of the policies.</p>
+<p>When we develop the policy it will be very difficult to push a configuration to see if the policy behaves like we want. Hashicorp provide a test environment to ease the development of the policies.</p>
 
 <h3 id="test-environment-setup-steps">Test environment setup steps</h3>
 
@@ -349,7 +349,7 @@ This serie is made of 3 posts:
 </details></p></li>
 
 <li><p>Unzip the file.<br />
-We will have all the possible environment of a Terraform Enterprise/Cloud mocked in files. In our case, as we will only use the tfplan/v2, the only file that is relevent is <strong>mock-tfplan-v2.sentinel</strong></p></li>
+We will have all the possible environments of a Terraform Enterprise/Cloud mocked in files. In our case, as we will only use the tfplan/v2, the only file that is relevant is <strong>mock-tfplan-v2.sentinel</strong></p></li>
 
 <li><p>Create test scenario.<br />
 The folder structure MUST be /test/&lt;policy&gt;/*.hcl.</p>
@@ -395,7 +395,7 @@ test {
 }
 </code></pre>
 
-<p>We can then issue the command <strong>sentinel test</strong> to test our policy</p>
+<p>The we can issue the command <strong>sentinel test</strong> to test our policy</p>
 
 <pre><code>$ sentinel test
 PASS - first_pol.sentinel
@@ -404,7 +404,7 @@ PASS - first_pol.sentinel
 
 <h3 id="fail-test-scenario">Fail test scenario</h3>
 
-<p>If we want to go a step further, in software world it&rsquo;s a common practice to write failed test case scenario. It ensure your software is handling failure and that there are no regression when you iterate your code.</p>
+<p>If we want to go a step further, in software world it&rsquo;s a common practice to write failed test case scenario. It ensures your software is able to handle failure and that there are no regression when you iterate your code.</p>
 
 <p>In such case, you also need to create a fail test scenario file such /test/&lt;policy&gt;/myfailtest.hcl with the failing condition and the mocked data with the data that will ensure the test will fail.</p>
 
@@ -425,7 +425,7 @@ test {
 }
 </code></pre>
 
-<p>We then need to modify the mocked data to fail the policy and so PASS the test. For our example we change the value from ABC to DEF.</p>
+<p>Then we need to modify the mocked data to fail the policy and so PASS the test. For our example we change the value from ABC to DEF.</p>
 
 <pre><code>variables = {
 	&quot;prefix&quot;: {
@@ -447,7 +447,7 @@ test {
         └── mypasstest.hcl
 </code></pre>
 
-<p>Finaly we can test our policy again.</p>
+<p>Finally we can test our policy again.</p>
 
 <pre><code>$ sentinel test
 PASS - first_pol.sentinel
