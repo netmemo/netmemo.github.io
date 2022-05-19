@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&amp;acute;s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
-    <lastBuildDate>Wed, 26 Jan 2022 22:00:26 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 18 May 2022 22:41:35 +0200</lastBuildDate>
     
 	<atom:link href="https://netmemo.github.io/tags/terraform/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ACI Terraform scalability</title>
+      <link>https://netmemo.github.io/post/aci-terraform-scale/</link>
+      <pubDate>Wed, 18 May 2022 22:41:35 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/aci-terraform-scale/</guid>
+      <description>The context This blog is to explains the scalability issue I have faced while trying to use Terraform to deploy Cisco ACI Fabric. Terraform has been developed initially to deploy Cloud infrastructure. As everything is virtual in a Cloud environment, it&amp;rsquo;s more or less easy to organize your Terraform infrastructure per application to keep the environment small enough. As a best practice it&amp;rsquo;s recommended to keep the workspaces as small as possible to avoid performance issues.</description>
+    </item>
     
     <item>
       <title>Terraform One Step Further</title>

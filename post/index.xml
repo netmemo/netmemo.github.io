@@ -13,6 +13,15 @@
     
     
     <item>
+      <title>ACI Terraform scalability</title>
+      <link>https://netmemo.github.io/post/aci-terraform-scale/</link>
+      <pubDate>Wed, 18 May 2022 22:41:35 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/aci-terraform-scale/</guid>
+      <description>The context This blog is to explains the scalability issue I have faced while trying to use Terraform to deploy Cisco ACI Fabric. Terraform has been developed initially to deploy Cloud infrastructure. As everything is virtual in a Cloud environment, it&amp;rsquo;s more or less easy to organize your Terraform infrastructure per application to keep the environment small enough. As a best practice it&amp;rsquo;s recommended to keep the workspaces as small as possible to avoid performance issues.</description>
+    </item>
+    
+    <item>
       <title>How to check a variable in a Hashicorp Sentinel policy</title>
       <link>https://netmemo.github.io/post/sentinel-variable-check/</link>
       <pubDate>Tue, 19 Apr 2022 09:08:48 +0200</pubDate>

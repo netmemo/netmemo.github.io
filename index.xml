@@ -11,6 +11,86 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>ACI Terraform scalability</title>
+      <link>https://netmemo.github.io/post/aci-terraform-scale/</link>
+      <pubDate>Wed, 18 May 2022 22:41:35 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/aci-terraform-scale/</guid>
+      <description>
+
+&lt;h1 id=&#34;the-context&#34;&gt;The context&lt;/h1&gt;
+
+&lt;p&gt;This blog is to explains the scalability issue I have faced while trying to use Terraform to deploy Cisco ACI Fabric.
+Terraform has been developed initially to deploy Cloud infrastructure. As everything is virtual in a Cloud environment, it&amp;rsquo;s more or less easy to organize your Terraform infrastructure per application to keep the environment small enough. As a best practice it&amp;rsquo;s recommended to keep the workspaces as small as possible to avoid performance issues. As Terraform works on a dependency graph, the more resources and dependencies you have, the longer it takes for Terraform to compute a plan and push the configuration.
+To come back to the issue and give a little bit of context, let&amp;rsquo;s take the fabric below as an example.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The Cisco ACI fabric is in network centric mode (1 EPG = 1 BD = 1 vlan).&lt;/li&gt;
+&lt;li&gt;The fabric has 6 leaves and 2 spines.&lt;/li&gt;
+&lt;li&gt;Each leaf has 48 ports.&lt;/li&gt;
+&lt;li&gt;32 ports are configured on each leaf to connect hypervisor.&lt;/li&gt;
+&lt;li&gt;100 vlans are configured on each port.
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We are using a small Terraform Enterprise agent to push the configuration with 2G of RAM and 2vCPU.&lt;/p&gt;
+
+&lt;h1 id=&#34;the-problem&#34;&gt;The problem&lt;/h1&gt;
+
+&lt;p&gt;When provisioning ACI, 2 kind of resources need to be monitored carefully.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The number of resources tied to vlans because to create 1 vlan we need 3 resources
+
+&lt;ul&gt;
+&lt;li&gt;aci_application_epg&lt;/li&gt;
+&lt;li&gt;aci_bridge_domain&lt;/li&gt;
+&lt;li&gt;aci_epg_to_domain&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;The static path binding
+
+&lt;ul&gt;
+&lt;li&gt;aci_epg_to_static_path&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;resources-tied-to-vlans&#34;&gt;Resources tied to vlans&lt;/h3&gt;
+
+&lt;p&gt;For the first kind of resources, if you have 300 vlans, you will end up with at least 900 resources. After you have deployed the fabric the increase in resources stays most of the time very slow and constant. Every new vlan is ~3 new resources and will not make a big difference straight away.&lt;/p&gt;
+
+&lt;h3 id=&#34;static-path-binding&#34;&gt;Static path binding&lt;/h3&gt;
+
+&lt;p&gt;The second kind of resource is much more problematic. You need one static path binding resource per vlan per port. In our case it would be 19200 resources and that&amp;rsquo;s a lot !!! (100 vlans x 32 ports x 6 leaves = 19200 static path binding resources).
+In my case I&amp;rsquo;ve managed to pushed approximately 7000 resources and it was taking more than 1h to plan and 1h to apply with a Terraform Enterprise agent. Every time you will add a new server, unless you have a &lt;a href=&#34;https://kontrolissues.net/2015/03/27/sometimes-size-matters-im-sorry-but-youre-just-not-big-enough/&#34;&gt;single&lt;/a&gt; interface you will add at least 200 resources.&lt;/p&gt;
+
+&lt;h1 id=&#34;the-workaround&#34;&gt;The workaround&lt;/h1&gt;
+
+&lt;p&gt;What option do we have to overcome this major road block ?&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;The first option would be to throw more CPU and RAM on the agent and change the &lt;a href=&#34;https://www.terraform.io/cloud-docs/workspaces/variables&#34;&gt;parallelism&lt;/a&gt; option. I&amp;rsquo;ve tried to double the CPU and RAM on the server but the improvement wasn&amp;rsquo;t significative.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The second idea that comes to mind is to split the infrastructure into small workspaces but it&amp;rsquo;s very difficult when working with ACI in network centric approach. Even if you manage to split workspaces per business unit, your biggest business unit may have 100 vlans. Then, you can try to split your business unit per application but in the end, you probably don&amp;rsquo;t want to have the configuration of a single physical port split into 10+ workspaces.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The third option could be to use AAEP binding to EPG. For a green field deployment and if you don&amp;rsquo;t mind about the constraint&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt; it would be the best approach. For a brown field deployment, it might be difficult to change your design and configuration of the production environment.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The forth option can be to not manage the static path binding through Terraform and use some other automation magic to take care of this bit with some CI/CD pipeline unicorn dust :D&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If I have missed something, you can contact me via linkedin or twitter.&lt;/p&gt;
+&lt;div class=&#34;footnotes&#34;&gt;
+
+&lt;hr /&gt;
+
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;&lt;a href=&#34;https://www.cisco.com/c/en/us/td/docs/switches/datacenter/aci/apic/sw/2-x/L2_config/b_Cisco_APIC_Layer_2_Configuration_Guide/b_Cisco_APIC_Layer_2_Configuration_Guide_chapter_011.html&#34;&gt;EPG association&lt;/a&gt; with the AEP without static binding does not work in a scenario when you configure the EPG as Trunk under the AEP with one end point under the same EPG supporting Tagging and the other end point in the same EPG does not support VLAN tagging. While associating AEP under the EPG, you can configure it as Trunk, Access (Tagged) or Access (Untagged).
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:1&#34;&gt;&lt;sup&gt;^&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
       <title>How to check a variable in a Hashicorp Sentinel policy</title>
       <link>https://netmemo.github.io/post/sentinel-variable-check/</link>
       <pubDate>Tue, 19 Apr 2022 09:08:48 +0200</pubDate>
@@ -2994,131 +3074,6 @@ When you move an entire subnet somewhere else you can break the summarization of
 &lt;li&gt;&lt;p&gt;Distributed routing&lt;br /&gt;
 Now, with distributed routing you don&amp;rsquo;t have to go to the network core where the default gateway was in the old days to route between subnets. The trafic have a better distribution in the fabric and you should have less risks to congest uplinks with EAST/WEST trafic.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Terraform Refactoring State File</title>
-      <link>https://netmemo.github.io/post/terraform-refactoring-state-file/</link>
-      <pubDate>Thu, 25 Feb 2021 21:56:57 +0100</pubDate>
-      
-      <guid>https://netmemo.github.io/post/terraform-refactoring-state-file/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;https://www.terraform.io/docs/cli/commands/state/mv.html&#34;&gt;https://www.terraform.io/docs/cli/commands/state/mv.html&lt;/a&gt;&lt;br /&gt;
-On windows :&lt;br /&gt;
-&lt;pre style=&#34;color:black&#34;&gt;
-terraform state mv nsxt_policy_security_policy.policy1 nsxt_policy_security_policy.policies[\&amp;ldquo;policy1\&amp;ldquo;]
-&lt;/pre&gt;
-It move resources from a construct like this&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;locals {
-  policy1= {
-      rule1 = {
-        source = [&amp;quot;src1&amp;quot;,&amp;quot;src2&amp;quot;]
-      }
-  }
-  policy2 = {
-      rule1 = {
-        source = [&amp;quot;src3&amp;quot;,&amp;quot;src4&amp;quot;]
-      }
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;To a structure like this&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;locals {
-  policies = {
-    policy1 = {
-      rule1 = {
-        source = [&amp;quot;src1&amp;quot;,&amp;quot;src2&amp;quot;]
-      }
-    }
-    policy2 = {
-      rule2 = {
-        source = [&amp;quot;src3&amp;quot;,&amp;quot;src4&amp;quot;]
-      }
-    }
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The main moving from&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;resource &amp;quot;nsxt_policy_security_policy&amp;quot; &amp;quot;policy1&amp;quot;{
-  display_name = &amp;quot;policy1&amp;quot;
-  category     = &amp;quot;Environment&amp;quot;
-  dynamic &amp;quot;rule&amp;quot; {
-    for_each = local.policy1
-    content {
-      source_groups = rule.value[&amp;quot;sources&amp;quot;]
-    }
-  }
-}
-resource &amp;quot;nsxt_policy_security_policy&amp;quot; &amp;quot;policy2&amp;quot;{
-  display_name = &amp;quot;policy2&amp;quot;
-  category     = &amp;quot;Environment&amp;quot;
-  dynamic &amp;quot;rule&amp;quot; {
-    for_each = local.policy2
-    content {
-      source_groups = rule.value[&amp;quot;sources&amp;quot;]
-    }
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;to&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;resource &amp;quot;nsxt_policy_security_policy&amp;quot; &amp;quot;policies&amp;quot; {
-for_each = local.policies
-  display_name = each.key
-  category     = &amp;quot;Environment&amp;quot;
-  dynamic &amp;quot;rule&amp;quot; {
-    for_each = each.value
-    content {
-      source_groups = rule.value[&amp;quot;sources&amp;quot;]
-    }
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The terraform state moving fromfrom 2 resources to 1 resource with 2 instances&lt;br /&gt;
-From&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;{
-  &amp;quot;type&amp;quot;: &amp;quot;nsxt_policy_security_policy&amp;quot;,
-  &amp;quot;name&amp;quot;: &amp;quot;policy1&amp;quot;
-  &amp;quot;instances&amp;quot; : [
-    {
-      ...
-    }
-  ]
-},
-{
-  &amp;quot;type&amp;quot;: &amp;quot;nsxt_policy_security_policy&amp;quot;,
-  &amp;quot;name&amp;quot;: &amp;quot;policy2&amp;quot;
-  &amp;quot;instances&amp;quot; : [
-    {
-      ...
-    }
-  ]
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;To&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;{
-  &amp;quot;type&amp;quot;: &amp;quot;nsxt_policy_security_policy&amp;quot;,
-  &amp;quot;name&amp;quot;: &amp;quot;policies&amp;quot;
-  &amp;quot;instances&amp;quot; : [
-    {
-      &amp;quot;index_key&amp;quot;: &amp;quot;policy1&amp;quot;
-    },
-    {
-      &amp;quot;index_key&amp;quot;: &amp;quot;policy2&amp;quot;
-    }
-  ]
-}
-&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     

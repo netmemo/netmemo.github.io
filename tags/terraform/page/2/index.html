@@ -20,7 +20,7 @@
   <meta name="description" content="Independent Network Architect">
 
   
-  <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/tags/">
+  <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/tags/terraform/">
 
   
 
@@ -80,15 +80,15 @@
   
 
   
-  <link rel="alternate" href="https://netmemo.github.io/tags/index.xml" type="application/rss+xml" title="netmemo.github.io">
-  <link rel="feed" href="https://netmemo.github.io/tags/index.xml" type="application/rss+xml" title="netmemo.github.io">
+  <link rel="alternate" href="https://netmemo.github.io/tags/terraform/index.xml" type="application/rss+xml" title="netmemo.github.io">
+  <link rel="feed" href="https://netmemo.github.io/tags/terraform/index.xml" type="application/rss+xml" title="netmemo.github.io">
   
 
   <link rel="manifest" href="/site.webmanifest">
   <link rel="icon" type="image/png" href="/img/icon.png">
   <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
 
-  <link rel="canonical" href="https://netmemo.github.io/tags/">
+  <link rel="canonical" href="https://netmemo.github.io/tags/terraform/">
 
   <meta property="twitter:card" content="summary_large_image">
   
@@ -96,8 +96,8 @@
   <meta property="twitter:creator" content="@noyelb">
   
   <meta property="og:site_name" content="netmemo.github.io">
-  <meta property="og:url" content="https://netmemo.github.io/tags/">
-  <meta property="og:title" content="Tags | netmemo.github.io">
+  <meta property="og:url" content="https://netmemo.github.io/tags/terraform/">
+  <meta property="og:title" content="Terraform | netmemo.github.io">
   <meta property="og:description" content="Independent Network Architect">
   
   
@@ -105,14 +105,14 @@
   <meta property="og:image" content="https://netmemo.github.io/img/icon-192.png">
   <meta property="og:locale" content="en-us">
   
-  <meta property="og:updated_time" content="2022-05-18T22:41:35&#43;02:00">
+  <meta property="og:updated_time" content="2021-02-17T20:59:49&#43;01:00">
   
 
   
 
   
 
-  <title>Tags | netmemo.github.io</title>
+  <title>Terraform | netmemo.github.io</title>
 
 </head>
 <body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" class="dark">
@@ -213,78 +213,21 @@
 
 
 <div class="universal-wrapper">
-  <h1>Tags</h1>
+  <h1>Terraform</h1>
 
   
 
   
   
   <div>
-    <h2><a href="/tags/aci/">ACI</a></h2>
+    <h2><a href="/post/tf-for-each/">Using Terraform for_each to create subnets in AWS VPC</a></h2>
     <div class="article-style">
       
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/tags/anycast/">ANYCAST</a></h2>
-    <div class="article-style">
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/tags/aws/">AWS</a></h2>
-    <div class="article-style">
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/tags/addressing/">Addressing</a></h2>
-    <div class="article-style">
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/tags/arista/">Arista</a></h2>
-    <div class="article-style">
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/tags/bfd/">BFD</a></h2>
-    <div class="article-style">
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/tags/bgp/">BGP</a></h2>
-    <div class="article-style">
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/tags/buffer/">Buffer</a></h2>
-    <div class="article-style">
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/tags/buffering/">Buffering</a></h2>
-    <div class="article-style">
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/tags/cheat-sheet/">Cheat Sheet</a></h2>
-    <div class="article-style">
+      An extended explanation of the differences between for_each, for and count can be find on the link below https://blog.gruntwork.io/terraform-tips-tricks-loops-if-statements-and-gotchas-f739bbae55f9
+The two main drawbacks of using count are :
+- Can&rsquo;t be used to loop over inline blocks
+- Difficult to remove entry from a list because it changes the index and those Terraform may want to destroy the resource because it has a different index
+Below is an example of the variables used to create subnets within AWS VPCs and the main file with the for_each.
       
     </div>
   </div>
@@ -294,8 +237,8 @@
 <nav>
   <ul class="pagination justify-content-center">
     
+    <li class="page-item"><a class="page-link" href="/tags/terraform/">&laquo;</a></li>
     
-    <li class="page-item"><a class="page-link" href="/tags/page/2/">&raquo;</a></li>
     
   </ul>
 </nav>

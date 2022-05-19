@@ -4,6 +4,14 @@
     
     <url>
     
+      <loc>https://netmemo.github.io/post/aci-terraform-scale/</loc>
+      <lastmod>2022-05-18T22:41:35+02:00</lastmod>
+    </url>
+    
+  
+    
+    <url>
+    
       <loc>https://netmemo.github.io/post/sentinel-variable-check/</loc>
       <lastmod>2022-04-19T09:08:48+02:00</lastmod>
     </url>
@@ -252,8 +260,8 @@
     
     <url>
     
-      <loc>https://netmemo.github.io/categories/aci/</loc>
-      <lastmod>2021-12-15T18:40:34+01:00</lastmod>
+      <loc>https://netmemo.github.io/tags/aci/</loc>
+      <lastmod>2022-05-18T22:41:35+02:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -261,7 +269,7 @@
     
     <url>
     
-      <loc>https://netmemo.github.io/tags/aci/</loc>
+      <loc>https://netmemo.github.io/categories/aci/</loc>
       <lastmod>2021-12-15T18:40:34+01:00</lastmod>
       <priority>0</priority>
     </url>
@@ -279,8 +287,8 @@
     
     <url>
     
-      <loc>https://netmemo.github.io/categories/aws/</loc>
-      <lastmod>2021-09-27T18:04:31+02:00</lastmod>
+      <loc>https://netmemo.github.io/tags/aws/</loc>
+      <lastmod>2021-11-16T18:00:45+02:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -288,8 +296,8 @@
     
     <url>
     
-      <loc>https://netmemo.github.io/tags/aws/</loc>
-      <lastmod>2021-11-16T18:00:45+02:00</lastmod>
+      <loc>https://netmemo.github.io/categories/aws/</loc>
+      <lastmod>2021-09-27T18:04:31+02:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -316,7 +324,7 @@
     <url>
     
       <loc>https://netmemo.github.io/categories/automation/</loc>
-      <lastmod>2021-08-15T14:02:39+02:00</lastmod>
+      <lastmod>2022-05-18T22:41:35+02:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -387,15 +395,6 @@
     
     <url>
     
-      <loc>https://netmemo.github.io/categories/cisco/</loc>
-      <lastmod>2021-02-23T22:24:44+01:00</lastmod>
-      <priority>0</priority>
-    </url>
-    
-  
-    
-    <url>
-    
       <loc>https://netmemo.github.io/tags/cisco/</loc>
       <lastmod>2021-02-23T22:24:44+01:00</lastmod>
       <priority>0</priority>
@@ -405,8 +404,8 @@
     
     <url>
     
-      <loc>https://netmemo.github.io/categories/cloud/</loc>
-      <lastmod>2021-11-16T18:00:45+02:00</lastmod>
+      <loc>https://netmemo.github.io/categories/cisco/</loc>
+      <lastmod>2021-02-23T22:24:44+01:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -416,6 +415,15 @@
     
       <loc>https://netmemo.github.io/tags/cloud/</loc>
       <lastmod>2021-08-15T14:02:39+02:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/categories/cloud/</loc>
+      <lastmod>2021-11-16T18:00:45+02:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -441,7 +449,7 @@
     
     <url>
     
-      <loc>https://netmemo.github.io/categories/dc/</loc>
+      <loc>https://netmemo.github.io/tags/dc/</loc>
       <lastmod>2020-11-28T19:11:36+01:00</lastmod>
       <priority>0</priority>
     </url>
@@ -450,7 +458,7 @@
     
     <url>
     
-      <loc>https://netmemo.github.io/tags/dc/</loc>
+      <loc>https://netmemo.github.io/categories/dc/</loc>
       <lastmod>2020-11-28T19:11:36+01:00</lastmod>
       <priority>0</priority>
     </url>
@@ -540,7 +548,7 @@
     
     <url>
     
-      <loc>https://netmemo.github.io/categories/iac/</loc>
+      <loc>https://netmemo.github.io/tags/iac/</loc>
       <lastmod>2021-07-29T19:03:37+02:00</lastmod>
       <priority>0</priority>
     </url>
@@ -549,7 +557,7 @@
     
     <url>
     
-      <loc>https://netmemo.github.io/tags/iac/</loc>
+      <loc>https://netmemo.github.io/categories/iac/</loc>
       <lastmod>2021-07-29T19:03:37+02:00</lastmod>
       <priority>0</priority>
     </url>
@@ -585,15 +593,6 @@
     
     <url>
     
-      <loc>https://netmemo.github.io/categories/nsx-t/</loc>
-      <lastmod>2022-03-15T19:17:50+01:00</lastmod>
-      <priority>0</priority>
-    </url>
-    
-  
-    
-    <url>
-    
       <loc>https://netmemo.github.io/tags/nsx-t/</loc>
       <lastmod>2022-03-15T19:17:50+01:00</lastmod>
       <priority>0</priority>
@@ -603,8 +602,8 @@
     
     <url>
     
-      <loc>https://netmemo.github.io/categories/nsxt/</loc>
-      <lastmod>2021-07-29T19:03:37+02:00</lastmod>
+      <loc>https://netmemo.github.io/categories/nsx-t/</loc>
+      <lastmod>2022-03-15T19:17:50+01:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -613,6 +612,15 @@
     <url>
     
       <loc>https://netmemo.github.io/tags/nsxt/</loc>
+      <lastmod>2021-07-29T19:03:37+02:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/categories/nsxt/</loc>
       <lastmod>2021-07-29T19:03:37+02:00</lastmod>
       <priority>0</priority>
     </url>
@@ -665,15 +673,6 @@
     
     <url>
     
-      <loc>https://netmemo.github.io/categories/qos/</loc>
-      <lastmod>2021-02-23T22:24:44+01:00</lastmod>
-      <priority>0</priority>
-    </url>
-    
-  
-    
-    <url>
-    
       <loc>https://netmemo.github.io/tags/qos/</loc>
       <lastmod>2021-02-23T22:24:44+01:00</lastmod>
       <priority>0</priority>
@@ -683,8 +682,8 @@
     
     <url>
     
-      <loc>https://netmemo.github.io/categories/routing/</loc>
-      <lastmod>2020-05-11T08:00:11+02:00</lastmod>
+      <loc>https://netmemo.github.io/categories/qos/</loc>
+      <lastmod>2021-02-23T22:24:44+01:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -693,6 +692,15 @@
     <url>
     
       <loc>https://netmemo.github.io/tags/routing/</loc>
+      <lastmod>2020-05-11T08:00:11+02:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/categories/routing/</loc>
       <lastmod>2020-05-11T08:00:11+02:00</lastmod>
       <priority>0</priority>
     </url>
@@ -728,15 +736,6 @@
     
     <url>
     
-      <loc>https://netmemo.github.io/categories/sentinel/</loc>
-      <lastmod>2022-04-19T09:08:48+02:00</lastmod>
-      <priority>0</priority>
-    </url>
-    
-  
-    
-    <url>
-    
       <loc>https://netmemo.github.io/tags/sentinel/</loc>
       <lastmod>2022-04-19T09:08:48+02:00</lastmod>
       <priority>0</priority>
@@ -746,8 +745,8 @@
     
     <url>
     
-      <loc>https://netmemo.github.io/tags/</loc>
-      <lastmod>2021-12-15T18:40:34+01:00</lastmod>
+      <loc>https://netmemo.github.io/categories/sentinel/</loc>
+      <lastmod>2022-04-19T09:08:48+02:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -755,8 +754,8 @@
     
     <url>
     
-      <loc>https://netmemo.github.io/categories/terraform/</loc>
-      <lastmod>2022-01-26T22:00:26+01:00</lastmod>
+      <loc>https://netmemo.github.io/tags/</loc>
+      <lastmod>2022-05-18T22:41:35+02:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -765,6 +764,15 @@
     <url>
     
       <loc>https://netmemo.github.io/tags/terraform/</loc>
+      <lastmod>2022-05-18T22:41:35+02:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/categories/terraform/</loc>
       <lastmod>2022-01-26T22:00:26+01:00</lastmod>
       <priority>0</priority>
     </url>
@@ -809,7 +817,7 @@
     
     <url>
     
-      <loc>https://netmemo.github.io/categories/cisco/</loc>
+      <loc>https://netmemo.github.io/tags/cisco/</loc>
       <lastmod>2018-10-04T00:48:57+02:00</lastmod>
       <priority>0</priority>
     </url>
@@ -818,7 +826,7 @@
     
     <url>
     
-      <loc>https://netmemo.github.io/tags/cisco/</loc>
+      <loc>https://netmemo.github.io/categories/cisco/</loc>
       <lastmod>2018-10-04T00:48:57+02:00</lastmod>
       <priority>0</priority>
     </url>
@@ -935,7 +943,7 @@
     
     <url>
     
-      <loc>https://netmemo.github.io/categories/tools/</loc>
+      <loc>https://netmemo.github.io/tags/tools/</loc>
       <lastmod>2018-10-22T15:35:55+02:00</lastmod>
       <priority>0</priority>
     </url>
@@ -944,7 +952,7 @@
     
     <url>
     
-      <loc>https://netmemo.github.io/tags/tools/</loc>
+      <loc>https://netmemo.github.io/categories/tools/</loc>
       <lastmod>2018-10-22T15:35:55+02:00</lastmod>
       <priority>0</priority>
     </url>
