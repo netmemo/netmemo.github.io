@@ -105,7 +105,7 @@
   <meta property="og:image" content="https://netmemo.github.io/img/icon-192.png">
   <meta property="og:locale" content="en-us">
   
-  <meta property="og:updated_time" content="2022-05-18T22:41:35&#43;02:00">
+  <meta property="og:updated_time" content="2022-06-19T09:03:41&#43;02:00">
   
 
   
@@ -220,6 +220,17 @@
   
   
   <div>
+    <h2><a href="/post/tf-chicken-egg/">Terraform and the chicken and egg problem</a></h2>
+    <div class="article-style">
+      
+      The chicken and egg problem I write a lot on Terraform because I like the tool very much. This time I thought it would be good to show a situation where Terraform is not necessarily the best tool for the job. The diagram below illustrates the problem.
+
+A needs B and B needs A. If the relationship is mandatory it will be impossible to provision these resources because we have a chicken and egg problem.
+      
+    </div>
+  </div>
+  
+  <div>
     <h2><a href="/post/aci-terraform-scale/">ACI Terraform scalability</a></h2>
     <div class="article-style">
       
@@ -320,21 +331,6 @@ locals { policies = { policy1 = { rule1 = { source = [&quot;src1&quot;,&quot;src
 The variables are made from one map of list. Each list represents one group composed of tags.
 https://www.hashicorp.com/blog/hashicorp-terraform-0-12-preview-for-and-for-each
 variable &quot;mapgroups&quot; { type	= map default	= { NBO	= [&quot;NBO&quot;] NBO-PROD	= [&quot;NBO&quot;,&quot;PROD&quot;] } } resource &quot;nsxt_policy_group&quot; &quot;nbogroups&quot; { for_each	= var.mapgroups display_name	= each.key criteria { dynamic &quot;condition&quot; { for_each = each.
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/post/tf-bundle-windows/">Create portable Terraform and plugins with Terraform-bundle for Windows</a></h2>
-    <div class="article-style">
-      
-      The steps below are what I have followed to create a terraform-bundle to use terraform with non default providers on a server that doesn&rsquo;t have access to Internet. You can find the tool explanation in the below link.
-https://github.com/hashicorp/terraform/tree/master/tools/terraform-bundle
-installation of golang with msi downloaded here
-https://golang.org/doc/install
-Clone the terraform repository to get the tool
-https://github.com/hashicorp/terraform.git
-cd terraform-master go install .\tools\terraform-bundle  Check the terraform version C:\Users\noyel\Desktop\tfforeach\nsxt&gt;terraform version Terraform v0.
       
     </div>
   </div>

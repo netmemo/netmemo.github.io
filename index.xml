@@ -11,6 +11,77 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Terraform and the chicken and egg problem</title>
+      <link>https://netmemo.github.io/post/tf-chicken-egg/</link>
+      <pubDate>Sun, 19 Jun 2022 09:03:41 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/tf-chicken-egg/</guid>
+      <description>
+
+&lt;h1 id=&#34;the-chicken-and-egg-problem&#34;&gt;The chicken and egg problem&lt;/h1&gt;
+
+&lt;p&gt;I write a lot on Terraform because I like the tool very much. This time I thought it would be good to show a situation where Terraform is not necessarily the best tool for the job. The diagram below illustrates the problem.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;f5-tf-a-b.png&#34;&gt; &lt;img src=&#34;f5-tf-a-b.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;A needs B and B needs A. If the relationship is mandatory it will be impossible to provision these resources because we have a chicken and egg problem.
+However, in our example, if A doesn&amp;rsquo;t need B from the beginning, we can provision A then B and add the link to B afterwards.
+The issue is then how do you do it in Terraform ? Once the resource A is provisonned, how do you add automatically the link to B ?&lt;/p&gt;
+
+&lt;h1 id=&#34;the-example&#34;&gt;The example&lt;/h1&gt;
+
+&lt;p&gt;To illustrate this, we will use F5 BIG-IP and the below diagram.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;f5-tf-light-bigip.png&#34;&gt; &lt;img src=&#34;f5-tf-light-bigip.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;We want to create a route domain but it needs a vlan&lt;/li&gt;
+&lt;li&gt;We want to create a vlan but it needs a partition&lt;/li&gt;
+&lt;li&gt;We want to create a partition but it needs a route domain&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;What will help us in this case is that the route domain doesn&amp;rsquo;t require a vlan, we will be able to add the vlan to the route domain afterwards. The steps will be :&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Create a route domain&lt;/li&gt;
+&lt;li&gt;Create a partition and associate it to a route domain&lt;/li&gt;
+&lt;li&gt;Create a vlan and associate it to the partition&lt;/li&gt;
+&lt;li&gt;Modify the route domain to add the vlan&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;We see that we need 4 steps and the last step is to modify the first resource.&lt;/p&gt;
+
+&lt;h1 id=&#34;how-to-do-it-with-terraform&#34;&gt;How to do it with Terraform ?&lt;/h1&gt;
+
+&lt;h3 id=&#34;manual-approach&#34;&gt;Manual approach&lt;/h3&gt;
+
+&lt;p&gt;We can do it manually by changing the code and pushing a second time the configuration to production but it doesn&amp;rsquo;t seem to be the more efficient approach.&lt;/p&gt;
+
+&lt;h3 id=&#34;the-workaround-approach&#34;&gt;The workaround approach&lt;/h3&gt;
+
+&lt;p&gt;Currently with the bigip Terraform provider, the only resource available is the &amp;ldquo;bigip_net_vlan&amp;rdquo; resource. We can however use the &amp;ldquo;bigip_command&amp;rdquo; resource to simulate the missing resources but without keeping a real state. We also need to add the depends_on attribute if we want Terraform to respect the creation steps.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;f5-tf-bigip.png&#34;&gt; &lt;img src=&#34;f5-tf-bigip.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;We see with this example that we need an extra resource/command to add the missing element in our first resource (step 4). In this example this is possible because we use a resource to simulate a manual action. With this approach we are not keeping a proper state of any infrastructure, we don&amp;rsquo;t really have dependencies and thus we lose the main benefit of the tool.&lt;/p&gt;
+
+&lt;h3 id=&#34;the-new-resource-approach&#34;&gt;The new resource approach&lt;/h3&gt;
+
+&lt;p&gt;Another option could be to develop a specific resource that takes care of the 4 steps needed to create the environment. This resource will take care of all the API call for the 3 components in the background but as the &lt;a href=&#34;https://www.terraform.io/plugin/hashicorp-provider-design-principles&#34;&gt;Provider Design Principles&lt;/a&gt; documentation states :&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;A Terraform resource should be a declarative representation of single component&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;There is probably a reason for that. Having a single resource managing 3 components and their dependancies come with the associate complexity.&lt;/p&gt;
+
+&lt;h1 id=&#34;netmemo-s-take&#34;&gt;Netmemo&amp;rsquo;s take&lt;/h1&gt;
+
+&lt;p&gt;The purpose of this example was to illustrate a use case where Terraform is not necessarily the best tool for the job. Sometimes what we have to provision hasn&amp;rsquo;t be designed for a tool like Terraform. Thus it can be more complex to develop resources to manage it. In this kind of situation other tools where you can define steps or programming languages might be more suitable.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>ACI Terraform scalability</title>
       <link>https://netmemo.github.io/post/aci-terraform-scale/</link>
       <pubDate>Wed, 18 May 2022 22:41:35 +0200</pubDate>
@@ -2986,94 +3057,6 @@ Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
 &lt;a href=&#34;nsx-groups.png&#34;&gt; &lt;img src=&#34;nsx-groups.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;br /&gt;
 &lt;a href=&#34;nsx-dfw.png&#34;&gt; &lt;img src=&#34;nsx-dfw.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;br /&gt;
 &lt;/details&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Subnet sizing and heterogeneous subnets</title>
-      <link>https://netmemo.github.io/post/subnets-size-mix/</link>
-      <pubDate>Tue, 18 May 2021 22:28:39 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/post/subnets-size-mix/</guid>
-      <description>
-
-&lt;p&gt;Along my different jobs, one of the things that led to L2 extension and then brought risks and slew down or even blocked projects was big heterogeneous subnets.&lt;/p&gt;
-
-&lt;p&gt;Often the initial rational of big heterogeneous subnets was to avoid too much vlans on physical infrastructure. Historically physical infrastructure had vlans and spanning tree limits.
-The problem is that when migration time is coming nobody wants to change IP addresses. Even after arguing, this is the network that bears the risk to break the entire company by stretching L2. No need to say that the layer 2 extension stay forever because it takes ages to migrate everything. After two years, there is no more budget for the dozen of remaining devices and everybody move on leting the network as a battled field.
-Some people are even arguing that with microsementation you only need one vlan&amp;hellip;&lt;/p&gt;
-
-&lt;p&gt;In this blog I will list the pros and cons of small, big and heterogeneous subnets.&lt;/p&gt;
-
-&lt;h1 id=&#34;small-subnet&#34;&gt;Small subnet&lt;/h1&gt;
-
-&lt;p&gt;I like to think of using small subnets as a &amp;ldquo;scale out&amp;rdquo; approach. When the subnet is full you just assign a new subnet in the same reserved space.&lt;/p&gt;
-
-&lt;h2 id=&#34;pros&#34;&gt;Pros&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Agility. You can do &lt;a href=&#34;https://blog.ipspace.net/2020/12/50-shades-high-availability.html&#34;&gt;swimlane&lt;/a&gt; application design. When migration time is coming, you can do it per application.&lt;/li&gt;
-&lt;li&gt;For application migration, if you can&amp;rsquo;t change the ip addresses of the servers, you can reroute the trafic without jeorpadizing the entire company with L2 extension.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;cons&#34;&gt;Cons&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;More entries in the routing table but that can be mitigated with summarization.&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Loss of ip addresses. Does it really matter ? how full are the big subnets ?&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&#34;big-subnet&#34;&gt;Big subnet&lt;/h1&gt;
-
-&lt;p&gt;This is for me a more &amp;ldquo;scale up&amp;rdquo; approach. You oversize subnets then when you need a new server, you pick one IP in the big subnet without asking any question.&lt;/p&gt;
-
-&lt;h2 id=&#34;pros-1&#34;&gt;Pros&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;IP address saving. Is it worth it ? Most of the time the subnets are big only to anticipate growth and those IPs are lost anyway.&lt;/li&gt;
-&lt;li&gt;Simplicity to allocate addresses. Only a couple of big subnets.&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;cons-1&#34;&gt;Cons&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;If the subnet is not full, it&amp;rsquo;s very difficult to carve out the unused space in the subnet to use it somewhere else.&lt;/li&gt;
-&lt;li&gt;L2 broadcast domain is mitigated by arp suppression on modern fabric but still you have broadcast reaching every VM and thus can have troubles if the &lt;a href=&#34;http://yves-louis.com/DCI/wp-content/uploads/2015/10/VXLAN-Multipod-geographically-dispersed-white-paper-final.pdf&#34;&gt;stormcontrol is not set properly&lt;/a&gt;.&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;For all the firewalls in the enterprise that are not relying on tags, you might have to open firewall rules per host instead of per subnets.&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&#34;heterogeneous-subnet&#34;&gt;Heterogeneous subnet&lt;/h1&gt;
-
-&lt;p&gt;It&amp;rsquo;s not rare to see big subnets also heterogeneous with a mix of applications and workload type (physical/virtual).&lt;/p&gt;
-
-&lt;h2 id=&#34;pros-2&#34;&gt;Pros&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;It allows physical devices like NAS or Loadbalancer to be in the same subnet as your application workloads (If you want to avoid putting a FW in between and can&amp;rsquo;t use VRF mechanism)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;cons-2&#34;&gt;Cons&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Application mutualization. It can block applications migration because not all the applications have the same requirements. If one of the application has been asked to migrate somewhere else and nobody wants to change IP addresses, you might be forced to stretch L2.&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Mix of workload type (physical/virtual). It can block applications migration because the physical devices can&amp;rsquo;t go where the VMs are going. If nobody wants to change IP addresses, you might be forced to stretch L2.&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&#34;other-considerations&#34;&gt;Other considerations&lt;/h1&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Pets vs cattle : VM vs Container&lt;br /&gt;
-In the above use cases I&amp;rsquo;m talking essentially of workloads that are not containers. For containers the paradigm is often different because most of the time containers don&amp;rsquo;t share the subnet with physical device and application developper doesn&amp;rsquo;t rely on the containers IP addresses. What matter is the &lt;a href=&#34;https://en.wikipedia.org/wiki/Fully_qualified_domain_name&#34;&gt;FQDN&lt;/a&gt; of the service. VM are still considered most of the time as pets and nobody wants to change the IP address mostly to avoid to change firewall rules or hard coded IP addresses in application.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;VLANs Scale&lt;br /&gt;
-The number of supported VLAN are less relevent in virtualized environments because most of the time software scale better and you are not limited to 4K vlans (or even 2K in some case for ACI &lt;a href=&#34;https://www.cisco.com/c/en/us/td/docs/switches/datacenter/aci/apic/sw/4-x/verified-scalability/Cisco-ACI-Verified-Scalability-Guide-422.html&#34;&gt;Bridge Domain&lt;/a&gt; and EVPN &lt;a href=&#34;https://www.cisco.com/c/en/us/td/docs/switches/datacenter/nexus9000/sw/92x/scalability/guide_923/b_Cisco_Nexus_9000_Series_NX-OS_Verified_Scalability_Guide_923.html&#34;&gt;Layer 2 VNIs&lt;/a&gt;).&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Suboptimal IP addressing plan&lt;br /&gt;
-When you move an entire subnet somewhere else you can break the summarization of the company but you can always do the summarization again after all the applications have moved or even reIP the entire subnet afterwards. It&amp;rsquo;s less risky and complex than having a L2 streched &amp;ldquo;forever&amp;rdquo;.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Distributed routing&lt;br /&gt;
-Now, with distributed routing you don&amp;rsquo;t have to go to the network core where the default gateway was in the old days to route between subnets. The trafic have a better distribution in the fabric and you should have less risks to congest uplinks with EAST/WEST trafic.&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
 </description>
     </item>
     
