@@ -58,15 +58,6 @@
     </item>
     
     <item>
-      <title>Automation</title>
-      <link>https://netmemo.github.io/tags/automation/</link>
-      <pubDate>Sun, 19 Jun 2022 09:03:41 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/tags/automation/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>BFD</title>
       <link>https://netmemo.github.io/tags/bfd/</link>
       <pubDate>Wed, 02 Dec 2020 09:29:50 +0100</pubDate>
@@ -81,15 +72,6 @@
       <pubDate>Mon, 11 May 2020 08:00:11 +0200</pubDate>
       
       <guid>https://netmemo.github.io/tags/bgp/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>BIGIP</title>
-      <link>https://netmemo.github.io/tags/bigip/</link>
-      <pubDate>Sun, 19 Jun 2022 09:03:41 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/tags/bigip/</guid>
       <description></description>
     </item>
     
@@ -171,15 +153,6 @@
       <pubDate>Tue, 24 Nov 2020 18:12:05 +0100</pubDate>
       
       <guid>https://netmemo.github.io/tags/eos/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>F5</title>
-      <link>https://netmemo.github.io/tags/f5/</link>
-      <pubDate>Sun, 19 Jun 2022 09:03:41 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/tags/f5/</guid>
       <description></description>
     </item>
     
@@ -357,7 +330,7 @@
     <item>
       <title>Terraform</title>
       <link>https://netmemo.github.io/tags/terraform/</link>
-      <pubDate>Sun, 19 Jun 2022 09:03:41 +0200</pubDate>
+      <pubDate>Wed, 18 May 2022 22:41:35 +0200</pubDate>
       
       <guid>https://netmemo.github.io/tags/terraform/</guid>
       <description></description>
