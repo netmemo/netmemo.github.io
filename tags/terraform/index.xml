@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&amp;acute;s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
-    <lastBuildDate>Wed, 18 May 2022 22:41:35 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 19 Jun 2022 09:03:41 +0200</lastBuildDate>
     
 	<atom:link href="https://netmemo.github.io/tags/terraform/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Terraform and the chicken and egg problem</title>
+      <link>https://netmemo.github.io/post/tf-chicken-egg/</link>
+      <pubDate>Sun, 19 Jun 2022 09:03:41 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/tf-chicken-egg/</guid>
+      <description>The chicken and egg problem I write a lot on Terraform because I like the tool very much. This time I thought it would be good to show a situation where Terraform is not necessarily the best tool for the job. The diagram below illustrates the problem.
+
+A needs B and B needs A. If the relationship is mandatory it will be impossible to provision these resources because we have a chicken and egg problem.</description>
+    </item>
     
     <item>
       <title>ACI Terraform scalability</title>

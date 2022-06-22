@@ -4,6 +4,14 @@
     
     <url>
     
+      <loc>https://netmemo.github.io/post/tf-chicken-egg/</loc>
+      <lastmod>2022-06-19T09:03:41+02:00</lastmod>
+    </url>
+    
+  
+    
+    <url>
+    
       <loc>https://netmemo.github.io/post/aci-terraform-scale/</loc>
       <lastmod>2022-05-18T22:41:35+02:00</lastmod>
     </url>
@@ -323,8 +331,17 @@
     
     <url>
     
+      <loc>https://netmemo.github.io/tags/automation/</loc>
+      <lastmod>2022-06-19T09:03:41+02:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
       <loc>https://netmemo.github.io/categories/automation/</loc>
-      <lastmod>2022-05-18T22:41:35+02:00</lastmod>
+      <lastmod>2022-06-19T09:03:41+02:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -343,6 +360,15 @@
     
       <loc>https://netmemo.github.io/tags/bgp/</loc>
       <lastmod>2020-05-11T08:00:11+02:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/tags/bigip/</loc>
+      <lastmod>2022-06-19T09:03:41+02:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -478,6 +504,15 @@
     
       <loc>https://netmemo.github.io/tags/eos/</loc>
       <lastmod>2020-11-24T18:12:05+01:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/tags/f5/</loc>
+      <lastmod>2022-06-19T09:03:41+02:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -764,7 +799,7 @@
     <url>
     
       <loc>https://netmemo.github.io/tags/terraform/</loc>
-      <lastmod>2022-05-18T22:41:35+02:00</lastmod>
+      <lastmod>2022-06-19T09:03:41+02:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -773,7 +808,7 @@
     <url>
     
       <loc>https://netmemo.github.io/categories/terraform/</loc>
-      <lastmod>2022-01-26T22:00:26+01:00</lastmod>
+      <lastmod>2022-06-19T09:03:41+02:00</lastmod>
       <priority>0</priority>
     </url>
     
