@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 2.4.0">
+  <meta name="generator" content="Hugo 0.49" />
+  <meta name="author" content="Noel">
+
+  
+  
+  
+  
+    
+  
+  <meta name="description" content="The need I went into some troubles when I wanted to implement NSXT rules. My aim was to keep the order of the rules as intended by the user when he wrote his data without asking him to enter a rule ID manually. If the order is kept then it&rsquo;s easy to prioritize the rules according to their placement. With the NSX-T Terraform provider the rules are in the form below :">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/post/tf-map-ordering/">
+
+  
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <meta name="theme-color" content="hsl(190, 90%, 68%)">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/dracula.min.css" crossorigin="anonymous">
+        
+      
+    
+
+    
+
+    
+
+  
+
+  
+  
+  <link rel="stylesheet" href=//fonts.googleapis.com/css?family=Montserrat:400,700|Roboto:400,400italic,700|Roboto+Mono>
+  
+
+  <link rel="stylesheet" href="/styles.css">
+  
+
+  
+  
+  
+
+  
+  <link rel="alternate" href="https://netmemo.github.io/index.xml" type="application/rss+xml" title="netmemo.github.io">
+  <link rel="feed" href="https://netmemo.github.io/index.xml" type="application/rss+xml" title="netmemo.github.io">
+  
+
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="icon" type="image/png" href="/img/icon.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
+
+  <link rel="canonical" href="https://netmemo.github.io/post/tf-map-ordering/">
+
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="twitter:site" content="@noyelb">
+  <meta property="twitter:creator" content="@noyelb">
+  
+  <meta property="og:site_name" content="netmemo.github.io">
+  <meta property="og:url" content="https://netmemo.github.io/post/tf-map-ordering/">
+  <meta property="og:title" content="Terraform list of map ordering | netmemo.github.io">
+  <meta property="og:description" content="The need I went into some troubles when I wanted to implement NSXT rules. My aim was to keep the order of the rules as intended by the user when he wrote his data without asking him to enter a rule ID manually. If the order is kept then it&rsquo;s easy to prioritize the rules according to their placement. With the NSX-T Terraform provider the rules are in the form below :">
+  
+  
+    
+  <meta property="og:image" content="https://netmemo.github.io/img/icon-192.png">
+  <meta property="og:locale" content="en-us">
+  
+  <meta property="article:published_time" content="2022-07-24T18:44:36&#43;02:00">
+  
+  <meta property="article:modified_time" content="2022-07-24T18:44:36&#43;02:00">
+  
+
+  
+
+  
+
+  <title>Terraform list of map ordering | netmemo.github.io</title>
+
+</head>
+<body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" class="dark">
+
+<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0" id="navbar-main">
+  <div class="container">
+
+    
+      <a class="navbar-brand" href="/"><img src="/img/logo-netmemo.png" alt="netmemo.github.io"></a>
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+    
+    <div class="collapse navbar-collapse" id="navbar">
+
+      
+      
+      <ul class="navbar-nav ml-auto">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/#hero">
+            
+            <span>Home</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/#posts">
+            
+            <span>Posts</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/#about">
+            
+            <span>About</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+      
+
+        
+
+        
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+<article class="article" itemscope itemtype="http://schema.org/Article">
+
+  
+
+
+
+
+
+  <div class="article-container">
+    <h1 itemprop="name">Terraform list of map ordering</h1>
+
+    
+
+<div class="article-metadata">
+
+  
+  
+  <span itemscope itemprop="author" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Noel">
+  </span>
+  
+
+  <span class="article-date">
+    
+    <meta content="2022-07-24 18:44:36 &#43;0200 CEST" itemprop="datePublished">
+    <time datetime="2022-07-24 18:44:36 &#43;0200 CEST" itemprop="dateModified">
+      Jul 24, 2022
+    </time>
+  </span>
+  <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Noel">
+  </span>
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    8 min read
+  </span>
+  
+
+  
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder"></i>
+    
+    <a href="/categories/automation/">Automation</a>, 
+    
+    <a href="/categories/terraform/">Terraform</a>
+    
+  </span>
+  
+  
+
+  
+  
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    <li>
+      <a class="twitter"
+         href="https://twitter.com/intent/tweet?text=Terraform%20list%20of%20map%20ordering&amp;url=https%3a%2f%2fnetmemo.github.io%2fpost%2ftf-map-ordering%2f"
+         target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+    <li>
+      <a class="facebook"
+         href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fnetmemo.github.io%2fpost%2ftf-map-ordering%2f"
+         target="_blank" rel="noopener">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+    </li>
+    <li>
+      <a class="linkedin"
+         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fnetmemo.github.io%2fpost%2ftf-map-ordering%2f&amp;title=Terraform%20list%20of%20map%20ordering"
+         target="_blank" rel="noopener">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+    </li>
+    <li>
+      <a class="weibo"
+         href="http://service.weibo.com/share/share.php?url=https%3a%2f%2fnetmemo.github.io%2fpost%2ftf-map-ordering%2f&amp;title=Terraform%20list%20of%20map%20ordering"
+         target="_blank" rel="noopener">
+        <i class="fab fa-weibo"></i>
+      </a>
+    </li>
+    <li>
+      <a class="email"
+         href="mailto:?subject=Terraform%20list%20of%20map%20ordering&amp;body=https%3a%2f%2fnetmemo.github.io%2fpost%2ftf-map-ordering%2f">
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+  
+
+</div>
+
+
+    <div class="article-style" itemprop="articleBody">
+      
+
+<h1 id="the-need">The need</h1>
+
+<p>I went into some troubles when I wanted to implement NSXT rules. My aim was to keep the order of the rules as intended by the user when he wrote his data <strong>without asking him to enter a rule ID manually</strong>. If the order is kept then it&rsquo;s easy to prioritize the rules according to their placement.
+With the <a href="https://registry.terraform.io/providers/vmware/nsxt/latest/docs/resources/policy_security_policy">NSX-T Terraform provider</a> the rules are in the form below :</p>
+
+<pre><code>resource &quot;nsxt_policy_security_policy&quot; &quot;policy1&quot; {
+  display_name = &quot;policy1&quot;
+  rule {
+    ...
+  }
+  rule {
+    ....
+  }
+}
+</code></pre>
+
+<p>You can see that it&rsquo;s made of <strong>rule</strong> blocks. These blocks will be generated dynamically. We need a way to always have the same order while generating the rule blocks. If we don&rsquo;t keep the order, Terraform complains that the rule has changed.
+Every time we will add a rule they will be scrambled and Terraform will modify the order.</p>
+
+<h1 id="why-does-this-happen">Why does this happen ?</h1>
+
+<p>The data model I use to represent the rules is a list of map. Every map is a rule. We can sum up the data structure as below :</p>
+
+<pre><code>listOfRule = [
+  {
+    display_name = &quot;ruleA&quot;
+    source_groups   = &quot;10.0.0.1&quot;
+    destination_groups   = &quot;10.0.0.2&quot;
+  },
+  {
+    display_name = &quot;ruleD&quot;
+    source_groups   = &quot;10.1.0.1&quot;
+    destination_groups   = &quot;10.1.0.2&quot;
+  }
+]
+</code></pre>
+
+<p>To understand the behavior, we will simplify this data structure to an object with 2 attributes. id which is an integer and name which is a string.
+In this example, the ids are not sorted neither the names.</p>
+
+<pre><code>variable &quot;listOfRule&quot; {
+  default = [
+    {
+      id   = 3
+      name = &quot;ruleA&quot;
+    },
+    {
+      id   = 2
+      name = &quot;ruleD&quot;
+    },
+    {
+      id   = 10
+      name = &quot;ruleB&quot;
+    },
+    {
+      id   = 1
+      name = &quot;ruleC&quot;
+    }
+  ]
+}
+</code></pre>
+
+<p><a href="https://www.terraform.io/language/meta-arguments/for_each">for_each</a> only accept a set or a map. When you have a list and you want to iterate it over a for_each, you need to either transform it into a <a href="https://www.terraform.io/language/expressions/type-constraints#set">set</a> with the <a href="https://www.terraform.io/language/functions/toset">toset()</a> function or create a map with a key thanks to the for loop.</p>
+
+<pre><code>{ for key, value in var.myvar : key =&gt; value }
+</code></pre>
+
+<ul>
+<li>When transforming this list of object into a set, the order is not kept and is difficult to predict.</li>
+<li>When transforming this list of object into a map, the map will be sorted according of the key which <strong>MUST</strong> be a string. The ordering is then done alphabetically.</li>
+</ul>
+
+<p>To illustrate the ordering we will do different examples.</p>
+
+<h1 id="the-examples">The examples</h1>
+
+<h3 id="transform-list-into-set">Transform list into set</h3>
+
+<p>With this transformation we see that the order is not easy to predict. In that case, it&rsquo;s sorted numerically but with the longest id first.</p>
+
+<table>
+<tr>
+<td> Original </td> <td> Sorted </td>
+</tr>
+<tr>
+<td> 
+
+<pre>
+<code>
+variable "listOfRule" {
+  default = [
+    {
+      id   = 3
+      name = "ruleA"
+    },
+    {
+      id   = 2
+      name = "ruleD"
+    },
+    {
+      id   = 10
+      name = "ruleB"
+    },
+    {
+      id   = 1
+      name = "ruleC"
+    }
+  ]
+}
+</code>
+</pre>
+</td>
+
+<td>
+<pre>
+<code>
+> toset(var.listOfRule)
+toset([
+  {
+    "id" = 10
+    "name" = "ruleB"
+  },
+  {
+    "id" = 1
+    "name" = "ruleC"
+  },
+  {
+    "id" = 2
+    "name" = "ruleD"
+  },
+  {
+    "id" = 3
+    "name" = "ruleA"
+  },
+])
+
+</code>
+</pre>
+</td>
+
+</tr>
+</table>
+
+<h3 id="transform-list-into-map-with-name-as-index">Transform list into map with name as index</h3>
+
+<p>Here this is sorted alphabetically.</p>
+
+<table>
+<tr>
+<td> Original </td> <td> Sorted </td>
+</tr>
+<tr>
+<td> 
+
+<pre>
+<code>
+variable "listOfRule" {
+  default = [
+    {
+      id   = 3
+      name = "ruleA"
+    },
+    {
+      id   = 2
+      name = "ruleD"
+    },
+    {
+      id   = 10
+      name = "ruleB"
+    },
+    {
+      id   = 1
+      name = "ruleC"
+    }
+  ]
+}
+</code>
+</pre>
+</td>
+
+<td>
+<pre>
+<code>
+> { for key,rule in var.listOfRule : rule.name => rule }
+{
+  "ruleA" = {
+    "id" = 3
+    "name" = "ruleA"
+  }
+  "ruleB" = {
+    "id" = 10
+    "name" = "ruleB"
+  }
+  "ruleC" = {
+    "id" = 1
+    "name" = "ruleC"
+  }
+  "ruleD" = {
+    "id" = 2
+    "name" = "ruleD"
+  }
+}
+
+</code>
+</pre>
+</td>
+
+</tr>
+</table>
+
+<h3 id="transform-list-into-a-map-with-id-as-index">Transform list into a map with id as index</h3>
+
+<p>Here the numerical index is transformed into a string and then it&rsquo;s sorted alphabetically 10 is before 2 because 1 is bigger than 2.</p>
+
+<table>
+<tr>
+<td> Original </td> <td> Sorted </td>
+</tr>
+<tr>
+<td> 
+
+<pre>
+<code>
+variable "listOfRule" {
+  default = [
+    {
+      id   = 3
+      name = "ruleA"
+    },
+    {
+      id   = 2
+      name = "ruleD"
+    },
+    {
+      id   = 10
+      name = "ruleB"
+    },
+    {
+      id   = 1
+      name = "ruleC"
+    }
+  ]
+}
+</code>
+</pre>
+</td>
+
+<td>
+<pre>
+<code>
+> { for key,rule in var.listOfRule : rule.id => rule }
+{
+  "1" = {
+    "id" = 1
+    "name" = "ruleC"
+  }
+  "10" = {
+    "id" = 10
+    "name" = "ruleB"
+  }
+  "2" = {
+    "id" = 2
+    "name" = "ruleD"
+  }
+  "3" = {
+    "id" = 3
+    "name" = "ruleA"
+  }
+}
+
+</code>
+</pre>
+</td>
+
+</tr>
+</table>
+
+<h3 id="transform-list-into-a-map-using-the-list-key-as-index">Transform list into a map using the list key as index.</h3>
+
+<p>With a list, there is an implicit numerical index starting from 0. We can try to use this index as a key for the map.</p>
+
+<table>
+<tr>
+<td> Original </td> <td> Sorted </td>
+</tr>
+<tr>
+<td> 
+<pre>
+<code>
+variable "listOfRule" {
+  default = [
+    {
+      id   = 3
+      name = "ruleA"
+    },
+    {
+      id   = 2
+      name = "ruleD"
+    },
+    {
+      id   = 10
+      name = "ruleB"
+    },
+    {
+      id   = 1
+      name = "ruleC"
+    }
+  ]
+}
+</code>
+</pre>
+</td>
+
+<td>
+<pre>
+<code>
+> { for key,rule in var.listOfRule : key => rule }
+{
+  "0" = {
+    "id" = 3
+    "name" = "ruleA"
+  }
+  "1" = {
+    "id" = 2
+    "name" = "ruleD"
+  }
+  "2" = {
+    "id" = 10
+    "name" = "ruleB"
+  }
+  "3" = {
+    "id" = 1
+    "name" = "ruleC"
+  }
+}
+
+</code>
+</pre>
+</td>
+
+</tr>
+</table>
+
+<p>That looks good until we start to have more than 10 values. for_each accept only string as index. When we use the numerical list index as key for the map it&rsquo;s automatically transformed into a string. If we have more than 10 values, the index 10 is then put before 2. The reason is because when it&rsquo;s sorted alphabetically, the first character is compared first and this is independent of the length of the string.</p>
+
+<table>
+<tr>
+<td> Original </td> <td> Sorted </td>
+</tr>
+<tr>
+<td> 
+
+<pre>
+<code>
+variable "listOfRule" {
+  default = [
+    {
+      "id" = 3
+      "name" = "ruleA"
+    }
+    {
+      "id" = 2
+      "name" = "ruleD"
+    }
+    {
+      "id" = 10
+      "name" = "ruleB"
+    }
+    {
+      "id" = 1
+      "name" = "ruleC"
+    }
+    {
+      "id" = 4
+      "name" = "ruleE"
+    }
+    {
+      "id" = 5
+      "name" = "ruleF"
+    }
+    {
+      "id" = 6
+      "name" = "ruleG"
+    }
+    {
+      "id" = 7
+      "name" = "ruleH"
+    }
+    {
+      "id" = 8
+      "name" = "ruleI"
+    }
+    {
+      "id" = 9
+      "name" = "ruleJ"
+    }
+    {
+      "id" = 20
+      "name" = "ruleK"
+    }
+  ]
+}
+</code>
+</pre>
+</td>
+
+<td>
+<pre>
+<code>
+> { for key,rule in var.listOfRule : key => rule }
+{
+  "0" = {
+    "id" = 3
+    "name" = "ruleA"
+  }
+  "1" = {
+    "id" = 2
+    "name" = "ruleD"
+  }
+  "10" = {
+    "id" = 20
+    "name" = "ruleK"
+  }
+  "2" = {
+    "id" = 10
+    "name" = "ruleB"
+  }
+  "3" = {
+    "id" = 1
+    "name" = "ruleC"
+  }
+  "4" = {
+    "id" = 4
+    "name" = "ruleE"
+  }
+  "5" = {
+    "id" = 5
+    "name" = "ruleF"
+  }
+  "6" = {
+    "id" = 6
+    "name" = "ruleG"
+  }
+  "7" = {
+    "id" = 7
+    "name" = "ruleH"
+  }
+  "8" = {
+    "id" = 8
+    "name" = "ruleI"
+  }
+  "9" = {
+    "id" = 9
+    "name" = "ruleJ"
+  }
+}
+
+</code>
+</pre>
+</td>
+
+</tr>
+</table>
+
+<h3 id="transform-list-into-a-map-with-numerical-index-as-a-string">Transform list into a map with numerical index as a string</h3>
+
+<p>As for_each accept only string as key we need to find a way to emulate the numerical ordering with strings. To do that we need to convert the integer into strings of the same length. This way, we add 0 in front of shorter integer, as 0 is lower than 1 we prevent the previous behavior and we have the intended result.
+In my case I used the <a href="https://www.terraform.io/language/functions/format">format</a> function and chose a 4 characters length.</p>
+
+<table>
+<tr>
+<td> Original </td> <td> Sorted </td>
+</tr>
+<tr>
+<td> 
+
+<pre>
+<code>
+variable "listOfRule" {
+  default = [
+    {
+      "id" = 3
+      "name" = "ruleA"
+    }
+    {
+      "id" = 2
+      "name" = "ruleD"
+    }
+    {
+      "id" = 10
+      "name" = "ruleB"
+    }
+    {
+      "id" = 1
+      "name" = "ruleC"
+    }
+    {
+      "id" = 4
+      "name" = "ruleE"
+    }
+    {
+      "id" = 5
+      "name" = "ruleF"
+    }
+    {
+      "id" = 6
+      "name" = "ruleG"
+    }
+    {
+      "id" = 7
+      "name" = "ruleH"
+    }
+    {
+      "id" = 8
+      "name" = "ruleI"
+    }
+    {
+      "id" = 9
+      "name" = "ruleJ"
+    }
+    {
+      "id" = 20
+      "name" = "ruleK"
+    }
+  ]
+}
+</code>
+</pre>
+</td>
+
+<td>
+<pre>
+
+> { for key,rule in var.listOfRule : format("%.4d",key) => rule }
+{
+  "0000" = {
+    "id" = 3
+    "name" = "ruleA"
+  }
+  "0001" = {
+    "id" = 2
+    "name" = "ruleD"
+  }
+  "0002" = {
+    "id" = 10
+    "name" = "ruleB"
+  }
+  "0003" = {
+    "id" = 1
+    "name" = "ruleC"
+  }
+  "0004" = {
+    "id" = 4
+    "name" = "ruleE"
+  }
+  "0005" = {
+    "id" = 5
+    "name" = "ruleF"
+  }
+  "0006" = {
+    "id" = 6
+    "name" = "ruleG"
+  }
+  "0007" = {
+    "id" = 7
+    "name" = "ruleH"
+  }
+  "0008" = {
+    "id" = 8
+    "name" = "ruleI"
+  }
+  "0009" = {
+    "id" = 9
+    "name" = "ruleJ"
+  }
+  "0010" = {
+    "id" = 20
+    "name" = "ruleK"
+  }
+}
+
+
+
+</pre>
+</td>
+
+</tr>
+</table>
+
+<p>Finally we got what we wanted, the order of the rules exactly the same as intended by the user after giving the list to the for_each Meta-Argument.</p>
+
+    </div>
+
+    
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/terraform/">Terraform</a>
+  
+</div>
+
+
+
+
+    
+    
+    <div class="article-widget">
+      <div class="hr-light"></div>
+      <h3>Related</h3>
+      <ul>
+        
+        <li><a href="/post/tf-chicken-egg/">Terraform and the chicken and egg problem</a></li>
+        
+        <li><a href="/post/aci-terraform-scale/">ACI Terraform scalability</a></li>
+        
+        <li><a href="/post/terraform-one-step-further/">Terraform One Step Further</a></li>
+        
+        <li><a href="/post/terraform-bootstrap/">Terraform Bootstrap</a></li>
+        
+        <li><a href="/post/aci-terraform-policy-model/">Cisco ACI Terraform Policy Model</a></li>
+        
+      </ul>
+    </div>
+    
+
+    
+
+    <script src="https://utteranc.es/client.js"
+        repo="netmemo/netmemo.github.io"
+        issue-term="pathname"
+        label="blogcomment"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+  </div>
+</article>
+
+<div class="container">
+  <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    No&euml;l Boul&egrave;ne &copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&acute;s professional integrity) that any statement contained in a post is true, correct or precise. &middot; 
+
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" id="back_to_top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+</div>
+
+
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha512-+NqPlbbtM1QqiK8ZAo4Yrj2c4lNQoGv8P79DPtKzj++l5jnN39rHA/xsqn8zE9l0uSoxaCdrOgFs6yjyfbBxSg==" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.3/imagesloaded.pkgd.min.js" integrity="sha512-umsR78NN0D23AzgoZ11K7raBD+R6hqKojyBZs1w8WvYlsI+QuKRGBx3LFCwhatzBunCjDuJpDHwxD13sLMbpRA==" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha256-VsEqElsCHSGmnmHXGQzvoWjWwoznFSZc6hs7ARLRacQ=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.4/isotope.pkgd.min.js" integrity="sha512-VDBOIlDbuC4VWxGJNmuFRQ0Li0SKkDpmGyuhAG5LTDLd/dJ/S0WMVxriR2Y+CyPL5gzjpN4f/6iqWVBJlht0tQ==" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin="anonymous"></script>
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+        
+      
+
+      
+      
+    
+
+    <script src="/js/hugo-academic.js"></script>
+    
+
+    
+    
+
+    
+    
+    
+
+    
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    
+    
+    <script>
+      const search_index_filename = "/index.json";
+      const i18n = {
+        'placeholder': "Search...",
+        'results': "Search Results",
+        'no_results': "No results found"
+      };
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    <script src="/js/search.js"></script>
+    
+
+    
+    
+
+  </body>
+</html>
+

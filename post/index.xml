@@ -13,6 +13,15 @@
     
     
     <item>
+      <title>Terraform list of map ordering</title>
+      <link>https://netmemo.github.io/post/tf-map-ordering/</link>
+      <pubDate>Sun, 24 Jul 2022 18:44:36 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/tf-map-ordering/</guid>
+      <description>The need I went into some troubles when I wanted to implement NSXT rules. My aim was to keep the order of the rules as intended by the user when he wrote his data without asking him to enter a rule ID manually. If the order is kept then it&amp;rsquo;s easy to prioritize the rules according to their placement. With the NSX-T Terraform provider the rules are in the form below :</description>
+    </item>
+    
+    <item>
       <title>Terraform and the chicken and egg problem</title>
       <link>https://netmemo.github.io/post/tf-chicken-egg/</link>
       <pubDate>Sun, 19 Jun 2022 09:03:41 +0200</pubDate>
@@ -150,6 +159,16 @@ I will describe the structure of the project, the project components, the projec
       
       <guid>https://netmemo.github.io/post/gha-auto-pr/</guid>
       <description>This post is to explain one of the pain point I have encountered while trying to do Github Actions with Terraform Cloud for CI/CD of NSX-T. The difficulty is to chain workflow/pipeline automatically. In my case, I wanted to launch a workflow base of a PR create by another workflow. When you use Github Actions to interface with Github, you need to authenticate your Github Actions script against Github. You can then use the GITHUB_TOKEN that has been made for this purpose.</description>
+    </item>
+    
+    <item>
+      <title>Gha Tfc Var</title>
+      <link>https://netmemo.github.io/post/gha-tfc-var/</link>
+      <pubDate>Thu, 12 Aug 2021 15:31:44 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/gha-tfc-var/</guid>
+      <description>This is to create a variable in Github Action that will be passer to Terraform. This variable is to set the NSXT endpoint. The variable will change according to the environment we want to push the configuration
+ - name: Setup Terraform variables id: vars run: |- cat &amp;gt; pipeline.auto.tfvars &amp;lt;&amp;lt;EOF nsxhost = &amp;quot;netmemo.ddns.net:8882&amp;quot; EOF  </description>
     </item>
     
     <item>
@@ -338,6 +357,36 @@ To have a file attached for the post, create a directory with the exact same nam
       <description>Issue R3 route traffic to R4 instead of R1. Route 10.10.10.10 toward the WAN is prefered instead of the OSPF LAN DC route. DC Client that try to reach the DC&amp;rsquo;s 10.10.10.10 address are routed toward the WAN
 Why R3 is installing in it RIB and redistributing the wrong routes 10.10.10.10 because it does have a better AD 20.
 Workarround  If we filter the redistribution that doesn&amp;rsquo;t help because when the packet arrive to R3 he will still prefer the BGP route.</description>
+    </item>
+    
+    <item>
+      <title>One of many possible DNS Design (Work in progress)</title>
+      <link>https://netmemo.github.io/post/dns-one-design/</link>
+      <pubDate>Fri, 04 Oct 2019 23:20:48 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/dns-one-design/</guid>
+      <description>DNS Steps to resolve a web site url in IP : !! The CNAME is normally not allowed at the apex, so I need to find another way) !! The following steps are when nothing is yet cached in any servers. This use case is for a recusive DNS resolver.
+ The user try to access www.toto.com from his browser. His computer send the DNS query to the system&amp;#39;s configured DNS Resolver.</description>
+    </item>
+    
+    <item>
+      <title>Dns Ttl Cascade (Work in progress)</title>
+      <link>https://netmemo.github.io/post/dns-ttl-cascade/</link>
+      <pubDate>Fri, 04 Oct 2019 23:15:03 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/dns-ttl-cascade/</guid>
+      <description>At every layer, local cache of servers can override the configured TTL even if the TTL override is breaking the RFC
+Cascade of DNS TTL of the wrong information make the information last longer in caches .</description>
+    </item>
+    
+    <item>
+      <title>Dns Outage (Work in progress)</title>
+      <link>https://netmemo.github.io/post/dns-outage/</link>
+      <pubDate>Sat, 27 Apr 2019 23:06:07 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/dns-outage/</guid>
+      <description>For a short A record TTL Client keep using A until TTL has expired. If A is 30 second and outage occure just after the DNS request for A record, the outage last 30 seconds.
+Wen A has expired, the client browser query the resolver who might query the GSLB NS of the broken site, wait for the DNS query timeout then query the working GSLB NS that will return the working A record.</description>
     </item>
     
     <item>

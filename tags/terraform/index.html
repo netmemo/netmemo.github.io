@@ -105,7 +105,7 @@
   <meta property="og:image" content="https://netmemo.github.io/img/icon-192.png">
   <meta property="og:locale" content="en-us">
   
-  <meta property="og:updated_time" content="2022-06-19T09:03:41&#43;02:00">
+  <meta property="og:updated_time" content="2022-07-24T18:44:36&#43;02:00">
   
 
   
@@ -220,6 +220,15 @@
   
   
   <div>
+    <h2><a href="/post/tf-map-ordering/">Terraform list of map ordering</a></h2>
+    <div class="article-style">
+      
+      The need I went into some troubles when I wanted to implement NSXT rules. My aim was to keep the order of the rules as intended by the user when he wrote his data without asking him to enter a rule ID manually. If the order is kept then it&rsquo;s easy to prioritize the rules according to their placement. With the NSX-T Terraform provider the rules are in the form below :
+      
+    </div>
+  </div>
+  
+  <div>
     <h2><a href="/post/tf-chicken-egg/">Terraform and the chicken and egg problem</a></h2>
     <div class="article-style">
       
@@ -319,18 +328,6 @@ On windows :
 terraform state mv nsxt_policy_security_policy.policy1 nsxt_policy_security_policy.policies[\&ldquo;policy1\&ldquo;]  It move resources from a construct like this
 locals { policy1= { rule1 = { source = [&quot;src1&quot;,&quot;src2&quot;] } } policy2 = { rule1 = { source = [&quot;src3&quot;,&quot;src4&quot;] } } }  To a structure like this
 locals { policies = { policy1 = { rule1 = { source = [&quot;src1&quot;,&quot;src2&quot;] } } policy2 = { rule2 = { source = [&quot;src3&quot;,&quot;src4&quot;] } } } }  The main moving from
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/post/tf-nsxt-nested-for-each/">Terraform nested for_each for NSX-T with dynamic</a></h2>
-    <div class="article-style">
-      
-      The post below shows how to create security policy groups for NSX-T with Terraform nested for_each loop and dynamic.
-The variables are made from one map of list. Each list represents one group composed of tags.
-https://www.hashicorp.com/blog/hashicorp-terraform-0-12-preview-for-and-for-each
-variable &quot;mapgroups&quot; { type	= map default	= { NBO	= [&quot;NBO&quot;] NBO-PROD	= [&quot;NBO&quot;,&quot;PROD&quot;] } } resource &quot;nsxt_policy_group&quot; &quot;nbogroups&quot; { for_each	= var.mapgroups display_name	= each.key criteria { dynamic &quot;condition&quot; { for_each = each.
       
     </div>
   </div>

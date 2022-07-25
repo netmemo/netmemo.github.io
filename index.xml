@@ -11,6 +11,607 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Terraform list of map ordering</title>
+      <link>https://netmemo.github.io/post/tf-map-ordering/</link>
+      <pubDate>Sun, 24 Jul 2022 18:44:36 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/tf-map-ordering/</guid>
+      <description>
+
+&lt;h1 id=&#34;the-need&#34;&gt;The need&lt;/h1&gt;
+
+&lt;p&gt;I went into some troubles when I wanted to implement NSXT rules. My aim was to keep the order of the rules as intended by the user when he wrote his data &lt;strong&gt;without asking him to enter a rule ID manually&lt;/strong&gt;. If the order is kept then it&amp;rsquo;s easy to prioritize the rules according to their placement.
+With the &lt;a href=&#34;https://registry.terraform.io/providers/vmware/nsxt/latest/docs/resources/policy_security_policy&#34;&gt;NSX-T Terraform provider&lt;/a&gt; the rules are in the form below :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;resource &amp;quot;nsxt_policy_security_policy&amp;quot; &amp;quot;policy1&amp;quot; {
+  display_name = &amp;quot;policy1&amp;quot;
+  rule {
+    ...
+  }
+  rule {
+    ....
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can see that it&amp;rsquo;s made of &lt;strong&gt;rule&lt;/strong&gt; blocks. These blocks will be generated dynamically. We need a way to always have the same order while generating the rule blocks. If we don&amp;rsquo;t keep the order, Terraform complains that the rule has changed.
+Every time we will add a rule they will be scrambled and Terraform will modify the order.&lt;/p&gt;
+
+&lt;h1 id=&#34;why-does-this-happen&#34;&gt;Why does this happen ?&lt;/h1&gt;
+
+&lt;p&gt;The data model I use to represent the rules is a list of map. Every map is a rule. We can sum up the data structure as below :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;listOfRule = [
+  {
+    display_name = &amp;quot;ruleA&amp;quot;
+    source_groups   = &amp;quot;10.0.0.1&amp;quot;
+    destination_groups   = &amp;quot;10.0.0.2&amp;quot;
+  },
+  {
+    display_name = &amp;quot;ruleD&amp;quot;
+    source_groups   = &amp;quot;10.1.0.1&amp;quot;
+    destination_groups   = &amp;quot;10.1.0.2&amp;quot;
+  }
+]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To understand the behavior, we will simplify this data structure to an object with 2 attributes. id which is an integer and name which is a string.
+In this example, the ids are not sorted neither the names.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;variable &amp;quot;listOfRule&amp;quot; {
+  default = [
+    {
+      id   = 3
+      name = &amp;quot;ruleA&amp;quot;
+    },
+    {
+      id   = 2
+      name = &amp;quot;ruleD&amp;quot;
+    },
+    {
+      id   = 10
+      name = &amp;quot;ruleB&amp;quot;
+    },
+    {
+      id   = 1
+      name = &amp;quot;ruleC&amp;quot;
+    }
+  ]
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.terraform.io/language/meta-arguments/for_each&#34;&gt;for_each&lt;/a&gt; only accept a set or a map. When you have a list and you want to iterate it over a for_each, you need to either transform it into a &lt;a href=&#34;https://www.terraform.io/language/expressions/type-constraints#set&#34;&gt;set&lt;/a&gt; with the &lt;a href=&#34;https://www.terraform.io/language/functions/toset&#34;&gt;toset()&lt;/a&gt; function or create a map with a key thanks to the for loop.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{ for key, value in var.myvar : key =&amp;gt; value }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;When transforming this list of object into a set, the order is not kept and is difficult to predict.&lt;/li&gt;
+&lt;li&gt;When transforming this list of object into a map, the map will be sorted according of the key which &lt;strong&gt;MUST&lt;/strong&gt; be a string. The ordering is then done alphabetically.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;To illustrate the ordering we will do different examples.&lt;/p&gt;
+
+&lt;h1 id=&#34;the-examples&#34;&gt;The examples&lt;/h1&gt;
+
+&lt;h3 id=&#34;transform-list-into-set&#34;&gt;Transform list into set&lt;/h3&gt;
+
+&lt;p&gt;With this transformation we see that the order is not easy to predict. In that case, it&amp;rsquo;s sorted numerically but with the longest id first.&lt;/p&gt;
+
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt; Original &lt;/td&gt; &lt;td&gt; Sorted &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; 
+
+&lt;pre&gt;
+&lt;code&gt;
+variable &#34;listOfRule&#34; {
+  default = [
+    {
+      id   = 3
+      name = &#34;ruleA&#34;
+    },
+    {
+      id   = 2
+      name = &#34;ruleD&#34;
+    },
+    {
+      id   = 10
+      name = &#34;ruleB&#34;
+    },
+    {
+      id   = 1
+      name = &#34;ruleC&#34;
+    }
+  ]
+}
+&lt;/code&gt;
+&lt;/pre&gt;
+&lt;/td&gt;
+
+&lt;td&gt;
+&lt;pre&gt;
+&lt;code&gt;
+&gt; toset(var.listOfRule)
+toset([
+  {
+    &#34;id&#34; = 10
+    &#34;name&#34; = &#34;ruleB&#34;
+  },
+  {
+    &#34;id&#34; = 1
+    &#34;name&#34; = &#34;ruleC&#34;
+  },
+  {
+    &#34;id&#34; = 2
+    &#34;name&#34; = &#34;ruleD&#34;
+  },
+  {
+    &#34;id&#34; = 3
+    &#34;name&#34; = &#34;ruleA&#34;
+  },
+])
+
+&lt;/code&gt;
+&lt;/pre&gt;
+&lt;/td&gt;
+
+&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&#34;transform-list-into-map-with-name-as-index&#34;&gt;Transform list into map with name as index&lt;/h3&gt;
+
+&lt;p&gt;Here this is sorted alphabetically.&lt;/p&gt;
+
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt; Original &lt;/td&gt; &lt;td&gt; Sorted &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; 
+
+&lt;pre&gt;
+&lt;code&gt;
+variable &#34;listOfRule&#34; {
+  default = [
+    {
+      id   = 3
+      name = &#34;ruleA&#34;
+    },
+    {
+      id   = 2
+      name = &#34;ruleD&#34;
+    },
+    {
+      id   = 10
+      name = &#34;ruleB&#34;
+    },
+    {
+      id   = 1
+      name = &#34;ruleC&#34;
+    }
+  ]
+}
+&lt;/code&gt;
+&lt;/pre&gt;
+&lt;/td&gt;
+
+&lt;td&gt;
+&lt;pre&gt;
+&lt;code&gt;
+&gt; { for key,rule in var.listOfRule : rule.name =&gt; rule }
+{
+  &#34;ruleA&#34; = {
+    &#34;id&#34; = 3
+    &#34;name&#34; = &#34;ruleA&#34;
+  }
+  &#34;ruleB&#34; = {
+    &#34;id&#34; = 10
+    &#34;name&#34; = &#34;ruleB&#34;
+  }
+  &#34;ruleC&#34; = {
+    &#34;id&#34; = 1
+    &#34;name&#34; = &#34;ruleC&#34;
+  }
+  &#34;ruleD&#34; = {
+    &#34;id&#34; = 2
+    &#34;name&#34; = &#34;ruleD&#34;
+  }
+}
+
+&lt;/code&gt;
+&lt;/pre&gt;
+&lt;/td&gt;
+
+&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&#34;transform-list-into-a-map-with-id-as-index&#34;&gt;Transform list into a map with id as index&lt;/h3&gt;
+
+&lt;p&gt;Here the numerical index is transformed into a string and then it&amp;rsquo;s sorted alphabetically 10 is before 2 because 1 is bigger than 2.&lt;/p&gt;
+
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt; Original &lt;/td&gt; &lt;td&gt; Sorted &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; 
+
+&lt;pre&gt;
+&lt;code&gt;
+variable &#34;listOfRule&#34; {
+  default = [
+    {
+      id   = 3
+      name = &#34;ruleA&#34;
+    },
+    {
+      id   = 2
+      name = &#34;ruleD&#34;
+    },
+    {
+      id   = 10
+      name = &#34;ruleB&#34;
+    },
+    {
+      id   = 1
+      name = &#34;ruleC&#34;
+    }
+  ]
+}
+&lt;/code&gt;
+&lt;/pre&gt;
+&lt;/td&gt;
+
+&lt;td&gt;
+&lt;pre&gt;
+&lt;code&gt;
+&gt; { for key,rule in var.listOfRule : rule.id =&gt; rule }
+{
+  &#34;1&#34; = {
+    &#34;id&#34; = 1
+    &#34;name&#34; = &#34;ruleC&#34;
+  }
+  &#34;10&#34; = {
+    &#34;id&#34; = 10
+    &#34;name&#34; = &#34;ruleB&#34;
+  }
+  &#34;2&#34; = {
+    &#34;id&#34; = 2
+    &#34;name&#34; = &#34;ruleD&#34;
+  }
+  &#34;3&#34; = {
+    &#34;id&#34; = 3
+    &#34;name&#34; = &#34;ruleA&#34;
+  }
+}
+
+&lt;/code&gt;
+&lt;/pre&gt;
+&lt;/td&gt;
+
+&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&#34;transform-list-into-a-map-using-the-list-key-as-index&#34;&gt;Transform list into a map using the list key as index.&lt;/h3&gt;
+
+&lt;p&gt;With a list, there is an implicit numerical index starting from 0. We can try to use this index as a key for the map.&lt;/p&gt;
+
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt; Original &lt;/td&gt; &lt;td&gt; Sorted &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; 
+&lt;pre&gt;
+&lt;code&gt;
+variable &#34;listOfRule&#34; {
+  default = [
+    {
+      id   = 3
+      name = &#34;ruleA&#34;
+    },
+    {
+      id   = 2
+      name = &#34;ruleD&#34;
+    },
+    {
+      id   = 10
+      name = &#34;ruleB&#34;
+    },
+    {
+      id   = 1
+      name = &#34;ruleC&#34;
+    }
+  ]
+}
+&lt;/code&gt;
+&lt;/pre&gt;
+&lt;/td&gt;
+
+&lt;td&gt;
+&lt;pre&gt;
+&lt;code&gt;
+&gt; { for key,rule in var.listOfRule : key =&gt; rule }
+{
+  &#34;0&#34; = {
+    &#34;id&#34; = 3
+    &#34;name&#34; = &#34;ruleA&#34;
+  }
+  &#34;1&#34; = {
+    &#34;id&#34; = 2
+    &#34;name&#34; = &#34;ruleD&#34;
+  }
+  &#34;2&#34; = {
+    &#34;id&#34; = 10
+    &#34;name&#34; = &#34;ruleB&#34;
+  }
+  &#34;3&#34; = {
+    &#34;id&#34; = 1
+    &#34;name&#34; = &#34;ruleC&#34;
+  }
+}
+
+&lt;/code&gt;
+&lt;/pre&gt;
+&lt;/td&gt;
+
+&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;p&gt;That looks good until we start to have more than 10 values. for_each accept only string as index. When we use the numerical list index as key for the map it&amp;rsquo;s automatically transformed into a string. If we have more than 10 values, the index 10 is then put before 2. The reason is because when it&amp;rsquo;s sorted alphabetically, the first character is compared first and this is independent of the length of the string.&lt;/p&gt;
+
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt; Original &lt;/td&gt; &lt;td&gt; Sorted &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; 
+
+&lt;pre&gt;
+&lt;code&gt;
+variable &#34;listOfRule&#34; {
+  default = [
+    {
+      &#34;id&#34; = 3
+      &#34;name&#34; = &#34;ruleA&#34;
+    }
+    {
+      &#34;id&#34; = 2
+      &#34;name&#34; = &#34;ruleD&#34;
+    }
+    {
+      &#34;id&#34; = 10
+      &#34;name&#34; = &#34;ruleB&#34;
+    }
+    {
+      &#34;id&#34; = 1
+      &#34;name&#34; = &#34;ruleC&#34;
+    }
+    {
+      &#34;id&#34; = 4
+      &#34;name&#34; = &#34;ruleE&#34;
+    }
+    {
+      &#34;id&#34; = 5
+      &#34;name&#34; = &#34;ruleF&#34;
+    }
+    {
+      &#34;id&#34; = 6
+      &#34;name&#34; = &#34;ruleG&#34;
+    }
+    {
+      &#34;id&#34; = 7
+      &#34;name&#34; = &#34;ruleH&#34;
+    }
+    {
+      &#34;id&#34; = 8
+      &#34;name&#34; = &#34;ruleI&#34;
+    }
+    {
+      &#34;id&#34; = 9
+      &#34;name&#34; = &#34;ruleJ&#34;
+    }
+    {
+      &#34;id&#34; = 20
+      &#34;name&#34; = &#34;ruleK&#34;
+    }
+  ]
+}
+&lt;/code&gt;
+&lt;/pre&gt;
+&lt;/td&gt;
+
+&lt;td&gt;
+&lt;pre&gt;
+&lt;code&gt;
+&gt; { for key,rule in var.listOfRule : key =&gt; rule }
+{
+  &#34;0&#34; = {
+    &#34;id&#34; = 3
+    &#34;name&#34; = &#34;ruleA&#34;
+  }
+  &#34;1&#34; = {
+    &#34;id&#34; = 2
+    &#34;name&#34; = &#34;ruleD&#34;
+  }
+  &#34;10&#34; = {
+    &#34;id&#34; = 20
+    &#34;name&#34; = &#34;ruleK&#34;
+  }
+  &#34;2&#34; = {
+    &#34;id&#34; = 10
+    &#34;name&#34; = &#34;ruleB&#34;
+  }
+  &#34;3&#34; = {
+    &#34;id&#34; = 1
+    &#34;name&#34; = &#34;ruleC&#34;
+  }
+  &#34;4&#34; = {
+    &#34;id&#34; = 4
+    &#34;name&#34; = &#34;ruleE&#34;
+  }
+  &#34;5&#34; = {
+    &#34;id&#34; = 5
+    &#34;name&#34; = &#34;ruleF&#34;
+  }
+  &#34;6&#34; = {
+    &#34;id&#34; = 6
+    &#34;name&#34; = &#34;ruleG&#34;
+  }
+  &#34;7&#34; = {
+    &#34;id&#34; = 7
+    &#34;name&#34; = &#34;ruleH&#34;
+  }
+  &#34;8&#34; = {
+    &#34;id&#34; = 8
+    &#34;name&#34; = &#34;ruleI&#34;
+  }
+  &#34;9&#34; = {
+    &#34;id&#34; = 9
+    &#34;name&#34; = &#34;ruleJ&#34;
+  }
+}
+
+&lt;/code&gt;
+&lt;/pre&gt;
+&lt;/td&gt;
+
+&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&#34;transform-list-into-a-map-with-numerical-index-as-a-string&#34;&gt;Transform list into a map with numerical index as a string&lt;/h3&gt;
+
+&lt;p&gt;As for_each accept only string as key we need to find a way to emulate the numerical ordering with strings. To do that we need to convert the integer into strings of the same length. This way, we add 0 in front of shorter integer, as 0 is lower than 1 we prevent the previous behavior and we have the intended result.
+In my case I used the &lt;a href=&#34;https://www.terraform.io/language/functions/format&#34;&gt;format&lt;/a&gt; function and chose a 4 characters length.&lt;/p&gt;
+
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt; Original &lt;/td&gt; &lt;td&gt; Sorted &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; 
+
+&lt;pre&gt;
+&lt;code&gt;
+variable &#34;listOfRule&#34; {
+  default = [
+    {
+      &#34;id&#34; = 3
+      &#34;name&#34; = &#34;ruleA&#34;
+    }
+    {
+      &#34;id&#34; = 2
+      &#34;name&#34; = &#34;ruleD&#34;
+    }
+    {
+      &#34;id&#34; = 10
+      &#34;name&#34; = &#34;ruleB&#34;
+    }
+    {
+      &#34;id&#34; = 1
+      &#34;name&#34; = &#34;ruleC&#34;
+    }
+    {
+      &#34;id&#34; = 4
+      &#34;name&#34; = &#34;ruleE&#34;
+    }
+    {
+      &#34;id&#34; = 5
+      &#34;name&#34; = &#34;ruleF&#34;
+    }
+    {
+      &#34;id&#34; = 6
+      &#34;name&#34; = &#34;ruleG&#34;
+    }
+    {
+      &#34;id&#34; = 7
+      &#34;name&#34; = &#34;ruleH&#34;
+    }
+    {
+      &#34;id&#34; = 8
+      &#34;name&#34; = &#34;ruleI&#34;
+    }
+    {
+      &#34;id&#34; = 9
+      &#34;name&#34; = &#34;ruleJ&#34;
+    }
+    {
+      &#34;id&#34; = 20
+      &#34;name&#34; = &#34;ruleK&#34;
+    }
+  ]
+}
+&lt;/code&gt;
+&lt;/pre&gt;
+&lt;/td&gt;
+
+&lt;td&gt;
+&lt;pre&gt;
+
+&gt; { for key,rule in var.listOfRule : format(&#34;%.4d&#34;,key) =&gt; rule }
+{
+  &#34;0000&#34; = {
+    &#34;id&#34; = 3
+    &#34;name&#34; = &#34;ruleA&#34;
+  }
+  &#34;0001&#34; = {
+    &#34;id&#34; = 2
+    &#34;name&#34; = &#34;ruleD&#34;
+  }
+  &#34;0002&#34; = {
+    &#34;id&#34; = 10
+    &#34;name&#34; = &#34;ruleB&#34;
+  }
+  &#34;0003&#34; = {
+    &#34;id&#34; = 1
+    &#34;name&#34; = &#34;ruleC&#34;
+  }
+  &#34;0004&#34; = {
+    &#34;id&#34; = 4
+    &#34;name&#34; = &#34;ruleE&#34;
+  }
+  &#34;0005&#34; = {
+    &#34;id&#34; = 5
+    &#34;name&#34; = &#34;ruleF&#34;
+  }
+  &#34;0006&#34; = {
+    &#34;id&#34; = 6
+    &#34;name&#34; = &#34;ruleG&#34;
+  }
+  &#34;0007&#34; = {
+    &#34;id&#34; = 7
+    &#34;name&#34; = &#34;ruleH&#34;
+  }
+  &#34;0008&#34; = {
+    &#34;id&#34; = 8
+    &#34;name&#34; = &#34;ruleI&#34;
+  }
+  &#34;0009&#34; = {
+    &#34;id&#34; = 9
+    &#34;name&#34; = &#34;ruleJ&#34;
+  }
+  &#34;0010&#34; = {
+    &#34;id&#34; = 20
+    &#34;name&#34; = &#34;ruleK&#34;
+  }
+}
+
+
+
+&lt;/pre&gt;
+&lt;/td&gt;
+
+&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Finally we got what we wanted, the order of the rules exactly the same as intended by the user after giving the list to the for_each Meta-Argument.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Terraform and the chicken and egg problem</title>
       <link>https://netmemo.github.io/post/tf-chicken-egg/</link>
       <pubDate>Sun, 19 Jun 2022 09:03:41 +0200</pubDate>
@@ -2153,910 +2754,21 @@ The workaround to this [known limitation] is to create the PR with a personal ac
     </item>
     
     <item>
-      <title>Changing Terraform Cloud workspace in Github Actions</title>
-      <link>https://netmemo.github.io/post/tf-workspace-var/</link>
-      <pubDate>Thu, 12 Aug 2021 15:22:40 +0200</pubDate>
+      <title>Gha Tfc Var</title>
+      <link>https://netmemo.github.io/post/gha-tfc-var/</link>
+      <pubDate>Thu, 12 Aug 2021 15:31:44 +0200</pubDate>
       
-      <guid>https://netmemo.github.io/post/tf-workspace-var/</guid>
-      <description>&lt;p&gt;This blog post is to explain how I did to automatically change Terraform Cloud workspace from Github Actions.
-As explained in the documentation &lt;a href=&#34;https://www.terraform.io/docs/language/settings/backends/remote.html#workspaces&#34;&gt;remote workspace&lt;/a&gt;, you can use different remote workspace by specifying the prefix of you workspace in the Terraform backend configuration.&lt;/p&gt;
+      <guid>https://netmemo.github.io/post/gha-tfc-var/</guid>
+      <description>&lt;p&gt;This is to &lt;a href=&#34;https://github.com/hashicorp/setup-terraform/issues/35&#34;&gt;create a variable&lt;/a&gt; in Github Action that will be passer to Terraform. This variable is to set the NSXT endpoint.
+The variable will change according to the environment we want to push the configuration&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;  backend &amp;quot;remote&amp;quot; {
-    organization = &amp;quot;netmemo&amp;quot;
-
-    workspaces {
-      prefix = &amp;quot;netmemo-&amp;quot;
-    }
-  }
+&lt;pre&gt;&lt;code&gt;      - name: Setup Terraform variables
+        id: vars
+        run: |-
+          cat &amp;gt; pipeline.auto.tfvars &amp;lt;&amp;lt;EOF
+          nsxhost = &amp;quot;netmemo.ddns.net:8882&amp;quot;
+          EOF
 &lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;After that, you only need to select the proper workspace by entering the &lt;em&gt;terraform workspace select [suffix]&lt;/em&gt; command.
-The issue comes if you want to do it in a fully automated environment like with Github Actions. You need an extra step which is to set the &lt;a href=&#34;https://learn.hashicorp.com/tutorials/terraform/automate-terraform?in=terraform/automation&#34;&gt;TF_WORKSPACE&lt;/a&gt; variable.&lt;/p&gt;
-
-&lt;p&gt;Below are the 2 steps that are needed to select a specific environment.
-In this blog the workspace will be netmemo-dev where netmemo- is the prefix configured in the main.tf and dev the suffix configured in the .yml file of the Github Actions script.&lt;/p&gt;
-
-&lt;p&gt;This step initializes Terraform and set the TF_WORKSPACE variable to indicate that we want to use the dev environment suffix before the initialization.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;      - name: Terraform Init
-        id: init
-        run: terraform init
-        env:
-          TF_WORKSPACE: &amp;quot;dev&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;If we are not setting the &lt;a href=&#34;https://learn.hashicorp.com/tutorials/terraform/automate-terraform?in=terraform/automation&#34;&gt;TF_WORKSPACE&lt;/a&gt;, the init command will try to get the default workspace that doesn&amp;rsquo;t exist and you will have the following error.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;The currently selected workspace (default) does not exist.
-  This is expected behavior when the selected workspace did not have an
-  existing non-empty state. Please enter a number to select a workspace:
-  
-  1. dev
-  2. prod
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Even after setting the &lt;a href=&#34;https://learn.hashicorp.com/tutorials/terraform/automate-terraform?in=terraform/automation&#34;&gt;TF_WORKSPACE&lt;/a&gt; variable, we still need to enter the &lt;em&gt;terraform workspace select&lt;/em&gt; command to provide the suffix of the workspace.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;      - name: Terraform Workspace
-        id: workspace
-        run: terraform workspace select dev
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;If we forgot to enter the command to select workspace, the Terraform configuration section will try to load a workspace with only the prefix and trigger an error.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Error: error starting operation: The configured &amp;quot;remote&amp;quot; backend encountered an unexpected error:
-
-invalid value for workspace
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You can find a full example of where we need to change workspace automatically in this blog post &lt;a href=&#34;https://netmemo.github.io/post/tf-gha-nsxt-cicd&#34;&gt;Github Actions with Terraform Cloud for CI/CD of NSX-T&lt;/a&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>NSX-T Firewall rules as code with Terraform</title>
-      <link>https://netmemo.github.io/post/nsxt-tf-firewall/</link>
-      <pubDate>Thu, 29 Jul 2021 19:03:37 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/post/nsxt-tf-firewall/</guid>
-      <description>
-
-&lt;p&gt;This article is to show an example of how to manage NSX-T firewall rules as a code through Terraform.
-You can find the project on my github account : &lt;a href=&#34;https://github.com/netmemo/nsxt-frac-tf-cm&#34;&gt;nsxt-frac-tf-cm&lt;/a&gt; and &lt;a href=&#34;https://github.com/netmemo/nsxt-frac-tf-rm&#34;&gt;nsxt-frac-tf-rm&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;I will describe the structure of the project, how it works, the data model, the Terraform code explanation and finish with an example.&lt;/p&gt;
-
-&lt;h1 id=&#34;structure-of-the-project&#34;&gt;Structure of the project&lt;/h1&gt;
-
-&lt;p&gt;The diagram below shows a summary of how I organized the project in order to fully use infrastructre as code.&lt;br /&gt;
-&lt;a href=&#34;nsxt-tf-firewall.png&#34;&gt; &lt;img src=&#34;nsxt-tf-firewall.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Below is the file structure&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;#Child modules
-
-├── nsxt-frac-tf-cm 
-    ├── nsxt-tf-cm-dfw
-    │   ├── main.tf
-    │   ├── outputs.tf
-    │   └── variables.tf
-    ├── nsxt-tf-cm-grp
-    │   ├── main.tf
-    │   ├── outputs.tf
-    │   └── variables.tf
-    └── nsxt-tf-cm-svc
-        ├── main.tf
-        ├── outputs.tf
-        └── variables.tf
-
-#Root modules
-
-├── nsxt-frac-tf-rm
-    ├── nsxt-tf-rm-dfw
-    │   ├── main.tf
-    │   ├── provider.tf
-    │   ├── terraform.tfvars
-    │   └── variables.tf
-    └── nsxt-tf-rm-grpsvc
-        ├── main.tf
-        ├── outputs.tf
-        ├── provider.tf
-        ├── terraform.tfvars
-        └── variables.tf
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;In short, child modules are the logic, root modules are the variables.&lt;br /&gt;
-You can then duplicate the root module according to the NSX-T environment you want to deploy and start using the variables for the environment.&lt;/p&gt;
-
-&lt;h1 id=&#34;how-it-works&#34;&gt;How it works&lt;/h1&gt;
-
-&lt;h2 id=&#34;child-module&#34;&gt;Child Module&lt;/h2&gt;
-
-&lt;p&gt;You can find the logics and the code complexity in the Terraform child modules.&lt;br /&gt;
-They will create the NSX-T resources. They allow to centralize the complexity. If you need to change your logic, you only need to modify the child module.&lt;br /&gt;
-After the modification, from the root module you only need to pull the new modifications by reinitializing or refreshing the modules with &amp;ldquo;terraform init&amp;rdquo; and then you can start using the new features.&lt;/p&gt;
-
-&lt;p&gt;There are tree child modules:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;nsxt-tf-cm-svc&lt;br /&gt;
-This is for the NSX-T (TCP/UDP/IP) services creation&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;nsxt-tf-cm-grp&lt;br /&gt;
-This is for the NSX-T (TAG and IP) groups creation&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;nsxt-tf-cm-dfw&lt;br /&gt;
-This is for the NSX-T policy and rules creation&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;root-module&#34;&gt;Root Module&lt;/h2&gt;
-
-&lt;p&gt;It will call the child module with the variables associated with the NSX-T environment. You need to create a repository per environment. The only modifications you need to do is to change the variables.&lt;br /&gt;
-The root module can be declined to different NSX-T environments/deployments as long as the variable structure used in the root module respects the child module data model.&lt;/p&gt;
-
-&lt;p&gt;Root modules are separated in two :&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;nsxt-tf-rm-grpsvc&lt;/strong&gt;&lt;br /&gt;
-This module will call the groups and the services child module an pass them the groups and services&amp;rsquo;s map variables.
-As the groups and services can be centralized and be the same for all environments, I have prefered to managed them separatly from the policies and rules.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;nsxt-tf-rm-dfw&lt;/strong&gt;&lt;br /&gt;
-This is the policies and rules definition. This root module will use the terraform state output section of the root module &lt;em&gt;nsxt-tf-rm-grpsvc&lt;/em&gt; to get all the groups and services needed.
-The &lt;em&gt;output.tf&lt;/em&gt; file is defined in &lt;em&gt;nsxt-tf-rm-grpsvc&lt;/em&gt; root module.&lt;/p&gt;
-
-&lt;h1 id=&#34;data-model&#34;&gt;Data model&lt;/h1&gt;
-
-&lt;p&gt;To have more details of the possible attributes used, you can refer to the NSX-T Terraform official &lt;a href=&#34;https://registry.terraform.io/providers/vmware/nsxt/latest/docs&#34;&gt;documentation&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&#34;services&#34;&gt;Services&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;map_svc&lt;/strong&gt;&lt;br /&gt;
-This is the map variable passed to the child module.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;This variable is a map of services map where the name is the service name&lt;/li&gt;
-&lt;li&gt;Every service name contains lists.&lt;/li&gt;
-&lt;li&gt;Every list name is the service type (IP, TCP or UDP).&lt;/li&gt;
-&lt;li&gt;Every list is either a protocol number if the list is IP or port number if the list is TCP/UDP&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code&gt;map_svc = {
-   NETMEMO-ESP = { IP = [&amp;quot;50&amp;quot;] }
-   NETMEMO-NETBIOS = { TCP = [&amp;quot;135&amp;quot;,&amp;quot;137&amp;quot;,&amp;quot;139&amp;quot;,&amp;quot;139&amp;quot;], UDP = [&amp;quot;135&amp;quot;,&amp;quot;137&amp;quot;,&amp;quot;139&amp;quot;,&amp;quot;139&amp;quot;] }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;groups&#34;&gt;Groups&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;map_grp&lt;/strong&gt;&lt;br /&gt;
-This is the map variable passed to the child module.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;This variable is a map of groups map where the name is the group name.&lt;/li&gt;
-&lt;li&gt;Every group name contains lists.&lt;/li&gt;
-&lt;li&gt;Every list name is the group type (IP or TAG).&lt;/li&gt;
-&lt;li&gt;Every list is either subnet if the list is IP or tag name if the list is TAG&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code&gt;map_grp = {
-   NETMEMO-LOCAL = { IP = [&amp;quot;10.0.0.0/25&amp;quot;,&amp;quot;10.1.1.0/25&amp;quot;] }
-   NETMEMO-NAS = { TAG = [&amp;quot;NAS&amp;quot;,&amp;quot;FILES&amp;quot;] }
-   NETMEMO-ESX = { TAG = [&amp;quot;ESX&amp;quot;,&amp;quot;VMWARE&amp;quot;] }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;policies&#34;&gt;Policies&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;map_policies&lt;/strong&gt;&lt;br /&gt;
-This is the map variable passed to the child module.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;This variable is a map of policy map where the name is the policy name.&lt;/li&gt;
-&lt;li&gt;Every policy name contains different attributes that are either string or map. The map named &amp;ldquo;rules&amp;rdquo; is to define the rules.&lt;/li&gt;
-&lt;li&gt;Every &amp;ldquo;rules&amp;rdquo; map contains maps to define rules. Every map is a rule.&lt;/li&gt;
-&lt;li&gt;Every rule map contains stings and list attrubutes (sources,destinations,services,scope)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code&gt;map_policies = {
-   NETMEMO-POL1 = {
-      category = &amp;quot;Application&amp;quot;
-	  sequence_number = &amp;quot;10&amp;quot;
-	  rules = {
-	     netmemo-rule1 = {
-		    display = &amp;quot;NETMEMO-NAS-R&amp;quot;
-			sources = [&amp;quot;NETMEMO-NAS&amp;quot;]
-			destinations = [&amp;quot;NETMEMO-NAS&amp;quot;]
-			services = [&amp;quot;HTTPS&amp;quot;]
-			scope = [&amp;quot;NETMEMO-NAS&amp;quot;]
-			action = &amp;quot;ALLOW&amp;quot;
-			disabled = &amp;quot;false&amp;quot;
-	     }
-	     netmemo-rule2 = {
-		    display = &amp;quot;NETMEMO-ESX-R&amp;quot;
-			sources = [&amp;quot;NETMEMO-ESX&amp;quot;]
-			destinations = [&amp;quot;NETMEMO-ESX&amp;quot;]
-			services = [&amp;quot;HTTPS&amp;quot;]
-			scope = [&amp;quot;NETMEMO-ESX&amp;quot;]
-			action = &amp;quot;ALLOW&amp;quot;
-			disabled = &amp;quot;false&amp;quot;
-	     }
-	  }
-   }
-   NETMEMO-POL2 = {
-      category = &amp;quot;Application&amp;quot;
-	  sequence_number = &amp;quot;20&amp;quot;
-	  rules = {
-	     netmemo-rule1 = {
-		    display = &amp;quot;NETMEMO-LOCAL-R&amp;quot;
-			sources = [&amp;quot;NETMEMO-LOCAL&amp;quot;]
-			destinations = [&amp;quot;NETMEMO-NAS&amp;quot;,&amp;quot;NETMEMO-ESX&amp;quot;]
-			services = [&amp;quot;NETMEMO-NETBIOS&amp;quot;,&amp;quot;HTTPS&amp;quot;]
-			scope = [&amp;quot;NETMEMO-NAS&amp;quot;,&amp;quot;NETMEMO-ESX&amp;quot;]
-			action = &amp;quot;ALLOW&amp;quot;
-			disabled = &amp;quot;false&amp;quot;
-	     }
-	  }
-   }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;code-explanation&#34;&gt;Code Explanation&lt;/h1&gt;
-
-&lt;h2 id=&#34;root-module-1&#34;&gt;Root Module&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;nsxt-tf-cm-grp and nsxt-tf-cm-svc child modules&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;These child modules use nested for_each with conditional nested dynamic.&lt;br /&gt;
-A brief example of the nested for_each used with dynamic can be found &lt;a href=&#34;https://netmemo.github.io/post/tf-nsxt-nested-for-each/&#34;&gt;here&lt;/a&gt;. The conditional behavior is done thanks to the filter of the for loop. You can find the documentation on this &lt;a href=&#34;https://www.terraform.io/docs/language/expressions/for.html&#34;&gt;link&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Dynamic terraform blocks allow to create a block for all the elements in the map you give to the for_each loop. In our child modules, the element of the dynamic for_each loop are also filtered with a for loop and a if.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;If the map contains a TAG attribute we create the &lt;em&gt;criteria&lt;/em&gt; block with the TAG attributes.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;dynamic &amp;quot;criteria&amp;quot; {
-#The for_each contains a for loop with filter to create the criteriia only if there is a list with the name TAG
-for_each = { for key,val in each.value : key =&amp;gt; val if key == &amp;quot;TAG&amp;quot; }
-  content {
-     dynamic &amp;quot;condition&amp;quot; {
-        #looping over the set to create every tags
-        for_each = criteria.value
-
-        content {
-           key = &amp;quot;Tag&amp;quot;
-           member_type = &amp;quot;VirtualMachine&amp;quot;
-           operator = &amp;quot;EQUALS&amp;quot;
-           value = condition.value
-        }
-     }
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;If the map contains a IP attribute we create the &lt;em&gt;criteria&lt;/em&gt; block with the IP attributes.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;dynamic &amp;quot;criteria&amp;quot; {
-#The for_each contains a for loop with filter to create the criteriia only if there is a list with the name IP
-for_each = { for key,val in each.value : key =&amp;gt; val if key == &amp;quot;IP&amp;quot; }
-  content {
-     ipaddress_expression  {
-        ip_addresses = criteria.value
-     }
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The same logic is used to create services.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;If the map contains a TCP or UDP attribute we create the &lt;em&gt;l4_port_set_entry block&lt;/em&gt; with the TCP/UDP attributes.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;dynamic &amp;quot;l4_port_set_entry&amp;quot; {
-  #each.value = map of TCP,UDP or IP list where l4_port_set_entry.key will be TCP or UDP
-  #the for_each contains a for loop with filter to create the l4_port_set_entry only if there is a list with TCP or UDP as name
-  for_each = { for key,val in each.value : key =&amp;gt; val if key == &amp;quot;TCP&amp;quot; || key == &amp;quot;UDP&amp;quot; }
-      content {
-         display_name = &amp;quot;${l4_port_set_entry.key}_${each.key}&amp;quot;
-         protocol = l4_port_set_entry.key
-         destination_ports = l4_port_set_entry.value
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;If the map contains a IP attribute we create the &lt;em&gt;ip_protocol_entry block&lt;/em&gt; with the IP attributes.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;dynamic &amp;quot;ip_protocol_entry&amp;quot; {
-  #each.value = map of TCP,UDP or IP list 
-  #the for_each contains a for loop with filter to create the ip_protocol_entry only if there is a list with IP as name
-  for_each = { for key,val in each.value : key =&amp;gt; val if key == &amp;quot;IP&amp;quot; }
-      content {
-         #[0] because the ip protocol will have a single IP protocol value in the set and the protocol attribut expect a number not a set
-         protocol = ip_protocol_entry.value[0]
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;nsxt-tf-cm-dfw child modules&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;The complexity of this module is to get the NSX-T &amp;ldquo;Path&amp;rdquo; attributes of the groups and services with their name defined in their respective map variable.
-We want the map variables definition of the policies and rules to be as much friendly as possible and not dependant of values specific to the NSX-T implementation (path).
-This will also allow us to reuse the policies variables values in other environments if the rules are generic for instance.&lt;/p&gt;
-
-&lt;p&gt;In order to retreive the value we are looping over the &amp;ldquo;list&amp;rdquo; in the group or service attribute and &amp;ldquo;try&amp;rdquo; to get the path attribute.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;source_groups = [for x in rule.value[&amp;quot;sources&amp;quot;] : try(var.nsxt_policy_grp_grp[x].path)]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;child-module-1&#34;&gt;Child Module&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;nsxt-tf-rm-grpsvc&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;This is how to use a child module stored in git within a root module.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;module &amp;quot;nsxt-tf-cm-svc&amp;quot; {
-   source = &amp;quot;git::https://github.com/netmemo/nsxt-frac-tf-cm.git//nsxt-tf-cm-svc&amp;quot;
-   map_svc = var.map_svc
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Below is the code of the &lt;em&gt;output.tf&lt;/em&gt; file that adds the groups and service maps into the terraform.state output section. It will allow other root modules to use these variables as &lt;em&gt;terraform_remote_state&lt;/em&gt; datasource.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;output &amp;quot;grp&amp;quot; {
-   value = module.nsxt-tf-cm-grp.grp
-}
-
-output &amp;quot;svc&amp;quot; {
-   value = module.nsxt-tf-cm-svc.svc
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;nsxt-tf-rm-dfw&lt;/strong&gt;&lt;br /&gt;
-Below is the code to refer to a remote state, in this case the remote state is local.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;data &amp;quot;terraform_remote_state&amp;quot; &amp;quot;grpsvc&amp;quot; {
-   backend = &amp;quot;local&amp;quot;
-   
-   config = {
-      path = &amp;quot;../nsxt-tf-rm-grpsvc/terraform.tfstate&amp;quot;
-   }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;demo&#34;&gt;Demo&lt;/h1&gt;
-
-&lt;p&gt;&lt;strong&gt;Requirement:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Terraform 0.14+&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;NSX-T 3.0.2+&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Clone the root module &lt;a href=&#34;https://github.com/netmemo/nsxt-frac-tf-rm&#34;&gt;nsxt-frac-tf-rm&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;To make a test, you need to follow the steps below (clic to see the detail):&lt;/p&gt;
-
-&lt;p&gt;&lt;details&gt;
-&lt;summary&gt;1. Clone the root module repo&lt;/summary&gt;
-&lt;strong&gt;git clone git@github.com:netmemo/nsxt-frac-tf-rm.git&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Cloning into &#39;nsxt-frac-tf-rm&#39;...
-remote: Enumerating objects: 21, done.
-remote: Counting objects: 100% (21/21), done.
-remote: Compressing objects: 100% (15/15), done.
-remote: Total 21 (delta 7), reused 20 (delta 6), pack-reused 0
-Receiving objects: 100% (21/21), done.
-Resolving deltas: 100% (7/7), done.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;/details&gt;
-&lt;details&gt;
-&lt;summary&gt;2.Move to the cloned repo&lt;/summary&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;cd your directory
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;/details&gt;
-&lt;details&gt;
-&lt;summary&gt;3.Initialize terraform&lt;/summary&gt;
-&lt;strong&gt;terraform init&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Initializing modules...
-Downloading git::https://github.com/netmemo/nsxt-frac-tf-cm.git for nsxt-tf-cm-dfw...
-- nsxt-tf-cm-dfw in .terraform/modules/nsxt-tf-cm-dfw/nsxt-tf-cm-dfw
-
-Initializing the backend...
-
-Initializing provider plugins...
-- terraform.io/builtin/terraform is built in to Terraform
-- Finding vmware/nsxt versions matching &amp;quot;&amp;gt;= 3.1.1&amp;quot;...
-- Installing vmware/nsxt v3.2.2...
-- Installed vmware/nsxt v3.2.2 (signed by a HashiCorp partner, key ID 6B6B0F38607A2264)
-
-Partner and community providers are signed by their developers.
-If you&#39;d like to know more about provider signing, you can read about it here:
-https://www.terraform.io/docs/cli/plugins/signing.html
-
-Terraform has created a lock file .terraform.lock.hcl to record the provider
-selections it made above. Include this file in your version control repository
-so that Terraform can guarantee to make the same selections by default when
-you run &amp;quot;terraform init&amp;quot; in the future.
-
-Terraform has been successfully initialized!
-
-You may now begin working with Terraform. Try running &amp;quot;terraform plan&amp;quot; to see
-any changes that are required for your infrastructure. All Terraform commands
-should now work.
-
-If you ever set or change modules or backend configuration for Terraform,
-rerun this command to reinitialize your working directory. If you forget, other
-commands will detect it and remind you to do so if necessary.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;/details&gt;
-&lt;details&gt;
-&lt;summary&gt;4.Edit the provider.tf file&lt;/summary&gt;
-Change the host, the username and password according to your environment.
-You need to either add the variable in the terraform.tfvars file or enter them when the prompt will ask you.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;provider &amp;quot;nsxt&amp;quot; {
-   host = var.host
-   username = &amp;quot;admin&amp;quot;
-   password = var.password
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;/details&gt;
-&lt;details&gt;
-&lt;summary&gt;5.Create the group and services&lt;/summary&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;terraform plan -out plan.out&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following
-symbols:
-  + create
-
-Terraform will perform the following actions:
-
-  # module.nsxt-tf-cm-grp.nsxt_policy_group.grp[&amp;quot;NETMEMO-ESX&amp;quot;] will be created
-  + resource &amp;quot;nsxt_policy_group&amp;quot; &amp;quot;grp&amp;quot; {
-      + display_name = &amp;quot;NETMEMO-ESX&amp;quot;
-      + domain       = &amp;quot;default&amp;quot;
-      + id           = (known after apply)
-      + nsx_id       = (known after apply)
-      + path         = (known after apply)
-      + revision     = (known after apply)
-
-      + criteria {
-          + condition {
-              + key         = &amp;quot;Tag&amp;quot;
-              + member_type = &amp;quot;VirtualMachine&amp;quot;
-              + operator    = &amp;quot;EQUALS&amp;quot;
-              + value       = &amp;quot;ESX&amp;quot;
-            }
-          + condition {
-              + key         = &amp;quot;Tag&amp;quot;
-              + member_type = &amp;quot;VirtualMachine&amp;quot;
-              + operator    = &amp;quot;EQUALS&amp;quot;
-              + value       = &amp;quot;VMWARE&amp;quot;
-            }
-        }
-    }
-
-  # module.nsxt-tf-cm-grp.nsxt_policy_group.grp[&amp;quot;NETMEMO-LOCAL&amp;quot;] will be created
-  + resource &amp;quot;nsxt_policy_group&amp;quot; &amp;quot;grp&amp;quot; {
-      + display_name = &amp;quot;NETMEMO-LOCAL&amp;quot;
-      + domain       = &amp;quot;default&amp;quot;
-      + id           = (known after apply)
-      + nsx_id       = (known after apply)
-      + path         = (known after apply)
-      + revision     = (known after apply)
-
-      + criteria {
-
-          + ipaddress_expression {
-              + ip_addresses = [
-                  + &amp;quot;10.0.0.0/25&amp;quot;,
-                  + &amp;quot;10.1.1.0/25&amp;quot;,
-                ]
-            }
-        }
-    }
-
-  # module.nsxt-tf-cm-grp.nsxt_policy_group.grp[&amp;quot;NETMEMO-NAS&amp;quot;] will be created
-  + resource &amp;quot;nsxt_policy_group&amp;quot; &amp;quot;grp&amp;quot; {
-      + display_name = &amp;quot;NETMEMO-NAS&amp;quot;
-      + domain       = &amp;quot;default&amp;quot;
-      + id           = (known after apply)
-      + nsx_id       = (known after apply)
-      + path         = (known after apply)
-      + revision     = (known after apply)
-
-      + criteria {
-          + condition {
-              + key         = &amp;quot;Tag&amp;quot;
-              + member_type = &amp;quot;VirtualMachine&amp;quot;
-              + operator    = &amp;quot;EQUALS&amp;quot;
-              + value       = &amp;quot;NAS&amp;quot;
-            }
-          + condition {
-              + key         = &amp;quot;Tag&amp;quot;
-              + member_type = &amp;quot;VirtualMachine&amp;quot;
-              + operator    = &amp;quot;EQUALS&amp;quot;
-              + value       = &amp;quot;FILES&amp;quot;
-            }
-        }
-    }
-
-  # module.nsxt-tf-cm-svc.nsxt_policy_service.svc[&amp;quot;NETMEMO-ESP&amp;quot;] will be created
-  + resource &amp;quot;nsxt_policy_service&amp;quot; &amp;quot;svc&amp;quot; {
-      + display_name = &amp;quot;NETMEMO-ESP&amp;quot;
-      + id           = (known after apply)
-      + nsx_id       = (known after apply)
-      + path         = (known after apply)
-      + revision     = (known after apply)
-
-      + ip_protocol_entry {
-          + protocol = 50
-        }
-    }
-
-  # module.nsxt-tf-cm-svc.nsxt_policy_service.svc[&amp;quot;NETMEMO-NETBIOS&amp;quot;] will be created
-  + resource &amp;quot;nsxt_policy_service&amp;quot; &amp;quot;svc&amp;quot; {
-      + display_name = &amp;quot;NETMEMO-NETBIOS&amp;quot;
-      + id           = (known after apply)
-      + nsx_id       = (known after apply)
-      + path         = (known after apply)
-      + revision     = (known after apply)
-
-      + l4_port_set_entry {
-          + destination_ports = [
-              + &amp;quot;135&amp;quot;,
-              + &amp;quot;137&amp;quot;,
-              + &amp;quot;139&amp;quot;,
-            ]
-          + display_name      = &amp;quot;TCP_NETMEMO-NETBIOS&amp;quot;
-          + protocol          = &amp;quot;TCP&amp;quot;
-          + source_ports      = []
-        }
-      + l4_port_set_entry {
-          + destination_ports = [
-              + &amp;quot;135&amp;quot;,
-              + &amp;quot;137&amp;quot;,
-              + &amp;quot;139&amp;quot;,
-            ]
-          + display_name      = &amp;quot;UDP_NETMEMO-NETBIOS&amp;quot;
-          + protocol          = &amp;quot;UDP&amp;quot;
-          + source_ports      = []
-        }
-    }
-
-Plan: 5 to add, 0 to change, 0 to destroy.
-
-Changes to Outputs:
-  + grp = {
-      + NETMEMO-ESX   = {
-          + conjunction       = []
-          + criteria          = [
-              + {
-                  + condition             = [
-                      + {
-                          + key         = &amp;quot;Tag&amp;quot;
-                          + member_type = &amp;quot;VirtualMachine&amp;quot;
-                          + operator    = &amp;quot;EQUALS&amp;quot;
-                          + value       = &amp;quot;ESX&amp;quot;
-                        },
-                      + {
-                          + key         = &amp;quot;Tag&amp;quot;
-                          + member_type = &amp;quot;VirtualMachine&amp;quot;
-                          + operator    = &amp;quot;EQUALS&amp;quot;
-                          + value       = &amp;quot;VMWARE&amp;quot;
-                        },
-                    ]
-                  + ipaddress_expression  = []
-                  + macaddress_expression = []
-                  + path_expression       = []
-                },
-            ]
-          + description       = null
-          + display_name      = &amp;quot;NETMEMO-ESX&amp;quot;
-          + domain            = &amp;quot;default&amp;quot;
-          + extended_criteria = []
-          + id                = (known after apply)
-          + nsx_id            = (known after apply)
-          + path              = (known after apply)
-          + revision          = (known after apply)
-          + tag               = []
-        }
-      + NETMEMO-LOCAL = {
-          + conjunction       = []
-          + criteria          = [
-              + {
-                  + condition             = []
-                  + ipaddress_expression  = [
-                      + {
-                          + ip_addresses = [
-                              + &amp;quot;10.0.0.0/25&amp;quot;,
-                              + &amp;quot;10.1.1.0/25&amp;quot;,
-                            ]
-                        },
-                    ]
-                  + macaddress_expression = []
-                  + path_expression       = []
-                },
-            ]
-          + description       = null
-          + display_name      = &amp;quot;NETMEMO-LOCAL&amp;quot;
-          + domain            = &amp;quot;default&amp;quot;
-          + extended_criteria = []
-          + id                = (known after apply)
-          + nsx_id            = (known after apply)
-          + path              = (known after apply)
-          + revision          = (known after apply)
-          + tag               = []
-        }
-      + NETMEMO-NAS   = {
-          + conjunction       = []
-          + criteria          = [
-              + {
-                  + condition             = [
-                      + {
-                          + key         = &amp;quot;Tag&amp;quot;
-                          + member_type = &amp;quot;VirtualMachine&amp;quot;
-                          + operator    = &amp;quot;EQUALS&amp;quot;
-                          + value       = &amp;quot;NAS&amp;quot;
-                        },
-                      + {
-                          + key         = &amp;quot;Tag&amp;quot;
-                          + member_type = &amp;quot;VirtualMachine&amp;quot;
-                          + operator    = &amp;quot;EQUALS&amp;quot;
-                          + value       = &amp;quot;FILES&amp;quot;
-                        },
-                    ]
-                  + ipaddress_expression  = []
-                  + macaddress_expression = []
-                  + path_expression       = []
-                },
-            ]
-          + description       = null
-          + display_name      = &amp;quot;NETMEMO-NAS&amp;quot;
-          + domain            = &amp;quot;default&amp;quot;
-          + extended_criteria = []
-          + id                = (known after apply)
-          + nsx_id            = (known after apply)
-          + path              = (known after apply)
-          + revision          = (known after apply)
-          + tag               = []
-        }
-    }
-  + svc = {
-      + NETMEMO-ESP     = {
-          + algorithm_entry   = []
-          + description       = null
-          + display_name      = &amp;quot;NETMEMO-ESP&amp;quot;
-          + ether_type_entry  = []
-          + icmp_entry        = []
-          + id                = (known after apply)
-          + igmp_entry        = []
-          + ip_protocol_entry = [
-              + {
-                  + description  = &amp;quot;&amp;quot;
-                  + display_name = &amp;quot;&amp;quot;
-                  + protocol     = 50
-                },
-            ]
-          + l4_port_set_entry = []
-          + nsx_id            = (known after apply)
-          + path              = (known after apply)
-          + revision          = (known after apply)
-          + tag               = []
-        }
-      + NETMEMO-NETBIOS = {
-          + algorithm_entry   = []
-          + description       = null
-          + display_name      = &amp;quot;NETMEMO-NETBIOS&amp;quot;
-          + ether_type_entry  = []
-          + icmp_entry        = []
-          + id                = (known after apply)
-          + igmp_entry        = []
-          + ip_protocol_entry = []
-          + l4_port_set_entry = [
-              + {
-                  + description       = &amp;quot;&amp;quot;
-                  + destination_ports = [
-                      + &amp;quot;135&amp;quot;,
-                      + &amp;quot;137&amp;quot;,
-                      + &amp;quot;139&amp;quot;,
-                    ]
-                  + display_name      = &amp;quot;TCP_NETMEMO-NETBIOS&amp;quot;
-                  + protocol          = &amp;quot;TCP&amp;quot;
-                  + source_ports      = []
-                },
-              + {
-                  + description       = &amp;quot;&amp;quot;
-                  + destination_ports = [
-                      + &amp;quot;135&amp;quot;,
-                      + &amp;quot;137&amp;quot;,
-                      + &amp;quot;139&amp;quot;,
-                    ]
-                  + display_name      = &amp;quot;UDP_NETMEMO-NETBIOS&amp;quot;
-                  + protocol          = &amp;quot;UDP&amp;quot;
-                  + source_ports      = []
-                },
-            ]
-          + nsx_id            = (known after apply)
-          + path              = (known after apply)
-          + revision          = (known after apply)
-          + tag               = []
-        }
-    }
-
-──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-
-Saved the plan to: plan.out
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;terraform apply plan.out&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;module.nsxt-tf-cm-svc.nsxt_policy_service.svc[&amp;quot;NETMEMO-NETBIOS&amp;quot;]: Creating...
-module.nsxt-tf-cm-grp.nsxt_policy_group.grp[&amp;quot;NETMEMO-NAS&amp;quot;]: Creating...
-module.nsxt-tf-cm-grp.nsxt_policy_group.grp[&amp;quot;NETMEMO-LOCAL&amp;quot;]: Creating...
-module.nsxt-tf-cm-grp.nsxt_policy_group.grp[&amp;quot;NETMEMO-ESX&amp;quot;]: Creating...
-module.nsxt-tf-cm-svc.nsxt_policy_service.svc[&amp;quot;NETMEMO-ESP&amp;quot;]: Creating...
-module.nsxt-tf-cm-svc.nsxt_policy_service.svc[&amp;quot;NETMEMO-ESP&amp;quot;]: Creation complete after 0s [id=434fdc00-30e6-4072-a64b-a7e9534c80c2]
-module.nsxt-tf-cm-svc.nsxt_policy_service.svc[&amp;quot;NETMEMO-NETBIOS&amp;quot;]: Creation complete after 0s [id=59a29e53-9901-44d2-9589-f770c36d87bb]
-module.nsxt-tf-cm-grp.nsxt_policy_group.grp[&amp;quot;NETMEMO-ESX&amp;quot;]: Creation complete after 0s [id=0fb48626-d903-42cc-9513-b47e7626f44d]
-module.nsxt-tf-cm-grp.nsxt_policy_group.grp[&amp;quot;NETMEMO-LOCAL&amp;quot;]: Creation complete after 0s [id=21d93fff-c08c-42dd-90da-d099dfa51163]
-module.nsxt-tf-cm-grp.nsxt_policy_group.grp[&amp;quot;NETMEMO-NAS&amp;quot;]: Creation complete after 0s [id=bac7f9c7-d80c-4bfe-8663-d3c9f973e2fb]
-
-Apply complete! Resources: 5 added, 0 changed, 0 destroyed.
-...
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;/details&gt;
-&lt;details&gt;
-&lt;summary&gt;6.Create the policies and rules&lt;/summary&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;terraform plan -out plan.out&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following
-symbols:
-  + create
-
-Terraform will perform the following actions:
-
-  # module.nsxt-tf-cm-dfw.nsxt_policy_security_policy.policies[&amp;quot;NETMEMO-POL1&amp;quot;] will be created
-  + resource &amp;quot;nsxt_policy_security_policy&amp;quot; &amp;quot;policies&amp;quot; {
-      + category        = &amp;quot;Application&amp;quot;
-      + display_name    = &amp;quot;NETMEMO-POL1&amp;quot;
-      + domain          = &amp;quot;default&amp;quot;
-      + id              = (known after apply)
-      + locked          = false
-      + nsx_id          = (known after apply)
-      + path            = (known after apply)
-      + revision        = (known after apply)
-      + sequence_number = 10
-      + stateful        = true
-      + tcp_strict      = (known after apply)
-
-      + rule {
-          + action                = &amp;quot;ALLOW&amp;quot;
-          + destination_groups    = [
-              + &amp;quot;/infra/domains/default/groups/bac7f9c7-d80c-4bfe-8663-d3c9f973e2fb&amp;quot;,
-            ]
-          + destinations_excluded = false
-          + direction             = &amp;quot;IN_OUT&amp;quot;
-          + disabled              = false
-          + display_name          = &amp;quot;NETMEMO-NAS-R&amp;quot;
-          + ip_version            = &amp;quot;IPV4_IPV6&amp;quot;
-          + logged                = false
-          + nsx_id                = (known after apply)
-          + revision              = (known after apply)
-          + rule_id               = (known after apply)
-          + scope                 = [
-              + &amp;quot;/infra/domains/default/groups/bac7f9c7-d80c-4bfe-8663-d3c9f973e2fb&amp;quot;,
-            ]
-          + sequence_number       = (known after apply)
-          + services              = [
-              + &amp;quot;/infra/services/HTTPS&amp;quot;,
-            ]
-          + source_groups         = [
-              + &amp;quot;/infra/domains/default/groups/bac7f9c7-d80c-4bfe-8663-d3c9f973e2fb&amp;quot;,
-            ]
-          + sources_excluded      = false
-        }
-      + rule {
-          + action                = &amp;quot;ALLOW&amp;quot;
-          + destination_groups    = [
-              + &amp;quot;/infra/domains/default/groups/0fb48626-d903-42cc-9513-b47e7626f44d&amp;quot;,
-            ]
-          + destinations_excluded = false
-          + direction             = &amp;quot;IN_OUT&amp;quot;
-          + disabled              = false
-          + display_name          = &amp;quot;NETMEMO-ESX-R&amp;quot;
-          + ip_version            = &amp;quot;IPV4_IPV6&amp;quot;
-          + logged                = false
-          + nsx_id                = (known after apply)
-          + revision              = (known after apply)
-          + rule_id               = (known after apply)
-          + scope                 = [
-              + &amp;quot;/infra/domains/default/groups/0fb48626-d903-42cc-9513-b47e7626f44d&amp;quot;,
-            ]
-          + sequence_number       = (known after apply)
-          + services              = [
-              + &amp;quot;/infra/services/HTTPS&amp;quot;,
-            ]
-          + source_groups         = [
-              + &amp;quot;/infra/domains/default/groups/0fb48626-d903-42cc-9513-b47e7626f44d&amp;quot;,
-            ]
-          + sources_excluded      = false
-        }
-    }
-
-  # module.nsxt-tf-cm-dfw.nsxt_policy_security_policy.policies[&amp;quot;NETMEMO-POL2&amp;quot;] will be created
-  + resource &amp;quot;nsxt_policy_security_policy&amp;quot; &amp;quot;policies&amp;quot; {
-      + category        = &amp;quot;Application&amp;quot;
-      + display_name    = &amp;quot;NETMEMO-POL2&amp;quot;
-      + domain          = &amp;quot;default&amp;quot;
-      + id              = (known after apply)
-      + locked          = false
-      + nsx_id          = (known after apply)
-      + path            = (known after apply)
-      + revision        = (known after apply)
-      + sequence_number = 20
-      + stateful        = true
-      + tcp_strict      = (known after apply)
-
-      + rule {
-          + action                = &amp;quot;ALLOW&amp;quot;
-          + destination_groups    = [
-              + &amp;quot;/infra/domains/default/groups/0fb48626-d903-42cc-9513-b47e7626f44d&amp;quot;,
-              + &amp;quot;/infra/domains/default/groups/bac7f9c7-d80c-4bfe-8663-d3c9f973e2fb&amp;quot;,
-            ]
-          + destinations_excluded = false
-          + direction             = &amp;quot;IN_OUT&amp;quot;
-          + disabled              = false
-          + display_name          = &amp;quot;NETMEMO-LOCAL-R&amp;quot;
-          + ip_version            = &amp;quot;IPV4_IPV6&amp;quot;
-          + logged                = false
-          + nsx_id                = (known after apply)
-          + revision              = (known after apply)
-          + rule_id               = (known after apply)
-          + scope                 = [
-              + &amp;quot;/infra/domains/default/groups/0fb48626-d903-42cc-9513-b47e7626f44d&amp;quot;,
-              + &amp;quot;/infra/domains/default/groups/bac7f9c7-d80c-4bfe-8663-d3c9f973e2fb&amp;quot;,
-            ]
-          + sequence_number       = (known after apply)
-          + services              = [
-              + &amp;quot;/infra/services/59a29e53-9901-44d2-9589-f770c36d87bb&amp;quot;,
-              + &amp;quot;/infra/services/HTTPS&amp;quot;,
-            ]
-          + source_groups         = [
-              + &amp;quot;/infra/domains/default/groups/21d93fff-c08c-42dd-90da-d099dfa51163&amp;quot;,
-            ]
-          + sources_excluded      = false
-        }
-    }
-
-Plan: 2 to add, 0 to change, 0 to destroy.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;terraform apply plan.out&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;module.nsxt-tf-cm-dfw.nsxt_policy_security_policy.policies[&amp;quot;NETMEMO-POL1&amp;quot;]: Creating...
-module.nsxt-tf-cm-dfw.nsxt_policy_security_policy.policies[&amp;quot;NETMEMO-POL2&amp;quot;]: Creating...
-module.nsxt-tf-cm-dfw.nsxt_policy_security_policy.policies[&amp;quot;NETMEMO-POL2&amp;quot;]: Creation complete after 1s [id=bab4c14e-30c6-4633-b9d7-db760844e0e7]
-module.nsxt-tf-cm-dfw.nsxt_policy_security_policy.policies[&amp;quot;NETMEMO-POL1&amp;quot;]: Creation complete after 1s [id=867b5893-15e3-4dab-a2f0-c8084af790a7]
-
-Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;/details&gt;
-&lt;details&gt;
-&lt;summary&gt;7.Check the result through the UI&lt;/summary&gt;
-&lt;a href=&#34;nsx-services.png&#34;&gt; &lt;img src=&#34;nsx-services.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;br /&gt;
-&lt;a href=&#34;nsx-groups.png&#34;&gt; &lt;img src=&#34;nsx-groups.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;br /&gt;
-&lt;a href=&#34;nsx-dfw.png&#34;&gt; &lt;img src=&#34;nsx-dfw.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;br /&gt;
-&lt;/details&gt;&lt;/p&gt;
 </description>
     </item>
     

@@ -4,6 +4,14 @@
     
     <url>
     
+      <loc>https://netmemo.github.io/post/tf-map-ordering/</loc>
+      <lastmod>2022-07-24T18:44:36+02:00</lastmod>
+    </url>
+    
+  
+    
+    <url>
+    
       <loc>https://netmemo.github.io/post/tf-chicken-egg/</loc>
       <lastmod>2022-06-19T09:03:41+02:00</lastmod>
     </url>
@@ -102,6 +110,14 @@
     
       <loc>https://netmemo.github.io/post/gha-auto-pr/</loc>
       <lastmod>2021-08-12T17:01:57+02:00</lastmod>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/post/gha-tfc-var/</loc>
+      <lastmod>2021-08-12T15:31:44+02:00</lastmod>
     </url>
     
   
@@ -228,6 +244,30 @@
     
     <url>
     
+      <loc>https://netmemo.github.io/post/dns-one-design/</loc>
+      <lastmod>2019-10-04T23:20:48+02:00</lastmod>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/post/dns-ttl-cascade/</loc>
+      <lastmod>2019-10-04T23:15:03+02:00</lastmod>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/post/dns-outage/</loc>
+      <lastmod>2019-04-27T23:06:07+02:00</lastmod>
+    </url>
+    
+  
+    
+    <url>
+    
       <loc>https://netmemo.github.io/post/corelinuxnetmemo/</loc>
       <lastmod>2018-10-22T15:35:55+02:00</lastmod>
     </url>
@@ -341,7 +381,7 @@
     <url>
     
       <loc>https://netmemo.github.io/categories/automation/</loc>
-      <lastmod>2022-06-19T09:03:41+02:00</lastmod>
+      <lastmod>2022-07-24T18:44:36+02:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -493,6 +533,42 @@
     
     <url>
     
+      <loc>https://netmemo.github.io/tags/dns/</loc>
+      <lastmod>2019-10-04T23:20:48+02:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/categories/dns/</loc>
+      <lastmod>2019-10-04T23:20:48+02:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/tags/dnsttl/</loc>
+      <lastmod>2019-10-04T23:20:48+02:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/tags/dns_cache/</loc>
+      <lastmod>2019-10-04T23:15:03+02:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
       <loc>https://netmemo.github.io/tags/design/</loc>
       <lastmod>2021-09-17T15:47:00+02:00</lastmod>
       <priority>0</priority>
@@ -522,6 +598,24 @@
     
       <loc>https://netmemo.github.io/tags/firewall/</loc>
       <lastmod>2021-07-29T19:03:37+02:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/tags/gslb/</loc>
+      <lastmod>2019-10-04T23:20:48+02:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/tags/gtm/</loc>
+      <lastmod>2019-10-04T23:20:48+02:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -594,6 +688,24 @@
     
       <loc>https://netmemo.github.io/categories/iac/</loc>
       <lastmod>2021-07-29T19:03:37+02:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/tags/ltm/</loc>
+      <lastmod>2019-10-04T23:20:48+02:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/tags/loadbalancing/</loc>
+      <lastmod>2019-10-04T23:20:48+02:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -799,7 +911,7 @@
     <url>
     
       <loc>https://netmemo.github.io/tags/terraform/</loc>
-      <lastmod>2022-06-19T09:03:41+02:00</lastmod>
+      <lastmod>2022-07-24T18:44:36+02:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -808,7 +920,7 @@
     <url>
     
       <loc>https://netmemo.github.io/categories/terraform/</loc>
-      <lastmod>2022-06-19T09:03:41+02:00</lastmod>
+      <lastmod>2022-07-24T18:44:36+02:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -926,6 +1038,24 @@
     
       <loc>https://netmemo.github.io/tags/lambda/</loc>
       <lastmod>2021-11-16T18:00:45+02:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/tags/loadbalancer/</loc>
+      <lastmod>2019-10-04T23:20:48+02:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/categories/loadbalancing/</loc>
+      <lastmod>2019-10-04T23:20:48+02:00</lastmod>
       <priority>0</priority>
     </url>
     

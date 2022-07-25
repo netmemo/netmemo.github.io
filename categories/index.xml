@@ -33,7 +33,7 @@
     <item>
       <title>Automation</title>
       <link>https://netmemo.github.io/categories/automation/</link>
-      <pubDate>Sun, 19 Jun 2022 09:03:41 +0200</pubDate>
+      <pubDate>Sun, 24 Jul 2022 18:44:36 +0200</pubDate>
       
       <guid>https://netmemo.github.io/categories/automation/</guid>
       <description></description>
@@ -81,6 +81,15 @@
       <pubDate>Sat, 28 Nov 2020 19:11:36 +0100</pubDate>
       
       <guid>https://netmemo.github.io/categories/dc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>DNS</title>
+      <link>https://netmemo.github.io/categories/dns/</link>
+      <pubDate>Fri, 04 Oct 2019 23:20:48 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/categories/dns/</guid>
       <description></description>
     </item>
     
@@ -177,7 +186,7 @@
     <item>
       <title>Terraform</title>
       <link>https://netmemo.github.io/categories/terraform/</link>
-      <pubDate>Sun, 19 Jun 2022 09:03:41 +0200</pubDate>
+      <pubDate>Sun, 24 Jul 2022 18:44:36 +0200</pubDate>
       
       <guid>https://netmemo.github.io/categories/terraform/</guid>
       <description></description>
@@ -216,6 +225,15 @@
       <pubDate>Thu, 25 Feb 2021 21:46:14 +0100</pubDate>
       
       <guid>https://netmemo.github.io/categories/developpment/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>loadbalancing</title>
+      <link>https://netmemo.github.io/categories/loadbalancing/</link>
+      <pubDate>Fri, 04 Oct 2019 23:20:48 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/categories/loadbalancing/</guid>
       <description></description>
     </item>
     

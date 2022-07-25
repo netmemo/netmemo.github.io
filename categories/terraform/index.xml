@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&amp;acute;s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
-    <lastBuildDate>Sun, 19 Jun 2022 09:03:41 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 24 Jul 2022 18:44:36 +0200</lastBuildDate>
     
 	<atom:link href="https://netmemo.github.io/categories/terraform/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Terraform list of map ordering</title>
+      <link>https://netmemo.github.io/post/tf-map-ordering/</link>
+      <pubDate>Sun, 24 Jul 2022 18:44:36 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/tf-map-ordering/</guid>
+      <description>The need I went into some troubles when I wanted to implement NSXT rules. My aim was to keep the order of the rules as intended by the user when he wrote his data without asking him to enter a rule ID manually. If the order is kept then it&amp;rsquo;s easy to prioritize the rules according to their placement. With the NSX-T Terraform provider the rules are in the form below :</description>
+    </item>
     
     <item>
       <title>Terraform and the chicken and egg problem</title>
