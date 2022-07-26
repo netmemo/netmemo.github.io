@@ -87,7 +87,7 @@ In this example, the ids are not sorted neither the names.&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;When transforming this list of object into a set, the order is not kept and is difficult to predict.&lt;/li&gt;
-&lt;li&gt;When transforming this list of object into a map, the map will be sorted according of the key which &lt;strong&gt;MUST&lt;/strong&gt; be a string. The ordering is then done alphabetically.&lt;/li&gt;
+&lt;li&gt;When transforming this list of object into a map, the map will be sorted according to the key which &lt;strong&gt;MUST&lt;/strong&gt; be a string. The ordering is then done alphabetically.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;To illustrate the ordering we will do different examples.&lt;/p&gt;
@@ -230,7 +230,7 @@ variable &#34;listOfRule&#34; {
 
 &lt;h3 id=&#34;transform-list-into-a-map-with-id-as-index&#34;&gt;Transform list into a map with id as index&lt;/h3&gt;
 
-&lt;p&gt;Here the numerical index is transformed into a string and then it&amp;rsquo;s sorted alphabetically 10 is before 2 because 1 is bigger than 2.&lt;/p&gt;
+&lt;p&gt;Here the numerical index is transformed into a string and then it&amp;rsquo;s sorted alphabetically. 10 is before 2 because 1 is bigger than 2.&lt;/p&gt;
 
 &lt;table&gt;
 &lt;tr&gt;
@@ -2754,21 +2754,63 @@ The workaround to this [known limitation] is to create the PR with a personal ac
     </item>
     
     <item>
-      <title>Gha Tfc Var</title>
-      <link>https://netmemo.github.io/post/gha-tfc-var/</link>
-      <pubDate>Thu, 12 Aug 2021 15:31:44 +0200</pubDate>
+      <title>Changing Terraform Cloud workspace in Github Actions</title>
+      <link>https://netmemo.github.io/post/tf-workspace-var/</link>
+      <pubDate>Thu, 12 Aug 2021 15:22:40 +0200</pubDate>
       
-      <guid>https://netmemo.github.io/post/gha-tfc-var/</guid>
-      <description>&lt;p&gt;This is to &lt;a href=&#34;https://github.com/hashicorp/setup-terraform/issues/35&#34;&gt;create a variable&lt;/a&gt; in Github Action that will be passer to Terraform. This variable is to set the NSXT endpoint.
-The variable will change according to the environment we want to push the configuration&lt;/p&gt;
+      <guid>https://netmemo.github.io/post/tf-workspace-var/</guid>
+      <description>&lt;p&gt;This blog post is to explain how I did to automatically change Terraform Cloud workspace from Github Actions.
+As explained in the documentation &lt;a href=&#34;https://www.terraform.io/docs/language/settings/backends/remote.html#workspaces&#34;&gt;remote workspace&lt;/a&gt;, you can use different remote workspace by specifying the prefix of you workspace in the Terraform backend configuration.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;      - name: Setup Terraform variables
-        id: vars
-        run: |-
-          cat &amp;gt; pipeline.auto.tfvars &amp;lt;&amp;lt;EOF
-          nsxhost = &amp;quot;netmemo.ddns.net:8882&amp;quot;
-          EOF
+&lt;pre&gt;&lt;code&gt;  backend &amp;quot;remote&amp;quot; {
+    organization = &amp;quot;netmemo&amp;quot;
+
+    workspaces {
+      prefix = &amp;quot;netmemo-&amp;quot;
+    }
+  }
 &lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After that, you only need to select the proper workspace by entering the &lt;em&gt;terraform workspace select [suffix]&lt;/em&gt; command.
+The issue comes if you want to do it in a fully automated environment like with Github Actions. You need an extra step which is to set the &lt;a href=&#34;https://learn.hashicorp.com/tutorials/terraform/automate-terraform?in=terraform/automation&#34;&gt;TF_WORKSPACE&lt;/a&gt; variable.&lt;/p&gt;
+
+&lt;p&gt;Below are the 2 steps that are needed to select a specific environment.
+In this blog the workspace will be netmemo-dev where netmemo- is the prefix configured in the main.tf and dev the suffix configured in the .yml file of the Github Actions script.&lt;/p&gt;
+
+&lt;p&gt;This step initializes Terraform and set the TF_WORKSPACE variable to indicate that we want to use the dev environment suffix before the initialization.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;      - name: Terraform Init
+        id: init
+        run: terraform init
+        env:
+          TF_WORKSPACE: &amp;quot;dev&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If we are not setting the &lt;a href=&#34;https://learn.hashicorp.com/tutorials/terraform/automate-terraform?in=terraform/automation&#34;&gt;TF_WORKSPACE&lt;/a&gt;, the init command will try to get the default workspace that doesn&amp;rsquo;t exist and you will have the following error.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;The currently selected workspace (default) does not exist.
+  This is expected behavior when the selected workspace did not have an
+  existing non-empty state. Please enter a number to select a workspace:
+  
+  1. dev
+  2. prod
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Even after setting the &lt;a href=&#34;https://learn.hashicorp.com/tutorials/terraform/automate-terraform?in=terraform/automation&#34;&gt;TF_WORKSPACE&lt;/a&gt; variable, we still need to enter the &lt;em&gt;terraform workspace select&lt;/em&gt; command to provide the suffix of the workspace.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;      - name: Terraform Workspace
+        id: workspace
+        run: terraform workspace select dev
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If we forgot to enter the command to select workspace, the Terraform configuration section will try to load a workspace with only the prefix and trigger an error.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Error: error starting operation: The configured &amp;quot;remote&amp;quot; backend encountered an unexpected error:
+
+invalid value for workspace
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can find a full example of where we need to change workspace automatically in this blog post &lt;a href=&#34;https://netmemo.github.io/post/tf-gha-nsxt-cicd&#34;&gt;Github Actions with Terraform Cloud for CI/CD of NSX-T&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     

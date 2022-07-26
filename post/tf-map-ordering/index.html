@@ -223,9 +223,14 @@
 
   
   
-  <span itemscope itemprop="author" itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Noel">
-  </span>
+  
+  <div>
+    
+    <span itemscope itemprop="author" itemtype="http://schema.org/Person">
+      <span itemprop="name">Noel</span>
+    </span>
+    
+  </div>
   
 
   <span class="article-date">
@@ -383,7 +388,7 @@ In this example, the ids are not sorted neither the names.</p>
 
 <ul>
 <li>When transforming this list of object into a set, the order is not kept and is difficult to predict.</li>
-<li>When transforming this list of object into a map, the map will be sorted according of the key which <strong>MUST</strong> be a string. The ordering is then done alphabetically.</li>
+<li>When transforming this list of object into a map, the map will be sorted according to the key which <strong>MUST</strong> be a string. The ordering is then done alphabetically.</li>
 </ul>
 
 <p>To illustrate the ordering we will do different examples.</p>
@@ -526,7 +531,7 @@ variable "listOfRule" {
 
 <h3 id="transform-list-into-a-map-with-id-as-index">Transform list into a map with id as index</h3>
 
-<p>Here the numerical index is transformed into a string and then it&rsquo;s sorted alphabetically 10 is before 2 because 1 is bigger than 2.</p>
+<p>Here the numerical index is transformed into a string and then it&rsquo;s sorted alphabetically. 10 is before 2 because 1 is bigger than 2.</p>
 
 <table>
 <tr>

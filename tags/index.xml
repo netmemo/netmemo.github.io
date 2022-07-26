@@ -157,33 +157,6 @@
     </item>
     
     <item>
-      <title>DNS</title>
-      <link>https://netmemo.github.io/tags/dns/</link>
-      <pubDate>Fri, 04 Oct 2019 23:20:48 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/tags/dns/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>DNSTTL</title>
-      <link>https://netmemo.github.io/tags/dnsttl/</link>
-      <pubDate>Fri, 04 Oct 2019 23:20:48 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/tags/dnsttl/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>DNS_CACHE</title>
-      <link>https://netmemo.github.io/tags/dns_cache/</link>
-      <pubDate>Fri, 04 Oct 2019 23:15:03 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/tags/dns_cache/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Design</title>
       <link>https://netmemo.github.io/tags/design/</link>
       <pubDate>Tue, 18 May 2021 22:28:39 +0200</pubDate>
@@ -216,24 +189,6 @@
       <pubDate>Thu, 29 Jul 2021 19:03:37 +0200</pubDate>
       
       <guid>https://netmemo.github.io/tags/firewall/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>GSLB</title>
-      <link>https://netmemo.github.io/tags/gslb/</link>
-      <pubDate>Fri, 04 Oct 2019 23:20:48 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/tags/gslb/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>GTM</title>
-      <link>https://netmemo.github.io/tags/gtm/</link>
-      <pubDate>Fri, 04 Oct 2019 23:20:48 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/tags/gtm/</guid>
       <description></description>
     </item>
     
@@ -288,24 +243,6 @@
       <pubDate>Thu, 29 Jul 2021 19:03:37 +0200</pubDate>
       
       <guid>https://netmemo.github.io/tags/iac/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>LTM</title>
-      <link>https://netmemo.github.io/tags/ltm/</link>
-      <pubDate>Fri, 04 Oct 2019 23:20:48 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/tags/ltm/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Loadbalancing</title>
-      <link>https://netmemo.github.io/tags/loadbalancing/</link>
-      <pubDate>Fri, 04 Oct 2019 23:20:48 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/tags/loadbalancing/</guid>
       <description></description>
     </item>
     
@@ -504,15 +441,6 @@
       <pubDate>Tue, 16 Nov 2021 18:00:45 +0200</pubDate>
       
       <guid>https://netmemo.github.io/tags/lambda/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>loadbalancer</title>
-      <link>https://netmemo.github.io/tags/loadbalancer/</link>
-      <pubDate>Fri, 04 Oct 2019 23:20:48 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/tags/loadbalancer/</guid>
       <description></description>
     </item>
     
