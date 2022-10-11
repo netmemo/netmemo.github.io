@@ -96,7 +96,7 @@
   <meta property="og:image" content="https://netmemo.github.io/img/icon-192.png">
   <meta property="og:locale" content="en-us">
   
-  <meta property="og:updated_time" content="2021-07-29T19:03:37&#43;02:00">
+  <meta property="og:updated_time" content="2021-02-19T22:06:50&#43;01:00">
   
 
   
@@ -210,411 +210,6 @@
   
 
   
-  
-    
-    
-      
-
-<div class="card-simple" itemscope itemprop="blogPost" itemtype="http://schema.org/BlogPosting">
-  
-
-<div class="article-metadata">
-
-  
-  
-  
-  <div>
-    
-    <span itemscope itemprop="author" itemtype="http://schema.org/Person">
-      <span itemprop="name">Noel</span>
-    </span>
-    
-  </div>
-  
-
-  <span class="article-date">
-    
-    <meta content="2021-07-29 19:03:37 &#43;0200 CEST" itemprop="datePublished">
-    <time datetime="2021-07-29 19:03:37 &#43;0200 CEST" itemprop="dateModified">
-      Jul 29, 2021
-    </time>
-  </span>
-  <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Noel">
-  </span>
-
-  
-  <span class="middot-divider"></span>
-  <span class="article-reading-time">
-    16 min read
-  </span>
-  
-
-  
-  
-
-  
-  
-  
-  <span class="middot-divider"></span>
-  <span class="article-categories">
-    <i class="fas fa-folder"></i>
-    
-    <a href="/categories/nsxt/">NSXT</a>, 
-    
-    <a href="/categories/terraform/">Terraform</a>, 
-    
-    <a href="/categories/iac/">IaC</a>
-    
-  </span>
-  
-  
-
-  
-
-</div>
-
-
-  
-  
-  <h3 class="article-title" itemprop="headline">
-    <a href="/post/nsxt-tf-firewall/" itemprop="url">NSX-T Firewall rules as code with Terraform</a>
-  </h3>
-  <div class="article-style" itemprop="articleBody">
-    
-    This article is to show an example of how to manage NSX-T firewall rules as a code through Terraform. You can find the project on my github account : nsxt-frac-tf-cm and nsxt-frac-tf-rm
-I will describe the structure of the project, how it works, the data model, the Terraform code explanation and finish with an example.
-Structure of the project The diagram below shows a summary of how I organized the project in order to fully use infrastructre as code.
-    
-  </div>
-  <p class="read-more" itemprop="mainEntityOfPage">
-    <a href="/post/nsxt-tf-firewall/" class="btn btn-outline-primary my-1">
-      CONTINUE READING
-    </a>
-  </p>
-</div>
-
-    
-  
-    
-    
-      
-
-<div class="card-simple" itemscope itemprop="blogPost" itemtype="http://schema.org/BlogPosting">
-  
-
-<div class="article-metadata">
-
-  
-  
-  
-  <div>
-    
-    <span itemscope itemprop="author" itemtype="http://schema.org/Person">
-      <span itemprop="name">Noel</span>
-    </span>
-    
-  </div>
-  
-
-  <span class="article-date">
-    
-        Last updated on
-    
-    <meta content="2021-05-18 22:28:39 &#43;0200 CEST" itemprop="datePublished">
-    <time datetime="2021-09-17 15:47:00 &#43;0200 CEST" itemprop="dateModified">
-      Sep 17, 2021
-    </time>
-  </span>
-  <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Noel">
-  </span>
-
-  
-  <span class="middot-divider"></span>
-  <span class="article-reading-time">
-    4 min read
-  </span>
-  
-
-  
-  
-
-  
-  
-  
-  
-
-  
-
-</div>
-
-
-  
-  
-  <h3 class="article-title" itemprop="headline">
-    <a href="/post/subnets-size-mix/" itemprop="url">Subnet sizing and heterogeneous subnets</a>
-  </h3>
-  <div class="article-style" itemprop="articleBody">
-    
-    Along my different jobs, one of the things that led to L2 extension and then brought risks and slew down or even blocked projects was big heterogeneous subnets.
-Often the initial rational of big heterogeneous subnets was to avoid too much vlans on physical infrastructure. Historically physical infrastructure had vlans and spanning tree limits. The problem is that when migration time is coming nobody wants to change IP addresses. Even after arguing, this is the network that bears the risk to break the entire company by stretching L2.
-    
-  </div>
-  <p class="read-more" itemprop="mainEntityOfPage">
-    <a href="/post/subnets-size-mix/" class="btn btn-outline-primary my-1">
-      CONTINUE READING
-    </a>
-  </p>
-</div>
-
-    
-  
-    
-    
-      
-
-<div class="card-simple" itemscope itemprop="blogPost" itemtype="http://schema.org/BlogPosting">
-  
-
-<div class="article-metadata">
-
-  
-  
-  
-  <div>
-    
-    <span itemscope itemprop="author" itemtype="http://schema.org/Person">
-      <span itemprop="name">Noel</span>
-    </span>
-    
-  </div>
-  
-
-  <span class="article-date">
-    
-    <meta content="2021-02-25 21:56:57 &#43;0100 CET" itemprop="datePublished">
-    <time datetime="2021-02-25 21:56:57 &#43;0100 CET" itemprop="dateModified">
-      Feb 25, 2021
-    </time>
-  </span>
-  <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Noel">
-  </span>
-
-  
-  <span class="middot-divider"></span>
-  <span class="article-reading-time">
-    1 min read
-  </span>
-  
-
-  
-  
-
-  
-  
-  
-  <span class="middot-divider"></span>
-  <span class="article-categories">
-    <i class="fas fa-folder"></i>
-    
-    <a href="/categories/automation/">Automation</a>
-    
-  </span>
-  
-  
-
-  
-
-</div>
-
-
-  
-  
-  <h3 class="article-title" itemprop="headline">
-    <a href="/post/terraform-refactoring-state-file/" itemprop="url">Terraform Refactoring State File</a>
-  </h3>
-  <div class="article-style" itemprop="articleBody">
-    
-    https://www.terraform.io/docs/cli/commands/state/mv.html
-On windows :
-terraform state mv nsxt_policy_security_policy.policy1 nsxt_policy_security_policy.policies[\&ldquo;policy1\&ldquo;]  It move resources from a construct like this
-locals { policy1= { rule1 = { source = [&quot;src1&quot;,&quot;src2&quot;] } } policy2 = { rule1 = { source = [&quot;src3&quot;,&quot;src4&quot;] } } }  To a structure like this
-locals { policies = { policy1 = { rule1 = { source = [&quot;src1&quot;,&quot;src2&quot;] } } policy2 = { rule2 = { source = [&quot;src3&quot;,&quot;src4&quot;] } } } }  The main moving from
-    
-  </div>
-  <p class="read-more" itemprop="mainEntityOfPage">
-    <a href="/post/terraform-refactoring-state-file/" class="btn btn-outline-primary my-1">
-      CONTINUE READING
-    </a>
-  </p>
-</div>
-
-    
-  
-    
-    
-      
-
-<div class="card-simple" itemscope itemprop="blogPost" itemtype="http://schema.org/BlogPosting">
-  
-
-<div class="article-metadata">
-
-  
-  
-  
-  <div>
-    
-    <span itemscope itemprop="author" itemtype="http://schema.org/Person">
-      <span itemprop="name">Noel</span>
-    </span>
-    
-  </div>
-  
-
-  <span class="article-date">
-    
-    <meta content="2021-02-25 21:46:14 &#43;0100 CET" itemprop="datePublished">
-    <time datetime="2021-02-25 21:46:14 &#43;0100 CET" itemprop="dateModified">
-      Feb 25, 2021
-    </time>
-  </span>
-  <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Noel">
-  </span>
-
-  
-  <span class="middot-divider"></span>
-  <span class="article-reading-time">
-    1 min read
-  </span>
-  
-
-  
-  
-
-  
-  
-  
-  <span class="middot-divider"></span>
-  <span class="article-categories">
-    <i class="fas fa-folder"></i>
-    
-    <a href="/categories/automation/">automation</a>, 
-    
-    <a href="/categories/developpment/">developpment</a>
-    
-  </span>
-  
-  
-
-  
-
-</div>
-
-
-  
-  
-  <h3 class="article-title" itemprop="headline">
-    <a href="/post/python-package-offline/" itemprop="url">Python Package Offline</a>
-  </h3>
-  <div class="article-style" itemprop="articleBody">
-    
-    To install python packages offline (with no internet access), the simplest way is to dowload the packages with the dependencies on a server with internet access and the below command.
- C:\Users\Nono\Desktop\pythonpip download requests Collecting requests Using cached requests-2.25.1-py2.py3-none-any.whl (61 kB) Collecting urllib3=1.21.1 Using cached urllib3-1.26.3-py2.py3-none-any.whl (137 kB) Collecting certifi=2017.4.17 Using cached certifi-2020.12.5-py2.py3-none-any.whl (147 kB) Collecting idna=2.5 Using cached idna-2.10-py2.py3-none-any.whl (58 kB) Collecting chardet=3.0.2 Using cached chardet-4.0.0-py2.py3-none-any.whl (178 kB) Saved c:\users\nono\desktop\python\requests-2.
-    
-  </div>
-  <p class="read-more" itemprop="mainEntityOfPage">
-    <a href="/post/python-package-offline/" class="btn btn-outline-primary my-1">
-      CONTINUE READING
-    </a>
-  </p>
-</div>
-
-    
-  
-    
-    
-      
-
-<div class="card-simple" itemscope itemprop="blogPost" itemtype="http://schema.org/BlogPosting">
-  
-
-<div class="article-metadata">
-
-  
-  
-  
-  <div>
-    
-    <span itemscope itemprop="author" itemtype="http://schema.org/Person">
-      <span itemprop="name">Noel</span>
-    </span>
-    
-  </div>
-  
-
-  <span class="article-date">
-    
-    <meta content="2021-02-23 22:24:44 &#43;0100 CET" itemprop="datePublished">
-    <time datetime="2021-02-23 22:24:44 &#43;0100 CET" itemprop="dateModified">
-      Feb 23, 2021
-    </time>
-  </span>
-  <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Noel">
-  </span>
-
-  
-  <span class="middot-divider"></span>
-  <span class="article-reading-time">
-    7 min read
-  </span>
-  
-
-  
-  
-
-  
-  
-  
-  <span class="middot-divider"></span>
-  <span class="article-categories">
-    <i class="fas fa-folder"></i>
-    
-    <a href="/categories/cisco/">Cisco</a>, 
-    
-    <a href="/categories/qos/">QOS</a>
-    
-  </span>
-  
-  
-
-  
-
-</div>
-
-
-  
-  
-  <h3 class="article-title" itemprop="headline">
-    <a href="/post/n5600-buffering/" itemprop="url">N5600 Buffering</a>
-  </h3>
-  <div class="article-style" itemprop="articleBody">
-    
-    QoS VOQ On N5K, In the case of unicast traffic, VOQ is an ingress buffer pool for 3 ingress ports (1 ASIC = 3 ports). This buffer pool is split into n x reservable buffer of the size configured in the voq-limit command. If the ingress buffer is 16000 and the VOQ limit is 1024, that mean 16 flow can reserv buffers. When the shared buffer is exausted, the dedicated ingress buffer per port is used then when it&rsquo;s full, the packet is droped.
-    
-  </div>
-  <p class="read-more" itemprop="mainEntityOfPage">
-    <a href="/post/n5600-buffering/" class="btn btn-outline-primary my-1">
-      CONTINUE READING
-    </a>
-  </p>
-</div>
-
-    
   
     
     
@@ -1027,6 +622,418 @@ Below is an example of the variables used to create subnets within AWS VPCs and 
   </div>
   <p class="read-more" itemprop="mainEntityOfPage">
     <a href="/post/aci-other-angle/" class="btn btn-outline-primary my-1">
+      CONTINUE READING
+    </a>
+  </p>
+</div>
+
+    
+  
+    
+    
+      
+
+<div class="card-simple" itemscope itemprop="blogPost" itemtype="http://schema.org/BlogPosting">
+  
+
+<div class="article-metadata">
+
+  
+  
+  
+  <div>
+    
+    <span itemscope itemprop="author" itemtype="http://schema.org/Person">
+      <span itemprop="name">Noel</span>
+    </span>
+    
+  </div>
+  
+
+  <span class="article-date">
+    
+    <meta content="2020-11-24 18:12:05 &#43;0100 CET" itemprop="datePublished">
+    <time datetime="2020-11-24 18:12:05 &#43;0100 CET" itemprop="dateModified">
+      Nov 24, 2020
+    </time>
+  </span>
+  <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Noel">
+  </span>
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    4 min read
+  </span>
+  
+
+  
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder"></i>
+    
+    <a href="/categories/sp/">SP</a>
+    
+  </span>
+  
+  
+
+  
+
+</div>
+
+
+  
+  
+  <h3 class="article-title" itemprop="headline">
+    <a href="/post/aristabasesr/" itemprop="url">Arista basic ISIS-SR</a>
+  </h3>
+  <div class="article-style" itemprop="articleBody">
+    
+    ISIS Segment routing basics for Arista EOS References:
+https://www.arista.com/en/um-eos/eos-section-35-3-is-is-segment-routing
+SRGB Segment Routing Golbal Block
+Prefix-SID It&rsquo;s global and unique. It identify a prefix. It&rsquo;s called anycast SID when it&rsquo;s send by a group of router.
+Node-SID It&rsquo;s global and unique. Only one per node. It identify the node.
+Adjacent-SID It&rsquo;s local and can use a dynamique range. It&rsquo;s used to identify an interconnection between 2 nodes.
+With Arista EOS 4.
+    
+  </div>
+  <p class="read-more" itemprop="mainEntityOfPage">
+    <a href="/post/aristabasesr/" class="btn btn-outline-primary my-1">
+      CONTINUE READING
+    </a>
+  </p>
+</div>
+
+    
+  
+    
+    
+      
+
+<div class="card-simple" itemscope itemprop="blogPost" itemtype="http://schema.org/BlogPosting">
+  
+
+<div class="article-metadata">
+
+  
+  
+  <span itemscope itemprop="author" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Noel">
+  </span>
+  
+
+  <span class="article-date">
+    
+    <meta content="2020-05-11 08:02:21 &#43;0200 CEST" itemprop="datePublished">
+    <time datetime="2020-05-11 08:02:21 &#43;0200 CEST" itemprop="dateModified">
+      May 11, 2020
+    </time>
+  </span>
+  <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Noel">
+  </span>
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    2 min read
+  </span>
+  
+
+  
+  
+
+  
+  
+  
+  
+
+  
+
+</div>
+
+
+  
+  
+  <h3 class="article-title" itemprop="headline">
+    <a href="/post/bgp-multipath/" itemprop="url">Bgp Multipath</a>
+  </h3>
+  <div class="article-style" itemprop="articleBody">
+    
+    Maximum path In the RIB + FIB ECMP (multipath)
+Is PIC supported by default ?
+https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/configuration/xe-3s/irg-xe-3s-book/irg-bgp-mp-pic.html
+=&gt; With BGP Multipath, the BGP prefix-independant convergence (PIC) feature is supported
+ Attribut that should be identical 
+- Weight
+- LP
+- AS Path (AS Number unless relax us used, AS length)
+- Origin Code
+- MED
+- IGP Metric Next hop should be different
+Add Path If the path are equal, allow to advertise more than one bes oath (need to test in eBGP).
+    
+  </div>
+  <p class="read-more" itemprop="mainEntityOfPage">
+    <a href="/post/bgp-multipath/" class="btn btn-outline-primary my-1">
+      CONTINUE READING
+    </a>
+  </p>
+</div>
+
+    
+  
+    
+    
+      
+
+<div class="card-simple" itemscope itemprop="blogPost" itemtype="http://schema.org/BlogPosting">
+  
+
+<div class="article-metadata">
+
+  
+  
+  
+  <div>
+    
+    <span itemscope itemprop="author" itemtype="http://schema.org/Person">
+      <span itemprop="name">Noel</span>
+    </span>
+    
+  </div>
+  
+
+  <span class="article-date">
+    
+    <meta content="2020-05-11 08:00:11 &#43;0200 CEST" itemprop="datePublished">
+    <time datetime="2020-05-11 08:00:11 &#43;0200 CEST" itemprop="dateModified">
+      May 11, 2020
+    </time>
+  </span>
+  <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Noel">
+  </span>
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    1 min read
+  </span>
+  
+
+  
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder"></i>
+    
+    <a href="/categories/routing/">ROUTING</a>
+    
+  </span>
+  
+  
+
+  
+
+</div>
+
+
+  
+  
+  <h3 class="article-title" itemprop="headline">
+    <a href="/post/how-to-hugo/" itemprop="url">How to hugo</a>
+  </h3>
+  <div class="article-style" itemprop="articleBody">
+    
+    prerequis : - github desktop - hugo
+config.toml =&gt; need to be modify to change the copyright date
+lancer cmd
+Go to the folder blog : C:\Users\noyel\Documents\Site\blog&gt;
+taper : hugo new post/my-first-post.md
+try the web site with : hugo server -D
+entrer http://localhost:1313/
+generate the web site with : hugo -t &ldquo;academic&rdquo; Move the content of the folder C:\Users\noyel\Documents\Site\blog\public
+in GitHub\netmemo.github.io lancer github desktop, commit/push to master
+To have a file attached for the post, create a directory with the exact same name as the post md file.
+    
+  </div>
+  <p class="read-more" itemprop="mainEntityOfPage">
+    <a href="/post/how-to-hugo/" class="btn btn-outline-primary my-1">
+      CONTINUE READING
+    </a>
+  </p>
+</div>
+
+    
+  
+    
+    
+      
+
+<div class="card-simple" itemscope itemprop="blogPost" itemtype="http://schema.org/BlogPosting">
+  
+
+<div class="article-metadata">
+
+  
+  
+  
+  <div>
+    
+    <span itemscope itemprop="author" itemtype="http://schema.org/Person">
+      <span itemprop="name">Noel</span>
+    </span>
+    
+  </div>
+  
+
+  <span class="article-date">
+    
+    <meta content="2020-02-18 23:45:47 &#43;0100 CET" itemprop="datePublished">
+    <time datetime="2020-02-18 23:45:47 &#43;0100 CET" itemprop="dateModified">
+      Feb 18, 2020
+    </time>
+  </span>
+  <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Noel">
+  </span>
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    1 min read
+  </span>
+  
+
+  
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder"></i>
+    
+    <a href="/categories/routing/">ROUTING</a>
+    
+  </span>
+  
+  
+
+  
+
+</div>
+
+
+  
+  
+  <h3 class="article-title" itemprop="headline">
+    <a href="/post/ospfbgpanycast/" itemprop="url">OSPF vs BGP with anycast prefix</a>
+  </h3>
+  <div class="article-style" itemprop="articleBody">
+    
+    Issue R3 route traffic to R4 instead of R1. Route 10.10.10.10 toward the WAN is prefered instead of the OSPF LAN DC route. DC Client that try to reach the DC&rsquo;s 10.10.10.10 address are routed toward the WAN
+Why R3 is installing in it RIB and redistributing the wrong routes 10.10.10.10 because it does have a better AD 20.
+Workarround  If we filter the redistribution that doesn&rsquo;t help because when the packet arrive to R3 he will still prefer the BGP route.
+    
+  </div>
+  <p class="read-more" itemprop="mainEntityOfPage">
+    <a href="/post/ospfbgpanycast/" class="btn btn-outline-primary my-1">
+      CONTINUE READING
+    </a>
+  </p>
+</div>
+
+    
+  
+    
+    
+      
+
+<div class="card-simple" itemscope itemprop="blogPost" itemtype="http://schema.org/BlogPosting">
+  
+
+<div class="article-metadata">
+
+  
+  
+  
+  <div>
+    
+    <span itemscope itemprop="author" itemtype="http://schema.org/Person">
+      <span itemprop="name">Noel</span>
+    </span>
+    
+  </div>
+  
+
+  <span class="article-date">
+    
+    <meta content="2018-10-22 15:35:55 &#43;0200 CEST" itemprop="datePublished">
+    <time datetime="2018-10-22 15:35:55 &#43;0200 CEST" itemprop="dateModified">
+      Oct 22, 2018
+    </time>
+  </span>
+  <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Noel">
+  </span>
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    1 min read
+  </span>
+  
+
+  
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder"></i>
+    
+    <a href="/categories/tools/">tools</a>
+    
+  </span>
+  
+  
+
+  
+
+</div>
+
+
+  
+  
+  <h3 class="article-title" itemprop="headline">
+    <a href="/post/corelinuxnetmemo/" itemprop="url">Core Linux Netmemo</a>
+  </h3>
+  <div class="article-style" itemprop="articleBody">
+    
+    Below is a very light virtual machine based on Core Linux kernel 4.8 (TinyCore) 26 Mo with network tools like iperf3, tcpdump, net-bridging, iproute2, busybox (httpd), tcpreplay, nmap, openssh.
+corelinux1.5.ova
+basic commands/directory /etc/sysconfig/tcedir/optional =&gt; packages /etc/sysconfig/tcedir/onboot.lst =&gt; on boot package to be loaded  sudo vi /opt/eth0.sh =&gt; change interfaces parameters #configure an interface pkill udhcp =&gt; stop dhcp for this interface ifconfig eth0 10.253.106.2 netmask 255.255.255.192 up route add default gw 10.
+    
+  </div>
+  <p class="read-more" itemprop="mainEntityOfPage">
+    <a href="/post/corelinuxnetmemo/" class="btn btn-outline-primary my-1">
       CONTINUE READING
     </a>
   </p>
