@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&amp;acute;s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
-    <lastBuildDate>Tue, 16 Nov 2021 18:00:45 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 27 Jul 2022 19:15:38 +0200</lastBuildDate>
     
 	<atom:link href="https://netmemo.github.io/categories/networking/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>NSXT Service Interface design consideration</title>
+      <link>https://netmemo.github.io/post/nsxt-service-interface-design1/</link>
+      <pubDate>Wed, 27 Jul 2022 19:15:38 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/nsxt-service-interface-design1/</guid>
+      <description>Original design 
+This is the starting point of the infrastructure. A classic design that lot of enterprise have or use to have. Virtual Machine (VM) and Bare Metal Server (BMS) are sharing a same vlan behind a firewall. Everything begins when the VM want to move to a more virtual infrastructure with distributed routing and firewalling. In this case they want to move to VMware NSXT.
+From a physical point of view, the migration is performed on leaf and spine infrastructure that we will call the underlay.</description>
+    </item>
     
     <item>
       <title>Can we ping an AWS Lambda function ?</title>

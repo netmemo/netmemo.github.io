@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 2.4.0">
+  <meta name="generator" content="Hugo 0.49" />
+  <meta name="author" content="Noel">
+
+  
+  
+  
+  
+    
+  
+  <meta name="description" content="Legend  Switch port trunk
+ Prior to vDS7, physical interfaces are exclusif to NVDS or vDS.
+ Association done when the host is configured for NSXT and the uplink profile associated to the trans port node.
+ if you want to use the same physical interfaces as the default profile, uplink name has to be identical.
+ If you put 2 interfaces there you lose the benefit of having deterministic uplink for you Edge/T0.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://netmemo.github.io/post/nsx-t-uplinks-memo/nsxtuplinks/">
+
+  
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <meta name="theme-color" content="hsl(190, 90%, 68%)">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/dracula.min.css" crossorigin="anonymous">
+        
+      
+    
+
+    
+
+    
+
+  
+
+  
+  
+  <link rel="stylesheet" href=//fonts.googleapis.com/css?family=Montserrat:400,700|Roboto:400,400italic,700|Roboto+Mono>
+  
+
+  <link rel="stylesheet" href="/styles.css">
+  
+
+  
+  
+  
+
+  
+  <link rel="alternate" href="https://netmemo.github.io/index.xml" type="application/rss+xml" title="netmemo.github.io">
+  <link rel="feed" href="https://netmemo.github.io/index.xml" type="application/rss+xml" title="netmemo.github.io">
+  
+
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="icon" type="image/png" href="/img/icon.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
+
+  <link rel="canonical" href="https://netmemo.github.io/post/nsx-t-uplinks-memo/nsxtuplinks/">
+
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="twitter:site" content="@noyelb">
+  <meta property="twitter:creator" content="@noyelb">
+  
+  <meta property="og:site_name" content="netmemo.github.io">
+  <meta property="og:url" content="https://netmemo.github.io/post/nsx-t-uplinks-memo/nsxtuplinks/">
+  <meta property="og:title" content="NSX-T Uplinks | netmemo.github.io">
+  <meta property="og:description" content="Legend  Switch port trunk
+ Prior to vDS7, physical interfaces are exclusif to NVDS or vDS.
+ Association done when the host is configured for NSXT and the uplink profile associated to the trans port node.
+ if you want to use the same physical interfaces as the default profile, uplink name has to be identical.
+ If you put 2 interfaces there you lose the benefit of having deterministic uplink for you Edge/T0.">
+  
+  
+    
+  <meta property="og:image" content="https://netmemo.github.io/img/icon-192.png">
+  <meta property="og:locale" content="en-us">
+  
+  <meta property="article:published_time" content="2021-09-01T18:04:45&#43;02:00">
+  
+  <meta property="article:modified_time" content="2021-09-01T18:04:45&#43;02:00">
+  
+
+  
+
+  
+
+  <title>NSX-T Uplinks | netmemo.github.io</title>
+
+</head>
+<body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" class="dark">
+
+<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0" id="navbar-main">
+  <div class="container">
+
+    
+      <a class="navbar-brand" href="/"><img src="/img/logo-netmemo.png" alt="netmemo.github.io"></a>
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+    
+    <div class="collapse navbar-collapse" id="navbar">
+
+      
+      
+      <ul class="navbar-nav ml-auto">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/#hero">
+            
+            <span>Home</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/#posts">
+            
+            <span>Posts</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/#about">
+            
+            <span>About</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+      
+
+        
+
+        
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+<article class="article" itemscope itemtype="http://schema.org/Article">
+
+  
+
+
+
+
+
+  <div class="article-container">
+    <h1 itemprop="name">NSX-T Uplinks</h1>
+
+    
+
+<div class="article-metadata">
+
+  
+  
+  <span itemscope itemprop="author" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Noel">
+  </span>
+  
+
+  <span class="article-date">
+    
+    <meta content="2021-09-01 18:04:45 &#43;0200 CEST" itemprop="datePublished">
+    <time datetime="2021-09-01 18:04:45 &#43;0200 CEST" itemprop="dateModified">
+      Sep 1, 2021
+    </time>
+  </span>
+  <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Noel">
+  </span>
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    6 min read
+  </span>
+  
+
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    <li>
+      <a class="twitter"
+         href="https://twitter.com/intent/tweet?text=NSX-T%20Uplinks&amp;url=https%3a%2f%2fnetmemo.github.io%2fpost%2fnsx-t-uplinks-memo%2fnsxtuplinks%2f"
+         target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+    <li>
+      <a class="facebook"
+         href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fnetmemo.github.io%2fpost%2fnsx-t-uplinks-memo%2fnsxtuplinks%2f"
+         target="_blank" rel="noopener">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+    </li>
+    <li>
+      <a class="linkedin"
+         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fnetmemo.github.io%2fpost%2fnsx-t-uplinks-memo%2fnsxtuplinks%2f&amp;title=NSX-T%20Uplinks"
+         target="_blank" rel="noopener">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+    </li>
+    <li>
+      <a class="weibo"
+         href="http://service.weibo.com/share/share.php?url=https%3a%2f%2fnetmemo.github.io%2fpost%2fnsx-t-uplinks-memo%2fnsxtuplinks%2f&amp;title=NSX-T%20Uplinks"
+         target="_blank" rel="noopener">
+        <i class="fab fa-weibo"></i>
+      </a>
+    </li>
+    <li>
+      <a class="email"
+         href="mailto:?subject=NSX-T%20Uplinks&amp;body=https%3a%2f%2fnetmemo.github.io%2fpost%2fnsx-t-uplinks-memo%2fnsxtuplinks%2f">
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+  
+
+</div>
+
+
+    <div class="article-style" itemprop="articleBody">
+      
+
+<p><a href="terraform-state.png"> <img src="terraform-state.png" alt="" /> </a></p>
+
+<h1 id="legend">Legend</h1>
+
+<ol>
+<li>Switch port trunk<br /></li>
+<li>Prior to vDS7, physical interfaces are exclusif to NVDS or vDS.<br /></li>
+<li>Association done when the host is configured for NSXT and the uplink profile associated to the trans port node.<br /></li>
+<li>if you want to use the same physical interfaces as the default profile, uplink name has to be identical.<br /></li>
+<li>If you put 2 interfaces there you lose the benefit of having deterministic uplink for you Edge/T0.<br /></li>
+<li>Through vcenter, attach the interface of the VM to the NSX Switch.<br /></li>
+<li>Uplink to interface mapping is done when the uplink profile association to the transport node is done</li>
+<li>If we add a second standby uplink in the named teaming, it&rsquo;s impact the default teaming policy. You will not be able to have the 2 uplink active at the same time. It&rsquo;s those better to have a single uplink in the named teaming policy if you want to have active/active links in the defaukt teaming policy. Named teaming policy are available only for segment of type vlan.<br /></li>
+<li>In the TZ, any named teaming policy from any uplink profile can be selected. On the segment vlan, any named teaming policy associated with the TZ can be choosen. The issue beeing that if the segment vlan is then use on a transport node with an uplink profile which don&rsquo;t have the named teaming policy it will not works, even if NSX-T doesn&rsquo;t see any error. You never know if the named teaming policy are used.<br /></li>
+<li>Default behavior if we don&rsquo;t want any specific behavior for the uplinks.<br /></li>
+</ol>
+
+<h1 id="components">COMPONENTS</h1>
+
+<h3 id="location">Location</h3>
+
+<p>Networking -&gt; Segment
+   - Transport Zone (vlan or overlay)
+   - Uplink Teaming Policy (Named teaming policy only for TZ Vlan)</p>
+
+<p>System -&gt; Fabric -&gt; Profiles -&gt; Uplink Profile
+   - Transport VLAN
+   - MTU
+   - LAG
+   - Teamings
+      - Default Teaming -&gt; Uplink
+      - Add -&gt; Named (Named teaming policy) -&gt; Uplink</p>
+
+<p>System -&gt; Fabric -&gt; Transport Zone
+  - Named teaming policy</p>
+
+<p>System -&gt; Nodes
+  - hostswitch name/vds name
+  - Transport Zone
+  - Uplink profile
+     - Uplink -&gt; physical nic</p>
+
+<h3 id="comments">Comments</h3>
+
+<p>Uplink
+On the vlan segment =&gt; <strong>Only named teaming policy that are associated to the transport zone vlan can be selected</strong>
+On the overlay segment =&gt; <strong>Can&rsquo;t choose the teaming policy of the uplink. It&rsquo;s inherited from the one applied to the transport node via the uplink profile</strong>
+On the transport node =&gt; <strong>The uplink profile selected define the default teaming policy that will be applied and the possible named teaming policy for the segment vlan (Edge)</strong></p>
+
+<p>Uplink profile (System -&gt; Fabric -&gt; Profiles -&gt; Uplink Profile) is to define
+=&gt; Used with Transport Node (Edge and Host)
+  - MTU
+  - Transport VLAN for overlay
+  - LACP / Teaming policy
+    - Named policy can be selected in &ldquo;Uplink Teaming Policy&rdquo; of segment VLAN configuration
+    - The default is the one selected for the overlay uplink and is the same for all overlay segment.
+  - Available teaming policy (default or named)</p>
+
+<p>Transport Zone
+=&gt; Used with Transport Node (Edge and Host)</p>
+
+<p>Allows to tie the segments to the TN.
+=&gt; The named uplink policy can be used by the segment vlan. if there is nothing that mean it will pick the default policy of the uplink profile associated with the TN</p>
+
+<p>Uplink interfaces of the Edge VM are define in the uplink of the TN according to the uplink profile (if in the profile you have dedicated interface for uplinks, you need to create named teaming policy for them with different uplink names).</p>
+
+<h1 id="limit-scalability">Limit/Scalability**</h1>
+
+<p>Those numbers can changed and are only things I&rsquo;ve heard. Don&rsquo;t quote me on these.</p>
+
+<ul>
+<li>TN can have up to 4 N-VDS (hostswitch)</li>
+<li>N-VDS can only have one TZ Overlay</li>
+<li>Host TN can have multiple TZ Overlay, 1 per N-VDS so 4 in total</li>
+<li>Edge TN can have only one TZ Overlay</li>
+<li>One N-VDS can have multiple TZ VLAN</li>
+<li>If we want 4 TZ Overlay it&rsquo;s better have the TZ vlan on the same NVDS as the TZ Overlay (can we select the hostswitch for TZ Vlan ?)</li>
+</ul>
+
+<p><strong>REMARKS</strong></p>
+
+<p>The IP address of the uplink is assigned on the T0 under interface but you can&rsquo;t select the physical interface, you need to select the edge node (with 2 physical interfaces) and the segment where to assign the IP.</p>
+
+<p>To have different behavior between the uplink and the exit uplink you need to have the exit uplink behavior configured as named teaming policy of the uplink profile you will associate to the TN or maybe the one associated to the TZ Vlan of the uplink profile is there is one</p>
+
+<p>On the physical link you end up having policy for the TN, VM Edge uplink, VM Edge overlay =&gt; See the diagram</p>
+
+<p><strong>Q&amp;A</strong>
+The overlay inherit the uplink profile associated with the TN ? yes
+Is the port group on the vCenter DVS only for vlan segment (non overlay) ? =&gt; YES, most of the time for Edge VM uplink
+Does that conflict with the uplink teaming policy pick form the TZ ? =&gt; No conflict, just different purposes
+The one on the port group will define what interface you use. if you use two interfaces while ou have only one virtual interface connected on it, you loose the purpose to have deterministic uplinks.
+Is this possible to have 2 interfaces active/active for an uplink transport vlan ? I think yes, the interface selected will be based on the load balancing method.
+Can we have different policies between overlay interface and uplink interfaces ? Yes you need to specify named teaming policy and associate it to the segment vlan of the uplink.
+What if no named teaming policy is selected on the segment vlan ? It uses the default teaming policy of the uplink profile of the node where the segment is deployed.
+Is this possible to have a named teaming policy for overlay =&gt; NO</p>
+
+<p><strong>Questions</strong>
+Does the uplink profile on the transport node override the one of the transport node profile ? Who take precedence ?
+Behavior of 1 VTEP if the two uplinks are active/active. ?
+How to know what vteps goes to what interface ?
+Uplink overlay of the Edge VM are defined on the same physical link as the TN, can it have different policy ?
+What if we use the same subnets ?
+IS there two interfaces to FW uplink on the T0-SR, and if yes if they are L2 or L3 ?
+Check the IP assignment of TN and Edge TN on the overlay.</p>
+
+    </div>
+
+    
+
+
+
+
+
+    
+    
+
+    
+
+    <script src="https://utteranc.es/client.js"
+        repo="netmemo/netmemo.github.io"
+        issue-term="pathname"
+        label="blogcomment"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+  </div>
+</article>
+
+<div class="container">
+  <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    No&euml;l Boul&egrave;ne &copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&acute;s professional integrity) that any statement contained in a post is true, correct or precise. &middot; 
+
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" id="back_to_top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+</div>
+
+
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha512-+NqPlbbtM1QqiK8ZAo4Yrj2c4lNQoGv8P79DPtKzj++l5jnN39rHA/xsqn8zE9l0uSoxaCdrOgFs6yjyfbBxSg==" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.3/imagesloaded.pkgd.min.js" integrity="sha512-umsR78NN0D23AzgoZ11K7raBD+R6hqKojyBZs1w8WvYlsI+QuKRGBx3LFCwhatzBunCjDuJpDHwxD13sLMbpRA==" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha256-VsEqElsCHSGmnmHXGQzvoWjWwoznFSZc6hs7ARLRacQ=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.4/isotope.pkgd.min.js" integrity="sha512-VDBOIlDbuC4VWxGJNmuFRQ0Li0SKkDpmGyuhAG5LTDLd/dJ/S0WMVxriR2Y+CyPL5gzjpN4f/6iqWVBJlht0tQ==" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin="anonymous"></script>
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+        
+      
+
+      
+      
+    
+
+    <script src="/js/hugo-academic.js"></script>
+    
+
+    
+    
+
+    
+    
+    
+
+    
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    
+    
+    <script>
+      const search_index_filename = "/index.json";
+      const i18n = {
+        'placeholder': "Search...",
+        'results': "Search Results",
+        'no_results': "No results found"
+      };
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    <script src="/js/search.js"></script>
+    
+
+    
+    
+
+  </body>
+</html>
+
