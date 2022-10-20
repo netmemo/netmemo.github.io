@@ -16,7 +16,7 @@
     
   
   <meta name="description" content="Original design 
-This is the starting point of the infrastructure. A classic design that lot of enterprise have or use to have. Virtual Machine (VM) and Bare Metal Server (BMS) are sharing a same vlan behind a firewall. Everything begins when the VM want to move to a more virtual infrastructure with distributed routing and firewalling. In this case they want to move to VMware NSXT.
+This is the starting point of the infrastructure. A classic design that lot of enterprises have or used to have. Virtual Machine (VM) and Bare Metal Server (BMS) are sharing a same vlan behind a firewall. Everything begins when the VM wants to move to a more virtual infrastructure with distributed routing and firewalling. In this case they want to move to VMware NSXT.
 From a physical point of view, the migration is performed on leaf and spine infrastructure that we will call the underlay.">
 
   
@@ -97,9 +97,9 @@ From a physical point of view, the migration is performed on leaf and spine infr
   
   <meta property="og:site_name" content="netmemo.github.io">
   <meta property="og:url" content="https://netmemo.github.io/post/nsxt-service-interface-design1/">
-  <meta property="og:title" content="NSXT Service Interface design consideration | netmemo.github.io">
+  <meta property="og:title" content="NSXT Service interface design consideration | netmemo.github.io">
   <meta property="og:description" content="Original design 
-This is the starting point of the infrastructure. A classic design that lot of enterprise have or use to have. Virtual Machine (VM) and Bare Metal Server (BMS) are sharing a same vlan behind a firewall. Everything begins when the VM want to move to a more virtual infrastructure with distributed routing and firewalling. In this case they want to move to VMware NSXT.
+This is the starting point of the infrastructure. A classic design that lot of enterprises have or used to have. Virtual Machine (VM) and Bare Metal Server (BMS) are sharing a same vlan behind a firewall. Everything begins when the VM wants to move to a more virtual infrastructure with distributed routing and firewalling. In this case they want to move to VMware NSXT.
 From a physical point of view, the migration is performed on leaf and spine infrastructure that we will call the underlay.">
   
   
@@ -107,16 +107,16 @@ From a physical point of view, the migration is performed on leaf and spine infr
   <meta property="og:image" content="https://netmemo.github.io/img/icon-192.png">
   <meta property="og:locale" content="en-us">
   
-  <meta property="article:published_time" content="2022-07-27T19:15:38&#43;02:00">
+  <meta property="article:published_time" content="2022-10-19T19:15:38&#43;02:00">
   
-  <meta property="article:modified_time" content="2022-07-27T19:15:38&#43;02:00">
-  
-
+  <meta property="article:modified_time" content="2022-10-19T19:15:38&#43;02:00">
   
 
   
 
-  <title>NSXT Service Interface design consideration | netmemo.github.io</title>
+  
+
+  <title>NSXT Service interface design consideration | netmemo.github.io</title>
 
 </head>
 <body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" class="dark">
@@ -219,7 +219,7 @@ From a physical point of view, the migration is performed on leaf and spine infr
 
 
   <div class="article-container">
-    <h1 itemprop="name">NSXT Service Interface design consideration</h1>
+    <h1 itemprop="name">NSXT Service interface design consideration</h1>
 
     
 
@@ -239,9 +239,9 @@ From a physical point of view, the migration is performed on leaf and spine infr
 
   <span class="article-date">
     
-    <meta content="2022-07-27 19:15:38 &#43;0200 CEST" itemprop="datePublished">
-    <time datetime="2022-07-27 19:15:38 &#43;0200 CEST" itemprop="dateModified">
-      Jul 27, 2022
+    <meta content="2022-10-19 19:15:38 &#43;0200 CEST" itemprop="datePublished">
+    <time datetime="2022-10-19 19:15:38 &#43;0200 CEST" itemprop="dateModified">
+      Oct 19, 2022
     </time>
   </span>
   <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
@@ -281,7 +281,7 @@ From a physical point of view, the migration is performed on leaf and spine infr
   <ul class="share">
     <li>
       <a class="twitter"
-         href="https://twitter.com/intent/tweet?text=NSXT%20Service%20Interface%20design%20consideration&amp;url=https%3a%2f%2fnetmemo.github.io%2fpost%2fnsxt-service-interface-design1%2f"
+         href="https://twitter.com/intent/tweet?text=NSXT%20Service%20interface%20design%20consideration&amp;url=https%3a%2f%2fnetmemo.github.io%2fpost%2fnsxt-service-interface-design1%2f"
          target="_blank" rel="noopener">
         <i class="fab fa-twitter"></i>
       </a>
@@ -295,21 +295,21 @@ From a physical point of view, the migration is performed on leaf and spine infr
     </li>
     <li>
       <a class="linkedin"
-         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fnetmemo.github.io%2fpost%2fnsxt-service-interface-design1%2f&amp;title=NSXT%20Service%20Interface%20design%20consideration"
+         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fnetmemo.github.io%2fpost%2fnsxt-service-interface-design1%2f&amp;title=NSXT%20Service%20interface%20design%20consideration"
          target="_blank" rel="noopener">
         <i class="fab fa-linkedin-in"></i>
       </a>
     </li>
     <li>
       <a class="weibo"
-         href="http://service.weibo.com/share/share.php?url=https%3a%2f%2fnetmemo.github.io%2fpost%2fnsxt-service-interface-design1%2f&amp;title=NSXT%20Service%20Interface%20design%20consideration"
+         href="http://service.weibo.com/share/share.php?url=https%3a%2f%2fnetmemo.github.io%2fpost%2fnsxt-service-interface-design1%2f&amp;title=NSXT%20Service%20interface%20design%20consideration"
          target="_blank" rel="noopener">
         <i class="fab fa-weibo"></i>
       </a>
     </li>
     <li>
       <a class="email"
-         href="mailto:?subject=NSXT%20Service%20Interface%20design%20consideration&amp;body=https%3a%2f%2fnetmemo.github.io%2fpost%2fnsxt-service-interface-design1%2f">
+         href="mailto:?subject=NSXT%20Service%20interface%20design%20consideration&amp;body=https%3a%2f%2fnetmemo.github.io%2fpost%2fnsxt-service-interface-design1%2f">
         <i class="fas fa-envelope"></i>
       </a>
     </li>
@@ -329,9 +329,9 @@ From a physical point of view, the migration is performed on leaf and spine infr
 
 <p><a href="nsxt-svi-scenario0.png"> <img src="nsxt-svi-scenario0.png" alt="" /> </a></p>
 
-<p>This is the starting point of the infrastructure. A classic design that lot of enterprise have or use to have.
+<p>This is the starting point of the infrastructure. A classic design that lot of enterprises have or used to have.
 Virtual Machine (VM) and Bare Metal Server (BMS) are sharing a same vlan behind a firewall.
-Everything begins when the VM want to move to a more virtual infrastructure with distributed routing and firewalling. In this case they want to move to VMware NSXT.</p>
+Everything begins when the VM wants to move to a more virtual infrastructure with distributed routing and firewalling. In this case they want to move to VMware NSXT.</p>
 
 <p>From a physical point of view, the migration is performed on leaf and spine infrastructure that we will call the underlay.
 Every firewall interface is a different security zone that we will call DMZ.
@@ -340,8 +340,8 @@ The aim of this blog post is to capture some thoughts around NSXT service interf
 <p>- Minus sign is what I consider as a cons while writing this blog.<br />
 + Plus sign is what I consider as a pros while writing this blog.</p>
 
-<p>There is no perfect solution, it always depends and I might miss things so we can always discuss.<br />
-Some behavior that I currently consider as a cons can be a pros for the reader. This blog is really to capture what can be taken into consideration during the design phase and evaluate couple of possible design scenarios.</p>
+<p>There is no perfect solution, it always depends on the context and I might miss things so we can always discuss.<br />
+Some behavior that I currently consider as a cons can be a pros for the reader. This blog is really to capture what can be taken into consideration during the design phase and evaluate A couple of possible design scenarios.</p>
 
 <h1 id="scenarios">Scenarios</h1>
 
@@ -352,12 +352,12 @@ Some behavior that I currently consider as a cons can be a pros for the reader. 
 <p>In this scenario we keep using the original firewall to protect the BMS and move all the virtual environment behind a new firewall interface creating a new DMZ</p>
 
 <p>- Need to create new subnet for VMs.<br />
-- Need to have groups with /32 host in the firewall rules to not break the orignal flow between BMS and VMs.<br />
+- Need to have groups with /32 host in the firewall rules to avoid breaking the orignal flow between BMS and VMs.<br />
 - More rules, bandwidth and sessions than before on physical FW (because the original DMZ is now splited).<br />
 - BMS to VM traffic need to go through Edge + FW.<br />
 - Possibility to create a single segment for all VMs. Not necessarily a good <a href="https://netmemo.github.io/post/subnets-size-mix/">idea</a>.<br />
 + We don&rsquo;t touch BMS server, only VMs are impacted with this transformation.<br />
-+ Traffic from BMS to outside have to go only through FW compare to scenario 3.<br />
++ Traffic from BMS to outside have to go only through FW compared to scenario 3.<br />
 + No need of L3 interconnection with the underlay switch fabric like in scenario 2.</p>
 
 <h3 id="scenario-2-one-vrf-per-firewall-interface">Scenario 2 : One VRF per firewall interface.</h3>
@@ -365,7 +365,7 @@ Some behavior that I currently consider as a cons can be a pros for the reader. 
 <p><a href="nsxt-svi-scenario2.png"> <img src="nsxt-svi-scenario2.png" alt="" /> </a></p>
 
 <p>In this scenario we create a VRF in the underlay to attach the original subnet and the new virtual environnement.
-We are not creating a new DMZ (firewall interface) and we can benefit the microsegmentation of NSXT between the VMs vlan with mixted application or tier (<a href="https://netmemo.github.io/post/subnets-size-mix/">link</a>).</p>
+We are not creating a new DMZ (firewall interface) and we can benefit the microsegmentation of NSXT between the VMs vlan with mixed application or tier (<a href="https://netmemo.github.io/post/subnets-size-mix/">link</a>).</p>
 
 <p>- As many VRF as firewall interfaces (DMZ).<br />
 - Need to migrate the vlan attached to the firewall interface to the VRF.<br />
@@ -374,7 +374,7 @@ We are not creating a new DMZ (firewall interface) and we can benefit the micros
 - Need to create new subnets for VMs.<br />
 + Distributed routing for VMs.<br />
 + Microsegmentation between VMs of the same DMZ.<br />
-+ We keep the same security zone, firewall rules on perimeter firewall doesn&rsquo;t need to change.<br />
++ We keep the same security zone, firewall rules on perimeter firewall don&rsquo;t need to change.<br />
 + Less hop than scenario 1 between BMS and VM.<br />
 + Less hop than scenario 3 between BMS and OUT.</p>
 
@@ -386,7 +386,7 @@ We are not creating a new DMZ (firewall interface) and we can benefit the micros
 
 <p>- Firewall rules migration to gateway FW can be challenging.<br />
 - EdgeCluster is Active/Passive (no ECMP).<br />
-- Need more dedicated edge cluster to load share traffic.<br />
+- Need more dedicated edge cluster to load shared traffic.<br />
 - More latency for BMS to exit the security zone than before move. (Edge + FW)<br />
 - Need to migrate the original DMZ to the edge cluster.<br />
 - Need to create new subnet for VMs.<br />
@@ -409,7 +409,7 @@ We are not creating a new DMZ (firewall interface) and we can benefit the micros
 
 <h1 id="traffic-consideration">Traffic consideration</h1>
 
-<p>The below diagram can highlight some traffic pattern to help understand the challenges of some design scenario. This is not an exhaustive diagram and just to help at the beginning of the design phase.</p>
+<p>The diagram below can highlight some traffic pattern to help understanding the challenges of some design scenarios. This is not an exhaustive diagram it only helps at the beginning of the design phase.</p>
 
 <p><a href="nsxt-svi-physical.png"> <img src="nsxt-svi-physical.png" alt="" /> </a></p>
 

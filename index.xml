@@ -11,6 +11,104 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>NSXT Service interface design consideration</title>
+      <link>https://netmemo.github.io/post/nsxt-service-interface-design1/</link>
+      <pubDate>Wed, 19 Oct 2022 19:15:38 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/nsxt-service-interface-design1/</guid>
+      <description>
+
+&lt;h1 id=&#34;original-design&#34;&gt;Original design&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&#34;nsxt-svi-scenario0.png&#34;&gt; &lt;img src=&#34;nsxt-svi-scenario0.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;This is the starting point of the infrastructure. A classic design that lot of enterprises have or used to have.
+Virtual Machine (VM) and Bare Metal Server (BMS) are sharing a same vlan behind a firewall.
+Everything begins when the VM wants to move to a more virtual infrastructure with distributed routing and firewalling. In this case they want to move to VMware NSXT.&lt;/p&gt;
+
+&lt;p&gt;From a physical point of view, the migration is performed on leaf and spine infrastructure that we will call the underlay.
+Every firewall interface is a different security zone that we will call DMZ.
+The aim of this blog post is to capture some thoughts around NSXT service interface design.&lt;/p&gt;
+
+&lt;p&gt;- Minus sign is what I consider as a cons while writing this blog.&lt;br /&gt;
++ Plus sign is what I consider as a pros while writing this blog.&lt;/p&gt;
+
+&lt;p&gt;There is no perfect solution, it always depends on the context and I might miss things so we can always discuss.&lt;br /&gt;
+Some behavior that I currently consider as a cons can be a pros for the reader. This blog is really to capture what can be taken into consideration during the design phase and evaluate A couple of possible design scenarios.&lt;/p&gt;
+
+&lt;h1 id=&#34;scenarios&#34;&gt;Scenarios&lt;/h1&gt;
+
+&lt;h3 id=&#34;scenario-1-split-dmz-multi-dmz&#34;&gt;Scenario 1 : Split DMZ / Multi DMZ&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;nsxt-svi-scenario1.png&#34;&gt; &lt;img src=&#34;nsxt-svi-scenario1.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;In this scenario we keep using the original firewall to protect the BMS and move all the virtual environment behind a new firewall interface creating a new DMZ&lt;/p&gt;
+
+&lt;p&gt;- Need to create new subnet for VMs.&lt;br /&gt;
+- Need to have groups with /32 host in the firewall rules to avoid breaking the orignal flow between BMS and VMs.&lt;br /&gt;
+- More rules, bandwidth and sessions than before on physical FW (because the original DMZ is now splited).&lt;br /&gt;
+- BMS to VM traffic need to go through Edge + FW.&lt;br /&gt;
+- Possibility to create a single segment for all VMs. Not necessarily a good &lt;a href=&#34;https://netmemo.github.io/post/subnets-size-mix/&#34;&gt;idea&lt;/a&gt;.&lt;br /&gt;
++ We don&amp;rsquo;t touch BMS server, only VMs are impacted with this transformation.&lt;br /&gt;
++ Traffic from BMS to outside have to go only through FW compared to scenario 3.&lt;br /&gt;
++ No need of L3 interconnection with the underlay switch fabric like in scenario 2.&lt;/p&gt;
+
+&lt;h3 id=&#34;scenario-2-one-vrf-per-firewall-interface&#34;&gt;Scenario 2 : One VRF per firewall interface.&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;nsxt-svi-scenario2.png&#34;&gt; &lt;img src=&#34;nsxt-svi-scenario2.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;In this scenario we create a VRF in the underlay to attach the original subnet and the new virtual environnement.
+We are not creating a new DMZ (firewall interface) and we can benefit the microsegmentation of NSXT between the VMs vlan with mixed application or tier (&lt;a href=&#34;https://netmemo.github.io/post/subnets-size-mix/&#34;&gt;link&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;- As many VRF as firewall interfaces (DMZ).&lt;br /&gt;
+- Need to migrate the vlan attached to the firewall interface to the VRF.&lt;br /&gt;
+- More configuration on the underlay switch fabric (L3 Configuration).&lt;br /&gt;
+- We can&amp;rsquo;t merge all VM behind a single DMZ (single segment for all VMs).&lt;br /&gt;
+- Need to create new subnets for VMs.&lt;br /&gt;
++ Distributed routing for VMs.&lt;br /&gt;
++ Microsegmentation between VMs of the same DMZ.&lt;br /&gt;
++ We keep the same security zone, firewall rules on perimeter firewall don&amp;rsquo;t need to change.&lt;br /&gt;
++ Less hop than scenario 1 between BMS and VM.&lt;br /&gt;
++ Less hop than scenario 3 between BMS and OUT.&lt;/p&gt;
+
+&lt;h3 id=&#34;scenario-3-service-interface&#34;&gt;Scenario 3 : Service interface&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;nsxt-svi-scenario3.png&#34;&gt; &lt;img src=&#34;nsxt-svi-scenario3.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;In this scenario we are using NSXT service interface to manage everything into NSXT. The aim is to have a single interface for Firewall rules (The NSXT Manager).&lt;/p&gt;
+
+&lt;p&gt;- Firewall rules migration to gateway FW can be challenging.&lt;br /&gt;
+- EdgeCluster is Active/Passive (no ECMP).&lt;br /&gt;
+- Need more dedicated edge cluster to load shared traffic.&lt;br /&gt;
+- More latency for BMS to exit the security zone than before move. (Edge + FW)&lt;br /&gt;
+- Need to migrate the original DMZ to the edge cluster.&lt;br /&gt;
+- Need to create new subnet for VMs.&lt;br /&gt;
+- Possibility to create a single segment for all VMs. Not necessarily a good &lt;a href=&#34;https://netmemo.github.io/post/subnets-size-mix/&#34;&gt;idea&lt;/a&gt;.&lt;br /&gt;
++ Perimeter firewall can be removed or kept for N/S traffic only.&lt;br /&gt;
++ The security zones stay in NSX. If the perimeter firewall is kept, a single interface is needed.&lt;br /&gt;
++ Full NSX =&amp;gt; no L3 with underlay, same portal for firewall rules.&lt;br /&gt;
++ The traffic between BMS and VM has less latency than in scenario 2.&lt;br /&gt;
++ Less VRF than scenario 3.&lt;/p&gt;
+
+&lt;h3 id=&#34;scenario-4-edge-bridge&#34;&gt;Scenario 4 : Edge Bridge&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;nsxt-svi-scenario4.png&#34;&gt; &lt;img src=&#34;nsxt-svi-scenario4.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;- Not recommended because L2 is streched.&lt;br /&gt;
+- Risks of instability.&lt;br /&gt;
+- BMS to exit the DMZ need to go through at least two NSX Edges.&lt;br /&gt;
++ Can keep the same subnet between VM and BMS.&lt;br /&gt;
++ Can use microsegmentation between VMs.&lt;/p&gt;
+
+&lt;h1 id=&#34;traffic-consideration&#34;&gt;Traffic consideration&lt;/h1&gt;
+
+&lt;p&gt;The diagram below can highlight some traffic pattern to help understanding the challenges of some design scenarios. This is not an exhaustive diagram it only helps at the beginning of the design phase.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;nsxt-svi-physical.png&#34;&gt; &lt;img src=&#34;nsxt-svi-physical.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Terraform list of map ordering</title>
       <link>https://netmemo.github.io/post/tf-map-ordering/</link>
       <pubDate>Sun, 24 Jul 2022 18:44:36 +0200</pubDate>
@@ -2750,67 +2848,6 @@ The workaround to this [known limitation] is to create the PR with a personal ac
               base: &amp;quot;main&amp;quot;
             });
 &lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Changing Terraform Cloud workspace in Github Actions</title>
-      <link>https://netmemo.github.io/post/tf-workspace-var/</link>
-      <pubDate>Thu, 12 Aug 2021 15:22:40 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/post/tf-workspace-var/</guid>
-      <description>&lt;p&gt;This blog post is to explain how I did to automatically change Terraform Cloud workspace from Github Actions.
-As explained in the documentation &lt;a href=&#34;https://www.terraform.io/docs/language/settings/backends/remote.html#workspaces&#34;&gt;remote workspace&lt;/a&gt;, you can use different remote workspace by specifying the prefix of you workspace in the Terraform backend configuration.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;  backend &amp;quot;remote&amp;quot; {
-    organization = &amp;quot;netmemo&amp;quot;
-
-    workspaces {
-      prefix = &amp;quot;netmemo-&amp;quot;
-    }
-  }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;After that, you only need to select the proper workspace by entering the &lt;em&gt;terraform workspace select [suffix]&lt;/em&gt; command.
-The issue comes if you want to do it in a fully automated environment like with Github Actions. You need an extra step which is to set the &lt;a href=&#34;https://learn.hashicorp.com/tutorials/terraform/automate-terraform?in=terraform/automation&#34;&gt;TF_WORKSPACE&lt;/a&gt; variable.&lt;/p&gt;
-
-&lt;p&gt;Below are the 2 steps that are needed to select a specific environment.
-In this blog the workspace will be netmemo-dev where netmemo- is the prefix configured in the main.tf and dev the suffix configured in the .yml file of the Github Actions script.&lt;/p&gt;
-
-&lt;p&gt;This step initializes Terraform and set the TF_WORKSPACE variable to indicate that we want to use the dev environment suffix before the initialization.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;      - name: Terraform Init
-        id: init
-        run: terraform init
-        env:
-          TF_WORKSPACE: &amp;quot;dev&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;If we are not setting the &lt;a href=&#34;https://learn.hashicorp.com/tutorials/terraform/automate-terraform?in=terraform/automation&#34;&gt;TF_WORKSPACE&lt;/a&gt;, the init command will try to get the default workspace that doesn&amp;rsquo;t exist and you will have the following error.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;The currently selected workspace (default) does not exist.
-  This is expected behavior when the selected workspace did not have an
-  existing non-empty state. Please enter a number to select a workspace:
-  
-  1. dev
-  2. prod
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Even after setting the &lt;a href=&#34;https://learn.hashicorp.com/tutorials/terraform/automate-terraform?in=terraform/automation&#34;&gt;TF_WORKSPACE&lt;/a&gt; variable, we still need to enter the &lt;em&gt;terraform workspace select&lt;/em&gt; command to provide the suffix of the workspace.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;      - name: Terraform Workspace
-        id: workspace
-        run: terraform workspace select dev
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;If we forgot to enter the command to select workspace, the Terraform configuration section will try to load a workspace with only the prefix and trigger an error.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Error: error starting operation: The configured &amp;quot;remote&amp;quot; backend encountered an unexpected error:
-
-invalid value for workspace
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You can find a full example of where we need to change workspace automatically in this blog post &lt;a href=&#34;https://netmemo.github.io/post/tf-gha-nsxt-cicd&#34;&gt;Github Actions with Terraform Cloud for CI/CD of NSX-T&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
