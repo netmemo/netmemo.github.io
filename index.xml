@@ -188,7 +188,7 @@ In this example, the ids are not sorted neither the names.&lt;/p&gt;
 &lt;li&gt;When transforming this list of object into a map, the map will be sorted according to the key which &lt;strong&gt;MUST&lt;/strong&gt; be a string. The ordering is then done alphabetically.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;To illustrate the ordering we will do different examples.&lt;/p&gt;
+&lt;p&gt;To illustrate the ordering we will do different examples. You can copy the original variable in a main.tf file then play with it thanks to the &amp;ldquo;terraform console&amp;rdquo; command.&lt;/p&gt;
 
 &lt;h1 id=&#34;the-examples&#34;&gt;The examples&lt;/h1&gt;
 
@@ -475,43 +475,43 @@ variable &#34;listOfRule&#34; {
     {
       &#34;id&#34; = 3
       &#34;name&#34; = &#34;ruleA&#34;
-    }
+    },
     {
       &#34;id&#34; = 2
       &#34;name&#34; = &#34;ruleD&#34;
-    }
+    },
     {
       &#34;id&#34; = 10
       &#34;name&#34; = &#34;ruleB&#34;
-    }
+    },
     {
       &#34;id&#34; = 1
       &#34;name&#34; = &#34;ruleC&#34;
-    }
+    },
     {
       &#34;id&#34; = 4
       &#34;name&#34; = &#34;ruleE&#34;
-    }
+    },
     {
       &#34;id&#34; = 5
       &#34;name&#34; = &#34;ruleF&#34;
-    }
+    },
     {
       &#34;id&#34; = 6
       &#34;name&#34; = &#34;ruleG&#34;
-    }
+    },
     {
       &#34;id&#34; = 7
       &#34;name&#34; = &#34;ruleH&#34;
-    }
+    },
     {
       &#34;id&#34; = 8
       &#34;name&#34; = &#34;ruleI&#34;
-    }
+    },
     {
       &#34;id&#34; = 9
       &#34;name&#34; = &#34;ruleJ&#34;
-    }
+    },
     {
       &#34;id&#34; = 20
       &#34;name&#34; = &#34;ruleK&#34;
