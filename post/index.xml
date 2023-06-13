@@ -13,6 +13,17 @@
     
     
     <item>
+      <title>CUE lang and HCL map key validation</title>
+      <link>https://netmemo.github.io/post/cuelang-first/</link>
+      <pubDate>Thu, 10 Nov 2022 09:15:33 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/post/cuelang-first/</guid>
+      <description>Context I&amp;rsquo;m just starting to play with CUE lang to assess the benefit it can bring to the automation I&amp;rsquo;m doing. This is a short memo to remember how to do dictionary key validation with CUE lang and a little bit more.
+My starting point was to do naming convention validation with CUE lang. I have the following data model in my Terraform files.
+subnets = { &amp;quot;sub-primary&amp;quot; = { &amp;quot;subnet&amp;quot; = [&amp;quot;10.</description>
+    </item>
+    
+    <item>
       <title>NSXT Service interface design consideration</title>
       <link>https://netmemo.github.io/post/nsxt-service-interface-design1/</link>
       <pubDate>Wed, 19 Oct 2022 19:15:38 +0200</pubDate>

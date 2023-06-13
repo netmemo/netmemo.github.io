@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CUE LANG on netmemo.github.io</title>
+    <link>https://netmemo.github.io/tags/cue-lang/</link>
+    <description>Recent content in CUE LANG on netmemo.github.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&amp;acute;s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
+    <lastBuildDate>Thu, 10 Nov 2022 09:15:33 +0100</lastBuildDate>
+    
+	<atom:link href="https://netmemo.github.io/tags/cue-lang/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>CUE lang and HCL map key validation</title>
+      <link>https://netmemo.github.io/post/cuelang-first/</link>
+      <pubDate>Thu, 10 Nov 2022 09:15:33 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/post/cuelang-first/</guid>
+      <description>Context I&amp;rsquo;m just starting to play with CUE lang to assess the benefit it can bring to the automation I&amp;rsquo;m doing. This is a short memo to remember how to do dictionary key validation with CUE lang and a little bit more.
+My starting point was to do naming convention validation with CUE lang. I have the following data model in my Terraform files.
+subnets = { &amp;quot;sub-primary&amp;quot; = { &amp;quot;subnet&amp;quot; = [&amp;quot;10.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -11,6 +11,219 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>CUE lang and HCL map key validation</title>
+      <link>https://netmemo.github.io/post/cuelang-first/</link>
+      <pubDate>Thu, 10 Nov 2022 09:15:33 +0100</pubDate>
+      
+      <guid>https://netmemo.github.io/post/cuelang-first/</guid>
+      <description>
+
+&lt;h1 id=&#34;context&#34;&gt;Context&lt;/h1&gt;
+
+&lt;p&gt;I&amp;rsquo;m just starting to play with CUE lang to assess the benefit it can bring to the automation I&amp;rsquo;m doing.
+This is a short memo to remember how to do dictionary key validation with CUE lang and a little bit more.&lt;/p&gt;
+
+&lt;p&gt;My starting point was to do naming convention validation with CUE lang. I have the following data model in my Terraform files.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;subnets = {
+  &amp;quot;sub-primary&amp;quot;   = { &amp;quot;subnet&amp;quot; = [&amp;quot;10.0.0.0&amp;quot;,&amp;quot;10.0.1.0&amp;quot;], &amp;quot;mask&amp;quot;= 24, &amp;quot;router&amp;quot; = &amp;quot;rtr-primary&amp;quot;   },
+  &amp;quot;sub-secondary&amp;quot; = { &amp;quot;subnet&amp;quot; = [&amp;quot;10.0.2.0&amp;quot;]           , &amp;quot;mask&amp;quot;= 24, &amp;quot;router&amp;quot; = &amp;quot;rtr-secondary&amp;quot; }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;First I needed to transform my HCL data model into something Cue was able to understand so I choose to transform it in JSON.
+Only replacing = with : and adding double quotes around every string field do the trick.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+  &amp;quot;subnets&amp;quot; : {
+    &amp;quot;sub-primary&amp;quot;   : { &amp;quot;subnet&amp;quot; : [&amp;quot;10.0.0.0&amp;quot;,&amp;quot;10.0.1.0&amp;quot;], &amp;quot;mask&amp;quot; : 24, &amp;quot;router&amp;quot; : &amp;quot;rtr-primary&amp;quot;   },
+    &amp;quot;sub-secondary&amp;quot; : { &amp;quot;subnet&amp;quot; : [&amp;quot;10.0.2.0&amp;quot;]           , &amp;quot;mask&amp;quot; : 24, &amp;quot;router&amp;quot; : &amp;quot;rtr-secondary&amp;quot; }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;validation-of-the-keys-s-values&#34;&gt;Validation of the keys&amp;rsquo;s values.&lt;/h1&gt;
+
+&lt;p&gt;We can write the simplest JSON file and CUE schema below to first see how to validate the name of the keys.&lt;/p&gt;
+
+&lt;h4 id=&#34;json-file&#34;&gt;JSON file&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;{                         
+  &amp;quot;subnets&amp;quot;: {            
+     &amp;quot;mytest1&amp;quot;: &amp;quot;blabla1&amp;quot;,
+     &amp;quot;mytest2&amp;quot;: &amp;quot;blabla2&amp;quot; 
+  }                       
+}                         
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;cue-schema&#34;&gt;CUE Schema&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;#subnetstruct: {
+	[string]: string 
+}
+subnets: #subnetstruct
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;subnets:&lt;br /&gt;
+&lt;a href=&#34;https://cuelang.org/docs/references/spec/#identifiers&#34;&gt;Identifier&lt;/a&gt; that declares a variable named &lt;strong&gt;subnets&lt;/strong&gt;. That identifier reference the &lt;strong&gt;#subnetstruct&lt;/strong&gt; &lt;a href=&#34;https://cuelang.org/docs/references/spec/#definitions-and-hidden-fields&#34;&gt;definition&lt;/a&gt; which defines a &lt;a href=&#34;https://cuelang.org/docs/references/spec/#structs&#34;&gt;struct&lt;/a&gt;.
+If you then have a &lt;strong&gt;subnets&lt;/strong&gt; variable in your JSON file, then it MUST match the &lt;a href=&#34;https://cuelang.org/docs/references/spec/#structs&#34;&gt;struct&lt;/a&gt; defined otherwise the validation command will failed.&lt;/li&gt;
+&lt;li&gt;#subnetstruct&lt;br /&gt;
+This is the &lt;a href=&#34;https://cuelang.org/docs/references/spec/#definitions-and-hidden-fields&#34;&gt;definition&lt;/a&gt; of our &lt;a href=&#34;https://cuelang.org/docs/references/spec/#structs&#34;&gt;struct&lt;/a&gt;. The &lt;a href=&#34;https://cuelang.org/docs/references/spec/#structs&#34;&gt;struct&lt;/a&gt; contains a &lt;a href=&#34;https://cuelang.org/docs/references/spec/#structs&#34;&gt;pattern constraint&lt;/a&gt;.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;[string]: string&lt;br /&gt;
+Is a &lt;a href=&#34;https://cuelang.org/docs/references/spec/#structs&#34;&gt;pattern constraint&lt;/a&gt;, denoted &lt;strong&gt;[pattern]: value&lt;/strong&gt;. In the example, The pattern MUST be a string and the value MUST also be a string.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The vet command validates data with schemas. We can test our schema with the following command. In case of success the command doesn&amp;rsquo;t reply anything.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cue vet simple.cue simple.json
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If we replace strings with integer or list in the JSON file like below.&lt;/p&gt;
+
+&lt;h4 id=&#34;simplefalse-json&#34;&gt;simpleFalse.json&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+  &amp;quot;maptest&amp;quot;: {
+     &amp;quot;mytest1&amp;quot;: 1,
+     &amp;quot;mytest2&amp;quot;: [&amp;quot;mystring2&amp;quot;,&amp;quot;mystring21&amp;quot;,&amp;quot;mystring31&amp;quot;]
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You will have the following messages&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;noyel@goku-srv:~/script/cue$ cue vet simple.cue simpleFalse.json
+maptest.mytest1: conflicting values 1 and string (mismatched types int and string):
+    ./simple.cue:2:14
+    ./simple.cue:5:10
+    ./simpleFalse.json:3:17
+maptest.mytest2: conflicting values string and [&amp;quot;mystring2&amp;quot;,&amp;quot;mystring21&amp;quot;,&amp;quot;mystring31&amp;quot;] (mismatched types string and list):
+    ./simple.cue:2:14
+    ./simpleFalse.json:4:17
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;One thing I want to point out is that if you do a typo in the &lt;a href=&#34;https://cuelang.org/docs/references/spec/#identifiers&#34;&gt;Identifier&lt;/a&gt; and then it doesn&amp;rsquo;t match any variable in the JSON file, you will the same output than if your test are correct (nothing).&lt;/p&gt;
+
+&lt;h1 id=&#34;overall-validation&#34;&gt;Overall validation&lt;/h1&gt;
+
+&lt;h4 id=&#34;json-file-1&#34;&gt;JSON file&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+  &amp;quot;subnets&amp;quot; : {
+    &amp;quot;sub-primary&amp;quot;   : { &amp;quot;subnet&amp;quot; : [&amp;quot;10.0.0.0&amp;quot;,&amp;quot;10.0.1.0&amp;quot;], &amp;quot;mask&amp;quot; : 24, &amp;quot;router&amp;quot; : &amp;quot;rtr-primary&amp;quot;   },
+    &amp;quot;sub-secondary&amp;quot; : { &amp;quot;subnet&amp;quot; : [&amp;quot;10.0.2.0&amp;quot;]           , &amp;quot;mask&amp;quot; : 24, &amp;quot;router&amp;quot; : &amp;quot;rtr-secondary&amp;quot; }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;cue-schema-1&#34;&gt;CUE Schema&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;import ( &amp;quot;net&amp;quot; )
+#subnetstruct: {
+  [=~&amp;quot;^sub-&amp;quot;]: { &amp;quot;subnet&amp;quot; : [...net.IPv4], &amp;quot;mask&amp;quot; : int &amp;amp; &amp;gt;= 24 &amp;amp; &amp;lt;= 32, &amp;quot;router&amp;quot; : =~&amp;quot;^rtr-&amp;quot;} 
+}
+subnets: #subnetstruct
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For the complete example, the identifier and struct are the same, the only difference is the pattern constraint.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The &lt;strong&gt;pattern&lt;/strong&gt; of the &lt;a href=&#34;https://cuelang.org/docs/references/spec/#structs&#34;&gt;pattern constraint&lt;/a&gt; is a regex. The string that matches the regex define the key of our map. The key MUST start with sub-&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;The &lt;strong&gt;value&lt;/strong&gt; of the &lt;a href=&#34;https://cuelang.org/docs/references/spec/#structs&#34;&gt;pattern constraint&lt;/a&gt; is a &lt;a href=&#34;https://cuelang.org/docs/references/spec/#structs&#34;&gt;struct&lt;/a&gt; with 3 fields.&lt;br /&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&amp;ldquo;subnet&amp;rdquo; : a list of strings that represent a valid IPv4 address. The three dots &amp;hellip; represent an ellipsis, it allow to say &amp;ldquo;any number of IPv4&amp;rdquo;.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;mask&amp;rdquo; : an int greater or equal to 24 and lower or equal to 32.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;router&amp;rdquo; : a string that must start with rtr-&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://cuelang.org/docs/references/spec/#definitions-and-hidden-fields&#34;&gt;Referencing&lt;/a&gt; a definition should recursively close it. In theory it&amp;rsquo;s not possible to add more fields in the struct.
+In our case, the pattern constraint being a regex, you can add as many fields that matches the regex that you want. The values must conform the constraints you&amp;rsquo;ve put.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&#34;bonus-point-chat-gpt-d&#34;&gt;Bonus point, Chat GPT :D&lt;/h1&gt;
+
+&lt;p&gt;I&amp;rsquo;ve asked Chat GPT to write a GO script that would transform my HCL into JSON. After multiple wrong responses and struggles, I&amp;rsquo;ve created a new session and it eventually found a working code.&lt;/p&gt;
+
+&lt;h4 id=&#34;prompt&#34;&gt;Prompt&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;Could you write a GO code to transform the HCL below into JSON ?
+        subnets = {
+          &amp;quot;sub-primary&amp;quot;   = { &amp;quot;subnet&amp;quot; = [&amp;quot;10.0.0.0&amp;quot;,&amp;quot;10.0.1.0&amp;quot;], &amp;quot;mask&amp;quot;= 24, &amp;quot;router&amp;quot; = &amp;quot;rtr-primary&amp;quot;   },
+          &amp;quot;sub-secondary&amp;quot; = { &amp;quot;subnet&amp;quot; = [&amp;quot;10.0.2.0&amp;quot;]           , &amp;quot;mask&amp;quot;= 24, &amp;quot;router&amp;quot; = &amp;quot;rtr-secondary&amp;quot; }
+        }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;chat-gpt-go-code&#34;&gt;Chat GPT GO code&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;package main
+
+import (
+	&amp;quot;encoding/json&amp;quot;
+	&amp;quot;fmt&amp;quot;
+
+	&amp;quot;github.com/hashicorp/hcl&amp;quot;
+)
+
+func main() {
+	hclStr := `
+        subnets = {
+          &amp;quot;sub-primary&amp;quot;   = { &amp;quot;subnet&amp;quot; = [&amp;quot;10.0.0.0&amp;quot;,&amp;quot;10.0.1.0&amp;quot;], &amp;quot;mask&amp;quot;= 24, &amp;quot;router&amp;quot; = &amp;quot;rtr-primary&amp;quot;   },
+          &amp;quot;sub-secondary&amp;quot; = { &amp;quot;subnet&amp;quot; = [&amp;quot;10.0.2.0&amp;quot;]           , &amp;quot;mask&amp;quot;= 24, &amp;quot;router&amp;quot; = &amp;quot;rtr-secondary&amp;quot; }
+        }
+    `
+	var data map[string]interface{}
+	err := hcl.Decode(&amp;amp;data, hclStr)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	jsonData, err := json.MarshalIndent(data, &amp;quot;&amp;quot;, &amp;quot;  &amp;quot;)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	fmt.Println(string(jsonData))
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;result-on-https-go-dev-play&#34;&gt;Result on &lt;a href=&#34;https://go.dev/play/&#34;&gt;https://go.dev/play/&lt;/a&gt;&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+  &amp;quot;subnets&amp;quot;: [
+    {
+      &amp;quot;sub-primary&amp;quot;: [
+        {
+          &amp;quot;mask&amp;quot;: 24,
+          &amp;quot;router&amp;quot;: &amp;quot;rtr-primary&amp;quot;,
+          &amp;quot;subnet&amp;quot;: [
+            &amp;quot;10.0.0.0&amp;quot;,
+            &amp;quot;10.0.1.0&amp;quot;
+          ]
+        }
+      ],
+      &amp;quot;sub-secondary&amp;quot;: [
+        {
+          &amp;quot;mask&amp;quot;: 24,
+          &amp;quot;router&amp;quot;: &amp;quot;rtr-secondary&amp;quot;,
+          &amp;quot;subnet&amp;quot;: [
+            &amp;quot;10.0.2.0&amp;quot;
+          ]
+        }
+      ]
+    }
+  ]
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
       <title>NSXT Service interface design consideration</title>
       <link>https://netmemo.github.io/post/nsxt-service-interface-design1/</link>
       <pubDate>Wed, 19 Oct 2022 19:15:38 +0200</pubDate>
@@ -2817,37 +3030,6 @@ Finally you can now verify that there is a resource on Terraform Cloud and that 
         crossorigin=&#34;anonymous&#34;
         async&gt;
 &lt;/script&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Triggering Github Actions workflow with automatic Pull Request</title>
-      <link>https://netmemo.github.io/post/gha-auto-pr/</link>
-      <pubDate>Thu, 12 Aug 2021 17:01:57 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/post/gha-auto-pr/</guid>
-      <description>&lt;p&gt;This post is to explain one of the pain point I have encountered while trying to do &lt;a href=&#34;https://netmemo.github.io/post/tf-gha-nsxt-cicd&#34;&gt;Github Actions with Terraform Cloud for CI/CD of NSX-T&lt;/a&gt;.
-The difficulty is to chain workflow/pipeline automatically. In my case, I wanted to launch a workflow base of a PR create by another workflow.
-When you use Github Actions to interface with Github, you need to authenticate your Github Actions script against Github.
-You can then use the &lt;a href=&#34;https://docs.github.com/en/actions/reference/authentication-in-a-workflow&#34;&gt;GITHUB_TOKEN&lt;/a&gt; that has been made for this purpose. As this token is known from Github to be automation token, to avoid loops, you can use it to create a PR to trigger another workflow.
-The workaround to this [known limitation] is to create the PR with a personal access token.&lt;/p&gt;
-
-&lt;p&gt;You can find below an example of using the personal access token to create a PR. To create the &lt;a href=&#34;https://octokit.github.io/rest.js/v18#pulls-create&#34;&gt;Pull Request&lt;/a&gt; we are using &lt;a href=&#34;https://github.com/marketplace/actions/github-script?version=v4.0.2&#34;&gt;github-script&lt;/a&gt; that will send a REST API query thanks to the &lt;em&gt;github&lt;/em&gt; pre-authenticated &lt;a href=&#34;https://octokit.github.io/rest.js/v18&#34;&gt;octokit/rest.js&lt;/a&gt; client with pagination plugins.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;      - name: CreatePR if apply succeed
-        uses: actions/github-script@v4.0.2
-        if: steps.apply.outcome == &#39;success&#39;
-        with:
-          github-token: ${{ secrets.PERSO_GITHUB_TOKEN }}
-          script: |
-            github.pulls.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              title: &amp;quot;Auto PR&amp;quot;,
-              head: &amp;quot;dev&amp;quot;,
-              base: &amp;quot;main&amp;quot;
-            });
-&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     
