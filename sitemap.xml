@@ -4,6 +4,14 @@
     
     <url>
     
+      <loc>https://netmemo.github.io/post/kind_cilium_install/</loc>
+      <lastmod>2025-09-03T08:00:00+02:00</lastmod>
+    </url>
+    
+  
+    
+    <url>
+    
       <loc>https://netmemo.github.io/post/cuelang-first/</loc>
       <lastmod>2022-11-10T09:15:33+01:00</lastmod>
     </url>
@@ -456,6 +464,15 @@
     
       <loc>https://netmemo.github.io/tags/cheat-sheet/</loc>
       <lastmod>2021-12-15T18:40:34+01:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/tags/cilium/</loc>
+      <lastmod>2025-09-03T08:00:00+02:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -930,6 +947,24 @@
     
     <url>
     
+      <loc>https://netmemo.github.io/tags/containers/</loc>
+      <lastmod>2025-09-03T08:00:00+02:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/categories/containers/</loc>
+      <lastmod>2025-09-03T08:00:00+02:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
       <loc>https://netmemo.github.io/categories/developpment/</loc>
       <lastmod>2021-02-25T21:46:14+01:00</lastmod>
       <priority>0</priority>
@@ -958,7 +993,16 @@
     <url>
     
       <loc>https://netmemo.github.io/tags/k8s/</loc>
-      <lastmod>2018-10-05T23:59:19+02:00</lastmod>
+      <lastmod>2025-09-03T08:00:00+02:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/tags/kind/</loc>
+      <lastmod>2025-09-03T08:00:00+02:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -967,7 +1011,16 @@
     <url>
     
       <loc>https://netmemo.github.io/tags/kubernetes/</loc>
-      <lastmod>2018-10-05T23:59:19+02:00</lastmod>
+      <lastmod>2025-09-03T08:00:00+02:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>https://netmemo.github.io/categories/kubernetes/</loc>
+      <lastmod>2025-09-03T08:00:00+02:00</lastmod>
       <priority>0</priority>
     </url>
     

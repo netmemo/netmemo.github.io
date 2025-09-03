@@ -11,6 +11,225 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Cilium installation on kind and troubleshooting</title>
+      <link>https://netmemo.github.io/post/kind_cilium_install/</link>
+      <pubDate>Wed, 03 Sep 2025 08:00:00 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/kind_cilium_install/</guid>
+      <description>
+
+&lt;p&gt;This post is more oriented to network engineer that want to start diving in the system and container world.&lt;/p&gt;
+
+&lt;p&gt;As a network folk, I&amp;rsquo;m still not very familiar with containers so I&amp;rsquo;m writing this article as a reminder of the main issues I&amp;rsquo;ve got during the Cilium installation. I&amp;rsquo;ve struggled a lot with various issues to deploy Cilium on Kind cluster. I&amp;rsquo;ve got also issues when I&amp;rsquo;ve tried to setup the cluster mesh with kind.&lt;br /&gt;
+Like often, when you struggle a lot, you learn a lot. In couple of months these issues will probably not be relevant anymore as everything is moving and improving so fast.&lt;/p&gt;
+
+&lt;p&gt;With Cilium, the main command to check the health of the installation is &lt;strong&gt;cilium status &amp;ndash;wait&lt;/strong&gt; but what if like me you struggle even before cilium is installed ? Like always when something is not working, the first thing that comes to mind is what kind of logs should I check and how. So, first, there are couple of useful commands to collect logs.&lt;/p&gt;
+
+&lt;h1 id=&#34;troubleshooting-commands-list&#34;&gt;Troubleshooting commands list&lt;/h1&gt;
+
+&lt;h3 id=&#34;cilium&#34;&gt;Cilium&lt;/h3&gt;
+
+&lt;p&gt;The basic command to display the Cilium status&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cilium status --wait 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;kubernets&#34;&gt;Kubernets&lt;/h3&gt;
+
+&lt;p&gt;To get very details logs of what happens during the creation of the pod.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;kubectl describe pod -n kube-system
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You also have the erros that can happends per container in the pod&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;kubectl describe pod -n kube-system &amp;lt;pod_name&amp;gt;  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;kubectl describe pod -n kube-system cilium-pncjs
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To see the logs of the pod with the timestamps&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;kubectl -n kube-system logs --timestamps &amp;lt;pod_name&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;kubectl -n kube-system logs --timestamps cilium-kfwdf
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;#-p allows you to access the previous logs
+kubectl -n kube-system logs --timestamps -p &amp;lt;pod_name&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To see the logs of a container&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;kubectl logs &amp;lt;pod_name&amp;gt; -c &amp;lt;container_name&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;kubectl logs mc2 -c 1st
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;kubectl get events
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The command &lt;strong&gt;cluster-info dump&lt;/strong&gt; is very verbose and so far is the most complete I saw&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;kubectl cluster-info dump | grep -i error
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;docker&#34;&gt;Docker&lt;/h3&gt;
+
+&lt;p&gt;These are usefull commands when you don&amp;rsquo;t have space left on your drive :D&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#List then delete stale containers
+docker volume ls
+docker volume prune
+
+#Display then delete a container
+docker ps -a
+docker container rm &amp;lt;container_id&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;other-usefull-commands&#34;&gt;Other Usefull commands&lt;/h3&gt;
+
+&lt;p&gt;The two commands I wish I would know prior to install Cilium cluster mesh. Because you need to switch context to see the status of both clusters.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;kubectl config get-contexts
+kubectl config use-context kind-cluster2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;issues-i-ve-got-during-the-install&#34;&gt;Issues I&amp;rsquo;ve got during the install&lt;/h1&gt;
+
+&lt;h3 id=&#34;error-could-not-find-a-log-line-that-matches&#34;&gt;Error : could not find a log line that matches&lt;/h3&gt;
+
+&lt;p&gt;The well documented &amp;ldquo;too many open files&amp;rdquo;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Creating cluster &amp;quot;kind&amp;quot; ...
+ ✓ Ensuring node image (kindest/node:v1.31.0) 🖼
+ ✗ Preparing nodes 📦 📦 📦 📦  
+Deleted nodes: [&amp;quot;kind-control-plane&amp;quot; &amp;quot;kind-worker&amp;quot; &amp;quot;kind-worker2&amp;quot; &amp;quot;kind-worker3&amp;quot;]
+ERROR: failed to create cluster: could not find a log line that matches &amp;quot;Reached target .*Multi-User System.*|detected cgroup v1&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;how-i-resolved-the-error&#34;&gt;How I resolved the error&lt;/h3&gt;
+
+&lt;p&gt;By googling the error message you can easily find resources. The commands and explaination to solve the issues can be found here : &lt;a href=&#34;https://kind.sigs.k8s.io/docs/user/known-issues/#pod-errors-due-to-too-many-open-files&#34;&gt;https://kind.sigs.k8s.io/docs/user/known-issues/#pod-errors-due-to-too-many-open-files&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo sysctl fs.inotify.max_user_watches=524288
+sudo sysctl fs.inotify.max_user_instances=512
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;error-due-to-snap-on-my-ubuntu&#34;&gt;Error due to snap on my Ubuntu&lt;/h3&gt;
+
+&lt;p&gt;This error happened after I&amp;rsquo;vz tried to load cilium image to kubnertes nodes.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ERROR: command &amp;quot;docker save -o /tmp/images-tar1960078274/images.tar quay.io/cilium/cilium:v1.17.2&amp;quot; failed with error: exit status 1
+Command Output: failed to save image: invalid output path: directory &amp;quot;/tmp/images-tar1960078274&amp;quot; does not exist
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Resources :&lt;br /&gt;
+&lt;a href=&#34;https://github.com/kubernetes-sigs/kind/issues/2535#issuecomment-968836159&#34;&gt;https://github.com/kubernetes-sigs/kind/issues/2535#issuecomment-968836159&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&#34;https://kind.sigs.k8s.io/docs/user/known-issues/#docker-installed-with-snap&#34;&gt;https://kind.sigs.k8s.io/docs/user/known-issues/#docker-installed-with-snap&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;how-i-resolved-the-error-1&#34;&gt;How I resolved the error&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;#create a new dir
+mkdir dockerimage
+
+#assign write access
+chmod 755 dockerimage
+
+#save the new image
+docker save -o /home/nboulene/dockerimage/images.tar quay.io/cilium/cilium:v1.17.2
+
+#load the saved image to the cluster
+kind load image-archive dockerimage/images.tar --name=cluster1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;error-due-to-containers-privileges&#34;&gt;Error due to containers privileges&lt;/h3&gt;
+
+&lt;p&gt;The containers were in &lt;b&gt;Init:CrashLoopBackOff&lt;/b&gt; state&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;kubectl get pods -A
+
+kube-system          cilium-mtcdq                                  0/1     Init:CrashLoopBackOff   4 (56s ago)   3m49s
+kube-system          cilium-n6gcz                                  0/1     Init:CrashLoopBackOff   4 (64s ago)   3m49s
+kube-system          cilium-nv54v                                  0/1     Init:CrashLoopBackOff   4 (59s ago)   3m49s
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;With the command to display specific log of a container My errors was :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;kubectl describe pod -n kube-system cilium-nv54v 
+&amp;lt;snip&amp;gt;
+Back-off restarting failed container mount-cgroup in pod cilium-nv54v_kube-system
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then when I&amp;rsquo;ve checked the pod logs detail, I saw it was in &amp;ldquo;Waiting&amp;rdquo; state with reason CrashLoopBackoff&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;kubectl describe pod -n kube-system cilium-nv54v | egrep -i -A 15 mount-cgroup:$
+
+  mount-cgroup:
+    Container ID:  containerd://3c769d6500631b3f4369e0c092cc117b2d6970e1a83983cd0ec558c506295cfd
+    Image:         quay.io/cilium/cilium:v1.17.1@sha256:8969bfd9c87cbea91e40665f8ebe327268c99d844ca26d7d12165de07f702866
+    Image ID:      quay.io/cilium/cilium@sha256:8969bfd9c87cbea91e40665f8ebe327268c99d844ca26d7d12165de07f702866
+    Port:          &amp;lt;none&amp;gt;
+    Host Port:     &amp;lt;none&amp;gt;
+    Command:
+      sh
+      -ec
+      cp /usr/bin/cilium-mount /hostbin/cilium-mount;
+      nsenter --cgroup=/hostproc/1/ns/cgroup --mount=/hostproc/1/ns/mnt &amp;quot;${BIN_PATH}/cilium-mount&amp;quot; $CGROUP_ROOT;
+      rm /hostbin/cilium-mount
+      
+    State:       Waiting
+      Reason:    CrashLoopBackOff
+    Last State:  Terminated
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and on the init container mount-cgroup the error was :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cp: cannot create regular file &#39;/hostbin/cilium-mount&#39;: Permission denied
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;how-i-resolved-the-error-2&#34;&gt;How I resolved the error&lt;/h4&gt;
+
+&lt;p&gt;To resolve the issue you need to enter the command &lt;b&gt;&amp;ndash;set securityContext.privileged=true&lt;/sb&gt; when installing Cilium with Helm&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;helm install cilium cilium/cilium --version 1.17.2 \
+   --namespace kube-system \
+   --set image.pullPolicy=IfNotPresent \
+   --set ipam.mode=kubernetes   --set securityContext.privileged=true
+
+helm upgrade cilium cilium/cilium --version 1.17.2    --namespace kube-system --set cluster.name=cluster1 --set cluster.id=1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;error-with-the-service-type-for-cluster-mesh&#34;&gt;Error with the service Type for cluster mesh&lt;/h4&gt;
+
+&lt;p&gt;When I&amp;rsquo;ve tried to enable clustermesh on the first cluster, I&amp;rsquo;ve got the following error :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cilium clustermesh enable --context $CLUSTER1
+Error: Unable to enable ClusterMesh: cannot auto-detect service type, please specify using &#39;--service-type&#39; option
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The 3 options are:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;LoadBalancer : I needed an external loadbalancer and I didn&amp;rsquo;t have one.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;ClusterIP : Error: Unable to enable ClusterMesh: service type &amp;ldquo;ClusterIP&amp;rdquo; is not valid&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;NodePort : Is the only remaining viable option :)&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;how-i-resolved-the-error-3&#34;&gt;How I resolved the error&lt;/h4&gt;
+
+&lt;p&gt;Simply by specifying the service-type&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cilium clustermesh enable --service-type NodePort --context $CLUSTER1 
+⚠️  Using service type NodePort may fail when nodes are removed from the cluster!
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
       <title>CUE lang and HCL map key validation</title>
       <link>https://netmemo.github.io/post/cuelang-first/</link>
       <pubDate>Thu, 10 Nov 2022 09:15:33 +0100</pubDate>
@@ -2637,399 +2856,6 @@ There is an &lt;strong&gt;overlap&lt;/strong&gt; between the &lt;em&gt;aws_iam_r
 &lt;h3 id=&#34;bonus&#34;&gt;Bonus :)&lt;/h3&gt;
 
 &lt;p&gt;As a bonus here are the &lt;a href=&#34;https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html&#34;&gt;quotas&lt;/a&gt; for IAM and STS&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Github Actions with Terraform Cloud for CI/CD of NSX-T</title>
-      <link>https://netmemo.github.io/post/tf-gha-nsxt-cicd/</link>
-      <pubDate>Sun, 15 Aug 2021 14:02:39 +0200</pubDate>
-      
-      <guid>https://netmemo.github.io/post/tf-gha-nsxt-cicd/</guid>
-      <description>
-
-&lt;p&gt;This post is to show an example of using CI/CD with Terraform Cloud and &lt;a href=&#34;https://learn.hashicorp.com/tutorials/terraform/github-actions&#34;&gt;Github Actions&lt;/a&gt; in order to have a better NetDevOps approach by doing NSX-T Network Infrastructure as code (IaC).
-It&amp;rsquo;s almost a bingo, I think I have most of the buzz words of these last years :)&lt;/p&gt;
-
-&lt;p&gt;I will describe the structure of the project, the project components, the project workflow and finish with how to test this project.&lt;/p&gt;
-
-&lt;h1 id=&#34;structure-of-the-project&#34;&gt;Structure of the project&lt;/h1&gt;
-
-&lt;p&gt;The diagram below shows a high level view of the &lt;a href=&#34;https://github.com/netmemo/tf-gha-nsxt-cicd&#34;&gt;project&lt;/a&gt;.
-&lt;a href=&#34;tf-gha-cicd-nsx.png&#34;&gt; &lt;img src=&#34;tf-gha-cicd-nsx.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;You can find the file structure of the project below&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;.
-├─ main.tf
-├─ .github
-   └── workflows
-       ├── dev-to-pr.yml
-       ├── plan-prod.yml
-       └── apply-prod.yml
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;project-components&#34;&gt;Project components&lt;/h1&gt;
-
-&lt;h2 id=&#34;nsx-t&#34;&gt;NSX-T&lt;/h2&gt;
-
-&lt;p&gt;For this project we need two NSXT environments, one for production and one for development. You can either have 2 full blown NSX-T or use different variables for prod and dev or different VRFs.
-In this blog post we will use two different deployments.&lt;/p&gt;
-
-&lt;h2 id=&#34;terraform-cloud&#34;&gt;Terraform Cloud&lt;/h2&gt;
-
-&lt;p&gt;Terraform Cloud will be used to store the state of the prod and dev environment. It will also allow to manage Terraform through APIs.
-For the project we need to create 2 differents workspaces, one for production and one for developments.
-The name of the workspaces should be prefix-suffix where the prefix will be what is configured in your terraform configuration file and the sufix will be what is used to select the workspace. We will cover how to select the workspace later in that post.
-For this blog post, the prefix will be netmemo- and the suffix will be either prod or dev.
-&lt;a href=&#34;workspaces.png&#34;&gt; &lt;img src=&#34;workspaces.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Once the workspaces are created, we need to add 3 variables for the NSX-T provider:
-&lt;a href=&#34;tf-variables.png&#34;&gt; &lt;img src=&#34;tf-variables.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Finally we need to add the API key that Github Actions will use to connect to Terraform Cloud
-&lt;a href=&#34;tf-token.png&#34;&gt; &lt;img src=&#34;tf-token.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;github&#34;&gt;Github&lt;/h2&gt;
-
-&lt;p&gt;Github is where we will store the configuration and execute our CI/CD pipelines.
-Once the project is forked, to make it works, we need to enable Github Actions.
-&lt;a href=&#34;enable-gha.png&#34;&gt; &lt;img src=&#34;enable-gha.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Create a github &lt;a href=&#34;https://github.com/settings/tokens&#34;&gt;personal access token&lt;/a&gt; &lt;em&gt;REPO_TOKEN&lt;/em&gt;. This token will be used by Github Actions to automatically create the pull request.&lt;br /&gt;
-&lt;a href=&#34;gh-perso-token.png&#34;&gt; &lt;img src=&#34;gh-perso-token.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Add the previously created token (TF_API_TOKEN and REPO_TOKEN_SECRET) to your github &lt;a href=&#34;https://github.com/netmemo/nsxt-tfc-rm/settings/secrets/actions&#34;&gt;repository secrets&lt;/a&gt;.&lt;br /&gt;
-&lt;a href=&#34;repo-secret.png&#34;&gt; &lt;img src=&#34;repo-secret.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;github-actions&#34;&gt;Github Actions&lt;/h2&gt;
-
-&lt;p&gt;This project is made from 3 scripts that form 3 pipelines. The first script will handle the dev environment. The second will handle the &lt;em&gt;terraform plan&lt;/em&gt; for the prod environments. The third will handle the &lt;em&gt;terraform apply&lt;/em&gt; for the prod environment.&lt;/p&gt;
-
-&lt;p&gt;You can find an explanation of the main steps on the below site &lt;a href=&#34;https://learn.hashicorp.com/tutorials/terraform/github-actions&#34;&gt;Github Actions&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h4 id=&#34;dev-to-pr-yml&#34;&gt;dev-to-pr.yml&lt;/h4&gt;
-
-&lt;p&gt;The dev-to-pr.yml Github Actions YAML file will be executed only after a &lt;em&gt;push&lt;/em&gt; on the &lt;em&gt;dev&lt;/em&gt; branch.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;on:
-  push:
-    branches:
-      - dev
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The first step is to checkout the current configuration.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;      - name: Checkout
-        uses: actions/checkout@v2
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Then the &lt;em&gt;Setup Terraform&lt;/em&gt; steps retrieves the Terraform CLI used in the GitHub action workflow.
-This is in this step that we will use the TF_API_TOKEN that we have created previously to access Terraform Cloud from Github Actions.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
-        with:
-          # terraform_version: 0.13.0:
-          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;These following steps initialize Terraform and set the &lt;a href=&#34;https://netmemo.github.io/post/tf-workspace-var&#34;&gt;terraform workspace&lt;/a&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;      - name: Terraform Init
-        id: init
-        run: terraform init
-        env:
-          TF_WORKSPACE: &amp;quot;dev&amp;quot;
-
-      - name: Terraform Workspace
-        id: workspace
-        run: terraform workspace select dev
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;We then validate the Terraform configuration&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;      - name: Terraform Validate
-        id: validate
-        run: terraform validate -no-color
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This step is to execute the Terraform plan. The plan will be a speculative plan executed in Terraform Cloud. Speculative plans are not directly visible from the Terraform Cloud UI. To access it, you will need to click on the link given in the result of the Terraform plan command.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;      - name: Terraform Plan
-        id: plan
-        run: terraform plan -no-color
-        continue-on-error: true
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This step will execute a &lt;a href=&#34;https://github.com/marketplace/actions/github-script?version=v4.0.2&#34;&gt;github-script&lt;/a&gt; that will send a REST API query thanks to the &lt;em&gt;github&lt;/em&gt; pre-authenticated &lt;a href=&#34;https://octokit.github.io/rest.js/v18&#34;&gt;octokit/rest.js&lt;/a&gt; client with pagination plugins. It will also create a comment on the commit with the result of the previous steps.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;      - uses: actions/github-script@0.9.0
-        if: github.event_name == &#39;push&#39;
-        env:
-          PLAN: &amp;quot;terraform\n${{ steps.plan.outputs.stdout }}&amp;quot;
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const output = `#### Terraform Format and Style [36;63H\`${{ steps.fmt.outcome }}\`
-            #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
-            #### Terraform Validation [36;41H\`${{ steps.validate.outcome }}\`
-            #### Terraform Plan [36;35H\`${{ steps.plan.outcome }}\`
-            &amp;lt;details&amp;gt;&amp;lt;summary&amp;gt;Show Plan&amp;lt;/summary&amp;gt;
-            \`\`\`\n
-            ${process.env.PLAN}
-            \`\`\`
-            &amp;lt;/details&amp;gt;
-            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
-            github.repos.createCommitComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              commit_sha: context.sha,
-              body: output
-            })
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This step is to apply the Terraform configuration, only if the &lt;em&gt;terraform plan&lt;/em&gt; step result has succeeded.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;      - name: Terraform Apply
-        id: apply
-        if: steps.plan.outcome == &#39;success&#39;
-        run: terraform apply -auto-approve
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;If the &lt;em&gt;terraform apply&lt;/em&gt; succeeds, we will use the &lt;a href=&#34;https://github.com/marketplace/actions/github-script?version=v4.0.2&#34;&gt;github-script&lt;/a&gt; to create a &lt;a href=&#34;https://octokit.github.io/rest.js/v18#pulls-create&#34;&gt;Pull Request&lt;/a&gt; thanks to the &lt;a href=&#34;https://octokit.github.io/rest.js/v18&#34;&gt;octokit/rest.js&lt;/a&gt; like in the previous steps.
-We will use a personal github token &lt;em&gt;PERSO_GITHUB_TOKEN&lt;/em&gt; to create the PR for these steps. If we are not using the personal token, the &lt;a href=&#34;https://github.com/peter-evans/create-pull-request/issues/48&#34;&gt;PR will not trigger other pipelines&lt;/a&gt; that have the &lt;em&gt;on:pull_request trigger&lt;/em&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;      - name: CreatePR if apply succeed
-        uses: actions/github-script@v4.0.2
-        if: steps.apply.outcome == &#39;success&#39;
-        with:
-          github-token: ${{ secrets.PERSO_GITHUB_TOKEN }}
-          script: |
-            github.pulls.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              title: &amp;quot;Auto PR&amp;quot;,
-              head: &amp;quot;dev&amp;quot;,
-              base: &amp;quot;main&amp;quot;
-            });
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;plan-prod-yml&#34;&gt;plan-prod.yml&lt;/h4&gt;
-
-&lt;p&gt;The plan-prod.yml Github Actions YAML file will be executed only after a &lt;em&gt;pull request&lt;/em&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;on:
-  pull_request:
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Most of the steps have already been described for the &lt;em&gt;dev-to-pr.yml&lt;/em&gt; files, the only difference is the step below.
-It will add a comment on the PR with the description of what has been done.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;      - uses: actions/github-script@v4.0.2
-        env:
-          PLAN: &amp;quot;terraform\n${{ steps.plan.outputs.stdout }}&amp;quot;
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const output = `#### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
-            #### Terraform Validation [36;41H\`${{ steps.validate.outcome }}\`
-            #### Terraform Plan [36;35H\`${{ steps.plan.outcome }}\`
-            &amp;lt;details&amp;gt;&amp;lt;summary&amp;gt;Show Plan&amp;lt;/summary&amp;gt;
-            \`\`\`\n
-            ${process.env.PLAN}
-            \`\`\`
-            &amp;lt;/details&amp;gt;
-            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
-            github.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: output
-            })
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;apply-prod-yml&#34;&gt;apply-prod.yml&lt;/h4&gt;
-
-&lt;p&gt;The plan-prod.yml Github Actions YAML file will be executed only after a &lt;em&gt;push&lt;/em&gt; on the main branch.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;on:
-  push:
-    branches:
-      - main
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The other steps have already been discussed previously.&lt;/p&gt;
-
-&lt;h2 id=&#34;terraform-file&#34;&gt;Terraform file&lt;/h2&gt;
-
-&lt;p&gt;For this blog post we will have a single main.tf file.
-This Terraform script should have the terraform configuration, the provider definition and the resources definitions.&lt;/p&gt;
-
-&lt;h4 id=&#34;terraform-variables&#34;&gt;Terraform variables&lt;/h4&gt;
-
-&lt;p&gt;This is where we declare the Terraform variables that will be defined in the Terrafrom Cloud workspaces. These variables will change according to the environment.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;variable &amp;quot;password&amp;quot; {
-  type = string
-}
-variable &amp;quot;username&amp;quot; {
-  type = string
-}
-variable &amp;quot;nsxhost&amp;quot; {
-  type = string
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;terraform-configuration-section&#34;&gt;Terraform configuration section&lt;/h4&gt;
-
-&lt;p&gt;In this section we are setting the 2 providers needed and the backend.
-The &lt;em&gt;backend &amp;ldquo;&lt;a href=&#34;https://www.terraform.io/docs/language/settings/backends/remote.html#workspaces&#34;&gt;remote&lt;/a&gt;&amp;ldquo;&lt;/em&gt; is where you find the Terraform Cloud organization and workspaces prefixes.
-The workspaces suffixes will be added as seen in the beginning of this post with the &lt;a href=&#34;https://learn.hashicorp.com/tutorials/terraform/automate-terraform?in=terraform/automation&#34;&gt;TF_WORKSPACE&lt;/a&gt; environment variables and the &lt;a href=&#34;https://www.terraform.io/docs/language/settings/backends/remote.html#workspaces&#34;&gt;terraform workspace select&lt;/a&gt; command in the Github Actions steps.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;terraform {
-  required_providers {
-    random = {
-      source = &amp;quot;hashicorp/random&amp;quot;
-      version = &amp;quot;3.0.1&amp;quot;
-    }
-    nsxt = {
-      source = &amp;quot;vmware/nsxt&amp;quot;
-      version = &amp;quot;&amp;gt;= 3.1.1&amp;quot;
-    }
-  }
-
-  backend &amp;quot;remote&amp;quot; {
-    organization = &amp;quot;netmemo&amp;quot;
-
-    workspaces {
-      prefix = &amp;quot;netmemo-&amp;quot;
-    }
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;provider-configuration&#34;&gt;Provider configuration&lt;/h4&gt;
-
-&lt;p&gt;This is the NSX-T provider configuration. We pass the 3 variables that are defined in the Terraform Cloud workspaces.
-We disable the SSL verification because this is a local lab.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;provider &amp;quot;nsxt&amp;quot; {
-    host = var.nsxhost
-    username = var.username
-    password = var.password
-    allow_unverified_ssl = true
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;resource-creation&#34;&gt;Resource creation&lt;/h4&gt;
-
-&lt;p&gt;For this blog post we will create a &lt;a href=&#34;https://registry.terraform.io/providers/vmware/nsxt/latest/docs/resources/policy_tier1_gateway&#34;&gt;NSX-T T1 gateway&lt;/a&gt; name &lt;strong&gt;T1-TFC&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;resource &amp;quot;nsxt_policy_tier1_gateway&amp;quot; &amp;quot;tier1_gw&amp;quot; {
-  description               = &amp;quot;Tier-1 provisioned by Terraform&amp;quot;
-  display_name              = &amp;quot;T1-TFC&amp;quot;
-  route_advertisement_types = [&amp;quot;TIER1_CONNECTED&amp;quot;]
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;project-workflow&#34;&gt;Project workflow&lt;/h1&gt;
-
-&lt;p&gt;Clic the arrows to see the detail.
-&lt;details&gt;
-&lt;summary&gt;1. Modify the dev branch on you local git.&lt;/summary&gt;
-&lt;/details&gt;
-&lt;details&gt;
-&lt;summary&gt;2. Add the modif to git, commit them and push the dev branch to your github repo.&lt;/summary&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;git add .
-
-git commit -am &amp;quot;add T1-GW&amp;quot;
-[dev a0b946b] add T1-GW
- 2 files changed, 6 insertions(+), 6 deletions(-)
-
-git push
-Counting objects: 6, done.
-Delta compression using up to 2 threads.
-Compressing objects: 100% (5/5), done.
-Writing objects: 100% (6/6), 617 bytes | 617.00 KiB/s, done.
-Total 6 (delta 2), reused 0 (delta 0)
-remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
-To ssh://github.com/netmemo/tf-gha-nsxt-cicd.git
-   8534543..a0b946b  dev -&amp;gt; dev
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;/details&gt;
-&lt;details&gt;
-&lt;summary&gt;3. Dev pipeline&lt;/summary&gt;
-The dev pipeline is triggered, you can see it&amp;rsquo;s starting in the Actions tab. It&amp;rsquo;s tittle will be the commit message.&lt;br /&gt;
-&lt;a href=&#34;workflow-start.png&#34;&gt; &lt;img src=&#34;workflow-start.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;
-To validate that the dev pipeline is completed, you can check the Terraform cloud dev workspace state and the NSX-T dev environment to see that there is a new T1-GW.
-&lt;a href=&#34;tfc-state-dev-after.png&#34;&gt; &lt;img src=&#34;tfc-state-dev-after.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;
-&lt;/details&gt;
-&lt;details&gt;
-&lt;summary&gt;4. Integration pipeline&lt;/summary&gt;
-After all the steps in the dev pipeline are passed, the workflow will turn green. The last step of the pipeline will create an automatic PR that will trigger the integration pipeline. This pipeline will validate the configuration and creates a plan against the production environment.
-The PR will have the description &lt;strong&gt;&amp;ldquo;Auto PR generate by Github Action dev pipeline&amp;rdquo;&lt;/strong&gt;
-&lt;a href=&#34;pr-list.png&#34;&gt; &lt;img src=&#34;pr-list.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;
-The integration pipeline will execute the &lt;em&gt;terraform plan&lt;/em&gt; command against the production environment. You can then check again the Actions tab to see that the development and integration pipeline has turned green.
-&lt;a href=&#34;workflow-2-pipeline-ok.png&#34;&gt; &lt;img src=&#34;workflow-2-pipeline-ok.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;
-If the two pipelines are ok, the checks in the PR should be green.&lt;br /&gt;
-&lt;a href=&#34;\pr-test-ok.png&#34;&gt; &lt;img src=&#34;pr-test-ok.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;
-&lt;/details&gt;
-&lt;details&gt;
-&lt;summary&gt;5. Merge&lt;/summary&gt;
-When the dev and integration pipeline are finished, the dev branch is ready to be merged to the main branch. You can then clic on the &lt;strong&gt;Merge pull request&lt;/strong&gt; button to validate the merge and trigger the deployment pipeline.
-&lt;a href=&#34;going-to-prod.png&#34;&gt; &lt;img src=&#34;going-to-prod.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;
-&lt;a href=&#34;pr-merged.png&#34;&gt; &lt;img src=&#34;pr-merged.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;
-&lt;/details&gt;
-&lt;details&gt;
-&lt;summary&gt;6. Deployment pipeline&lt;/summary&gt;
-The deployment pipeline is triggered with the push/merge to the main branch. This is the final workflow that will push the Terraform configuration to production. You can see in Terraform Cloud that Terraform is applying the configuration.
-&lt;a href=&#34;tfc-prod-applying.png&#34;&gt; &lt;img src=&#34;tfc-prod-applying.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;
-You can now double check in Github Actions that the deployment workflow has been succefully executed, &lt;strong&gt;&amp;ldquo;Merge pull request #10&amp;rdquo;&lt;/strong&gt; in the picture below.
-&lt;a href=&#34;pipeline-apply-ok-list.png&#34;&gt; &lt;img src=&#34;pipeline-apply-ok-list.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;
-&lt;/details&gt;
-&lt;details&gt;
-&lt;summary&gt;7. Checks&lt;/summary&gt;
-Finally you can now verify that there is a resource on Terraform Cloud and that the T1 Gateway has been created on the production NSX-T.&lt;br /&gt;
-&lt;a href=&#34;tfc-prod-ok.png&#34;&gt; &lt;img src=&#34;tfc-prod-ok.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;
-&lt;a href=&#34;nsxt-prod-ok.png&#34;&gt; &lt;img src=&#34;nsxt-prod-ok.png&#34; alt=&#34;&#34; /&gt; &lt;/a&gt;
-&lt;/details&gt;&lt;/p&gt;
-
-&lt;h1 id=&#34;how-to-test-this-project&#34;&gt;How to test this project.&lt;/h1&gt;
-
-&lt;p&gt;Requirements:&lt;br /&gt;
-- NSX-T environment (there are examples on the web to use AWS as provider instead of NSX, the concepts are the same).&lt;br /&gt;
-- Terraform Cloud account with 2 workspaces.&lt;br /&gt;
-- Github account and git locally.&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;[NSX-T]&lt;/strong&gt; Prepare your two NSX-T environments.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;[TFC]&lt;/strong&gt; Create your two workspaces in TFC with the API Key for Github.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;[GITHUB]&lt;/strong&gt; Fork this &lt;a href=&#34;https://github.com/netmemo/tf-gha-nsxt-cicd&#34;&gt;project&lt;/a&gt;, add the TFC API key and your personal API Key to your repo, enable actions.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;[LOCAL]&lt;/strong&gt; Clone your forked project to your local git.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;[LOCAL]&lt;/strong&gt; Create the dev branch locally.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;[LOCAL]&lt;/strong&gt; Modify the Terraform configuration in the main.tf according to your TFC workspace.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;[LOCAL]&lt;/strong&gt; Add to git, commit, push.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;[GITHUB]&lt;/strong&gt; Wait until all the test pass.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;[GITHUB]&lt;/strong&gt; Click merge to deploy to prod.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&#34;pain-points-of-the-project&#34;&gt;Pain points of the project.&lt;/h1&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Switching &lt;a href=&#34;https://netmemo.github.io/post/tf-workspace-var&#34;&gt;terraform workspace&lt;/a&gt; with github actions.&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Create &lt;a href=&#34;https://netmemo.github.io/post/gha-auto-pr&#34;&gt;automatically&lt;/a&gt; a github PR with with rest.js API of octokit.&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;script src=&#34;https://utteranc.es/client.js&#34;
-        repo=&#34;[ENTER REPO HERE]&#34;
-        issue-term=&#34;pathname&#34;
-        theme=&#34;github-dark&#34;
-        crossorigin=&#34;anonymous&#34;
-        async&gt;
-&lt;/script&gt;
 </description>
     </item>
     

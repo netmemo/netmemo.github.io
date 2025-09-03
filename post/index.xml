@@ -13,6 +13,16 @@
     
     
     <item>
+      <title>Cilium installation on kind and troubleshooting</title>
+      <link>https://netmemo.github.io/post/kind_cilium_install/</link>
+      <pubDate>Wed, 03 Sep 2025 08:00:00 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/kind_cilium_install/</guid>
+      <description>This post is more oriented to network engineer that want to start diving in the system and container world.
+As a network folk, I&amp;rsquo;m still not very familiar with containers so I&amp;rsquo;m writing this article as a reminder of the main issues I&amp;rsquo;ve got during the Cilium installation. I&amp;rsquo;ve struggled a lot with various issues to deploy Cilium on Kind cluster. I&amp;rsquo;ve got also issues when I&amp;rsquo;ve tried to setup the cluster mesh with kind.</description>
+    </item>
+    
+    <item>
       <title>CUE lang and HCL map key validation</title>
       <link>https://netmemo.github.io/post/cuelang-first/</link>
       <pubDate>Thu, 10 Nov 2022 09:15:33 +0100</pubDate>

@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>No&amp;euml;l Boul&amp;egrave;ne &amp;copy; 2021. This blog is strictly personnal and opinions expressed here are only mine and doesn&amp;#39;t reflect those of my past, current or futur employers. No warranty whatsoever is made that any of the posts are accurate. There is absolutely no assurance (apart from author&amp;acute;s professional integrity) that any statement contained in a post is true, correct or precise.</copyright>
-    <lastBuildDate>Fri, 05 Oct 2018 23:59:19 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 03 Sep 2025 08:00:00 +0200</lastBuildDate>
     
 	<atom:link href="https://netmemo.github.io/tags/k8s/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Cilium installation on kind and troubleshooting</title>
+      <link>https://netmemo.github.io/post/kind_cilium_install/</link>
+      <pubDate>Wed, 03 Sep 2025 08:00:00 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/post/kind_cilium_install/</guid>
+      <description>This post is more oriented to network engineer that want to start diving in the system and container world.
+As a network folk, I&amp;rsquo;m still not very familiar with containers so I&amp;rsquo;m writing this article as a reminder of the main issues I&amp;rsquo;ve got during the Cilium installation. I&amp;rsquo;ve struggled a lot with various issues to deploy Cilium on Kind cluster. I&amp;rsquo;ve got also issues when I&amp;rsquo;ve tried to setup the cluster mesh with kind.</description>
+    </item>
     
     <item>
       <title>K8s on Vms With Calico</title>

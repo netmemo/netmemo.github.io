@@ -96,7 +96,7 @@
   <meta property="og:image" content="https://netmemo.github.io/img/icon-192.png">
   <meta property="og:locale" content="en-us">
   
-  <meta property="og:updated_time" content="2022-01-19T18:40:34&#43;01:00">
+  <meta property="og:updated_time" content="2022-01-26T22:00:26&#43;01:00">
   
 
   
@@ -210,6 +210,84 @@
   
 
   
+  
+    
+    
+      
+
+<div class="card-simple" itemscope itemprop="blogPost" itemtype="http://schema.org/BlogPosting">
+  
+
+<div class="article-metadata">
+
+  
+  
+  <span itemscope itemprop="author" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Noel">
+  </span>
+  
+
+  <span class="article-date">
+    
+    <meta content="2022-01-26 22:00:26 &#43;0100 CET" itemprop="datePublished">
+    <time datetime="2022-01-26 22:00:26 &#43;0100 CET" itemprop="dateModified">
+      Jan 26, 2022
+    </time>
+  </span>
+  <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Noel">
+  </span>
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    8 min read
+  </span>
+  
+
+  
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder"></i>
+    
+    <a href="/categories/terraform/">Terraform</a>
+    
+  </span>
+  
+  
+
+  
+
+</div>
+
+
+  
+  
+  <h3 class="article-title" itemprop="headline">
+    <a href="/post/terraform-one-step-further/" itemprop="url">Terraform One Step Further</a>
+  </h3>
+  <div class="article-style" itemprop="articleBody">
+    
+    This blog is in two parts. The first part explains what is needed to start with Terraform. This second part is to go one step further but still targets beginners.
+You can find more in depth articles on Gruntwork blog and the Terraform documentation is also very good.
+Table of contents  Terraform Bare minimum Terraform one step further
+ What happens in the background ?
+ What happens if we modify the object on GUI ?
+    
+  </div>
+  <p class="read-more" itemprop="mainEntityOfPage">
+    <a href="/post/terraform-one-step-further/" class="btn btn-outline-primary my-1">
+      CONTINUE READING
+    </a>
+  </p>
+</div>
+
+    
   
     
     
@@ -930,89 +1008,6 @@ Often the initial rational of big heterogeneous subnets was to avoid too much vl
   </div>
   <p class="read-more" itemprop="mainEntityOfPage">
     <a href="/post/subnets-size-mix/" class="btn btn-outline-primary my-1">
-      CONTINUE READING
-    </a>
-  </p>
-</div>
-
-    
-  
-    
-    
-      
-
-<div class="card-simple" itemscope itemprop="blogPost" itemtype="http://schema.org/BlogPosting">
-  
-
-<div class="article-metadata">
-
-  
-  
-  
-  <div>
-    
-    <span itemscope itemprop="author" itemtype="http://schema.org/Person">
-      <span itemprop="name">Noel</span>
-    </span>
-    
-  </div>
-  
-
-  <span class="article-date">
-    
-    <meta content="2021-02-25 21:56:57 &#43;0100 CET" itemprop="datePublished">
-    <time datetime="2021-02-25 21:56:57 &#43;0100 CET" itemprop="dateModified">
-      Feb 25, 2021
-    </time>
-  </span>
-  <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Noel">
-  </span>
-
-  
-  <span class="middot-divider"></span>
-  <span class="article-reading-time">
-    1 min read
-  </span>
-  
-
-  
-  
-
-  
-  
-  
-  <span class="middot-divider"></span>
-  <span class="article-categories">
-    <i class="fas fa-folder"></i>
-    
-    <a href="/categories/automation/">Automation</a>
-    
-  </span>
-  
-  
-
-  
-
-</div>
-
-
-  
-  
-  <h3 class="article-title" itemprop="headline">
-    <a href="/post/terraform-refactoring-state-file/" itemprop="url">Terraform Refactoring State File</a>
-  </h3>
-  <div class="article-style" itemprop="articleBody">
-    
-    https://www.terraform.io/docs/cli/commands/state/mv.html
-On windows :
-terraform state mv nsxt_policy_security_policy.policy1 nsxt_policy_security_policy.policies[\&ldquo;policy1\&ldquo;]  It move resources from a construct like this
-locals { policy1= { rule1 = { source = [&quot;src1&quot;,&quot;src2&quot;] } } policy2 = { rule1 = { source = [&quot;src3&quot;,&quot;src4&quot;] } } }  To a structure like this
-locals { policies = { policy1 = { rule1 = { source = [&quot;src1&quot;,&quot;src2&quot;] } } policy2 = { rule2 = { source = [&quot;src3&quot;,&quot;src4&quot;] } } } }  The main moving from
-    
-  </div>
-  <p class="read-more" itemprop="mainEntityOfPage">
-    <a href="/post/terraform-refactoring-state-file/" class="btn btn-outline-primary my-1">
       CONTINUE READING
     </a>
   </p>
