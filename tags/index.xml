@@ -139,6 +139,15 @@
     </item>
     
     <item>
+      <title>Cilium</title>
+      <link>https://netmemo.github.io/tags/cilium/</link>
+      <pubDate>Wed, 03 Sep 2025 08:00:00 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/cilium/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Cisco</title>
       <link>https://netmemo.github.io/tags/cisco/</link>
       <pubDate>Tue, 23 Feb 2021 22:24:44 +0100</pubDate>
@@ -418,6 +427,15 @@
     </item>
     
     <item>
+      <title>containers</title>
+      <link>https://netmemo.github.io/tags/containers/</link>
+      <pubDate>Wed, 03 Sep 2025 08:00:00 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/containers/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>docker</title>
       <link>https://netmemo.github.io/tags/docker/</link>
       <pubDate>Fri, 05 Oct 2018 23:59:19 +0200</pubDate>
@@ -438,16 +456,25 @@
     <item>
       <title>k8s</title>
       <link>https://netmemo.github.io/tags/k8s/</link>
-      <pubDate>Fri, 05 Oct 2018 23:59:19 +0200</pubDate>
+      <pubDate>Wed, 03 Sep 2025 08:00:00 +0200</pubDate>
       
       <guid>https://netmemo.github.io/tags/k8s/</guid>
       <description></description>
     </item>
     
     <item>
+      <title>kind</title>
+      <link>https://netmemo.github.io/tags/kind/</link>
+      <pubDate>Wed, 03 Sep 2025 08:00:00 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/tags/kind/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>kubernetes</title>
       <link>https://netmemo.github.io/tags/kubernetes/</link>
-      <pubDate>Fri, 05 Oct 2018 23:59:19 +0200</pubDate>
+      <pubDate>Wed, 03 Sep 2025 08:00:00 +0200</pubDate>
       
       <guid>https://netmemo.github.io/tags/kubernetes/</guid>
       <description></description>

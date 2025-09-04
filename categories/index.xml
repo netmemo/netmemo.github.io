@@ -220,11 +220,29 @@
     </item>
     
     <item>
+      <title>containers</title>
+      <link>https://netmemo.github.io/categories/containers/</link>
+      <pubDate>Wed, 03 Sep 2025 08:00:00 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/categories/containers/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>developpment</title>
       <link>https://netmemo.github.io/categories/developpment/</link>
       <pubDate>Thu, 25 Feb 2021 21:46:14 +0100</pubDate>
       
       <guid>https://netmemo.github.io/categories/developpment/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kubernetes</title>
+      <link>https://netmemo.github.io/categories/kubernetes/</link>
+      <pubDate>Wed, 03 Sep 2025 08:00:00 +0200</pubDate>
+      
+      <guid>https://netmemo.github.io/categories/kubernetes/</guid>
       <description></description>
     </item>
     

@@ -96,7 +96,7 @@
   <meta property="og:image" content="https://netmemo.github.io/img/icon-192.png">
   <meta property="og:locale" content="en-us">
   
-  <meta property="og:updated_time" content="2021-02-25T21:46:14&#43;01:00">
+  <meta property="og:updated_time" content="2021-02-25T21:56:57&#43;01:00">
   
 
   
@@ -210,6 +210,89 @@
   
 
   
+  
+    
+    
+      
+
+<div class="card-simple" itemscope itemprop="blogPost" itemtype="http://schema.org/BlogPosting">
+  
+
+<div class="article-metadata">
+
+  
+  
+  
+  <div>
+    
+    <span itemscope itemprop="author" itemtype="http://schema.org/Person">
+      <span itemprop="name">Noel</span>
+    </span>
+    
+  </div>
+  
+
+  <span class="article-date">
+    
+    <meta content="2021-02-25 21:56:57 &#43;0100 CET" itemprop="datePublished">
+    <time datetime="2021-02-25 21:56:57 &#43;0100 CET" itemprop="dateModified">
+      Feb 25, 2021
+    </time>
+  </span>
+  <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Noel">
+  </span>
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    1 min read
+  </span>
+  
+
+  
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder"></i>
+    
+    <a href="/categories/automation/">Automation</a>
+    
+  </span>
+  
+  
+
+  
+
+</div>
+
+
+  
+  
+  <h3 class="article-title" itemprop="headline">
+    <a href="/post/terraform-refactoring-state-file/" itemprop="url">Terraform Refactoring State File</a>
+  </h3>
+  <div class="article-style" itemprop="articleBody">
+    
+    https://www.terraform.io/docs/cli/commands/state/mv.html
+On windows :
+terraform state mv nsxt_policy_security_policy.policy1 nsxt_policy_security_policy.policies[\&ldquo;policy1\&ldquo;]  It move resources from a construct like this
+locals { policy1= { rule1 = { source = [&quot;src1&quot;,&quot;src2&quot;] } } policy2 = { rule1 = { source = [&quot;src3&quot;,&quot;src4&quot;] } } }  To a structure like this
+locals { policies = { policy1 = { rule1 = { source = [&quot;src1&quot;,&quot;src2&quot;] } } policy2 = { rule2 = { source = [&quot;src3&quot;,&quot;src4&quot;] } } } }  The main moving from
+    
+  </div>
+  <p class="read-more" itemprop="mainEntityOfPage">
+    <a href="/post/terraform-refactoring-state-file/" class="btn btn-outline-primary my-1">
+      CONTINUE READING
+    </a>
+  </p>
+</div>
+
+    
   
     
     
@@ -947,94 +1030,6 @@ Add Path If the path are equal, allow to advertise more than one bes oath (need 
   </div>
   <p class="read-more" itemprop="mainEntityOfPage">
     <a href="/post/bgp-multipath/" class="btn btn-outline-primary my-1">
-      CONTINUE READING
-    </a>
-  </p>
-</div>
-
-    
-  
-    
-    
-      
-
-<div class="card-simple" itemscope itemprop="blogPost" itemtype="http://schema.org/BlogPosting">
-  
-
-<div class="article-metadata">
-
-  
-  
-  
-  <div>
-    
-    <span itemscope itemprop="author" itemtype="http://schema.org/Person">
-      <span itemprop="name">Noel</span>
-    </span>
-    
-  </div>
-  
-
-  <span class="article-date">
-    
-    <meta content="2020-05-11 08:00:11 &#43;0200 CEST" itemprop="datePublished">
-    <time datetime="2020-05-11 08:00:11 &#43;0200 CEST" itemprop="dateModified">
-      May 11, 2020
-    </time>
-  </span>
-  <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Noel">
-  </span>
-
-  
-  <span class="middot-divider"></span>
-  <span class="article-reading-time">
-    1 min read
-  </span>
-  
-
-  
-  
-
-  
-  
-  
-  <span class="middot-divider"></span>
-  <span class="article-categories">
-    <i class="fas fa-folder"></i>
-    
-    <a href="/categories/routing/">ROUTING</a>
-    
-  </span>
-  
-  
-
-  
-
-</div>
-
-
-  
-  
-  <h3 class="article-title" itemprop="headline">
-    <a href="/post/how-to-hugo/" itemprop="url">How to hugo</a>
-  </h3>
-  <div class="article-style" itemprop="articleBody">
-    
-    prerequis : - github desktop - hugo
-config.toml =&gt; need to be modify to change the copyright date
-lancer cmd
-Go to the folder blog : C:\Users\noyel\Documents\Site\blog&gt;
-taper : hugo new post/my-first-post.md
-try the web site with : hugo server -D
-entrer http://localhost:1313/
-generate the web site with : hugo -t &ldquo;academic&rdquo; Move the content of the folder C:\Users\noyel\Documents\Site\blog\public
-in GitHub\netmemo.github.io lancer github desktop, commit/push to master
-To have a file attached for the post, create a directory with the exact same name as the post md file.
-    
-  </div>
-  <p class="read-more" itemprop="mainEntityOfPage">
-    <a href="/post/how-to-hugo/" class="btn btn-outline-primary my-1">
       CONTINUE READING
     </a>
   </p>
